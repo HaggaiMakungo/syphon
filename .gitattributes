@@ -6,3 +6,6 @@
 /LICENSE text eol=lf
 /THIRD-PARTY-NOTICES.md text eol=lf
 /tests/source_audit_test.py text eol=lf
+/packaging/licenses/yt-dlp-runtime/** -text
+/tests/media_runtime_test.py text eol=lf
+/tests/yt_dlp_build_test.py text eol=lf
