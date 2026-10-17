@@ -12,7 +12,7 @@
       <Border x:Name="Step2" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="○    Install" FontSize="16"/></Border>
       <Border x:Name="Step3" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="○    Browser setup" FontSize="16"/></Border>
       <Border x:Name="Step4" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="○    Finish" FontSize="16"/></Border>
-     </StackPanel><TextBlock x:Name="VersionLabel" Grid.Row="2" Text="0.1.0-beta.3 · Windows x64" Foreground="#9284AA" FontSize="11" Margin="30,12"/>
+     </StackPanel><TextBlock x:Name="VersionLabel" Grid.Row="2" Text="0.1.0-beta.4 · Windows x64" Foreground="#9284AA" FontSize="11" Margin="30,12"/>
     </Grid>
    </Border>
    <Grid Grid.Column="1"><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/><RowDefinition Height="86"/></Grid.RowDefinitions>
@@ -28,7 +28,7 @@
         <TextBlock Text="Includes FFmpeg, FFprobe, yt-dlp, Node.js and .NET. Internet is needed only if the Microsoft WebView2 runtime is missing." Foreground="#9284AA" FontSize="12" Margin="0,28,0,0"/>
        </StackPanel>
        <StackPanel x:Name="LocationPanel" Visibility="Collapsed">
-        <TextBlock Text="Install Syphon for your Windows account" FontWeight="SemiBold" Margin="0,0,0,10"/><Grid><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBox x:Name="Location" AutomationProperties.Name="Installation folder"/><Button Grid.Column="1" Content="Browse…" Click="BrowseClick" Margin="10,0,0,0" Padding="12,8"/></Grid>
+        <TextBlock Text="Install Syphon for all users on this computer" FontWeight="SemiBold" Margin="0,0,0,10"/><Grid><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBox x:Name="Location" AutomationProperties.Name="Installation folder"/><Button Grid.Column="1" Content="Browse…" Click="BrowseClick" Margin="10,0,0,0" Padding="12,8"/></Grid>
         <TextBlock x:Name="SizeNote" Foreground="#9284AA" Margin="0,9,0,18" Text="Setup checks the available space before installing."/>
         <TextBlock Text="Browser setup follows installation. You can connect your browser or explicitly continue without integration." Foreground="#B9AACD" Margin="0,12"/><CheckBox x:Name="DesktopOption" IsChecked="True" Content="Create a desktop shortcut"/>
         <TextBlock Text="Your existing downloads, history and preferences are preserved. New downloads use Videos, Music, Documents, Programs and Misc folders." Foreground="#B9AACD" Margin="0,20,0,10"/>

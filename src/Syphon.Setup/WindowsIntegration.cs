@@ -16,24 +16,35 @@ internal static class WindowsIntegration
   return false;
  }
  internal static Action Register(InstallReceipt receipt) {
+  var registry=receipt.MachineWide?Registry.LocalMachine:Registry.CurrentUser;
   var undo=new List<Action>();
   try {
    if(receipt.Browser)foreach(var path in HostKeys) {
-    using var old=Registry.CurrentUser.OpenSubKey(path);var previous=old?.GetValue("") as string;
-    undo.Add(()=>{if(previous is null)Registry.CurrentUser.DeleteSubKeyTree(path,false);else{using var k=Registry.CurrentUser.CreateSubKey(path);k.SetValue("",previous);}});
-    using var key=Registry.CurrentUser.CreateSubKey(path);key.SetValue("",Path.Combine(receipt.Root,"host","com.syphon.downloads.json"));
+    // A user's earlier beta/dev registration takes precedence over HKLM.
+    // Update only an existing override for this host; restore it on failure.
+    if(receipt.MachineWide) {
+     using var oldUser=Registry.CurrentUser.OpenSubKey(path);var previousUser=oldUser?.GetValue("") as string;
+     if(previousUser is not null) {
+      undo.Add(()=>{using var key=Registry.CurrentUser.CreateSubKey(path);key.SetValue("",previousUser);});
+      using var user=Registry.CurrentUser.CreateSubKey(path);user.SetValue("",Path.Combine(receipt.Root,"host","com.syphon.downloads.json"));
+     }
+    }
+
+    using var old=registry.OpenSubKey(path);var previous=old?.GetValue("") as string;
+    undo.Add(()=>{if(previous is null)registry.DeleteSubKeyTree(path,false);else{using var k=registry.CreateSubKey(path);k.SetValue("",previous);}});
+    using var key=registry.CreateSubKey(path);key.SetValue("",Path.Combine(receipt.Root,"host","com.syphon.downloads.json"));
    }
-   using(var old=Registry.CurrentUser.OpenSubKey(UninstallKey)) {
+   using(var old=registry.OpenSubKey(UninstallKey)) {
     var values=old?.GetValueNames().ToDictionary(n=>n,n=>(old.GetValue(n)!,old.GetValueKind(n)));
-    undo.Add(()=>{Registry.CurrentUser.DeleteSubKeyTree(UninstallKey,false);if(values is not null){using var key=Registry.CurrentUser.CreateSubKey(UninstallKey);foreach(var item in values)key.SetValue(item.Key,item.Value.Item1,item.Value.Item2);}});
+    undo.Add(()=>{registry.DeleteSubKeyTree(UninstallKey,false);if(values is not null){using var key=registry.CreateSubKey(UninstallKey);foreach(var item in values)key.SetValue(item.Key,item.Value.Item1,item.Value.Item2);}});
    }
-   using(var key=Registry.CurrentUser.CreateSubKey(UninstallKey)) {
+   using(var key=registry.CreateSubKey(UninstallKey)) {
     key.SetValue("DisplayName","Syphon");key.SetValue("DisplayVersion",receipt.Version);key.SetValue("InstallLocation",receipt.Root);key.SetValue("DisplayIcon",Path.Combine(receipt.Root,"app","Syphon.exe"));
     key.SetValue("UninstallString","\""+Path.Combine(receipt.Root,"Uninstall.exe")+"\" --uninstall");key.SetValue("NoModify",1);key.SetValue("NoRepair",1);
    }
-   var start=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs),"Syphon.lnk");
+   var start=Path.Combine(Environment.GetFolderPath(receipt.MachineWide?Environment.SpecialFolder.CommonPrograms:Environment.SpecialFolder.Programs),"Syphon.lnk");
    CreateShortcut(start,Path.Combine(receipt.Root,"app","Syphon.exe"),undo);
-   if(receipt.DesktopShortcut)CreateShortcut(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),"Syphon.lnk"),Path.Combine(receipt.Root,"app","Syphon.exe"),undo);
+   if(receipt.DesktopShortcut)CreateShortcut(Path.Combine(Environment.GetFolderPath(receipt.MachineWide?Environment.SpecialFolder.CommonDesktopDirectory:Environment.SpecialFolder.DesktopDirectory),"Syphon.lnk"),Path.Combine(receipt.Root,"app","Syphon.exe"),undo);
    return ()=>{foreach(var action in undo.AsEnumerable().Reverse())action();};
   } catch {foreach(var action in undo.AsEnumerable().Reverse()){try{action();}catch{}}throw;}
  }
@@ -47,10 +58,12 @@ internal static class WindowsIntegration
   finally{if(link is not null)Marshal.FinalReleaseComObject(link);Marshal.FinalReleaseComObject(shell);}
  }
  internal static void Remove(InstallReceipt receipt) {
+  var registry=receipt.MachineWide?Registry.LocalMachine:Registry.CurrentUser;
   var manifest=Path.Combine(receipt.Root,"host","com.syphon.downloads.json");
-  foreach(var path in HostKeys){using var key=Registry.CurrentUser.OpenSubKey(path);if(string.Equals(key?.GetValue("") as string,manifest,StringComparison.OrdinalIgnoreCase))Registry.CurrentUser.DeleteSubKeyTree(path,false);}
-  using(var key=Registry.CurrentUser.OpenSubKey(UninstallKey)){if(string.Equals(key?.GetValue("InstallLocation") as string,receipt.Root,StringComparison.OrdinalIgnoreCase))Registry.CurrentUser.DeleteSubKeyTree(UninstallKey,false);}
-  foreach(var path in new[]{Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Programs),"Syphon.lnk"),Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),"Syphon.lnk")})RemoveShortcut(path,Path.Combine(receipt.Root,"app","Syphon.exe"));
+  if(receipt.MachineWide)foreach(var path in HostKeys){using var user=Registry.CurrentUser.OpenSubKey(path);if(string.Equals(user?.GetValue("") as string,manifest,StringComparison.OrdinalIgnoreCase))Registry.CurrentUser.DeleteSubKeyTree(path,false);}
+  foreach(var path in HostKeys){using var key=registry.OpenSubKey(path);if(string.Equals(key?.GetValue("") as string,manifest,StringComparison.OrdinalIgnoreCase))registry.DeleteSubKeyTree(path,false);}
+  using(var key=registry.OpenSubKey(UninstallKey)){if(string.Equals(key?.GetValue("InstallLocation") as string,receipt.Root,StringComparison.OrdinalIgnoreCase))registry.DeleteSubKeyTree(UninstallKey,false);}
+  foreach(var path in new[]{Path.Combine(Environment.GetFolderPath(receipt.MachineWide?Environment.SpecialFolder.CommonPrograms:Environment.SpecialFolder.Programs),"Syphon.lnk"),Path.Combine(Environment.GetFolderPath(receipt.MachineWide?Environment.SpecialFolder.CommonDesktopDirectory:Environment.SpecialFolder.DesktopDirectory),"Syphon.lnk")})RemoveShortcut(path,Path.Combine(receipt.Root,"app","Syphon.exe"));
  }
  private static void RemoveShortcut(string path,string target) {
   if(!File.Exists(path))return;var type=Type.GetTypeFromProgID("WScript.Shell");if(type is null)return;

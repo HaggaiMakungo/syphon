@@ -9,6 +9,7 @@ internal static class SetupTests
   var testRoot=Path.Combine(Path.GetTempPath(),"Syphon.Setup.Tests",Guid.NewGuid().ToString("N"));Directory.CreateDirectory(testRoot);
   var progress=new Progress<(double,string)>();
   try {
+   Check(InstallEngine.DefaultRoot==Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),"Syphon"),"Default installation must use Program Files.");
    var wizard=new SetupWindow();
    try {
     typeof(SetupWindow).GetMethod("ShowStep",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic)!.Invoke(wizard,[3]);

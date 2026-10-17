@@ -18,6 +18,7 @@ public partial class SetupWindow : Window
   VersionLabel.Text=(typeof(SetupWindow).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0] ?? "Beta")+" · Windows x64";
   Width=Math.Min(1060,SystemParameters.WorkArea.Width-32);Height=Math.Min(700,SystemParameters.WorkArea.Height-32);
   Location.Text=InstallEngine.DefaultRoot;
+  LaunchOption.IsChecked=false;LaunchOption.Visibility=Visibility.Collapsed;FinishNote.Text="Launch Syphon from the Start menu or desktop shortcut. Your downloads remain in your own folders.";
   if(uninstall){Location.Text=AppContext.BaseDirectory;Heading.Text="Remove Syphon";Subtitle.Text="Your downloaded files, history and preferences will stay.";WelcomePanel.Visibility=Visibility.Collapsed;Next.Content="Uninstall";}
   Closing+=(_,e)=>{if(busy)e.Cancel=true;};ShowStep(0);
  }
@@ -67,7 +68,7 @@ public partial class SetupWindow : Window
  }
  private void StartUninstallerCopy(string root) {
   _=InstallEngine.ReadReceipt(root);InstallEngine.CheckRunning(root);
-  var current=Environment.ProcessPath!;var folder=Path.Combine(Path.GetTempPath(),"Syphon-Uninstall-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(folder);
+  var current=Environment.ProcessPath!;var folder=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),"Syphon-Uninstall-"+Guid.NewGuid().ToString("N"));InstallEngine.NoLinks(folder);Directory.CreateDirectory(folder);
   var copy=Path.Combine(folder,"Syphon.Uninstall.exe");File.Copy(current,copy);
   var start=new ProcessStartInfo(copy){UseShellExecute=false,CreateNoWindow=true};start.ArgumentList.Add("--remove-from");start.ArgumentList.Add(root);Process.Start(start);Close();
  }

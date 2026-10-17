@@ -9,11 +9,11 @@ using Microsoft.Win32;
 namespace Syphon.Setup;
 internal sealed record PackageFile(long Length, string Sha256);
 internal sealed record PackageManifest(string Version, Dictionary<string, PackageFile> Files);
-internal sealed record InstallReceipt(string Product, string Version, string Root, string[] Files, bool Browser, bool DesktopShortcut);
+internal sealed record InstallReceipt(string Product, string Version, string Root, string[] Files, bool Browser, bool DesktopShortcut, bool MachineWide=false);
 internal static class InstallEngine
 {
  internal const string Product="Syphon.Desktop", Marker=".syphon-install.json";
- internal static string DefaultRoot => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"Programs","Syphon");
+ internal static string DefaultRoot => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),"Syphon");
  internal static Stream OpenPayload() => PackagePayload.Open();
  internal static string SafePath(string root,string relative) {
   if(string.IsNullOrWhiteSpace(relative)||relative.Contains('\\')||relative.Contains(':')||relative.Split('/').Any(p=>p is "" or "." or "..")||Path.IsPathRooted(relative)) throw new InvalidDataException("The package contains an unsafe path.");
@@ -74,7 +74,12 @@ internal static class InstallEngine
   return manifest;
  }
  internal static InstallReceipt Install(Stream payload,string destination,bool browser,bool desktop,IProgress<(double,string)> progress,CancellationToken token,bool integrate=true) {
-  var root=ValidateRoot(destination);CheckRunning(root);
+  var root=ValidateRoot(destination);
+  if(integrate) {
+   var programs=Path.TrimEndingDirectorySeparator(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles));
+   if(!root.StartsWith(programs+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase))throw new IOException("Choose an installation folder inside Program Files for this all-user installation.");
+  }
+  CheckRunning(root);
   var parent=Path.GetDirectoryName(root)!;Directory.CreateDirectory(parent);
   var stage=Path.Combine(parent,".Syphon-stage-"+Guid.NewGuid().ToString("N"));
   var backup=Path.Combine(parent,".Syphon-previous-"+Guid.NewGuid().ToString("N"));
@@ -93,7 +98,7 @@ internal static class InstallEngine
     File.WriteAllText(Path.Combine(stage,"host","com.syphon.downloads.json"),JsonSerializer.Serialize(new{name="com.syphon.downloads",description="Syphon browser connection",path=Path.Combine(root,"host","Syphon.NativeHost.exe"),type="stdio",allowed_origins=origins}));
     files.AddRange(["host/host-settings.json","host/com.syphon.downloads.json"]);
    }
-   var receipt=new InstallReceipt(Product,manifest.Version,root,files.ToArray(),browser,desktop);
+   var receipt=new InstallReceipt(Product,manifest.Version,root,files.ToArray(),browser,desktop,MachineWide:true);
    File.WriteAllText(Path.Combine(stage,Marker),JsonSerializer.Serialize(receipt));
    token.ThrowIfCancellationRequested();CheckRunning(root);NoLinks(root);
    if(Directory.Exists(root)) { Directory.Move(root,backup);backed=true; }

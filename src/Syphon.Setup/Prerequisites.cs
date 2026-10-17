@@ -9,7 +9,7 @@ internal static class Prerequisites
 {
  internal static void EnsureWebView() {
   if(WindowsIntegration.WebViewPresent())return;
-  var dir=Path.Combine(Path.GetTempPath(),"Syphon-WebView-"+Guid.NewGuid().ToString("N"));Directory.CreateDirectory(dir);var file=Path.Combine(dir,"MicrosoftEdgeWebview2Setup.exe");
+  var dir=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),"Syphon-WebView-"+Guid.NewGuid().ToString("N"));InstallEngine.NoLinks(dir);Directory.CreateDirectory(dir);var file=Path.Combine(dir,"MicrosoftEdgeWebview2Setup.exe");
   try {
    using(var stream=InstallEngine.OpenPayload())using(var zip=new ZipArchive(stream,ZipArchiveMode.Read)) {
     using var json=zip.GetEntry("release-manifest.json")!.Open();var manifest=JsonSerializer.Deserialize<PackageManifest>(json)!;

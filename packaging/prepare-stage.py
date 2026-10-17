@@ -1,6 +1,6 @@
 from pathlib import Path
 import os,shutil,subprocess,json,hashlib,argparse
-parser=argparse.ArgumentParser();parser.add_argument('--version',default='0.1.0-beta.3');args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--version',default='0.1.0-beta.4');args=parser.parse_args()
 root=Path(__file__).resolve().parents[1];stage=root/'artifacts/setup-stage';app=stage/'app';media=app/'.tools/media';media.mkdir(parents=True,exist_ok=True)
 def link(source,target):
  source=Path(source);target=Path(target);target.parent.mkdir(parents=True,exist_ok=True)
@@ -44,3 +44,5 @@ print('Prepared bundled files:',sum(1 for p in stage.rglob('*') if p.is_file()))
 notes=stage/'RELEASE-NOTES.txt';notes.write_text(notes.read_text().replace('0.1.0-beta.1',args.version))
 
 (stage/'extensions'/'README.txt').write_text((stage/'BROWSER-SETUP.txt').read_text())
+
+notes=stage/'RELEASE-NOTES.txt';notes.write_text(notes.read_text()+"\nThis all-user edition installs inside Program Files and requests administrator approval. Launch Syphon normally from the Start menu after setup. Download data stays per user. Older per-user native-host overrides are repaired for the account running setup; other Windows accounts with older beta registrations may need to remove their own override.\n")
