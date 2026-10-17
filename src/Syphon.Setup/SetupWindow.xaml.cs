@@ -76,11 +76,26 @@ public partial class SetupWindow : Window
   _=InstallEngine.ReadReceipt(root);InstallEngine.CheckRunning(root);
   var current=Environment.ProcessPath!;var folder=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),"Syphon-Uninstall-"+Guid.NewGuid().ToString("N"));InstallEngine.NoLinks(folder);Directory.CreateDirectory(folder);
   var copy=Path.Combine(folder,"Syphon.Uninstall.exe");File.Copy(current,copy);
-  var start=new ProcessStartInfo(copy){UseShellExecute=false,CreateNoWindow=true};start.ArgumentList.Add("--remove-from");start.ArgumentList.Add(root);Process.Start(start);Close();
+  Process.Start(CreateUninstallStart(copy,root));Close();
  }
- internal void RemoveFrom(string root) {
+ internal static ProcessStartInfo CreateUninstallStart(string executable,string root) {
+  var start=new ProcessStartInfo(executable){UseShellExecute=false,CreateNoWindow=true,WorkingDirectory=Path.GetDirectoryName(executable)!};
+  start.ArgumentList.Add("--remove-from");start.ArgumentList.Add(root);start.ArgumentList.Add("--parent-process");start.ArgumentList.Add(Environment.ProcessId.ToString());return start;
+ }
+ internal static void WaitForUninstallerExit(int parentProcessId) {
+  if(parentProcessId<=0)return;
+  if(parentProcessId==Environment.ProcessId)throw new IOException("The removal helper cannot wait for itself.");
+  Process parent;try{parent=Process.GetProcessById(parentProcessId);}catch(ArgumentException){return;}
+  using(parent)if(!parent.WaitForExit(30000))throw new IOException("The original uninstaller is still closing. Close it, then retry removal.");
+ }
+ internal void CompleteRemoval() {
+  busy=false;Next.IsEnabled=true;Progress.Value=100;Percent.Text="100%";Status.Text="Syphon has been removed.";ShowStep(4);
+  Heading.Text="Syphon has been removed";Subtitle.Text="Your downloads, history and preferences were preserved.";LaunchOption.Visibility=Visibility.Collapsed;ExtensionHelp.Visibility=Visibility.Collapsed;
+  FinishNote.Text="The application and its shortcuts have been removed. You can close this window. Your browser extension can be removed separately in your browser.";FinishPath.Text="";Next.Content="Close";Next.Focus();
+ }
+ internal void RemoveFrom(string root,int parentProcessId=0) {
   Next.Content="Uninstall";
-  Next.Click-=NextClick;Next.Click+=async (_,_)=>{if(step==4){Close();return;}if(busy)return;try{busy=true;Next.IsEnabled=false;Cancel.IsEnabled=false;ShowStep(2);Status.Text="Removing application files. Keeping your downloads and history…";await Task.Run(()=>InstallEngine.Uninstall(root));busy=false;Next.IsEnabled=true;ShowStep(4);Heading.Text="Syphon has been removed";Subtitle.Text="Your downloads, history and preferences were preserved.";LaunchOption.Visibility=Visibility.Collapsed;ExtensionHelp.Visibility=Visibility.Collapsed;FinishNote.Text="You can also remove the Syphon extension in your browser.";Next.Content="Close";Next.Click+=(_,_)=>Close();}catch(Exception ex){busy=false;Next.IsEnabled=true;Cancel.IsEnabled=true;Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}};
+  Next.Click-=NextClick;Next.Click+=async (_,_)=>{if(step==4){Close();return;}if(busy)return;try{busy=true;Next.IsEnabled=false;Cancel.IsEnabled=false;ShowStep(2);Status.Text="Removing application files. Keeping your downloads and history…";await Task.Run(()=>{WaitForUninstallerExit(parentProcessId);InstallEngine.Uninstall(root);});CompleteRemoval();}catch(Exception ex){busy=false;Next.IsEnabled=true;Cancel.IsEnabled=true;Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}};
  }
  internal void ContinueConfirmedRemoval(){Loaded+=(_,_)=>Dispatcher.BeginInvoke(new Action(()=>Next.RaiseEvent(new RoutedEventArgs(Button.ClickEvent))),System.Windows.Threading.DispatcherPriority.ApplicationIdle);}
  private void BrowserChoiceChanged(object sender,RoutedEventArgs e){if(step==3)Next.IsEnabled=ReadyBrowser.IsChecked==true||SkipBrowser.IsChecked==true;}

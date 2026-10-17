@@ -13,11 +13,17 @@ internal static class SetupTests
    Check(App.IsUninstallInvocation([],@"C:\Program Files\Syphon\Uninstall.exe"),"Direct uninstaller launch was not recognized.");
    Check(App.IsUninstallInvocation(["--uninstall"],"Syphon.Setup.exe"),"Windows uninstall command was not recognized.");
    Check(!App.IsUninstallInvocation([],"Syphon.Setup.exe"),"Normal setup opened removal mode.");
+   var helperStart=SetupWindow.CreateUninstallStart(@"C:\Program Files\Syphon-Uninstall-test\Syphon.Uninstall.exe",@"C:\Program Files\Syphon");
+   Check(helperStart.WorkingDirectory==@"C:\Program Files\Syphon-Uninstall-test","Removal helper inherits the installation working directory.");
+   Check(helperStart.ArgumentList.Count==4&&helperStart.ArgumentList[2]=="--parent-process"&&helperStart.ArgumentList[3]==Environment.ProcessId.ToString(),"Removal helper does not wait for its original process.");
    var removal=new SetupWindow(true);
    try {
     Check(removal.Title=="Uninstall Syphon","Removal must not open with the installer title.");
     Check(removal.FindName("UninstallPanel") is System.Windows.Controls.StackPanel {Visibility:System.Windows.Visibility.Visible},"Removal confirmation is missing.");
     Check(removal.FindName("LocationPanel") is System.Windows.Controls.StackPanel {Visibility:System.Windows.Visibility.Collapsed},"Uninstall shows installation location controls.");
+    removal.CompleteRemoval();
+    Check(((System.Windows.Controls.TextBlock)removal.FindName("Heading")).Text=="Syphon has been removed","Removal completion is not acknowledged.");
+    Check((string)((System.Windows.Controls.Button)removal.FindName("Next")).Content=="Close","Removal completion has no Close action.");
    }finally{removal.Close();}
    var wizard=new SetupWindow();
    try {
@@ -43,7 +49,23 @@ internal static class SetupTests
    using(var stream=Fixture())InstallEngine.Install(stream,target,false,false,progress,CancellationToken.None,false);
    Check(Directory.EnumerateDirectories(testRoot,".Syphon-previous-*").Any(p=>File.Exists(Path.Combine(p,"user-kept.txt"))),"Upgrade erased an unknown file.");
    File.WriteAllText(Path.Combine(target,"keep.txt"),"preserve");
-   InstallEngine.Uninstall(target,false);Check(File.Exists(Path.Combine(target,"keep.txt")),"Uninstall erased an unknown file.");
+   // Reproduce Windows denying removal while the original process still owns an installed executable and working directory.
+   var ready=Path.Combine(testRoot,"parent-ready");
+   static string PsQuote(string value)=>"'"+value.Replace("'","''")+"'";
+   var holderStart=new System.Diagnostics.ProcessStartInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System),@"WindowsPowerShell\v1.0\powershell.exe")){UseShellExecute=false,CreateNoWindow=true,WorkingDirectory=target};
+   holderStart.ArgumentList.Add("-NoProfile");holderStart.ArgumentList.Add("-NonInteractive");holderStart.ArgumentList.Add("-Command");
+   holderStart.ArgumentList.Add("$held=[IO.File]::Open("+PsQuote(Path.Combine(target,"app","Syphon.exe"))+",'Open','Read','Read'); [IO.File]::WriteAllText("+PsQuote(ready)+",'ready'); Start-Sleep -Seconds 2; $held.Dispose()");
+   using(var holder=System.Diagnostics.Process.Start(holderStart)!) {
+    try {
+     var deadline=DateTime.UtcNow.AddSeconds(10);while(!File.Exists(ready)&&DateTime.UtcNow<deadline&&!holder.HasExited)System.Threading.Thread.Sleep(20);
+     Check(File.Exists(ready),"Could not create the original uninstaller lock fixture.");
+     var locked=false;try{File.Delete(Path.Combine(target,"app","Syphon.exe"));}catch(IOException){locked=true;}
+     Check(locked,"Fixture did not reproduce a locked installation file.");
+     SetupWindow.WaitForUninstallerExit(holder.Id);Check(holder.HasExited,"Removal started before the original process exited.");
+     InstallEngine.Uninstall(target,false);
+    } finally {if(!holder.HasExited)holder.Kill();}
+   }
+   Check(File.Exists(Path.Combine(target,"keep.txt")),"Uninstall erased an unknown file.");
    Check(!File.Exists(Path.Combine(target,"app","Syphon.exe")),"Uninstall retained owned files.");
    using(var corrupt=Fixture(true)) {try{InstallEngine.Install(corrupt,Path.Combine(testRoot,"Corrupt"),false,false,progress,CancellationToken.None,false);throw new Exception("Corruption accepted.");}catch(InvalidDataException){}}
    Check(!Directory.Exists(Path.Combine(testRoot,"Corrupt")),"Corruption left a published installation.");
