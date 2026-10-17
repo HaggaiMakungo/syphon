@@ -36,8 +36,9 @@ internal static class InstallEngine
   return root;
  }
  internal static InstallReceipt ReadReceipt(string root) {
+  root=Path.TrimEndingDirectorySeparator(Path.GetFullPath(root));
   var receipt=JsonSerializer.Deserialize<InstallReceipt>(File.ReadAllText(Path.Combine(root,Marker)))??throw new IOException("This folder is not an owned Syphon installation.");
-  if(receipt.Product!=Product||!string.Equals(Path.GetFullPath(receipt.Root),Path.GetFullPath(root),StringComparison.OrdinalIgnoreCase)) throw new IOException("Choose an empty folder or an existing Syphon installation.");
+  if(receipt.Product!=Product||!string.Equals(Path.TrimEndingDirectorySeparator(Path.GetFullPath(receipt.Root)),root,StringComparison.OrdinalIgnoreCase)) throw new IOException("Choose an empty folder or an existing Syphon installation.");
   foreach(var file in receipt.Files) _=SafePath(root,file);
   return receipt;
  }
@@ -143,5 +144,5 @@ internal static class InstallEngine
   }catch{undo?.Invoke();throw;}
   finally{if(File.Exists(pending))File.Delete(pending);}
  }
- internal static void Uninstall(string root,bool integrate=true) {root=Path.GetFullPath(root);var receipt=ReadReceipt(root);CheckRunning(root);NoLinks(root);if(integrate)WindowsIntegration.Remove(receipt);RemoveOwnedFiles(root,receipt);}
+ internal static void Uninstall(string root,bool integrate=true) {root=Path.TrimEndingDirectorySeparator(Path.GetFullPath(root));var receipt=ReadReceipt(root);CheckRunning(root);NoLinks(root);if(integrate)WindowsIntegration.Remove(receipt);RemoveOwnedFiles(root,receipt);}
 }

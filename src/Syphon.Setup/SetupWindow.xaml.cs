@@ -19,15 +19,21 @@ public partial class SetupWindow : Window
   Width=Math.Min(1060,SystemParameters.WorkArea.Width-32);Height=Math.Min(700,SystemParameters.WorkArea.Height-32);
   Location.Text=InstallEngine.DefaultRoot;
   LaunchOption.IsChecked=false;LaunchOption.Visibility=Visibility.Collapsed;FinishNote.Text="Launch Syphon from the Start menu or desktop shortcut. Your downloads remain in your own folders.";
-  if(uninstall){Location.Text=AppContext.BaseDirectory;Heading.Text="Remove Syphon";Subtitle.Text="Your downloaded files, history and preferences will stay.";WelcomePanel.Visibility=Visibility.Collapsed;Next.Content="Uninstall";}
+  if(uninstall){
+   Title="Uninstall Syphon";WindowCaption.Text=Title;Steps.Children[1].Visibility=Visibility.Collapsed;Steps.Children[3].Visibility=Visibility.Collapsed;
+   ((TextBlock)((Border)Steps.Children[0]).Child).Text="○    Confirm removal";
+   ((TextBlock)((Border)Steps.Children[2]).Child).Text="○    Removing";
+   ((TextBlock)((Border)Steps.Children[4]).Child).Text="○    Done";
+   Location.Text=AppContext.BaseDirectory;Heading.Text="Remove Syphon";Subtitle.Text="Your downloaded files, history and preferences will stay.";WelcomePanel.Visibility=Visibility.Collapsed;Next.Content="Uninstall";}
   Closing+=(_,e)=>{if(busy)e.Cancel=true;};ShowStep(0);
  }
  private void ShowStep(int value) {
-  step=value;Error.Visibility=Visibility.Collapsed;
+  step=value;Error.Visibility=Visibility.Collapsed;UninstallPanel.Visibility=uninstall&&step==0?Visibility.Visible:Visibility.Collapsed;
   for(int i=0;i<5;i++){var border=(Border)Steps.Children[i];border.Background=new SolidColorBrush(i==step?Color.FromArgb(100,54,35,80):Colors.Transparent);border.BorderBrush=new SolidColorBrush(i==step?Color.FromRgb(182,115,255):Colors.Transparent);((TextBlock)border.Child).Foreground=new SolidColorBrush(i<=step?Color.FromRgb(236,233,242):Color.FromRgb(146,132,170));}
   WelcomePanel.Visibility=!uninstall&&step==0?Visibility.Visible:Visibility.Collapsed;LocationPanel.Visibility=!uninstall&&step==1?Visibility.Visible:Visibility.Collapsed;InstallPanel.Visibility=step==2?Visibility.Visible:Visibility.Collapsed;BrowserPanel.Visibility=!uninstall&&step==3?Visibility.Visible:Visibility.Collapsed;FinishPanel.Visibility=step==4?Visibility.Visible:Visibility.Collapsed;
   Back.Visibility=step==1?Visibility.Visible:Visibility.Collapsed;Cancel.Visibility=step>=3?Visibility.Collapsed:Visibility.Visible;
   Next.IsEnabled=step!=3||ReadyBrowser.IsChecked==true||SkipBrowser.IsChecked==true;
+  if(uninstall){Heading.Text=step==2?"Removing Syphon":step==4?"Syphon has been removed":"Uninstall Syphon";Subtitle.Text="Your downloads, history and preferences will be preserved.";Next.Content=step==4?"Close":"Uninstall";}
   if(!uninstall){Heading.Text=step switch{0=>"Welcome to Syphon",1=>"Choose your workspace",2=>"Installing Syphon",3=>"Connect your browser",_=>"You're ready to download"};Subtitle.Text=step switch{0=>"Set up your download workspace.",1=>"Everything you need, in one place.",2=>"Preparing your download workspace.",3=>"One last step before you finish.",_=>"Syphon is installed on this computer."};Next.Content=step==1?"Install":step==4?"Finish":"Continue";}
  }
  private void DragHeader(object sender,MouseButtonEventArgs e){if(e.ChangedButton==MouseButton.Left)DragMove();}
@@ -45,7 +51,7 @@ public partial class SetupWindow : Window
   if(step==4){if(!uninstall&&LaunchOption.IsChecked==true)try{Process.Start(new ProcessStartInfo(Path.Combine(installedRoot,"app","Syphon.exe")){UseShellExecute=true});}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;return;}Close();return;}
   if(!uninstall&&step==0){ShowStep(1);return;}
   try {
-   var root=uninstall?Path.GetFullPath(AppContext.BaseDirectory):InstallEngine.ValidateRoot(Location.Text.Trim());
+   var root=uninstall?Path.TrimEndingDirectorySeparator(Path.GetFullPath(AppContext.BaseDirectory)):InstallEngine.ValidateRoot(Location.Text.Trim());
    if(!uninstall&& !Environment.Is64BitOperatingSystem)throw new IOException("This installer requires 64-bit Windows.");
    if(uninstall){StartUninstallerCopy(root);return;}
    var browser=false;var desktop=DesktopOption.IsChecked==true;
@@ -76,10 +82,11 @@ public partial class SetupWindow : Window
   Next.Content="Uninstall";
   Next.Click-=NextClick;Next.Click+=async (_,_)=>{if(step==4){Close();return;}if(busy)return;try{busy=true;Next.IsEnabled=false;Cancel.IsEnabled=false;ShowStep(2);Status.Text="Removing application files. Keeping your downloads and history…";await Task.Run(()=>InstallEngine.Uninstall(root));busy=false;Next.IsEnabled=true;ShowStep(4);Heading.Text="Syphon has been removed";Subtitle.Text="Your downloads, history and preferences were preserved.";LaunchOption.Visibility=Visibility.Collapsed;ExtensionHelp.Visibility=Visibility.Collapsed;FinishNote.Text="You can also remove the Syphon extension in your browser.";Next.Content="Close";Next.Click+=(_,_)=>Close();}catch(Exception ex){busy=false;Next.IsEnabled=true;Cancel.IsEnabled=true;Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}};
  }
+ internal void ContinueConfirmedRemoval(){Loaded+=(_,_)=>Dispatcher.BeginInvoke(new Action(()=>Next.RaiseEvent(new RoutedEventArgs(Button.ClickEvent))),System.Windows.Threading.DispatcherPriority.ApplicationIdle);}
  private void BrowserChoiceChanged(object sender,RoutedEventArgs e){if(step==3)Next.IsEnabled=ReadyBrowser.IsChecked==true||SkipBrowser.IsChecked==true;}
  private string ExtensionsFolder=>Path.Combine(installedRoot,"Extensions");
  private void OpenExtensionsClick(object sender,RoutedEventArgs e){try{Process.Start(new ProcessStartInfo(ExtensionsFolder){UseShellExecute=true});}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}}
  private void CopyExtensionsClick(object sender,RoutedEventArgs e){try{Clipboard.SetText(ExtensionsFolder);}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}}
  private void ExtensionClick(object sender,RoutedEventArgs e){try{new BrowserSetupWindow(installedRoot){Owner=this}.ShowDialog();}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}}
- internal void RenderPreview(string destination){Loaded+=(_,_)=>Dispatcher.BeginInvoke(new Action(()=>{Directory.CreateDirectory(destination);ExtensionPath.Text=Path.Combine(InstallEngine.DefaultRoot,"Extensions");for(int i=0;i<5;i++){ShowStep(i);UpdateLayout();var bitmap=new RenderTargetBitmap((int)ActualWidth,(int)ActualHeight,96,96,PixelFormats.Pbgra32);bitmap.Render(this);using var output=File.Create(Path.Combine(destination,$"setup-{i}.png"));var encoder=new PngBitmapEncoder();encoder.Frames.Add(BitmapFrame.Create(bitmap));encoder.Save(output);}Application.Current.Shutdown();}),System.Windows.Threading.DispatcherPriority.ApplicationIdle);}
+ internal void RenderPreview(string destination){Loaded+=(_,_)=>Dispatcher.BeginInvoke(new Action(()=>{Directory.CreateDirectory(destination);ExtensionPath.Text=Path.Combine(InstallEngine.DefaultRoot,"Extensions");foreach(var i in (uninstall?new[]{0,2,4}:new[]{0,1,2,3,4})){ShowStep(i);UpdateLayout();var bitmap=new RenderTargetBitmap((int)ActualWidth,(int)ActualHeight,96,96,PixelFormats.Pbgra32);bitmap.Render(this);using var output=File.Create(Path.Combine(destination,$"setup-{i}.png"));var encoder=new PngBitmapEncoder();encoder.Frames.Add(BitmapFrame.Create(bitmap));encoder.Save(output);}Application.Current.Shutdown();}),System.Windows.Threading.DispatcherPriority.ApplicationIdle);}
 }

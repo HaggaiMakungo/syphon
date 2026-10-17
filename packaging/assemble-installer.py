@@ -1,6 +1,6 @@
 from pathlib import Path
 import hashlib,json,zipfile,struct,shutil,argparse
-parser=argparse.ArgumentParser();parser.add_argument('--output',required=True);parser.add_argument('--version',default='0.1.0-beta.4');args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--output',required=True);parser.add_argument('--version',default='0.1.0-beta.5');args=parser.parse_args()
 root=Path(__file__).resolve().parents[1];stage=root/'artifacts/setup-stage';out=Path(args.output).resolve();out.mkdir(parents=True,exist_ok=True)
 files=sorted(p for p in stage.rglob('*') if p.is_file() and p.name!='release-manifest.json')
 for required in ['app/Syphon.exe','host/Syphon.NativeHost.exe','Uninstall.exe','extensions/manifest.json','app/.tools/media/ffmpeg.exe','app/.tools/media/ffprobe.exe','app/.tools/media/yt-dlp.exe','app/.tools/media/node.exe','prerequisites/MicrosoftEdgeWebview2Setup.exe']:

@@ -10,6 +10,15 @@ internal static class SetupTests
   var progress=new Progress<(double,string)>();
   try {
    Check(InstallEngine.DefaultRoot==Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),"Syphon"),"Default installation must use Program Files.");
+   Check(App.IsUninstallInvocation([],@"C:\Program Files\Syphon\Uninstall.exe"),"Direct uninstaller launch was not recognized.");
+   Check(App.IsUninstallInvocation(["--uninstall"],"Syphon.Setup.exe"),"Windows uninstall command was not recognized.");
+   Check(!App.IsUninstallInvocation([],"Syphon.Setup.exe"),"Normal setup opened removal mode.");
+   var removal=new SetupWindow(true);
+   try {
+    Check(removal.Title=="Uninstall Syphon","Removal must not open with the installer title.");
+    Check(removal.FindName("UninstallPanel") is System.Windows.Controls.StackPanel {Visibility:System.Windows.Visibility.Visible},"Removal confirmation is missing.");
+    Check(removal.FindName("LocationPanel") is System.Windows.Controls.StackPanel {Visibility:System.Windows.Visibility.Collapsed},"Uninstall shows installation location controls.");
+   }finally{removal.Close();}
    var wizard=new SetupWindow();
    try {
     typeof(SetupWindow).GetMethod("ShowStep",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic)!.Invoke(wizard,[3]);
@@ -26,6 +35,7 @@ internal static class SetupTests
    var target=Path.Combine(testRoot,"Application");
    using(var stream=Fixture())InstallEngine.Install(stream,target,false,false,progress,CancellationToken.None,false);
    Check(File.Exists(Path.Combine(target,"app","Syphon.exe")),"Install did not publish files.");
+   Check(InstallEngine.ReadReceipt(target+Path.DirectorySeparatorChar).Product==InstallEngine.Product,"Uninstaller folder trailing separator was rejected.");
    Check(!InstallEngine.ReadReceipt(target).Browser,"Browser integration must remain off until chosen.");
    InstallEngine.EnableBrowserIntegration(target,false);
    Check(InstallEngine.ReadReceipt(target).Browser,"Explicit connection choice did not persist.");
