@@ -1,0 +1,5 @@
+/packaging/*.py text eol=lf
+/packaging/*.ps1 text eol=lf
+/packaging/*.json text eol=lf
+/tests/packaging_test.py text eol=lf
+/ui/charts/package-lock.json text eol=lf

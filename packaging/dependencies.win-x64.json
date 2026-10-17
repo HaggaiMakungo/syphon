@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "architecture": "win-x64",
+  "notes": "Exact inspected binary inputs. Source URLs are provenance, not an automated download list or a complete corresponding-source distribution. WebView2 uses a pinned snapshot of its mutable Evergreen bootstrapper URL.",
+  "files": {
+    "ffmpeg.exe": {
+      "sha256": "0b87b1bf5fa3d78e847dd26c5433643d66888ff8d018027ff1c04a999fa49016",
+      "bytes": 226639360,
+      "version": "2026-06-01-git-bf608f16fd-full_build-www.gyan.dev",
+      "source": "https://www.gyan.dev/ffmpeg/builds/"
+    },
+    "ffprobe.exe": {
+      "sha256": "ed85f2270561d3ad58fba4552965fac424f2013374bcc30b0bdd85f8cd969b4c",
+      "bytes": 226433536,
+      "version": "2026-06-01-git-bf608f16fd-full_build-www.gyan.dev",
+      "source": "https://www.gyan.dev/ffmpeg/builds/"
+    },
+    "yt-dlp.exe": {
+      "sha256": "66674953fe251b89f4d08c5f0e35e0728679bd67ab3d7d05c0562af101dd3e7a",
+      "bytes": 17840399,
+      "version": "2026.08.19",
+      "source": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp.exe"
+    },
+    "node.exe": {
+      "sha256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32",
+      "bytes": 93580104,
+      "version": "v24.21.0",
+      "source": "https://nodejs.org/dist/v24.21.0/win-x64/node.exe"
+    },
+    "FFmpeg-GPLv3.txt": {
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
+      "bytes": 35147,
+      "version": "GPLv3",
+      "source": "https://www.gyan.dev/ffmpeg/builds/"
+    },
+    "FFmpeg-build-and-source.txt": {
+      "sha256": "c9bd548a773471d614fbd7f86b45b43df0bb6cc5b5d35893629aaffa1accb660",
+      "bytes": 45479,
+      "version": "2026-06-01-git-bf608f16fd-full_build-www.gyan.dev",
+      "source": "https://www.gyan.dev/ffmpeg/builds/"
+    },
+    "MicrosoftEdgeWebview2Setup.exe": {
+      "sha256": "c90f9cdcec5e1997e581127dd1cb4526c239551908e9adbfe63ad14671bdcc94",
+      "bytes": 1867984,
+      "version": "Evergreen bootstrapper snapshot",
+      "source": "https://go.microsoft.com/fwlink/p/?LinkId=2124703"
+    }
+  }
+}
