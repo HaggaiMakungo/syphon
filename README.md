@@ -75,3 +75,5 @@ The working name is Syphon. Durable tasks, queue management, automatic retries, 
 ## Installer candidate
 
 Native Windows setup and reproducible packaging sources are now available; see [installer build, validation and release gates](docs/installer.md). The first bundled installer is an unsigned local beta candidate, not a public release.
+
+Source-material evidence and outstanding distribution inputs are tracked in [source-material readiness](docs/source-material-readiness.md), with a [component audit](docs/source-material-audit.md) and unsent [upstream request drafts](docs/upstream-source-requests.md). The retained source evidence is partial; it is not a claim that the public-release gates are complete.

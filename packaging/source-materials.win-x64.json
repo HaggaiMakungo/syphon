@@ -1,0 +1,94 @@
+{
+  "schema": 1,
+  "scope": "Partial source evidence, not complete corresponding-source distribution",
+  "dependencyLockSha256": "92fa738eb7f3a5930789e58e7e1594bafa2462a88049017f88576ac275d85394",
+  "sources": [
+    {
+      "file": "FFmpeg-bf608f16fd6772b1977a2637e8ab49644f6b5eb5.tar.gz",
+      "bytes": 17129546,
+      "sha256": "dde20e6b2d8da09f13d62f9c0837847d3018a3ba2e7932779fc219bcc81f22ed",
+      "url": "https://codeload.github.com/FFmpeg/FFmpeg/tar.gz/bf608f16fd6772b1977a2637e8ab49644f6b5eb5",
+      "component": "FFmpeg core only",
+      "revision": "bf608f16fd6772b1977a2637e8ab49644f6b5eb5",
+      "verification": "GitHub full commit resolved from vendor-reported short revision; source archive SHA-256 recorded; vendor patches/external sources not established"
+    },
+    {
+      "file": "yt-dlp-2026.08.19.tar.gz",
+      "bytes": 6020567,
+      "sha256": "072aad4f2a7604e92155f61a275a4752dc64046c8f6d90df3710525d94cd37c1",
+      "url": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp.tar.gz",
+      "component": "yt-dlp core/release source only",
+      "revision": "3a08beaf031ab68f966401ead017ac81fe8486cf",
+      "verification": "Archive and bundled EXE match the release SHA2-256SUMS over HTTPS; GPG signature not checked; bundled third-party source set not established"
+    },
+    {
+      "file": "yt-dlp-git-3a08beaf031ab68f966401ead017ac81fe8486cf.tar.gz",
+      "bytes": 3115089,
+      "sha256": "7206981142eb461cfa603c360a55e0d08f3ed58cc754000ed821ad3ebac31ea0",
+      "url": "https://codeload.github.com/yt-dlp/yt-dlp/tar.gz/3a08beaf031ab68f966401ead017ac81fe8486cf",
+      "component": "yt-dlp repository including build workflows",
+      "revision": "3a08beaf031ab68f966401ead017ac81fe8486cf",
+      "verification": "Tag resolved through GitHub commit API; source archive retained at full revision. This is build-recipe evidence, not the actual bundled dependency input set."
+    }
+  ],
+  "checksums": {
+    "file": "yt-dlp-2026.08.19-SHA2-256SUMS.txt",
+    "bytes": 1595,
+    "sha256": "a63701f30755cb4d9317950d69703e9d751d490cb1b7059e1bb501a353fe7dcb",
+    "url": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/SHA2-256SUMS"
+  },
+  "complete": false,
+  "binaryInspection": {
+    "file": "ffmpeg-buildconf.txt",
+    "bytes": 2385,
+    "sha256": "3c5b9accd7f24f2dd6602c76d27e174b180f048cb253bd1db39c373a8a0edd51",
+    "binary": "ffmpeg.exe",
+    "binarySha256": "0b87b1bf5fa3d78e847dd26c5433643d66888ff8d018027ff1c04a999fa49016",
+    "arguments": [
+      "-hide_banner",
+      "-buildconf"
+    ]
+  },
+  "recipeEvidence": [
+    {
+      "file": "yt-dlp-build-workflow.yml",
+      "bytes": 22091,
+      "sha256": "cd9aae06afaa22166670bd7182d7279ae12dad2c1034c1cbeb0db3f5d993fc04",
+      "archive": "yt-dlp-git-3a08beaf031ab68f966401ead017ac81fe8486cf.tar.gz",
+      "member": "yt-dlp-3a08beaf031ab68f966401ead017ac81fe8486cf/.github/workflows/build.yml",
+      "coverage": "upstream recipe evidence, not confirmation of the exact compiled dependency set"
+    },
+    {
+      "file": "yt-dlp-default-requirements.txt",
+      "bytes": 41348,
+      "sha256": "fa81ca6ed6a0fdf6a3ad9708ae8a16b56ff165d9d5d677a1ff51480d4d1bba7a",
+      "archive": "yt-dlp-git-3a08beaf031ab68f966401ead017ac81fe8486cf.tar.gz",
+      "member": "yt-dlp-3a08beaf031ab68f966401ead017ac81fe8486cf/bundle/requirements/default.txt",
+      "coverage": "upstream recipe evidence, not confirmation of the exact compiled dependency set"
+    },
+    {
+      "file": "yt-dlp-curl-cffi-requirements.txt",
+      "bytes": 52256,
+      "sha256": "898c4d3bf40a6f1cb59e8cb8184536c0b97c543367e3256621a5b6d791729632",
+      "archive": "yt-dlp-git-3a08beaf031ab68f966401ead017ac81fe8486cf.tar.gz",
+      "member": "yt-dlp-3a08beaf031ab68f966401ead017ac81fe8486cf/bundle/requirements/curl-cffi.txt",
+      "coverage": "upstream recipe evidence, not confirmation of the exact compiled dependency set"
+    },
+    {
+      "file": "yt-dlp-win-x64-pyinstaller-requirements.txt",
+      "bytes": 1855,
+      "sha256": "473e6212ff85da7320b55933edf7fdc294b5da7d8f4348d1863d7d06865a60c6",
+      "archive": "yt-dlp-git-3a08beaf031ab68f966401ead017ac81fe8486cf.tar.gz",
+      "member": "yt-dlp-3a08beaf031ab68f966401ead017ac81fe8486cf/bundle/requirements/win-x64-pyinstaller.txt",
+      "coverage": "upstream recipe evidence, not confirmation of the exact compiled dependency set"
+    },
+    {
+      "file": "yt-dlp-tagged-third-party-notices.txt",
+      "bytes": 243550,
+      "sha256": "472aefe951c7db35e1657c1d13fd337140511ed6f2b329205105ad441c5a02b7",
+      "archive": "yt-dlp-git-3a08beaf031ab68f966401ead017ac81fe8486cf.tar.gz",
+      "member": "yt-dlp-3a08beaf031ab68f966401ead017ac81fe8486cf/THIRD_PARTY_LICENSES.txt",
+      "coverage": "upstream recipe evidence, not confirmation of the exact compiled dependency set"
+    }
+  ]
+}
