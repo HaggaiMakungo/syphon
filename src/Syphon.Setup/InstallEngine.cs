@@ -128,5 +128,15 @@ internal static class InstallEngine
   if(Directory.Exists(root)&&!Directory.EnumerateFileSystemEntries(root).Any())Directory.Delete(root);
  }
  private static IEnumerable<string> Ancestors(string path,string root) {for(var d=path;d.Length>root.Length;d=Path.GetDirectoryName(d)!)yield return d;}
+ internal static void EnableBrowserIntegration(string root,bool integrate=true) {
+  var receipt=ReadReceipt(root);if(receipt.Browser)return;
+  var updated=receipt with { Browser=true };Action? undo=null;
+  var pending=Path.Combine(root,Marker+".tmp");
+  try {
+   if(integrate)undo=WindowsIntegration.Register(updated);
+   File.WriteAllText(pending,JsonSerializer.Serialize(updated));File.Move(pending,Path.Combine(root,Marker),true);
+  }catch{undo?.Invoke();throw;}
+  finally{if(File.Exists(pending))File.Delete(pending);}
+ }
  internal static void Uninstall(string root,bool integrate=true) {root=Path.GetFullPath(root);var receipt=ReadReceipt(root);CheckRunning(root);NoLinks(root);if(integrate)WindowsIntegration.Remove(receipt);RemoveOwnedFiles(root,receipt);}
 }

@@ -9,9 +9,25 @@ internal static class SetupTests
   var testRoot=Path.Combine(Path.GetTempPath(),"Syphon.Setup.Tests",Guid.NewGuid().ToString("N"));Directory.CreateDirectory(testRoot);
   var progress=new Progress<(double,string)>();
   try {
+   var wizard=new SetupWindow();
+   try {
+    typeof(SetupWindow).GetMethod("ShowStep",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic)!.Invoke(wizard,[3]);
+    Check((string)((System.Windows.Controls.Button)wizard.FindName("Next")).Content!="Finish","Browser setup must precede Finish.");
+    Check(wizard.FindName("BrowserPanel") is System.Windows.Controls.StackPanel { Visibility: System.Windows.Visibility.Visible },"Browser instructions must be visible after installation.");
+    var next=(System.Windows.Controls.Button)wizard.FindName("Next");Check(!next.IsEnabled,"Continuing requires an explicit browser setup choice.");
+    next.RaiseEvent(new System.Windows.RoutedEventArgs(System.Windows.Controls.Button.ClickEvent));
+    Check((string)next.Content!="Finish","Programmatic Continue bypassed the mandatory choice.");
+    var choice=(System.Windows.Controls.RadioButton)wizard.FindName("SkipBrowser");choice.IsChecked=true;
+    Check(next.IsEnabled,"Explicit skip did not enable Continue.");
+    next.RaiseEvent(new System.Windows.RoutedEventArgs(System.Windows.Controls.Button.ClickEvent));
+    Check((string)next.Content=="Finish","Explicit choice did not reach Finish.");
+   } finally {wizard.Close();}
    var target=Path.Combine(testRoot,"Application");
    using(var stream=Fixture())InstallEngine.Install(stream,target,false,false,progress,CancellationToken.None,false);
    Check(File.Exists(Path.Combine(target,"app","Syphon.exe")),"Install did not publish files.");
+   Check(!InstallEngine.ReadReceipt(target).Browser,"Browser integration must remain off until chosen.");
+   InstallEngine.EnableBrowserIntegration(target,false);
+   Check(InstallEngine.ReadReceipt(target).Browser,"Explicit connection choice did not persist.");
    File.WriteAllText(Path.Combine(target,"user-kept.txt"),"preserve");
    using(var stream=Fixture())InstallEngine.Install(stream,target,false,false,progress,CancellationToken.None,false);
    Check(Directory.EnumerateDirectories(testRoot,".Syphon-previous-*").Any(p=>File.Exists(Path.Combine(p,"user-kept.txt"))),"Upgrade erased an unknown file.");

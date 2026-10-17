@@ -10,8 +10,9 @@
       <Border x:Name="Step0" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="●    Welcome" FontSize="16"/></Border>
       <Border x:Name="Step1" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="○    Location" FontSize="16"/></Border>
       <Border x:Name="Step2" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="○    Install" FontSize="16"/></Border>
-      <Border x:Name="Step3" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="○    Finish" FontSize="16"/></Border>
-     </StackPanel><TextBlock x:Name="VersionLabel" Grid.Row="2" Text="0.1.0-beta.2 · Windows x64" Foreground="#9284AA" FontSize="11" Margin="30,12"/>
+      <Border x:Name="Step3" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="○    Browser setup" FontSize="16"/></Border>
+      <Border x:Name="Step4" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="○    Finish" FontSize="16"/></Border>
+     </StackPanel><TextBlock x:Name="VersionLabel" Grid.Row="2" Text="0.1.0-beta.3 · Windows x64" Foreground="#9284AA" FontSize="11" Margin="30,12"/>
     </Grid>
    </Border>
    <Grid Grid.Column="1"><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/><RowDefinition Height="86"/></Grid.RowDefinitions>
@@ -29,12 +30,22 @@
        <StackPanel x:Name="LocationPanel" Visibility="Collapsed">
         <TextBlock Text="Install Syphon for your Windows account" FontWeight="SemiBold" Margin="0,0,0,10"/><Grid><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBox x:Name="Location" AutomationProperties.Name="Installation folder"/><Button Grid.Column="1" Content="Browse…" Click="BrowseClick" Margin="10,0,0,0" Padding="12,8"/></Grid>
         <TextBlock x:Name="SizeNote" Foreground="#9284AA" Margin="0,9,0,18" Text="Setup checks the available space before installing."/>
-        <CheckBox x:Name="BrowserOption" IsChecked="True" Content="Connect the Syphon browser extension"/><CheckBox x:Name="DesktopOption" IsChecked="True" Content="Create a desktop shortcut"/>
+        <TextBlock Text="Browser setup follows installation. You can connect your browser or explicitly continue without integration." Foreground="#B9AACD" Margin="0,12"/><CheckBox x:Name="DesktopOption" IsChecked="True" Content="Create a desktop shortcut"/>
         <TextBlock Text="Your existing downloads, history and preferences are preserved. New downloads use Videos, Music, Documents, Programs and Misc folders." Foreground="#B9AACD" Margin="0,20,0,10"/>
         <TextBlock Text="Browser extension installation still requires your approval inside Chrome or Edge. Bundled tool licences and release notes are included in the installation folder." Foreground="#9284AA" FontSize="12"/>
        </StackPanel>
        <StackPanel x:Name="InstallPanel" Visibility="Collapsed"><TextBlock x:Name="Status" Text="Preparing installation…" FontSize="16" Margin="0,12,0,20" AutomationProperties.LiveSetting="Polite"/><ProgressBar x:Name="Progress" Height="9" Minimum="0" Maximum="100" Foreground="#AB72EF" Background="#1A1324" BorderThickness="0"/><TextBlock x:Name="Percent" Text="0%" Foreground="#B9AACD" HorizontalAlignment="Right" Margin="0,12"/><TextBlock Text="Files are checked before they replace an existing installation. Setup will never close an active Syphon download for you." Foreground="#9284AA" Margin="0,24"/></StackPanel>
-       <StackPanel x:Name="FinishPanel" Visibility="Collapsed"><TextBlock x:Name="FinishNote" Text="Your download workspace is ready." Foreground="#B9AACD" FontSize="16"/><CheckBox x:Name="LaunchOption" IsChecked="True" Content="Launch Syphon" Margin="0,24,0,8"/><Button x:Name="ExtensionHelp" Content="Browser extension setup" Click="ExtensionClick" HorizontalAlignment="Left" Margin="0,14,0,0"/><TextBlock x:Name="FinishPath" Foreground="#9284AA" Margin="0,22,0,0" FontSize="12"/></StackPanel>
+       <StackPanel x:Name="BrowserPanel" Visibility="Collapsed">
+        <TextBlock Text="1. Open chrome://extensions or edge://extensions in your browser." Margin="0,0,0,8"/>
+        <TextBlock Text="2. Enable Developer mode, choose Load unpacked and select the Extensions folder shown below." Margin="0,0,0,8"/>
+        <TextBlock Text="3. Continue below, then open the Syphon extension and choose Check connection. Refresh existing video tabs." Margin="0,0,0,14"/>
+        <TextBox x:Name="ExtensionPath" IsReadOnly="True" AutomationProperties.Name="Extensions folder path"/>
+        <WrapPanel Margin="0,12,0,10"><Button Content="Open Extensions folder" Click="OpenExtensionsClick" Margin="0,0,10,8"/><Button Content="Copy folder path" Click="CopyExtensionsClick" Margin="0,0,0,8"/></WrapPanel>
+        <TextBlock Text="A README is included inside Extensions. Store installation will be available once the extension is published." Foreground="#9284AA" FontSize="12" Margin="0,0,0,12"/>
+        <RadioButton x:Name="ReadyBrowser" GroupName="BrowserChoice" Content="I've added the extension, or will finish connecting it later." Foreground="#ECE9F2" Margin="0,6" Checked="BrowserChoiceChanged"/>
+        <RadioButton x:Name="SkipBrowser" GroupName="BrowserChoice" Content="Use Syphon without the browser extension." Foreground="#B9AACD" Margin="0,6" Checked="BrowserChoiceChanged"/>
+       </StackPanel>
+       <StackPanel x:Name="FinishPanel" Visibility="Collapsed"><TextBlock x:Name="FinishNote" Text="Your download workspace is ready." Foreground="#B9AACD" FontSize="16"/><CheckBox x:Name="LaunchOption" IsChecked="True" Content="Launch Syphon" Margin="0,24,0,8"/><Button x:Name="ExtensionHelp" Content="Review browser instructions" Click="ExtensionClick" HorizontalAlignment="Left" Margin="0,14,0,0"/><TextBlock x:Name="FinishPath" Foreground="#9284AA" Margin="0,22,0,0" FontSize="12"/></StackPanel>
       </StackPanel>
      </ScrollViewer>
     </Grid>
