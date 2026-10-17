@@ -12,6 +12,11 @@ from assemble_installer import assemble, REQUIRED, STAGED_DEPENDENCIES
 
 
 class PackagingTests(unittest.TestCase):
+ def test_all_local_runtime_notices_are_required(self):
+  notices=json.loads((Path(__file__).resolve().parents[1]/'packaging/yt-dlp-notices.win-x64.json').read_text(encoding='utf-8'))
+  self.assertTrue(notices['files'])
+  for name in notices['files']:self.assertIn('licenses/yt-dlp-runtime/'+name,REQUIRED)
+
  def setUp(self):
   self.temp = tempfile.TemporaryDirectory(prefix='Syphon.Packaging.Tests-')
   self.root = Path(self.temp.name)

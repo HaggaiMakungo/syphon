@@ -1,0 +1,164 @@
+{
+  "schema": 1,
+  "ytDlpVersion": "2026.08.19",
+  "python": "3.13.16",
+  "sourceRevision": "3a08beaf031ab68f966401ead017ac81fe8486cf",
+  "releaseGitHead": "594bd50c2c78ac432f81600d309fdc4e0a92d82c",
+  "variant": "syphon_win_x64_py313",
+  "files": [
+    {
+      "file": "python-3.13.16-embed-amd64.zip",
+      "kind": "python",
+      "bytes": 11439094,
+      "sha256": "97dae5274cc54867065e8d5a3226e48c35017ed332a0fdb0e27d5b5821961297",
+      "source": "https://www.python.org/ftp/python/3.13.16/python-3.13.16-embed-amd64.zip"
+    },
+    {
+      "file": "yt-dlp-git-3a08beaf031ab68f966401ead017ac81fe8486cf.tar.gz",
+      "kind": "source",
+      "bytes": 3115089,
+      "sha256": "7206981142eb461cfa603c360a55e0d08f3ed58cc754000ed821ad3ebac31ea0",
+      "source": "https://codeload.github.com/yt-dlp/yt-dlp/tar.gz/3a08beaf031ab68f966401ead017ac81fe8486cf"
+    },
+    {
+      "file": "altgraph-0.17.5-py2.py3-none-any.whl",
+      "kind": "wheel",
+      "bytes": 21228,
+      "sha256": "f3a22400bce1b0c701683820ac4f3b159cd301acab067c51c653e06961600597",
+      "source": "https://files.pythonhosted.org/packages/a9/ba/000a1996d4308bc65120167c21241a3b205464a2e0b58deda26ae8ac21d1/altgraph-0.17.5-py2.py3-none-any.whl"
+    },
+    {
+      "file": "brotli-1.2.0-cp313-cp313-win_amd64.whl",
+      "kind": "wheel",
+      "bytes": 369116,
+      "sha256": "b63daa43d82f0cdabf98dee215b375b4058cce72871fd07934f179885aad16e8",
+      "source": "https://files.pythonhosted.org/packages/ff/91/e739587be970a113b37b821eae8097aac5a48e5f0eca438c22e4c7dd8648/brotli-1.2.0-cp313-cp313-win_amd64.whl"
+    },
+    {
+      "file": "certifi-2026.7.22-py3-none-any.whl",
+      "kind": "wheel",
+      "bytes": 136983,
+      "sha256": "62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775",
+      "source": "https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl"
+    },
+    {
+      "file": "cffi-2.1.1-cp313-cp313-win_amd64.whl",
+      "kind": "wheel",
+      "bytes": 185688,
+      "sha256": "1aa5645c30469b09530c4ebca77ebf8f17618293c58f8549cb1a543a50236e7d",
+      "source": "https://files.pythonhosted.org/packages/60/a6/8b149b2c3f2e11aaa1618ef64500b45f50f22c57a977a4dff1aff1f91042/cffi-2.1.1-cp313-cp313-win_amd64.whl"
+    },
+    {
+      "file": "charset_normalizer-3.5.0-cp313-cp313-win_amd64.whl",
+      "kind": "wheel",
+      "bytes": 198896,
+      "sha256": "72982d9958a42f8132bf2d6b90214ed66477295ef1188731f98ae3511c6eeb5a",
+      "source": "https://files.pythonhosted.org/packages/fb/88/6018cc8d76ea2b7cb02918f37e23e86c261d1a102713d7e88d2cfb8b211c/charset_normalizer-3.5.0-cp313-cp313-win_amd64.whl"
+    },
+    {
+      "file": "curl_cffi-0.16.0-cp310-abi3-win_amd64.whl",
+      "kind": "wheel",
+      "bytes": 1976497,
+      "sha256": "e22a8212d830108e977ff394237f637238e265f5f65037d6c1ee71ea8cc03bcb",
+      "source": "https://files.pythonhosted.org/packages/ad/03/b9df2973f1119f9d11d8fb3bf2682e5ffe5c52ef3ab89f720473c60fe97e/curl_cffi-0.16.0-cp310-abi3-win_amd64.whl"
+    },
+    {
+      "file": "idna-3.18-py3-none-any.whl",
+      "kind": "wheel",
+      "bytes": 65455,
+      "sha256": "7f952cbe720b688055e3f87de14f5c3e5fdaa8bc3928985c4077ca689de849a2",
+      "source": "https://files.pythonhosted.org/packages/1e/5e/d4e9f1a599fb8e573b7b87160658329fbf28d19eac2718f51fc3def3aa5a/idna-3.18-py3-none-any.whl"
+    },
+    {
+      "file": "mutagen-1.48.1-py3-none-any.whl",
+      "kind": "wheel",
+      "bytes": 195706,
+      "sha256": "4f077fe87d3fc7fba259aa63d8c026b18382ca6a42ef37c61e16f1b1b5b82fe7",
+      "source": "https://files.pythonhosted.org/packages/47/d8/a29e4e3991765e7ce4ed1f7e4074fe1ba9da03e0048639734de60f9cadb9/mutagen-1.48.1-py3-none-any.whl"
+    },
+    {
+      "file": "packaging-26.3-py3-none-any.whl",
+      "kind": "wheel",
+      "bytes": 129956,
+      "sha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+      "source": "https://files.pythonhosted.org/packages/63/34/ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527/packaging-26.3-py3-none-any.whl"
+    },
+    {
+      "file": "pefile-2024.8.26-py3-none-any.whl",
+      "kind": "wheel",
+      "bytes": 74766,
+      "sha256": "76f8b485dcd3b1bb8166f1128d395fa3d87af26360c2358fb75b80019b957c6f",
+      "source": "https://files.pythonhosted.org/packages/54/16/12b82f791c7f50ddec566873d5bdd245baa1491bac11d15ffb98aecc8f8b/pefile-2024.8.26-py3-none-any.whl"
+    },
+    {
+      "file": "pycparser-3.0-py3-none-any.whl",
+      "kind": "wheel",
+      "bytes": 48172,
+      "sha256": "b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992",
+      "source": "https://files.pythonhosted.org/packages/0c/c3/44f3fbbfa403ea2a7c779186dc20772604442dde72947e7d01069cbe98e3/pycparser-3.0-py3-none-any.whl"
+    },
+    {
+      "file": "pycryptodomex-3.23.0-cp37-abi3-win_amd64.whl",
+      "kind": "wheel",
+      "bytes": 1803124,
+      "sha256": "52e5ca58c3a0b0bd5e100a9fbc8015059b05cffc6c66ce9d98b4b45e023443b9",
+      "source": "https://files.pythonhosted.org/packages/69/96/11f36f71a865dd6df03716d33bd07a67e9d20f6b8d39820470b766af323c/pycryptodomex-3.23.0-cp37-abi3-win_amd64.whl"
+    },
+    {
+      "file": "pyinstaller-6.22.0-py3-none-win_amd64.whl",
+      "kind": "wheel",
+      "bytes": 1101025,
+      "sha256": "294099ecb5fdd2a13ae4c29006d4e335b697a63b6a16cf052b90ec2b40bef05a",
+      "source": "https://github.com/yt-dlp/Pyinstaller-Builds/releases/download/2026.08.19.215425/pyinstaller-6.22.0-py3-none-win_amd64.whl"
+    },
+    {
+      "file": "pyinstaller_hooks_contrib-2026.6-py3-none-any.whl",
+      "kind": "wheel",
+      "bytes": 457159,
+      "sha256": "fd13b8ac126b35361175edacd41a0d97080b75dd5f4b594ecefefff969509dd3",
+      "source": "https://files.pythonhosted.org/packages/e7/31/f2d7343d8ed5f7c4678377886f6ce533e6eaaa131b252ce950114c2a7efa/pyinstaller_hooks_contrib-2026.6-py3-none-any.whl"
+    },
+    {
+      "file": "pywin32_ctypes-0.2.3-py3-none-any.whl",
+      "kind": "wheel",
+      "bytes": 30756,
+      "sha256": "8a1513379d709975552d202d942d9837758905c8d01eb82b8bcc30918929e7b8",
+      "source": "https://files.pythonhosted.org/packages/de/3d/8161f7711c017e01ac9f008dfddd9410dff3674334c233bde66e7ba65bbf/pywin32_ctypes-0.2.3-py3-none-any.whl"
+    },
+    {
+      "file": "requests-2.34.2-py3-none-any.whl",
+      "kind": "wheel",
+      "bytes": 73075,
+      "sha256": "2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0",
+      "source": "https://files.pythonhosted.org/packages/a0/f4/c67b0b3f1b9245e8d266f0f112c500d50e5b4e83cb6f3b71b6528104182a/requests-2.34.2-py3-none-any.whl"
+    },
+    {
+      "file": "setuptools-84.0.0-py3-none-any.whl",
+      "kind": "wheel",
+      "bytes": 818216,
+      "sha256": "51a52592b3b99e102b609654876bd65f19f999935166d1352678931132b0c670",
+      "source": "https://files.pythonhosted.org/packages/95/9c/c510029fc6ef33a6275cd2c5d3cecd6613dfd6aa401d57c54f1c18852ccf/setuptools-84.0.0-py3-none-any.whl"
+    },
+    {
+      "file": "urllib3-2.7.0-py3-none-any.whl",
+      "kind": "wheel",
+      "bytes": 131087,
+      "sha256": "9fb4c81ebbb1ce9531cce37674bbc6f1360472bc18ca9a553ede278ef7276897",
+      "source": "https://files.pythonhosted.org/packages/7f/3e/5db95bcf282c52709639744ca2a8b149baccf648e39c8cc87553df9eae0c/urllib3-2.7.0-py3-none-any.whl"
+    },
+    {
+      "file": "websockets-17.0.1-cp313-cp313-win_amd64.whl",
+      "kind": "wheel",
+      "bytes": 213348,
+      "sha256": "409d93efcaa14f7a99592c5baaef5ec6ca94fba0f5aec1a86f693977c69c9c1c",
+      "source": "https://files.pythonhosted.org/packages/81/2f/ea1380f72bb11b64fc5bc7ae0d42de5bbf3e6dc13b965706b2a1d4e17cdf/websockets-17.0.1-cp313-cp313-win_amd64.whl"
+    },
+    {
+      "file": "yt_dlp_ejs-0.8.0-py3-none-any.whl",
+      "kind": "wheel",
+      "bytes": 53443,
+      "sha256": "79300e5fca7f937a1eeede11f0456862c1b41107ce1d726871e0207424f4bdb4",
+      "source": "https://files.pythonhosted.org/packages/e3/bd/520769863744b669440a924271a6159ddd82ad5ae26b4ac4d4b69e9f8d44/yt_dlp_ejs-0.8.0-py3-none-any.whl"
+    }
+  ]
+}

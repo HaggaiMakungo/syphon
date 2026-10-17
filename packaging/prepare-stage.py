@@ -3,7 +3,7 @@ import os,shutil,subprocess,json,hashlib,argparse
 from dependencies import DEFAULT_CACHE, LOCK, digest, load_lock, plain_path, verify_dependencies
 root=Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser()
-parser.add_argument('--version',default='0.1.0-beta.9')
+parser.add_argument('--version',default='0.1.0-beta.10')
 parser.add_argument('--stage',type=Path,default=root/'artifacts/setup-stage')
 parser.add_argument('--core',type=Path,default=root/'artifacts/setup-core/Syphon.Setup.exe')
 parser.add_argument('--dependency-root',type=Path,default=DEFAULT_CACHE)
@@ -32,6 +32,9 @@ shutil.copy2(root/'LICENSE',stage/'LICENSE.txt')
 shutil.copy2(root/'THIRD-PARTY-NOTICES.md',stage/'THIRD-PARTY-NOTICES.md')
 licenses=stage/'licenses';licenses.mkdir(exist_ok=True)
 for source in (root/'packaging/licenses').glob('*.txt'):shutil.copy2(source,licenses/source.name)
+shutil.copytree(root/'packaging/licenses/yt-dlp-runtime',licenses/'yt-dlp-runtime',dirs_exist_ok=True)
+shutil.copy2(root/'packaging/yt-dlp-build-record.win-x64.json',licenses/'yt-dlp-build-record.json')
+shutil.copy2(root/'packaging/yt-dlp-build.win-x64.json',licenses/'yt-dlp-build-inputs.json')
 for name in ['FFmpeg-GPLv3.txt','FFmpeg-build-and-source.txt']:shutil.copy2(deps[name],licenses/name)
 for folder in ['DesktopAssets','ChartAssets']:
  p=app/folder/'THIRD-PARTY-NOTICES.txt'

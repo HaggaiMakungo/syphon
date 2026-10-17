@@ -18,3 +18,5 @@ These entries identify retained evidence; they are not an exhaustive application
 Choosing MIT for Syphon's original code does not close those third-party distribution requirements. The current installer remains a local beta candidate, pending the documented public-release checks.
 
 Upstream references: [FFmpeg](https://www.ffmpeg.org/legal.html), [yt-dlp 2026.08.19](https://github.com/yt-dlp/yt-dlp/blob/2026.08.19/README.md#licensing).
+
+Beta 10 uses a Syphon-local yt-dlp build with Python 3.13.16. Exact Python/wheel notices are retained under packaging/licenses/yt-dlp-runtime and included in the installer alongside original upstream notices and build/input records. See docs/media-runtime-build.md for scope and remaining source-material gaps.

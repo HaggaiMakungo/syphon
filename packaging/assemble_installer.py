@@ -9,7 +9,9 @@ import struct
 import zipfile
 from dependencies import digest, plain_path, verify_file
 
-REQUIRED=('app/Syphon.exe','host/Syphon.NativeHost.exe','Uninstall.exe','extensions/manifest.json','app/.tools/media/ffmpeg.exe','app/.tools/media/ffprobe.exe','app/.tools/media/yt-dlp.exe','app/.tools/media/node.exe','prerequisites/MicrosoftEdgeWebview2Setup.exe','LICENSE.txt','THIRD-PARTY-NOTICES.md')
+REQUIRED=('app/Syphon.exe','host/Syphon.NativeHost.exe','Uninstall.exe','extensions/manifest.json','app/.tools/media/ffmpeg.exe','app/.tools/media/ffprobe.exe','app/.tools/media/yt-dlp.exe','app/.tools/media/node.exe','prerequisites/MicrosoftEdgeWebview2Setup.exe','LICENSE.txt','THIRD-PARTY-NOTICES.md','licenses/yt-dlp-runtime/CPython-LICENSE.txt','licenses/yt-dlp-build-record.json','licenses/yt-dlp-build-inputs.json')
+REQUIRED+=tuple('licenses/yt-dlp-runtime/'+name for name in json.loads(Path(__file__).with_name('yt-dlp-notices.win-x64.json').read_text(encoding='utf-8'))['files'])
+
 STAGED_DEPENDENCIES={name:'app/.tools/media/'+name for name in ('ffmpeg.exe','ffprobe.exe','yt-dlp.exe','node.exe')}
 STAGED_DEPENDENCIES.update({'FFmpeg-GPLv3.txt':'licenses/FFmpeg-GPLv3.txt','FFmpeg-build-and-source.txt':'licenses/FFmpeg-build-and-source.txt','MicrosoftEdgeWebview2Setup.exe':'prerequisites/MicrosoftEdgeWebview2Setup.exe'})
 

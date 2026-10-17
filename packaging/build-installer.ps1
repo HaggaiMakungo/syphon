@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([string]$OutputDirectory, [string]$Version='0.1.0-beta.9', [string]$DependencyRoot)
+param([string]$OutputDirectory, [string]$Version='0.1.0-beta.10', [string]$DependencyRoot)
 $ErrorActionPreference='Stop'
 if ($Version -notmatch '^\d+\.\d+\.\d+(-[a-zA-Z0-9.]+)?$') { throw 'Use a valid release version.' }
 $taskRoot=Split-Path -Parent $PSScriptRoot
@@ -13,6 +13,12 @@ try {
     $OutputDirectory=[IO.Path]::GetFullPath($OutputDirectory)
     & python packaging/dependencies.py verify --root $DependencyRoot
     if ($LASTEXITCODE -ne 0) { throw 'Import the pinned release dependencies before building. See docs/packaging-inputs.md.' }
+    & python tests/media_runtime_test.py
+    if ($LASTEXITCODE -ne 0) { throw 'Media runtime regression checks failed.' }
+    & python tests/yt_dlp_build_test.py
+    if ($LASTEXITCODE -ne 0) { throw 'Media build regression checks failed.' }
+    & python packaging/media_runtime.py (Join-Path $DependencyRoot 'yt-dlp.exe')
+    if ($LASTEXITCODE -ne 0) { throw 'The pinned yt-dlp runtime did not pass release checks.' }
     $taskBootstrap=Join-Path $DependencyRoot 'MicrosoftEdgeWebview2Setup.exe'
     $taskSignature=Get-AuthenticodeSignature -LiteralPath $taskBootstrap
     if ($taskSignature.Status -ne 'Valid' -or $taskSignature.SignerCertificate.Subject -notmatch 'Microsoft Corporation') { throw 'WebView2 bootstrapper must have a valid Microsoft signature.' }

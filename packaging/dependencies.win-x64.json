@@ -16,10 +16,12 @@
       "source": "https://www.gyan.dev/ffmpeg/builds/"
     },
     "yt-dlp.exe": {
-      "sha256": "66674953fe251b89f4d08c5f0e35e0728679bd67ab3d7d05c0562af101dd3e7a",
-      "bytes": 17840399,
+      "sha256": "7cc1dd43e07ec25b625b9d1851070f06d8993d45d68ba184833b9a0c578fc283",
+      "bytes": 21971777,
       "version": "2026.08.19",
-      "source": "https://github.com/yt-dlp/yt-dlp/releases/download/2026.08.19/yt-dlp.exe"
+      "source": "https://github.com/HaggaiMakungo/syphon/blob/main/docs/media-runtime-build.md",
+      "buildVariant": "syphon_win_x64_py313",
+      "python": "3.13.16"
     },
     "node.exe": {
       "sha256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32",

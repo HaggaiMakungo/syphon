@@ -1,0 +1,43 @@
+{
+  "schema": 1,
+  "complete": false,
+  "scope": "Supplemental Python 3.13.16 local-build evidence; baseline beta9 evidence remains historical. Native source/build coverage and FFmpeg vendor materials still incomplete.",
+  "files": [
+    {
+      "file": "build-record.json",
+      "bytes": 8467,
+      "sha256": "e19e4d58d8e208f00c7968ac0c431ebc66a615605731c8820d890a769b35ec07"
+    },
+    {
+      "file": "build.log",
+      "bytes": 12150,
+      "sha256": "f273c74a953bc7bd008bcfa7c00a186672561c70080e360bb5cc40abd25f9ead"
+    },
+    {
+      "file": "LICENSE.txt",
+      "bytes": 33861,
+      "sha256": "62bec384df47b0328307db41455ff6ea2559e5546b394ac69148561b21703120"
+    },
+    {
+      "file": "python-3.13.16-amd64.spdx.json",
+      "bytes": 34198,
+      "sha256": "80fd7473bb73d556e082e20a15e2410ee89a61f9e05ec3259d5a45e6e1af0c24"
+    },
+    {
+      "file": "Python-3.13.16.tgz",
+      "bytes": 30191781,
+      "sha256": "cfac63bddf956deafb1172ca131ae5dcaafd6f95056086e233fca205593ed427"
+    },
+    {
+      "file": "runtime-inspection.txt",
+      "bytes": 1746,
+      "sha256": "12031a0bd1c9ccd9f0d5f17016279a7bda7f766c81d56294fcda585d0198757b"
+    },
+    {
+      "file": "websockets-17.0.1.tar.gz",
+      "bytes": 183298,
+      "sha256": "5baa9bc0dfbae8c507e51c8cf1b6d4628086f7a87bbd3a9952bd5f035451f1cc"
+    }
+  ],
+  "websocketsSourceUrl": "https://files.pythonhosted.org/packages/f7/96/e01084f83a64bcb3a27994bd0cb0db68ff29d9c6707fae37ec19b18ba990/websockets-17.0.1.tar.gz"
+}
