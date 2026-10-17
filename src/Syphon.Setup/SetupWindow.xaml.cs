@@ -1,4 +1,5 @@
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Controls;
@@ -14,6 +15,7 @@ public partial class SetupWindow : Window
  private int step;private bool busy;private readonly bool uninstall;private string installedRoot="";private readonly CancellationTokenSource cancellation=new();
  public SetupWindow(bool uninstall=false) {
   InitializeComponent();this.uninstall=uninstall;
+  VersionLabel.Text=(typeof(SetupWindow).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0] ?? "Beta")+" · Windows x64";
   Width=Math.Min(1060,SystemParameters.WorkArea.Width-32);Height=Math.Min(700,SystemParameters.WorkArea.Height-32);
   Location.Text=InstallEngine.DefaultRoot;
   if(uninstall){Location.Text=AppContext.BaseDirectory;Heading.Text="Remove Syphon";Subtitle.Text="Your downloaded files, history and preferences will stay.";WelcomePanel.Visibility=Visibility.Collapsed;Next.Content="Uninstall";}
@@ -29,7 +31,7 @@ public partial class SetupWindow : Window
  private void DragHeader(object sender,MouseButtonEventArgs e){if(e.ChangedButton==MouseButton.Left)DragMove();}
  private void BrowseClick(object sender,RoutedEventArgs e){var picker=new OpenFolderDialog{Title="Choose the Syphon installation folder"};if(picker.ShowDialog(this)==true)Location.Text=picker.FolderName;}
  private void BackClick(object sender,RoutedEventArgs e)=>ShowStep(0);
- private void CancelClick(object sender,RoutedEventArgs e){if(busy){cancellation.Cancel();Cancel.IsEnabled=false;Status.Text="Cancelling safely…";}else Close();}
+ private void CancelClick(object sender,RoutedEventArgs e){if(busy){cancellation.Cancel();Cancel.IsEnabled=false;Status.Text="Cancelling safelyâ€¦";}else Close();}
  private async void NextClick(object sender,RoutedEventArgs e) {
   if(busy)return;
   if(step==3){if(!uninstall&&LaunchOption.IsChecked==true)try{Process.Start(new ProcessStartInfo(Path.Combine(installedRoot,"app","Syphon.exe")){UseShellExecute=true});}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;return;}Close();return;}
@@ -40,10 +42,10 @@ public partial class SetupWindow : Window
    if(uninstall){StartUninstallerCopy(root);return;}
    var browser=BrowserOption.IsChecked==true;var desktop=DesktopOption.IsChecked==true;
    ShowStep(2);busy=true;Next.IsEnabled=false;Back.IsEnabled=false;
-   Status.Text="Verifying the installer and available space�";
+   Status.Text="Verifying the installer and available space…";
    await Task.Run(()=>{using var payload=InstallEngine.OpenPayload();using var zip=new ZipArchive(payload,ZipArchiveMode.Read);var needed=zip.Entries.Sum(f=>f.Length)+200L*1024*1024;var drive=new DriveInfo(Path.GetPathRoot(root)!);if(drive.AvailableFreeSpace<needed)throw new IOException($"Setup needs at least {needed/1048576:N0} MB free on this drive.");});
    if(!WindowsIntegration.WebViewPresent()) {
-    Status.Text="Installing Microsoft WebView2. An internet connection is required…";Cancel.IsEnabled=false;
+    Status.Text="Installing Microsoft WebView2. An internet connection is requiredâ€¦";Cancel.IsEnabled=false;
     await Task.Run(Prerequisites.EnsureWebView);Cancel.IsEnabled=true;
    }
    var progress=new Progress<(double,string)>(value=>{Progress.Value=value.Item1;Percent.Text=$"{value.Item1:0}%";Status.Text=value.Item2;});
@@ -64,8 +66,8 @@ public partial class SetupWindow : Window
  }
  internal void RemoveFrom(string root) {
   Next.Content="Uninstall";
-  Next.Click-=NextClick;Next.Click+=async (_,_)=>{if(step==3){Close();return;}if(busy)return;try{busy=true;Next.IsEnabled=false;Cancel.IsEnabled=false;ShowStep(2);Status.Text="Removing application files. Keeping your downloads and history…";await Task.Run(()=>InstallEngine.Uninstall(root));busy=false;Next.IsEnabled=true;ShowStep(3);Heading.Text="Syphon has been removed";Subtitle.Text="Your downloads, history and preferences were preserved.";LaunchOption.Visibility=Visibility.Collapsed;ExtensionHelp.Visibility=Visibility.Collapsed;FinishNote.Text="You can also remove the Syphon extension in your browser.";Next.Content="Close";Next.Click+=(_,_)=>Close();}catch(Exception ex){busy=false;Next.IsEnabled=true;Cancel.IsEnabled=true;Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}};
+  Next.Click-=NextClick;Next.Click+=async (_,_)=>{if(step==3){Close();return;}if(busy)return;try{busy=true;Next.IsEnabled=false;Cancel.IsEnabled=false;ShowStep(2);Status.Text="Removing application files. Keeping your downloads and historyâ€¦";await Task.Run(()=>InstallEngine.Uninstall(root));busy=false;Next.IsEnabled=true;ShowStep(3);Heading.Text="Syphon has been removed";Subtitle.Text="Your downloads, history and preferences were preserved.";LaunchOption.Visibility=Visibility.Collapsed;ExtensionHelp.Visibility=Visibility.Collapsed;FinishNote.Text="You can also remove the Syphon extension in your browser.";Next.Content="Close";Next.Click+=(_,_)=>Close();}catch(Exception ex){busy=false;Next.IsEnabled=true;Cancel.IsEnabled=true;Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}};
  }
- private void ExtensionClick(object sender,RoutedEventArgs e){try{Process.Start(new ProcessStartInfo(Path.Combine(installedRoot,"BROWSER-SETUP.txt")){UseShellExecute=true});}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}}
+ private void ExtensionClick(object sender,RoutedEventArgs e){try{new BrowserSetupWindow(installedRoot){Owner=this}.ShowDialog();}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}}
  internal void RenderPreview(string destination){Loaded+=(_,_)=>Dispatcher.BeginInvoke(new Action(()=>{Directory.CreateDirectory(destination);for(int i=0;i<4;i++){ShowStep(i);UpdateLayout();var bitmap=new RenderTargetBitmap((int)ActualWidth,(int)ActualHeight,96,96,PixelFormats.Pbgra32);bitmap.Render(this);using var output=File.Create(Path.Combine(destination,$"setup-{i}.png"));var encoder=new PngBitmapEncoder();encoder.Frames.Add(BitmapFrame.Create(bitmap));encoder.Save(output);}Application.Current.Shutdown();}),System.Windows.Threading.DispatcherPriority.ApplicationIdle);}
 }

@@ -23,6 +23,13 @@ internal static class SetupTests
    try{_=InstallEngine.SafePath(testRoot,"../escape");throw new Exception("Traversal accepted.");}catch(InvalidDataException){}
    using(var cancelled=Fixture()){using var c=new CancellationTokenSource();c.Cancel();try{InstallEngine.Install(cancelled,Path.Combine(testRoot,"Cancelled"),false,false,progress,c.Token,false);throw new Exception("Cancellation ignored.");}catch(OperationCanceledException){}}
    var occupied=Path.Combine(testRoot,"Occupied");Directory.CreateDirectory(occupied);File.WriteAllText(Path.Combine(occupied,"personal.txt"),"keep");try{InstallEngine.ValidateRoot(occupied);throw new Exception("Unowned directory accepted.");}catch(IOException){}
+   var distributionRoot=Path.Combine(testRoot,"Distribution");Directory.CreateDirectory(distributionRoot);
+   File.WriteAllText(Path.Combine(distributionRoot,"browser-distribution.json"),"{\"chromeExtensionId\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"edgeExtensionId\":\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"}");
+   var distribution=BrowserDistribution.Load(distributionRoot);
+   Check(distribution.AllowedOrigins("cccccccccccccccccccccccccccccccc").Length==3,"Store IDs were not allowlisted.");
+   Check(distribution.StoreUrl(false)=="https://chromewebstore.google.com/detail/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","Incorrect Chrome store URL.");
+   File.WriteAllText(Path.Combine(distributionRoot,"browser-distribution.json"),"{\"chromeExtensionId\":\"https://untrusted.test\"}");
+   try{BrowserDistribution.Load(distributionRoot);throw new Exception("Invalid store ID accepted.");}catch(InvalidDataException){}
    var log=Environment.GetEnvironmentVariable("SYPHON_SETUP_TEST_REPORT")??Path.Combine(Path.GetTempPath(),"Syphon-setup-tests.txt");File.WriteAllText(log,"PASS: staging, verification, upgrade, unknown-file preservation, uninstall, corrupt package, traversal, cancellation and unowned directory checks.\n");
   } finally {
    var full=Path.GetFullPath(testRoot);if(full.StartsWith(Path.Combine(Path.GetTempPath(),"Syphon.Setup.Tests")+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase))Directory.Delete(full,true);
@@ -37,6 +44,11 @@ internal static class SetupTests
    using var process=System.Diagnostics.Process.Start(start)!;var output=process.StandardOutput.ReadToEnd();var error=process.StandardError.ReadToEnd();if(!process.WaitForExit(30000)||process.ExitCode!=0)throw new IOException(tool+" could not run: "+error);versions[tool]=output.Split('\n')[0];
   }
   File.WriteAllText(target+".report.json",JsonSerializer.Serialize(new{passed=true,checks="Full payload extraction, file hashes, native media tool execution, generated installed paths",versions},new JsonSerializerOptions{WriteIndented=true}));
+ }
+ internal static void RenderBrowser(string root,string output) {
+  var window=new BrowserSetupWindow(root);window.Show();window.UpdateLayout();
+  var bitmap=new System.Windows.Media.Imaging.RenderTargetBitmap((int)window.ActualWidth,(int)window.ActualHeight,96,96,System.Windows.Media.PixelFormats.Pbgra32);bitmap.Render(window);
+  Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(output))!);using var file=File.Create(output);var encoder=new System.Windows.Media.Imaging.PngBitmapEncoder();encoder.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(bitmap));encoder.Save(file);window.Close();
  }
  private static MemoryStream Fixture(bool corrupt=false) {
   var files=new Dictionary<string,byte[]> { ["app/Syphon.exe"]=[1,2,3], ["host/Syphon.NativeHost.exe"]=[4,5,6], ["Uninstall.exe"]=[7,8], ["extensions/manifest.json"]=System.Text.Encoding.UTF8.GetBytes("{\"key\":\"AQIDBA==\"}") };

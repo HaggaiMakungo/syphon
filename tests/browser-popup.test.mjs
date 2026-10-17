@@ -1,3 +1,4 @@
+import { probeDesktop } from "../extensions/syphon/connection.js";
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
@@ -25,7 +26,7 @@ async function popup(initial = {}, nativeReply, options = {}) {
     permissions: { contains: async () => !options.revoked, request: async value => { permissions.push(value); return !options.declined; } },
     action: { setBadgeText: async v => badges.push(v.text), setBadgeBackgroundColor: async () => {}, setTitle: async () => {} }
   };
-  Object.assign(window, { chrome: api, handoff, VIDEO_PERMISSION, SIGNIN_PERMISSION });
+  Object.assign(window, { chrome: api, handoff, probeDesktop, VIDEO_PERMISSION, SIGNIN_PERMISSION });
   await window.eval(`(async () => { ${(await code("popup.js")).replace(/^import .*;\r?\n/gm, "")} })()`);
   return { dom, window, state, native, permissions, badges, $: id => window.document.getElementById(id) };
 }
@@ -158,5 +159,21 @@ test("native messages render as text and all feature help remains available", as
     for (const id of ["capture-help", "signin-help", "video-help"]) assert.equal(p.$(id).closest("details").open, false);
     assert.match(p.$("signin-help").textContent, /partitioned cookies/);
     assert.match(p.$("video-help").textContent, /Protected playback/);
+  } finally { p.window.close(); }
+});
+
+
+test("connection check reaches the native app without replacing the download receipt", async () => {
+  const original = saved();
+  const p = await popup({ lastHandoff: original }, request => ({ version: 1, requestId: request.requestId, status: 'ready', message: 'Syphon is ready.' }));
+  try {
+    p.$('connection-details').open = true;
+    p.$('check-connection').click(); await tick();
+    assert.equal(p.native.length, 1); assert.equal(p.native[0].action, 'ping');
+    assert.deepEqual(p.state.lastHandoff, original);
+    assert.equal(p.$('connection-label').textContent, 'App replied');
+    assert.match(p.$('connection-description').textContent, /connection check at/);
+    assert.equal(p.$('check-connection').disabled, false);
+    assert.equal(p.permissions.length, 0);
   } finally { p.window.close(); }
 });

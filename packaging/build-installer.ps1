@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([string]$OutputDirectory, [string]$Version='0.1.0-beta.1')
+param([string]$OutputDirectory, [string]$Version='0.1.0-beta.2')
 $ErrorActionPreference='Stop'
 if ($Version -notmatch '^\d+\.\d+\.\d+(-[a-zA-Z0-9.]+)?$') { throw 'Use a valid release version.' }
 $taskRoot=Split-Path -Parent $PSScriptRoot
@@ -11,10 +11,10 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Frontend build failed.' }
     foreach ($taskProject in @('Desktop','NativeHost')) {
         $taskSubfolder=if ($taskProject -eq 'Desktop') {'app'} else {'host'}
-        & $taskDotnet publish "src/Syphon.$taskProject/Syphon.$taskProject.csproj" -c Release -r win-x64 --self-contained true "-p:Version=$Version" -p:DebugType=None -p:RuntimeFrameworkVersion=10.0.13 -o "artifacts/setup-stage/$taskSubfolder" --nologo
+        & $taskDotnet publish "src/Syphon.$taskProject/Syphon.$taskProject.csproj" -c Release -r win-x64 --self-contained true -p:NuGetLockFilePath=packages.win-x64.lock.json "-p:Version=$Version" -p:DebugType=None -o "artifacts/setup-stage/$taskSubfolder" --nologo
         if ($LASTEXITCODE -ne 0) { throw "$taskProject publish failed." }
     }
-    & $taskDotnet publish src/Syphon.Setup/Syphon.Setup.csproj -c Release -r win-x64 --self-contained true "-p:Version=$Version" -p:DebugType=None -p:RuntimeFrameworkVersion=10.0.13 -o artifacts/setup-core --nologo
+    & $taskDotnet publish src/Syphon.Setup/Syphon.Setup.csproj -c Release -r win-x64 --self-contained true -p:NuGetLockFilePath=packages.win-x64.lock.json "-p:Version=$Version" -p:DebugType=None -o artifacts/setup-core --nologo
     if ($LASTEXITCODE -ne 0) { throw 'Setup publish failed.' }
     New-Item -ItemType Directory -Force artifacts/setup-stage/prerequisites | Out-Null
     $taskBootstrap=Join-Path $taskRoot 'artifacts\setup-stage\prerequisites\MicrosoftEdgeWebview2Setup.exe'
@@ -24,7 +24,7 @@ try {
     }
     $taskSignature=Get-AuthenticodeSignature -LiteralPath $taskBootstrap
     if ($taskSignature.Status -ne 'Valid' -or $taskSignature.SignerCertificate.Subject -notmatch 'Microsoft Corporation') { throw 'WebView2 bootstrapper must have a valid Microsoft signature.' }
-    & python packaging/prepare-stage.py
+    & python packaging/prepare-stage.py --version $Version
     if ($LASTEXITCODE -ne 0) { throw 'Dependency staging failed.' }
     & python packaging/assemble-installer.py --output $OutputDirectory --version $Version
     if ($LASTEXITCODE -ne 0) { throw 'Installer assembly failed.' }

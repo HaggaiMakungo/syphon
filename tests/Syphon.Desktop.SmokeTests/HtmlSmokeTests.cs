@@ -223,11 +223,14 @@ internal static class HtmlSmokeTests
                 await Task.Delay(220);
                 await ui.CaptureAsync(Path.Combine(output,"history-dropdown.png"));
                 Check(await ui.EvaluateAsync("(()=>{const m=document.querySelector('.syphon-select-menu:popover-open'),s=m.querySelector('[aria-selected=true]');return m.querySelector('[aria-selected=true] .syphon-select-check')?.textContent==='✓'&&getComputedStyle(s).backgroundColor==='rgba(140, 103, 255, 0.094)';})()") == "true", "Selected dropdown option needs a visible highlight and checkmark.");
-                await ui.EvaluateAsync("document.querySelector('#history-density-trigger').click()");
+                await OpenAppearance(ui);
+                await ui.EvaluateAsync("document.querySelector('#history-density-settings-trigger').click()");
                 await Task.Delay(220);
                 Check(await ui.EvaluateAsync("(()=>{const m=document.querySelector('.syphon-select-menu:popover-open');return [...m.querySelectorAll('[role=option]')].every(r=>r.getBoundingClientRect().height<=28.5&&r.firstChild.scrollWidth<=r.firstChild.clientWidth+1);})()") == "true", "Density labels wrap or overflow their dropdown.");
                 await ui.CaptureAsync(Path.Combine(output,"density-dropdown.png"));
-                await ui.EvaluateAsync("document.querySelector('#type-trigger').click()");
+                await ui.EvaluateAsync("document.querySelector('[aria-label=History]').click()");
+                await JsUntil(ui,"!!document.querySelector('#type-trigger')");
+                await ui.EvaluateAsync("document.querySelector('#type-trigger').focus();document.querySelector('#type-trigger').click()");
 
                 await ui.EvaluateAsync("document.querySelector('#type-trigger').dispatchEvent(new KeyboardEvent('keydown',{key:'ArrowDown',bubbles:true}));document.querySelector('#type-trigger').dispatchEvent(new KeyboardEvent('keydown',{key:'Enter',bubbles:true}))");
                 Check(await ui.EvaluateAsync("document.querySelector('#type').value==='Video'&&document.activeElement.id==='type-trigger'&&!document.querySelector('.syphon-select-menu:popover-open')") == "true", "Keyboard selection did not commit and restore focus.");
@@ -263,11 +266,11 @@ internal static class HtmlSmokeTests
                 Check(await ui.EvaluateAsync("document.querySelector('#history-completed').textContent==='1'&&document.querySelector('#history-cancelled').textContent==='1'&&!document.querySelector('.history-columns').textContent.includes('SHA-256')&&!document.querySelector('.history-columns').textContent.includes('Speed')") == "true", "History outcomes or default column hierarchy is incorrect.");
                 Check(await ui.EvaluateAsync("document.querySelector('#history-bytes').textContent") == JsonSerializer.Serialize(DownloadDisplay.Bytes(complete.Snapshot.Received)), "History summary includes incomplete bytes or expected file sizes.");
                 await ui.EvaluateAsync("window.comfortableHistoryHeight=document.querySelector('#history-list .history-row').getBoundingClientRect().height");
-                await Fill(ui, "history-density", "compact", "change");
+                await SetHistoryDensity(ui, "compact");
                 await Until(() => File.ReadAllText(Path.Combine(directory,"download-preferences.json")).Contains("\"HistoryDensity\":\"compact\""));
                 await JsUntil(ui, "document.querySelector('#history-list').dataset.density==='compact'&&document.querySelector('#history-list .history-row').getBoundingClientRect().height<window.comfortableHistoryHeight");
                 await ui.CaptureAsync(Path.Combine(output, "history-compact.png"));
-                await Fill(ui, "history-density", "comfortable", "change");
+                await SetHistoryDensity(ui, "comfortable");
                 await JsUntil(ui, "document.querySelector('#history-list').dataset.density==='comfortable'");
                 await ui.EvaluateAsync("window.historyRowBeforeRefresh=document.querySelector('#history-list [data-id]');window.historyRowBeforeRefresh.focus()");
                 await Task.Delay(650);
@@ -461,7 +464,7 @@ internal static class HtmlSmokeTests
 
                     await reopened.HtmlSurface.EvaluateAsync("document.querySelector('[aria-label=History]').click()");
                     await JsUntil(reopened.HtmlSurface, "document.querySelector('#history-list').textContent.includes('Today')&&!!document.querySelector('#history-list .outcome-completed')");
-                    Check(await reopened.HtmlSurface.EvaluateAsync("document.querySelector('#history-density').value==='compact'&&document.querySelector('#history-list').dataset.density==='compact'") == "true", "History density did not survive other settings saves and reopening.");
+                    Check(await reopened.HtmlSurface.EvaluateAsync("document.querySelector('#history-list').dataset.density==='compact'") == "true", "History density did not survive other settings saves and reopening.");
                     Check(await reopened.HtmlSurface.EvaluateAsync($"document.querySelector('#history-list [data-id=\"{complete.Snapshot.Id}\"] .history-ended').textContent===new Date({JsonSerializer.Serialize(historicalEnd)}).toLocaleDateString(undefined,{{month:'short',day:'numeric'}})&&document.querySelector('#history-list').textContent.includes('Unknown date')") == "true", "Older history must show a date, and records without an end date must remain explicit.");
                     await reopened.HtmlSurface.EvaluateAsync($"document.querySelector('#history-list [data-id=\"{failedReply.TaskId}\"] .history-filename').click()");
                     await JsUntil(reopened.HtmlSurface,"document.querySelector('#history-details')?.textContent.includes('Date unavailable')");
@@ -543,6 +546,19 @@ internal static class HtmlSmokeTests
         Check(await ui.EvaluateAsync("!document.querySelector('[class*=tex-],[class*=sh-]')&&!document.querySelector('#reference-style').textContent.includes('--tex:')") == "true", "Legacy texture or shadow classes remain.");
     }
     private static async Task JsUntil(FloatingProbe ui, string predicate) { var end = DateTime.UtcNow.AddSeconds(30); while (await ui.EvaluateAsync(predicate) != "true") { if (DateTime.UtcNow > end) throw new TimeoutException("Floating UI condition: " + predicate); await Task.Delay(50); } }
+    private static async Task OpenAppearance(LocalHtmlSurface ui) {
+        await ui.EvaluateAsync("document.querySelector('[aria-label=Settings]').click()");
+        await JsUntil(ui,"!![...document.querySelectorAll('[role=button]')].find(e=>e.textContent.trim()==='Appearance')");
+        await ui.EvaluateAsync("[...document.querySelectorAll('[role=button]')].find(e=>e.textContent.trim()==='Appearance').click()");
+        await JsUntil(ui,"!!document.querySelector('#history-density-settings-trigger')");
+    }
+    private static async Task SetHistoryDensity(LocalHtmlSurface ui,string value) {
+        await OpenAppearance(ui);
+        await Fill(ui,"history-density-settings",value,"change");
+        await JsUntil(ui,"document.querySelector('#history-density-settings').value==="+JsonSerializer.Serialize(value));
+        await ui.EvaluateAsync("document.querySelector('[aria-label=History]').click()");
+        await JsUntil(ui,"document.querySelector('#history-list')?.dataset.density==="+JsonSerializer.Serialize(value));
+    }
     private static async Task Ready(LocalHtmlSurface ui) { await Until(()=>ui.IsReady||ui.InitializationError is not null); Check(ui.IsReady,ui.InitializationError??"HTML UI did not load."); }
     private static Task Fill(LocalHtmlSurface ui,string id,string value,string evt="input") => ui.EvaluateAsync($"(()=>{{const e=document.getElementById({JsonSerializer.Serialize(id)});e.value={JsonSerializer.Serialize(value)};e.dispatchEvent(new Event('{evt}',{{bubbles:true}}));}})()");
     private static async Task JsUntil(LocalHtmlSurface ui,string predicate) { var end=DateTime.UtcNow.AddSeconds(30); while(await ui.EvaluateAsync(predicate)!="true"){if(DateTime.UtcNow>end)throw new TimeoutException("HTML condition: "+predicate);await Task.Delay(50);} }

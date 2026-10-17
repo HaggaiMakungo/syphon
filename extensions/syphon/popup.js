@@ -1,3 +1,4 @@
+import { probeDesktop } from './connection.js';
 import { handoff } from "./handoff.js";
 import { VIDEO_PERMISSION } from "./detection.js";
 import { SIGNIN_PERMISSION } from "./request-context.js";
@@ -12,6 +13,7 @@ const connection = document.getElementById("connection");
 const connectionLabel = document.getElementById("connection-label");
 const connectionDescription = document.getElementById("connection-description");
 document.getElementById("extension-id").textContent = `Extension ID: ${chrome.runtime.id}`;
+const probeButton = document.getElementById('check-connection');
 let last, busy = false;
 
 async function refresh() {
@@ -37,6 +39,13 @@ async function refresh() {
   connection.dataset.state = replied ? "replied" : outcome === "unavailable" ? "unavailable" : "unknown";
   connectionLabel.textContent = replied ? "App replied" : outcome === "unavailable" ? "Check setup" : "Not checked";
   connectionDescription.textContent = replied ? "Syphon replied to the last request. Refresh status to contact the app again." : outcome === "unavailable" ? "The last handoff could not be confirmed. Open Syphon or check the setup instructions below." : "Send a link to check the desktop connection. Setup instructions are below.";
+  const { desktopConnection: probe } = await chrome.storage.local.get('desktopConnection');
+  if (['ready', 'unavailable'].includes(probe?.status) && Number.isFinite(probe.checkedAt) && probe.checkedAt <= Date.now() + 1000 && probe.checkedAt >= (last?.time || 0)) {
+    connection.dataset.state = probe.status === 'ready' ? 'replied' : 'unavailable';
+    connectionLabel.textContent = probe.status === 'ready' ? 'App replied' : 'Check setup';
+    const when = new Date(probe.checkedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    connectionDescription.textContent = probe.status === 'ready' ? `Syphon answered the connection check at ${when}. Check again to contact the app now.` : `Connection check at ${when} did not reach Syphon. Run Setup with Browser integration enabled, then try again.`;
+  }
   retry.hidden = last?.request?.action !== "download";
   check.hidden = !last?.request?.requestId;
   clear.hidden = !last;
@@ -45,16 +54,21 @@ async function refresh() {
 async function runAction(action) {
   if (busy) return;
   busy = true;
-  retry.disabled = check.disabled = clear.disabled = true;
+  retry.disabled = check.disabled = clear.disabled = probeButton.disabled = true;
   card.setAttribute("aria-busy", "true");
   try { await action(); await refresh(); }
   catch { status.textContent = "Could not update the handoff. Reopen this menu and try again."; }
   finally {
     busy = false;
-    retry.disabled = check.disabled = clear.disabled = false;
+    retry.disabled = check.disabled = clear.disabled = probeButton.disabled = false;
     card.setAttribute("aria-busy", "false");
   }
 }
+probeButton.addEventListener('click', () => runAction(async () => {
+  connectionLabel.textContent = 'Checking…';
+  connectionDescription.textContent = 'Contacting the desktop app. Syphon may open to complete this check.';
+  await probeDesktop(chrome);
+}));
 retry.addEventListener("click", () => {
   if (last?.request?.action === "download") runAction(() => handoff(chrome, last.request));
 });
@@ -115,3 +129,5 @@ for (const [toggle, key, permission] of [[captureToggle, "captureDownloads", { p
     } finally { toggle.disabled = false; }
   });
 }
+
+chrome.storage.onChanged?.addListener((changes, area) => { if (area === 'local' && changes.desktopConnection) refresh().catch(() => {}); });

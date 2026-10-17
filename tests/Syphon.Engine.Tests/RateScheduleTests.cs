@@ -36,7 +36,8 @@ internal static class RateScheduleTests
         });
         await run("A per-file cap does not block an uncapped file and survives reopen",async()=>{
             var folder=Folder();Guid slowId;
-            await using(var owner=await DownloadCoordinator.OpenAsync(folder,defaults)){
+            // Permit both four-range jobs: the per-origin admission budget is tested separately.
+            await using(var owner=await DownloadCoordinator.OpenAsync(folder,defaults with { MaximumConnectionsPerOrigin=8 })){
                 var slow=owner.Add(Url("segments?size=1048576"),Path.Combine(folder,"slow.bin"));slowId=slow.Id;owner.SetSpeedLimit(slow.Id,262144);
                 var fast=owner.Add(Url("segments?size=1048576"),Path.Combine(folder,"fast.bin"));
                 var clock=Stopwatch.StartNew();owner.Resume(slow.Id);owner.Resume(fast.Id);await owner.WaitForIdleAsync(fast.Id);

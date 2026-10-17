@@ -88,9 +88,9 @@ internal static class InstallEngine
    using(extension) {
     var key=extension.RootElement.GetProperty("key").GetString()!;
     var id=string.Concat(SHA256.HashData(Convert.FromBase64String(key)).Take(16).SelectMany(b=>new[]{(char)('a'+(b>>4)),(char)('a'+(b&15))}));
-    var origin="chrome-extension://"+id+"/";
-    File.WriteAllText(Path.Combine(stage,"host","host-settings.json"),JsonSerializer.Serialize(new{desktopPath=Path.Combine(root,"app","Syphon.exe"),allowedOrigins=new[]{origin}}));
-    File.WriteAllText(Path.Combine(stage,"host","com.syphon.downloads.json"),JsonSerializer.Serialize(new{name="com.syphon.downloads",description="Syphon browser connection",path=Path.Combine(root,"host","Syphon.NativeHost.exe"),type="stdio",allowed_origins=new[]{origin}}));
+    var origins=BrowserDistribution.Load(stage).AllowedOrigins(id);
+    File.WriteAllText(Path.Combine(stage,"host","host-settings.json"),JsonSerializer.Serialize(new{desktopPath=Path.Combine(root,"app","Syphon.exe"),allowedOrigins=origins}));
+    File.WriteAllText(Path.Combine(stage,"host","com.syphon.downloads.json"),JsonSerializer.Serialize(new{name="com.syphon.downloads",description="Syphon browser connection",path=Path.Combine(root,"host","Syphon.NativeHost.exe"),type="stdio",allowed_origins=origins}));
     files.AddRange(["host/host-settings.json","host/com.syphon.downloads.json"]);
    }
    var receipt=new InstallReceipt(Product,manifest.Version,root,files.ToArray(),browser,desktop);

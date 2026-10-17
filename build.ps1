@@ -20,6 +20,10 @@ try {
         if ($Internet) { $taskArguments += '--internet' }
         & $taskDotnet @taskArguments
         if ($LASTEXITCODE -ne 0) { throw 'Engine integration tests failed.' }
+        & $taskDotnet tests\Syphon.Engine.Tests\bin\Release\net10.0\Syphon.Engine.Tests.dll --category-tests
+        if ($LASTEXITCODE -ne 0) { throw 'Category tests failed.' }
+        & $taskDotnet src\Syphon.Setup\bin\Release\net10.0-windows10.0.19041.0\Syphon.Setup.dll --self-test
+        if ($LASTEXITCODE -ne 0) { throw 'Setup engine tests failed.' }
         if ($Media) {
             & $taskDotnet tests\Syphon.Engine.Tests\bin\Release\net10.0\Syphon.Engine.Tests.dll --media-tests artifacts\media-tests.json
             if ($LASTEXITCODE -ne 0) { throw 'Media integration tests failed.' }
@@ -32,8 +36,10 @@ try {
         if ($LASTEXITCODE -ne 0) { throw 'Floating window input regression tests failed.' }
         & $taskDotnet tests\Syphon.Browser.Tests\bin\Release\net10.0-windows\Syphon.Browser.Tests.dll src\Syphon.NativeHost\bin\Release\net10.0-windows artifacts\browser-tests.json
         if ($LASTEXITCODE -ne 0) { throw 'Browser/native integration tests failed.' }
+        & $taskDotnet tests\Syphon.Desktop.SmokeTests\bin\Release\net10.0-windows\Syphon.Desktop.SmokeTests.dll --html artifacts\html-release
+        if ($LASTEXITCODE -ne 0) { throw 'HTML desktop workflow failed.' }
         $taskNode = (Get-Command node -ErrorAction Stop).Source
-        & $taskNode --test tests\browser-extension.test.mjs tests\browser-features.test.mjs tests\browser-media.test.mjs tests\browser-context.test.mjs
+        & $taskNode --test tests\browser-extension.test.mjs tests\browser-features.test.mjs tests\browser-media.test.mjs tests\browser-context.test.mjs tests\browser-connection.test.mjs
         if ($LASTEXITCODE -ne 0) { throw 'Browser extension tests failed.' }
     }
 } finally { Pop-Location }

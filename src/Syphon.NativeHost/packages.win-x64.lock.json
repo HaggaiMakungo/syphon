@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net10.0-windows7.0": {
+      "syphon.browserbridge": {
+        "type": "Project",
+        "dependencies": {
+          "Syphon.Core": "[1.0.0, )"
+        }
+      },
+      "syphon.core": {
+        "type": "Project"
+      }
+    },
+    "net10.0-windows7.0/win-x64": {}
+  }
+}

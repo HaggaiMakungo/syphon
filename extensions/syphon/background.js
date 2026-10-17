@@ -1,3 +1,4 @@
+import { handleConnectionInstall } from './connection.js';
 import { createPlayerMetadata } from './player-metadata.js';
 import { HOST, MENU, downloadRequest, handoff, supportedLink, validReply } from "./handoff.js";
 import { createCapture } from "./capture.js";
@@ -20,7 +21,7 @@ async function restoreFeatures() {
   network.listen();
   await Promise.allSettled([capture.recover(), syncDetection(chrome)]);
 }
-chrome.runtime.onInstalled.addListener(restoreFeatures);
+chrome.runtime.onInstalled.addListener(details => { restoreFeatures().catch(() => {}); handleConnectionInstall(chrome, details).catch(() => {}); });
 chrome.runtime.onStartup.addListener(restoreFeatures);
 chrome.permissions.onAdded.addListener(restoreFeatures);
 chrome.permissions.onRemoved.addListener(() => {
