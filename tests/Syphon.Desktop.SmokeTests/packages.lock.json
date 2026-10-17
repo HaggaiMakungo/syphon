@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net10.0-windows10.0.19041": {
+      "Microsoft.Data.Sqlite.Core": {
+        "type": "Transitive",
+        "resolved": "10.0.13",
+        "contentHash": "Gge8XsSCOwcbkbdmt2UDAe6kIv9Q0vA6yb3wsTStjjexaMFLTWfc/1gH4kbhJ+zWiXRTRA4lG2sOQNVfir204w==",
+        "dependencies": {
+          "SQLitePCLRaw.core": "2.1.13"
+        }
+      },
+      "Microsoft.Web.WebView2": {
+        "type": "Transitive",
+        "resolved": "1.0.4258.31",
+        "contentHash": "sHVZ2MQrHT1J3q5/6csn0fIP27rzpTO/RRC+wPQDrZheB7T4t2n+vVbY6SdCKr4WRV9s/gmBM3PPMWWJtoDzMg=="
+      },
+      "SQLitePCLRaw.core": {
+        "type": "Transitive",
+        "resolved": "3.0.0",
+        "contentHash": "tnVrkfPiCpHRWPahEI+tRd8jcqyoaJUi5V93x68EM0h2+QDDL4SvSk2maEkjV/mYj5vATLzcXV91QmcfHZGOMw=="
+      },
+      "SQLitePCLRaw.provider.winsqlite3": {
+        "type": "Transitive",
+        "resolved": "3.0.0",
+        "contentHash": "f03xiurYj1FPz6EPUNpLUZzgDmGeHALy2i9az+CmsiU6Pwcuhqk3wC8YxYyPg/yIHcZiPFHxpmdEK4Op37K1Fg==",
+        "dependencies": {
+          "SQLitePCLRaw.core": "3.0.0"
+        }
+      },
+      "Syphon": {
+        "type": "Project",
+        "dependencies": {
+          "Microsoft.Web.WebView2": "[1.0.4258.31, )",
+          "Syphon.BrowserBridge": "[1.0.0, )",
+          "Syphon.Engine": "[1.0.0, )"
+        }
+      },
+      "syphon.browserbridge": {
+        "type": "Project",
+        "dependencies": {
+          "Syphon.Core": "[1.0.0, )"
+        }
+      },
+      "syphon.core": {
+        "type": "Project"
+      },
+      "syphon.engine": {
+        "type": "Project",
+        "dependencies": {
+          "Microsoft.Data.Sqlite.Core": "[10.0.13, )",
+          "SQLitePCLRaw.provider.winsqlite3": "[3.0.0, )",
+          "Syphon.Core": "[1.0.0, )"
+        }
+      },
+      "syphon.testserver": {
+        "type": "Project"
+      }
+    }
+  }
+}

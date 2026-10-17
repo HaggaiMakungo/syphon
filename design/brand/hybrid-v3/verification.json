@@ -1,0 +1,771 @@
+{
+  "status": "passed",
+  "files_checked": 47,
+  "files": [
+    {
+      "file": "boxed/syphon_boxed_1024.png",
+      "bytes": 1142893,
+      "sha256": "c2ba9cfc18afc7ae9e1ce510eda8d4549305a50552e7330fc8cc0c3a85077e8d",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_rounded_corners": "passed"
+    },
+    {
+      "file": "boxed/syphon_boxed_128.png",
+      "bytes": 27876,
+      "sha256": "9aa451696f8e6ab753016e99b666f2faa424005f2a7a558ca9ac5e24ccc413e3",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_rounded_corners": "passed"
+    },
+    {
+      "file": "boxed/syphon_boxed_150.png",
+      "bytes": 36041,
+      "sha256": "d502c10b7f53426b3962b8e9b6964419d2a2ad2925cd4f707e7cceb8639353ca",
+      "size": [
+        150,
+        150
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_rounded_corners": "passed"
+    },
+    {
+      "file": "boxed/syphon_boxed_16.png",
+      "bytes": 929,
+      "sha256": "77554ff6481d9b7ea2a43fb0e5fa7c9b36108d7a48d6e52f2d244d38fb098599",
+      "size": [
+        16,
+        16
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_rounded_corners": "passed"
+    },
+    {
+      "file": "boxed/syphon_boxed_20.png",
+      "bytes": 1308,
+      "sha256": "4cbc9db0df6a998a38b55d741fa6380b117ad78651fc03ee094f30a3dab94aca",
+      "size": [
+        20,
+        20
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_rounded_corners": "passed"
+    },
+    {
+      "file": "boxed/syphon_boxed_24.png",
+      "bytes": 1772,
+      "sha256": "b7c78a85ed3781cd9934f8603133e879c3f4ac1abb0fd5e2a4233cd6213ae2d0",
+      "size": [
+        24,
+        24
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_rounded_corners": "passed"
+    },
+    {
+      "file": "boxed/syphon_boxed_256.png",
+      "bytes": 88229,
+      "sha256": "03337a30e4db844fb813b265d2a9f25cdd1cb3b724b34d53b892e00c01397f58",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_rounded_corners": "passed"
+    },
+    {
+      "file": "boxed/syphon_boxed_30.png",
+      "bytes": 2526,
+      "sha256": "0692dc9631b7340f6ee508d9424e365924777db8554c750b35ce60f3e6c70436",
+      "size": [
+        30,
+        30
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_rounded_corners": "passed"
+    },
+    {
+      "file": "boxed/syphon_boxed_32.png",
+      "bytes": 2817,
+      "sha256": "745edb99aacc7176fb2100b6b62da52e79870cfe2a1701e34161694ebfb20d04",
+      "size": [
+        32,
+        32
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_rounded_corners": "passed"
+    },
+    {
+      "file": "boxed/syphon_boxed_40.png",
+      "bytes": 4077,
+      "sha256": "649eacb8afda9082c30506144d98966535d6cf711a0a09fd9a87f03aa3269239",
+      "size": [
+        40,
+        40
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_rounded_corners": "passed"
+    },
+    {
+      "file": "boxed/syphon_boxed_44.png",
+      "bytes": 4773,
+      "sha256": "a2c6ea54f0bff756b914dfde2debde3d7502dc11906cf44bb1b3d24d83a1e22b",
+      "size": [
+        44,
+        44
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_rounded_corners": "passed"
+    },
+    {
+      "file": "boxed/syphon_boxed_48.png",
+      "bytes": 5428,
+      "sha256": "482a464bbfe8190c1cc53f04cbd20e4541a7891e57d191a16f185dd37c6ab0e4",
+      "size": [
+        48,
+        48
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_rounded_corners": "passed"
+    },
+    {
+      "file": "boxed/syphon_boxed_512.png",
+      "bytes": 306631,
+      "sha256": "852b5006fc8f440066ba9104032cc777d613ff9dbe41f6bd0c3c995a40bd8427",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_rounded_corners": "passed"
+    },
+    {
+      "file": "boxed/syphon_boxed_64.png",
+      "bytes": 8785,
+      "sha256": "a3ab2bfeb4faf13faab14cf477953bb2d61faf2e653e1a01036e84153156e3b3",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_rounded_corners": "passed"
+    },
+    {
+      "file": "boxed/syphon_boxed_72.png",
+      "bytes": 10702,
+      "sha256": "ee94c47b7aaafd05a71d2b67a6f64f8bb74005cdc174b89775cc592e0628afbc",
+      "size": [
+        72,
+        72
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_rounded_corners": "passed"
+    },
+    {
+      "file": "boxed/syphon_boxed_96.png",
+      "bytes": 17381,
+      "sha256": "30f45ee02a5f7cc2beae4c592579bf77027865950544e9b2784dfe45f045e386",
+      "size": [
+        96,
+        96
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "transparent_rounded_corners": "passed"
+    },
+    {
+      "file": "browser-extension/icon128.png",
+      "bytes": 18569,
+      "sha256": "6515e03fd0d6641063a1e5e15ed8747dc1951bada834091599603b95a2dbb79e",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "browser-extension/icon16.png",
+      "bytes": 755,
+      "sha256": "2fa51a3ff368b66f7502de4e1d6bf194ef096b2ecb2fdcdcda34921c33a8500d",
+      "size": [
+        16,
+        16
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "browser-extension/icon32.png",
+      "bytes": 2039,
+      "sha256": "b20282f3070fb3b5f43567cdd33fea384192aa6d790b50b1deafab9918f27753",
+      "size": [
+        32,
+        32
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "browser-extension/icon48.png",
+      "bytes": 3691,
+      "sha256": "129c4b82deec1120646e70e33d6198ac088112f040ed8b3d7f3a33aa0c7e9df6",
+      "size": [
+        48,
+        48
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "browser-extension/manifest-icons.json",
+      "bytes": 126,
+      "sha256": "4ed952ec32ebbdda5533613d0459bdad714fc7599f0ab04b38d70da1fdc5da34"
+    },
+    {
+      "file": "masters/syphon_boxed_rounded_master.png",
+      "bytes": 1802892,
+      "sha256": "73025ec018065c9a45a9a0634fccaafb580102154f7359c9fd9bded29e20ddc0",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "masters/syphon_emblem_transparent_master.png",
+      "bytes": 1083542,
+      "sha256": "564a02c922d10c17d1c9129da6ccd1e35f5a72d8b039eec3d5b50520e22df407",
+      "size": [
+        1254,
+        1254
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "preview/syphon_hybrid_preview.png",
+      "bytes": 536628,
+      "sha256": "05601c51dfb26e1f3af292cd8eef660bb844df670f28ffdee988c23d9ccc2789",
+      "size": [
+        1440,
+        1160
+      ],
+      "mode": "RGB"
+    },
+    {
+      "file": "README.md",
+      "bytes": 2763,
+      "sha256": "8898e481d00b4fe82b3c93a0d1dc63f7f41476f4640f7c6031e1d669109a7e54"
+    },
+    {
+      "file": "transparent/syphon_emblem_1024.png",
+      "bytes": 734042,
+      "sha256": "6d645abb3faefffbcce82a9a842486c202fe2d98c04f8cd106a1635f980f1351",
+      "size": [
+        1024,
+        1024
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "transparent/syphon_emblem_128.png",
+      "bytes": 18569,
+      "sha256": "6515e03fd0d6641063a1e5e15ed8747dc1951bada834091599603b95a2dbb79e",
+      "size": [
+        128,
+        128
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "transparent/syphon_emblem_150.png",
+      "bytes": 24171,
+      "sha256": "b7b3ee3da8017738f82cfe2d031a4693308e6481998c3fd51ab0f6632c0a4df0",
+      "size": [
+        150,
+        150
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "transparent/syphon_emblem_16.png",
+      "bytes": 755,
+      "sha256": "2fa51a3ff368b66f7502de4e1d6bf194ef096b2ecb2fdcdcda34921c33a8500d",
+      "size": [
+        16,
+        16
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "transparent/syphon_emblem_20.png",
+      "bytes": 1026,
+      "sha256": "1b90204bbbbf487bb1488b78458ad3ee37c4770146416a21188f13a67402c9f8",
+      "size": [
+        20,
+        20
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "transparent/syphon_emblem_24.png",
+      "bytes": 1330,
+      "sha256": "533ef62bd807b431cf635078c8dfa181d907e5e7a1f1ce50135dc4bae4a694b6",
+      "size": [
+        24,
+        24
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "transparent/syphon_emblem_256.png",
+      "bytes": 59728,
+      "sha256": "0feda55be0b9fc474663df38d4b3b807bb25f078ca3fec0d860fdceff54319cd",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "transparent/syphon_emblem_30.png",
+      "bytes": 1879,
+      "sha256": "9ad96ea2da1bbeea2313b51241024f4c0170feaf218f32fdcaeef187f370c569",
+      "size": [
+        30,
+        30
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ]
+    },
+    {
+      "file": "transparent/syphon_emblem_32.png",
+      "bytes": 2039,
+      "sha256": "b20282f3070fb3b5f43567cdd33fea384192aa6d790b50b1deafab9918f27753",
+      "size": [
+        32,
+        32
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "transparent/syphon_emblem_40.png",
+      "bytes": 2819,
+      "sha256": "b5a2d7445bba8f2651f69830d7dd3465311a4841e3981746ec8562cfefe03a04",
+      "size": [
+        40,
+        40
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "transparent/syphon_emblem_44.png",
+      "bytes": 3277,
+      "sha256": "8ce2c1c6d5535e60869e06efa10ebd7efc0dce97fc7940345c0b763370a3fadc",
+      "size": [
+        44,
+        44
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "transparent/syphon_emblem_48.png",
+      "bytes": 3691,
+      "sha256": "129c4b82deec1120646e70e33d6198ac088112f040ed8b3d7f3a33aa0c7e9df6",
+      "size": [
+        48,
+        48
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "transparent/syphon_emblem_512.png",
+      "bytes": 202596,
+      "sha256": "10373903c0d13a87d01ef56bc44a9ea10fa2cf8cd3e7a578a871757d90db8f85",
+      "size": [
+        512,
+        512
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "transparent/syphon_emblem_64.png",
+      "bytes": 5810,
+      "sha256": "e9cc92cc2c9d45076c8e7dabfde25cea7fdffb80b98b25f0151f83c41b830581",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "transparent/syphon_emblem_72.png",
+      "bytes": 7080,
+      "sha256": "8974a84380b9f9c5d36532b726451222e43b495f69c7cfb359f1ac64c1a20165",
+      "size": [
+        72,
+        72
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "transparent/syphon_emblem_96.png",
+      "bytes": 11517,
+      "sha256": "87f132f653e87d3e900e07bad1c34c785007837cc51c30e24403089b5e57f92c",
+      "size": [
+        96,
+        96
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "windows/syphon_start_menu_150.png",
+      "bytes": 24171,
+      "sha256": "b7b3ee3da8017738f82cfe2d031a4693308e6481998c3fd51ab0f6632c0a4df0",
+      "size": [
+        150,
+        150
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "windows/syphon_start_menu_256.png",
+      "bytes": 59728,
+      "sha256": "0feda55be0b9fc474663df38d4b3b807bb25f078ca3fec0d860fdceff54319cd",
+      "size": [
+        256,
+        256
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "windows/syphon_start_menu_44.png",
+      "bytes": 3277,
+      "sha256": "8ce2c1c6d5535e60869e06efa10ebd7efc0dce97fc7940345c0b763370a3fadc",
+      "size": [
+        44,
+        44
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "windows/syphon_start_menu_48.png",
+      "bytes": 3691,
+      "sha256": "129c4b82deec1120646e70e33d6198ac088112f040ed8b3d7f3a33aa0c7e9df6",
+      "size": [
+        48,
+        48
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "windows/syphon_start_menu_64.png",
+      "bytes": 5810,
+      "sha256": "e9cc92cc2c9d45076c8e7dabfde25cea7fdffb80b98b25f0151f83c41b830581",
+      "size": [
+        64,
+        64
+      ],
+      "mode": "RGBA",
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "opaque_black_globe_check": "passed"
+    },
+    {
+      "file": "windows/syphon_transparent.ico",
+      "bytes": 107450,
+      "sha256": "bf93187c32a4a0ba83aa7276efebd45e2788164d495a66494347cf458743dded",
+      "frames": [
+        {
+          "size": [
+            16,
+            16
+          ],
+          "alpha_extrema": [
+            0,
+            255
+          ]
+        },
+        {
+          "size": [
+            20,
+            20
+          ],
+          "alpha_extrema": [
+            0,
+            255
+          ]
+        },
+        {
+          "size": [
+            24,
+            24
+          ],
+          "alpha_extrema": [
+            0,
+            255
+          ]
+        },
+        {
+          "size": [
+            32,
+            32
+          ],
+          "alpha_extrema": [
+            0,
+            255
+          ]
+        },
+        {
+          "size": [
+            40,
+            40
+          ],
+          "alpha_extrema": [
+            0,
+            255
+          ]
+        },
+        {
+          "size": [
+            48,
+            48
+          ],
+          "alpha_extrema": [
+            0,
+            255
+          ]
+        },
+        {
+          "size": [
+            64,
+            64
+          ],
+          "alpha_extrema": [
+            0,
+            255
+          ]
+        },
+        {
+          "size": [
+            96,
+            96
+          ],
+          "alpha_extrema": [
+            0,
+            255
+          ]
+        },
+        {
+          "size": [
+            128,
+            128
+          ],
+          "alpha_extrema": [
+            0,
+            255
+          ]
+        },
+        {
+          "size": [
+            256,
+            256
+          ],
+          "alpha_extrema": [
+            0,
+            255
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+**/bin/
+**/obj/
+.tools/
+**/node_modules/
+artifacts/
+.vs/
+*.user
+*.suo
+research/__pycache__/
+
+# Local release archives, generated inventories and raw investigation captures.
+/src/*.zip
+/--report
+/tree.txt
+research/**/*.json
+**/__pycache__/
+
+# Signing credentials and local environment secrets.
+*.pfx
+*.p12
+.env
+.env.*
+!.env.example

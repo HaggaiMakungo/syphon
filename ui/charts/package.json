@@ -1,0 +1,22 @@
+{
+  "name": "syphon-speed-charts",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "build:desktop": "python ../desktop/prepare.py && node ../desktop/build.mjs"
+  },
+  "dependencies": {
+    "@phosphor-icons/core": "2.1.1",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "react-is": "19.3.1",
+    "recharts": "3.10.1"
+  },
+  "devDependencies": {
+    "@fontsource/inter": "5.2.8",
+    "@tabler/icons": "3.42.0",
+    "esbuild": "0.28.2"
+  }
+}

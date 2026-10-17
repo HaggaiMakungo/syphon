@@ -1,0 +1,13 @@
+/* Temporary comparison only: type sizes, weights and spacing stay in the existing styles. */
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:400;font-display:swap;src:url(plex-400.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:500;font-display:swap;src:url(plex-500.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:600;font-display:swap;src:url(plex-600.woff2) format('woff2')}
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:500 600;font-display:swap;src:url(space-500-600.woff2) format('woff2')}
+:root{--font-ui:Inter,sans-serif;--font-display:var(--font-ui);--font-technical:Consolas,monospace;--font:var(--font-ui)}
+:root[data-typography=plex]{--font-ui:'IBM Plex Sans',Inter,sans-serif}
+:root[data-typography=hybrid]{--font-display:'Space Grotesk',Inter,sans-serif}
+body{font-family:var(--font-ui)}
+.window-brand,.window-page,.activity-title,.download-title h2,.download-empty h3,.history-empty h3,.settings-section-title,.settings-card-title,.details-header h2,.history-inspector h3,.brand-name{font-family:var(--font-display)}
+.history-pane-checksum,#history-checksum{font-family:var(--font-technical)}
+
+.typography-restore{width:auto;white-space:nowrap;font-size:var(--type-ui,10.4px);margin-top:8px}

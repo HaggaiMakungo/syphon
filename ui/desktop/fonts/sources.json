@@ -1,0 +1,32 @@
+[
+  {
+    "file": "plex-400.woff2",
+    "source": "https://raw.githubusercontent.com/IBM/plex/71f558992315a12ca1f06a2215d57962a1992162/packages/plex-sans/fonts/complete/woff2/IBMPlexSans-Regular.woff2",
+    "bytes": 63020
+  },
+  {
+    "file": "plex-500.woff2",
+    "source": "https://raw.githubusercontent.com/IBM/plex/71f558992315a12ca1f06a2215d57962a1992162/packages/plex-sans/fonts/complete/woff2/IBMPlexSans-Medium.woff2",
+    "bytes": 66740
+  },
+  {
+    "file": "plex-600.woff2",
+    "source": "https://raw.githubusercontent.com/IBM/plex/71f558992315a12ca1f06a2215d57962a1992162/packages/plex-sans/fonts/complete/woff2/IBMPlexSans-SemiBold.woff2",
+    "bytes": 67060
+  },
+  {
+    "file": "space-500-600.woff2",
+    "source": "https://raw.githubusercontent.com/floriankarsten/space-grotesk/03507d024a01282884232081fc6011c09ff4e849/fonts/woff2/SpaceGrotesk%5Bwght%5D.woff2",
+    "bytes": 49256
+  },
+  {
+    "file": "IBM-Plex-LICENSE.txt",
+    "source": "https://raw.githubusercontent.com/IBM/plex/71f558992315a12ca1f06a2215d57962a1992162/LICENSE.txt",
+    "bytes": 4456
+  },
+  {
+    "file": "Space-Grotesk-OFL.txt",
+    "source": "https://raw.githubusercontent.com/floriankarsten/space-grotesk/03507d024a01282884232081fc6011c09ff4e849/OFL.txt",
+    "bytes": 4495
+  }
+]

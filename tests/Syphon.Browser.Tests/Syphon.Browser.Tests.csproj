@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup><TargetFramework>net10.0-windows</TargetFramework><OutputType>Exe</OutputType></PropertyGroup>
+ <ItemGroup>
+  <ProjectReference Include="../../src/Syphon.BrowserBridge/Syphon.BrowserBridge.csproj"/>
+  <ProjectReference Include="../../src/Syphon.Engine/Syphon.Engine.csproj"/>
+  <ProjectReference Include="../../src/Syphon.NativeHost/Syphon.NativeHost.csproj" ReferenceOutputAssembly="false"/>
+  <ProjectReference Include="../Syphon.TestServer/Syphon.TestServer.csproj"/>
+ </ItemGroup>
+</Project>

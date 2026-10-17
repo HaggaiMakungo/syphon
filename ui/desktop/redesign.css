@@ -1,0 +1,36 @@
+/* Critique refinements use the existing Syphon palette and raised/inset surfaces. */
+.dashboard-summary{grid-template-columns:repeat(3,minmax(0,1fr)) minmax(260px,2fr);gap:0}
+.summary-metric{padding-inline:16px;border-right:1px solid #ffffff10}
+.summary-metric:first-child{padding-left:0}
+.summary-secondary{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding-left:20px;justify-self:stretch}
+.summary-detail{flex-direction:column;gap:4px}
+.summary-detail span:last-child{font-size:var(--type-stat);line-height:1.2;font-weight:500}
+.queue-limit{border-left:1px solid #ffffff16;padding-left:14px}
+.workspace-drop-hint{margin:0;padding:8px 14px;border-bottom:1px dashed #b495ff30;color:var(--muted);font-size:var(--type-meta)}
+.download-workspace.is-dragging{outline:2px dashed var(--accent-text);outline-offset:-4px}
+.app-frame>div:first-child>[data-active=true],.settings-nav-item[data-active=true]{border-left:3px solid var(--accent-text)!important;color:var(--text)!important;font-weight:600}
+.app-frame>div:first-child>[role=button]{position:relative}
+.app-frame>div:first-child>[role=button]:hover:after,.app-frame>div:first-child>[role=button]:focus-visible:after{content:attr(aria-label);position:absolute;left:calc(100% + 8px);top:4px;z-index:20;padding:7px 10px;background:#241532;color:var(--text);white-space:nowrap;border:1px solid #ffffff16;border-radius:6px;font-size:11px;box-shadow:0 4px 12px #0006}
+.history-inspector dd{font-weight:500;color:var(--bright)}
+.history-pane-actions{order:0;margin:0 0 12px;padding-bottom:10px;border-bottom:1px solid #ffffff10}
+.history-pane-url button{display:block;max-width:100%;padding:0;border:0;background:none;color:var(--accent-text);font:inherit;text-align:left;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.history-pane-url button:hover{text-decoration:underline}
+#history-failed{color:#eea4b1}
+.history-attempt-group .history-outcome{flex-basis:auto;padding:3px 7px}
+.number-stepper{display:flex;align-items:center;flex-shrink:0;gap:2px;background:var(--inset);border:1px solid #ffffff14;border-radius:7px;padding:2px}
+.number-stepper input{width:48px!important;text-align:center;box-shadow:none!important;background:transparent!important;appearance:textfield}
+.number-stepper input::-webkit-inner-spin-button{appearance:none}
+.number-stepper button{width:26px;height:28px;padding:0;border:0;border-radius:5px;background:var(--raised);color:var(--accent-text);font-size:17px;box-shadow:2px 2px 5px var(--ds)}
+.number-stepper button:active{box-shadow:inset 1px 1px 4px var(--ds)}
+.download-advanced{margin-block:12px;border-top:1px solid #ffffff10;border-bottom:1px solid #ffffff10;padding:10px 0}
+.download-advanced summary{cursor:pointer;color:var(--accent-text);font-size:11px;font-weight:500}
+.download-advanced[open] summary{margin-bottom:12px}
+.resolved-file{border:1px solid #b495ff35;border-radius:8px;background:#b495ff0b;padding:10px!important}
+.transfer-progress{height:8px!important;background:#49285e!important;border:1px solid #b9aacd38;box-shadow:none!important}
+.transfer-progress>div{background:linear-gradient(90deg,#7650a4,#c49af5)!important}
+.transfer-progress .indeterminate{width:35%!important;animation:transfer-wait 1.4s ease-in-out infinite alternate}
+@keyframes transfer-wait{from{transform:translateX(-100%)}to{transform:translateX(285%)}}
+@media(prefers-reduced-motion:reduce){.transfer-progress .indeterminate{animation:none}}
+@media(max-width:760px){.dashboard-summary{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:14px}.summary-secondary{grid-column:1/-1;padding-left:0;border-top:1px solid #ffffff10;padding-top:12px}.summary-metric:nth-child(3){border-right:0}}
+
+.download-empty>.empty-add{margin-top:22px;min-width:150px}.download-empty>p{max-width:340px}

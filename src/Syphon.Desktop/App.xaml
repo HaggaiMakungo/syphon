@@ -1,0 +1,7 @@
+<Application x:Class="Syphon.Desktop.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+ <Application.Resources><ResourceDictionary><ResourceDictionary.MergedDictionaries>
+  <ResourceDictionary Source="Styles/Materials.xaml"/><ResourceDictionary Source="Styles/Controls.xaml"/><ResourceDictionary Source="Styles/TaskRows.xaml"/>
+ </ResourceDictionary.MergedDictionaries>
+  <BitmapImage x:Key="SyphonMark" UriSource="/Syphon;component/Assets/Brand/syphon_emblem_transparent.png"/>
+  <BitmapImage x:Key="SyphonWindowIcon" UriSource="/Syphon;component/Assets/Brand/syphon_window_icon.png"/>
+</ResourceDictionary></Application.Resources></Application>

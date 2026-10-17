@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows10.0.19041.0</TargetFramework>
+    <OutputPath>bin\$(Configuration)\net10.0-windows\</OutputPath>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <OutputType>WinExe</OutputType>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>Syphon</AssemblyName>
+    <ApplicationIcon>Assets\Brand\syphon_windows.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup><ProjectReference Include="../Syphon.Engine/Syphon.Engine.csproj" /></ItemGroup>
+  <ItemGroup><ProjectReference Include="../Syphon.BrowserBridge/Syphon.BrowserBridge.csproj" /></ItemGroup>
+  <ItemGroup><PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4258.31" /></ItemGroup>
+  <ItemGroup><Content Include="ChartAssets\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" /></ItemGroup>
+  <ItemGroup><Content Include="DesktopAssets\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" /></ItemGroup>
+  <ItemGroup><Resource Include="Assets\Brand\syphon_windows.ico" /><Resource Include="Assets\Brand\syphon_window_icon.png" /><Resource Include="Assets\Brand\syphon_emblem_transparent.png" /></ItemGroup>
+</Project>

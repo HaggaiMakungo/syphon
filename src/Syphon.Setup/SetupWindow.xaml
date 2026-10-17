@@ -1,0 +1,46 @@
+<Window x:Class="Syphon.Setup.SetupWindow" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="Syphon Setup" Width="1060" Height="700" MinWidth="800" MinHeight="570" WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="NoResize" AllowsTransparency="True" Background="Transparent" FontFamily="Segoe UI" FontSize="13">
+ <Border BorderBrush="#6D4A99" BorderThickness="1" CornerRadius="12" Background="#09070E" ClipToBounds="True">
+ <Grid><Grid.RowDefinitions><RowDefinition Height="44"/><RowDefinition Height="*"/></Grid.RowDefinitions>
+  <Border BorderBrush="#372644" BorderThickness="0,0,0,1" Background="#100C18" CornerRadius="12,12,0,0" MouseLeftButtonDown="DragHeader"><Grid><TextBlock Text="Syphon Setup" Margin="22,0" VerticalAlignment="Center" FontSize="16" Foreground="#CFC1E5"/><Button Content="✕" HorizontalAlignment="Right" Width="48" Padding="10" Background="Transparent" BorderThickness="0" Click="CancelClick" ToolTip="Close setup" AutomationProperties.Name="Close setup"/></Grid></Border>
+  <Grid Grid.Row="1"><Grid.ColumnDefinitions><ColumnDefinition Width="260"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+   <Border BorderBrush="#30213F" BorderThickness="0,0,1,0" CornerRadius="0,0,0,12"><Border.Background><LinearGradientBrush StartPoint="0,0" EndPoint="1,1"><GradientStop Color="#171026"/><GradientStop Color="#0A080F" Offset="1"/></LinearGradientBrush></Border.Background>
+    <Grid><Grid.RowDefinitions><RowDefinition Height="230"/><RowDefinition Height="*"/><RowDefinition Height="52"/></Grid.RowDefinitions>
+     <StackPanel VerticalAlignment="Center" Margin="28,14"><Image Source="Brand/emblem.png" Height="135" Stretch="Uniform"/><Image Source="Brand/wordmark.png" Height="29" Margin="0,15,0,0" Stretch="Uniform"/></StackPanel>
+     <StackPanel Grid.Row="1" x:Name="Steps" Margin="0,4,0,0">
+      <Border x:Name="Step0" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="●    Welcome" FontSize="16"/></Border>
+      <Border x:Name="Step1" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="○    Location" FontSize="16"/></Border>
+      <Border x:Name="Step2" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="○    Install" FontSize="16"/></Border>
+      <Border x:Name="Step3" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="○    Finish" FontSize="16"/></Border>
+     </StackPanel><TextBlock Grid.Row="2" Text="0.1.0-beta.1 · Windows x64" Foreground="#9284AA" FontSize="11" Margin="30,12"/>
+    </Grid>
+   </Border>
+   <Grid Grid.Column="1"><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/><RowDefinition Height="86"/></Grid.RowDefinitions>
+    <Grid ClipToBounds="True"><Ellipse Width="700" Height="700" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,-570,-210,0" Stroke="#4E2382" StrokeThickness="1"/><Ellipse Width="650" Height="650" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="-410,0,0,-520"><Ellipse.Fill><RadialGradientBrush><GradientStop Color="#492181"/><GradientStop Color="#0009070E" Offset="1"/></RadialGradientBrush></Ellipse.Fill></Ellipse>
+     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="46,42,42,24">
+      <StackPanel>
+       <TextBlock x:Name="Heading" Text="Welcome to Syphon" FontSize="34" FontWeight="SemiBold" Margin="0,0,0,12"/>
+       <TextBlock x:Name="Subtitle" Text="Set up your download workspace." FontSize="19" Foreground="#B9AACD" Margin="0,0,0,32"/>
+       <StackPanel x:Name="WelcomePanel">
+        <Grid Margin="0,0,0,27"><Grid.ColumnDefinitions><ColumnDefinition Width="64"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Border BorderBrush="#9D64E5" BorderThickness="1" CornerRadius="10" Width="51" Height="51" HorizontalAlignment="Left"><TextBlock Text="↓" FontSize="33" Foreground="#C49AF5" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border><StackPanel Grid.Column="1"><TextBlock Text="Resumable downloads" FontWeight="SemiBold" FontSize="18"/><TextBlock Text="Pause and continue when the source supports resume." Foreground="#B9AACD" Margin="0,6,0,0"/></StackPanel></Grid>
+        <Grid Margin="0,0,0,27"><Grid.ColumnDefinitions><ColumnDefinition Width="64"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Border BorderBrush="#9D64E5" BorderThickness="1" CornerRadius="10" Width="51" Height="51" HorizontalAlignment="Left"><TextBlock Text="▤" FontSize="29" Foreground="#C49AF5" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border><StackPanel Grid.Column="1"><TextBlock Text="Browser integration" FontWeight="SemiBold" FontSize="18"/><TextBlock Text="Send links from your browser with the Syphon extension." Foreground="#B9AACD" Margin="0,6,0,0"/></StackPanel></Grid>
+        <Grid><Grid.ColumnDefinitions><ColumnDefinition Width="64"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Border BorderBrush="#9D64E5" BorderThickness="1" CornerRadius="10" Width="51" Height="51" HorizontalAlignment="Left"><TextBlock Text="✓" FontSize="29" Foreground="#C49AF5" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border><StackPanel Grid.Column="1"><TextBlock Text="File integrity tools" FontWeight="SemiBold" FontSize="18"/><TextBlock Text="Recorded SHA-256 checksums and optional publisher verification." Foreground="#B9AACD" Margin="0,6,0,0"/></StackPanel></Grid>
+        <TextBlock Text="Includes FFmpeg, FFprobe, yt-dlp, Node.js and .NET. Internet is needed only if the Microsoft WebView2 runtime is missing." Foreground="#9284AA" FontSize="12" Margin="0,28,0,0"/>
+       </StackPanel>
+       <StackPanel x:Name="LocationPanel" Visibility="Collapsed">
+        <TextBlock Text="Install Syphon for your Windows account" FontWeight="SemiBold" Margin="0,0,0,10"/><Grid><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBox x:Name="Location" AutomationProperties.Name="Installation folder"/><Button Grid.Column="1" Content="Browse…" Click="BrowseClick" Margin="10,0,0,0" Padding="12,8"/></Grid>
+        <TextBlock x:Name="SizeNote" Foreground="#9284AA" Margin="0,9,0,18" Text="Setup checks the available space before installing."/>
+        <CheckBox x:Name="BrowserOption" IsChecked="True" Content="Connect the Syphon browser extension"/><CheckBox x:Name="DesktopOption" IsChecked="True" Content="Create a desktop shortcut"/>
+        <TextBlock Text="Your existing downloads, history and preferences are preserved. New downloads use Videos, Music, Documents, Programs and Misc folders." Foreground="#B9AACD" Margin="0,20,0,10"/>
+        <TextBlock Text="Browser extension installation still requires your approval inside Chrome or Edge. Bundled tool licences and release notes are included in the installation folder." Foreground="#9284AA" FontSize="12"/>
+       </StackPanel>
+       <StackPanel x:Name="InstallPanel" Visibility="Collapsed"><TextBlock x:Name="Status" Text="Preparing installation…" FontSize="16" Margin="0,12,0,20" AutomationProperties.LiveSetting="Polite"/><ProgressBar x:Name="Progress" Height="9" Minimum="0" Maximum="100" Foreground="#AB72EF" Background="#1A1324" BorderThickness="0"/><TextBlock x:Name="Percent" Text="0%" Foreground="#B9AACD" HorizontalAlignment="Right" Margin="0,12"/><TextBlock Text="Files are checked before they replace an existing installation. Setup will never close an active Syphon download for you." Foreground="#9284AA" Margin="0,24"/></StackPanel>
+       <StackPanel x:Name="FinishPanel" Visibility="Collapsed"><TextBlock x:Name="FinishNote" Text="Your download workspace is ready." Foreground="#B9AACD" FontSize="16"/><CheckBox x:Name="LaunchOption" IsChecked="True" Content="Launch Syphon" Margin="0,24,0,8"/><Button x:Name="ExtensionHelp" Content="Browser extension setup" Click="ExtensionClick" HorizontalAlignment="Left" Margin="0,14,0,0"/><TextBlock x:Name="FinishPath" Foreground="#9284AA" Margin="0,22,0,0" FontSize="12"/></StackPanel>
+      </StackPanel>
+     </ScrollViewer>
+    </Grid>
+    <TextBlock Grid.Row="1" x:Name="Error" Visibility="Collapsed" Foreground="#EEB3BE" Margin="46,0,40,14" AutomationProperties.LiveSetting="Assertive"/>
+    <Border Grid.Row="2" BorderBrush="#30213F" BorderThickness="0,1,0,0" Padding="24,17" CornerRadius="0,0,12,0"><Grid><Button x:Name="Back" Content="Back" HorizontalAlignment="Left" Visibility="Collapsed" Click="BackClick"/><StackPanel Orientation="Horizontal" HorizontalAlignment="Right"><Button x:Name="Cancel" Content="Cancel" MinWidth="110" Click="CancelClick" Margin="0,0,14,0"/><Button x:Name="Next" Content="Continue" MinWidth="150" BorderBrush="#BD83FF" Click="NextClick"><Button.Background><LinearGradientBrush StartPoint="0,0" EndPoint="0,1"><GradientStop Color="#8747D5"/><GradientStop Color="#4E18AC" Offset="1"/></LinearGradientBrush></Button.Background></Button></StackPanel></Grid></Border>
+   </Grid>
+  </Grid>
+ </Grid></Border>
+</Window>

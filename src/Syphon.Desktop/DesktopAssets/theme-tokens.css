@@ -1,0 +1,52 @@
+/* Stealth Hybrid: approved Obsidian Glass lab, 50% glow / 0% brightness / 0% border.
+   Canonical palette; build.mjs emits desktop, native and extension copies.
+   Quiet structural separators remain neutral; violet is light beneath the face. */
+:root {
+ --ov-glow-strength:0.5;
+ --ov-panel-brightness:0;
+ --ov-border-intensity:0;
+ --ov-canvas:#070709;
+ --ov-shell:#08080b;
+ --ov-panel:#050508;
+ --ov-panel-raised:#101014;
+ --ov-control:#14111d;
+ --ov-control-hover:#1e1929;
+ --ov-inset:#08080b;
+ --ov-border:#1b1920;
+ --ov-border-subtle:#121216;
+ --ov-border-hover:#3a3347;
+ --ov-border-focus:#baaaff;
+ --ov-text-primary:#eeeef4;
+ --ov-text-secondary:#b2afbf;
+ --ov-text-muted:#9c95ad;
+ --ov-text-disabled:#777181;
+ --ov-accent:#a791ff;
+ --ov-accent-hover:#baa2f0;
+ --ov-accent-pressed:#7250ba;
+ /* Deeper primary fills keep small off-white button labels above 4.5:1. */
+ --ov-primary-top:#744be0;
+ --ov-primary-bottom:#4b24ac;
+ --ov-primary-hover:#7043d8;
+ --ov-primary-pressed:#45228e;
+ --ov-glow-soft:rgba(117,68,229,0.08);
+ --ov-glow-medium:rgba(116,69,237,0.20);
+ --ov-glow-strong:rgba(166,127,255,0.275);
+ --ov-corner-light:rgba(125,77,255,0.21);
+ --ov-corner-light-secondary:rgba(109,66,232,0.08);
+ --ov-edge-light:rgba(255,255,255,0.0225);
+ --ov-shadow:rgba(0,0,0,0.32);
+ --ov-shadow-deep:rgba(0,0,0,0.65);
+ --ov-selection:rgba(140,103,255,0.094);
+ --ov-progress-track:#19151f;
+ --ov-chart-line:#aa8eff;
+ --ov-chart-grid:rgba(255,255,255,0.04);
+ --ov-chart-fill:rgba(161,129,237,0.18);
+ --ov-chart-clear:rgba(161,129,237,0);
+ --ov-success:#4a9e6a;
+ --ov-warning:#b87a2a;
+ --ov-danger:#cf7979;
+ --ov-cancelled:#a99bb9;
+ --ov-success-surface:rgba(74,158,106,0.12);
+ --ov-warning-surface:rgba(184,122,42,0.12);
+ --ov-danger-surface:rgba(207,121,121,0.12);
+}
