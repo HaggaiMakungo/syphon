@@ -1,0 +1,1112 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "dependencyLockSha256": "92fa738eb7f3a5930789e58e7e1594bafa2462a88049017f88576ac275d85394",
+  "complete": false,
+  "additionalSourceArchives": 41,
+  "totalSourceArchives": 44,
+  "collection": [
+    {
+      "file": "Pyinstaller-Builds-5eb86b862d61adc3df0f44e6e0b815b7d74fa3f5.tar.gz",
+      "bytes": 7782,
+      "sha256": "65fa1589e00923522b289ad4fbde68feca06850acd699e1a4764882b2734c582",
+      "url": "https://codeload.github.com/yt-dlp/Pyinstaller-Builds/tar.gz/5eb86b862d61adc3df0f44e6e0b815b7d74fa3f5",
+      "component": "PyInstaller build repository",
+      "kind": "source-archive",
+      "identityEvidence": "runtime-reported Python version or official PyInstaller release revision; HTTPS acquisition, local hash recorded; publisher signature not verified",
+      "coverage": "partial build/source evidence, not the complete executable source set"
+    },
+    {
+      "file": "Python-3.10.11.tgz",
+      "bytes": 26085141,
+      "sha256": "f3db31b668efa983508bd67b5712898aa4247899a346f2eb745734699ccd3859",
+      "url": "https://www.python.org/ftp/python/3.10.11/Python-3.10.11.tgz",
+      "component": "CPython",
+      "kind": "source-archive",
+      "identityEvidence": "runtime-reported Python version or official PyInstaller release revision; HTTPS acquisition, local hash recorded; publisher signature not verified",
+      "coverage": "partial build/source evidence, not the complete executable source set"
+    },
+    {
+      "file": "altgraph-0.17.5.tar.gz",
+      "bytes": 48428,
+      "sha256": "c87b395dd12fabde9c99573a9749d67da8d29ef9de0125c7f536699b4a9bc9e7",
+      "url": "https://files.pythonhosted.org/packages/7e/f8/97fdf103f38fed6792a1601dbc16cc8aac56e7459a9fff08c812d8ae177a/altgraph-0.17.5.tar.gz",
+      "component": "altgraph",
+      "version": "0.17.5",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-altgraph-0.17.5.json",
+      "metadataUrl": "https://pypi.org/pypi/altgraph/0.17.5/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "astring-v1.9.0-96dfb2b347fc7e4f359b26579198097b9f0b1256.tar.gz",
+      "bytes": 153057,
+      "sha256": "cc907fe097a83c529235823820c787b1112d77c6ff216cae5fe17b14e5524fd5",
+      "url": "https://codeload.github.com/davidbonnet/astring/tar.gz/96dfb2b347fc7e4f359b26579198097b9f0b1256",
+      "component": "davidbonnet/astring",
+      "revision": "96dfb2b347fc7e4f359b26579198097b9f0b1256",
+      "version": "v1.9.0",
+      "kind": "source-archive",
+      "identityEvidence": "yt-dlp-ejs package-lock.json; official repository ref resolved to full commit",
+      "metadataFile": "astring-v1.9.0-96dfb2b347fc7e4f359b26579198097b9f0b1256.tar.gz.commit.json",
+      "metadataUrl": "https://api.github.com/repos/davidbonnet/astring/commits/v1.9.0",
+      "coverage": "recipe-matched source snapshot; actual compiled dependency provenance still requires reconciliation"
+    },
+    {
+      "file": "brotli-1.2.0.tar.gz",
+      "bytes": 7388632,
+      "sha256": "e310f77e41941c13340a95976fe66a8a95b01e783d430eeaf7a2f87e0a57dd0a",
+      "url": "https://files.pythonhosted.org/packages/f7/16/c92ca344d646e71a43b8bb353f0a6490d7f6e06210f8554c8f874e454285/brotli-1.2.0.tar.gz",
+      "component": "brotli",
+      "version": "1.2.0",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-brotli-1.2.0.json",
+      "metadataUrl": "https://pypi.org/pypi/brotli/1.2.0/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "certifi-2026.7.22.tar.gz",
+      "bytes": 138112,
+      "sha256": "741e2c3b351ddf169a738da9f2c048608ff7f2c5cc02f1ebc6b118bb090d5d55",
+      "url": "https://files.pythonhosted.org/packages/a3/c2/24167ea9858356b47a87a50d39908bfdb72ceeefe0041586e704e5376b3a/certifi-2026.7.22.tar.gz",
+      "component": "certifi",
+      "version": "2026.7.22",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-certifi-2026.7.22.json",
+      "metadataUrl": "https://pypi.org/pypi/certifi/2026.7.22/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "cffi-2.1.1.tar.gz",
+      "bytes": 530807,
+      "sha256": "dd31f52ea1086513bb9df30f8fcee9b8918323ae067a3d5b78bc826a000712be",
+      "url": "https://files.pythonhosted.org/packages/9e/ef/008a1939e372c06329a3fce4279c02f328488f3526744906eeec3da7ad5f/cffi-2.1.1.tar.gz",
+      "component": "cffi",
+      "version": "2.1.1",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-cffi-2.1.1.json",
+      "metadataUrl": "https://pypi.org/pypi/cffi/2.1.1/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "charset_normalizer-3.5.0.tar.gz",
+      "bytes": 169295,
+      "sha256": "49bd5feb59b0bf3cbf6ebcf4352e371c95b9da9bacd4449f8b64d0ad2c10a26e",
+      "url": "https://files.pythonhosted.org/packages/cb/31/4971872b3ed8715346231fb6eb4da8fcba65a4143c189db151ee28a2812b/charset_normalizer-3.5.0.tar.gz",
+      "component": "charset-normalizer",
+      "version": "3.5.0",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-charset-normalizer-3.5.0.json",
+      "metadataUrl": "https://pypi.org/pypi/charset-normalizer/3.5.0/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "cpython-source-deps-bzip2-1.0.8-05301997b2f9590f49c672cf3dfd3d3dfa7ad521.tar.gz",
+      "bytes": 819016,
+      "sha256": "ab14accac86cdd92021d50465deeb221b476d6675bd1383d3c7fb83751c2e0a3",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/05301997b2f9590f49c672cf3dfd3d3dfa7ad521",
+      "component": "python/cpython-source-deps",
+      "revision": "05301997b2f9590f49c672cf3dfd3d3dfa7ad521",
+      "version": "bzip2-1.0.8",
+      "kind": "source-archive",
+      "identityEvidence": "CPython Windows external recipe; official repository ref resolved to full commit",
+      "metadataFile": "cpython-source-deps-bzip2-1.0.8-05301997b2f9590f49c672cf3dfd3d3dfa7ad521.tar.gz.commit.json",
+      "metadataUrl": "https://api.github.com/repos/python/cpython-source-deps/commits/bzip2-1.0.8",
+      "coverage": "recipe-matched source snapshot; actual compiled dependency provenance still requires reconciliation"
+    },
+    {
+      "file": "cpython-source-deps-libffi-3.3.0-35a5081d073058159e8db96c43029f88c1da501a.tar.gz",
+      "bytes": 508528,
+      "sha256": "34e0130e4065b0efc71a6c5af75e9b451c96a9a8f8418e911c59b7dc6f2452e4",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/35a5081d073058159e8db96c43029f88c1da501a",
+      "component": "python/cpython-source-deps",
+      "revision": "35a5081d073058159e8db96c43029f88c1da501a",
+      "version": "libffi-3.3.0",
+      "kind": "source-archive",
+      "identityEvidence": "CPython Windows external recipe; official repository ref resolved to full commit",
+      "metadataFile": "cpython-source-deps-libffi-3.3.0-35a5081d073058159e8db96c43029f88c1da501a.tar.gz.commit.json",
+      "metadataUrl": "https://api.github.com/repos/python/cpython-source-deps/commits/libffi-3.3.0",
+      "coverage": "recipe-matched source snapshot; actual compiled dependency provenance still requires reconciliation"
+    },
+    {
+      "file": "cpython-source-deps-openssl-1.1.1t-82bfdc9e019e4892c5bd8f90b71c42fbf79f29d0.tar.gz",
+      "bytes": 10068642,
+      "sha256": "e5aa38e691368396daed27e4f336f5f0f5ca0ff8c6f7f673394500224079e654",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/82bfdc9e019e4892c5bd8f90b71c42fbf79f29d0",
+      "component": "python/cpython-source-deps",
+      "revision": "82bfdc9e019e4892c5bd8f90b71c42fbf79f29d0",
+      "version": "openssl-1.1.1t",
+      "kind": "source-archive",
+      "identityEvidence": "CPython Windows external recipe; official repository ref resolved to full commit",
+      "metadataFile": "cpython-source-deps-openssl-1.1.1t-82bfdc9e019e4892c5bd8f90b71c42fbf79f29d0.tar.gz.commit.json",
+      "metadataUrl": "https://api.github.com/repos/python/cpython-source-deps/commits/openssl-1.1.1t",
+      "coverage": "recipe-matched source snapshot; actual compiled dependency provenance still requires reconciliation"
+    },
+    {
+      "file": "cpython-source-deps-sqlite-3.40.1.0-db4ca556b25787c263ee72a4b764c4be474c322f.tar.gz",
+      "bytes": 2595070,
+      "sha256": "61a33a1f61b30617564ae869296339b19dfd30b9b32a0e1b3493d8b93b23b54c",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/db4ca556b25787c263ee72a4b764c4be474c322f",
+      "component": "python/cpython-source-deps",
+      "revision": "db4ca556b25787c263ee72a4b764c4be474c322f",
+      "version": "sqlite-3.40.1.0",
+      "kind": "source-archive",
+      "identityEvidence": "CPython Windows external recipe; official repository ref resolved to full commit",
+      "metadataFile": "cpython-source-deps-sqlite-3.40.1.0-db4ca556b25787c263ee72a4b764c4be474c322f.tar.gz.commit.json",
+      "metadataUrl": "https://api.github.com/repos/python/cpython-source-deps/commits/sqlite-3.40.1.0",
+      "coverage": "recipe-matched source snapshot; actual compiled dependency provenance still requires reconciliation"
+    },
+    {
+      "file": "cpython-source-deps-xz-5.2.5-c6bc0c612605622aaef101a33a751f9de2ecc193.tar.gz",
+      "bytes": 1745919,
+      "sha256": "115433c946ee069e857fd04cf41b38a4a74ed45d868a3b2e08ccd4a1f04f39d0",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/c6bc0c612605622aaef101a33a751f9de2ecc193",
+      "component": "python/cpython-source-deps",
+      "revision": "c6bc0c612605622aaef101a33a751f9de2ecc193",
+      "version": "xz-5.2.5",
+      "kind": "source-archive",
+      "identityEvidence": "CPython Windows external recipe; official repository ref resolved to full commit",
+      "metadataFile": "cpython-source-deps-xz-5.2.5-c6bc0c612605622aaef101a33a751f9de2ecc193.tar.gz.commit.json",
+      "metadataUrl": "https://api.github.com/repos/python/cpython-source-deps/commits/xz-5.2.5",
+      "coverage": "recipe-matched source snapshot; actual compiled dependency provenance still requires reconciliation"
+    },
+    {
+      "file": "cpython-source-deps-zlib-1.2.13-9071e5ae1bd90c30518404b95ec0be0d4cf6cf84.tar.gz",
+      "bytes": 1554772,
+      "sha256": "0200469024cfc47334c7f6a28855a54d33740a7207d1b9e860fbbaf0bebfca63",
+      "url": "https://codeload.github.com/python/cpython-source-deps/tar.gz/9071e5ae1bd90c30518404b95ec0be0d4cf6cf84",
+      "component": "python/cpython-source-deps",
+      "revision": "9071e5ae1bd90c30518404b95ec0be0d4cf6cf84",
+      "version": "zlib-1.2.13",
+      "kind": "source-archive",
+      "identityEvidence": "CPython Windows external recipe; official repository ref resolved to full commit",
+      "metadataFile": "cpython-source-deps-zlib-1.2.13-9071e5ae1bd90c30518404b95ec0be0d4cf6cf84.tar.gz.commit.json",
+      "metadataUrl": "https://api.github.com/repos/python/cpython-source-deps/commits/zlib-1.2.13",
+      "coverage": "recipe-matched source snapshot; actual compiled dependency provenance still requires reconciliation"
+    },
+    {
+      "file": "curl-impersonate-v2.0.0-ec41b71ce888806bfec56ada7a7258d333eb3d19.tar.gz",
+      "bytes": 207810,
+      "sha256": "9f64512f18dc8b9ce0d95f0ea9588065e69048456e53817506a0241a13798cd7",
+      "url": "https://codeload.github.com/lexiforest/curl-impersonate/tar.gz/ec41b71ce888806bfec56ada7a7258d333eb3d19",
+      "component": "lexiforest/curl-impersonate",
+      "revision": "ec41b71ce888806bfec56ada7a7258d333eb3d19",
+      "version": "v2.0.0",
+      "kind": "source-archive",
+      "identityEvidence": "curl-cffi 0.16.0 build.py native dependency; official repository ref resolved to full commit",
+      "metadataFile": "curl-impersonate-v2.0.0-ec41b71ce888806bfec56ada7a7258d333eb3d19.tar.gz.commit.json",
+      "metadataUrl": "https://api.github.com/repos/lexiforest/curl-impersonate/commits/v2.0.0",
+      "coverage": "recipe-matched source snapshot; actual compiled dependency provenance still requires reconciliation"
+    },
+    {
+      "file": "curl-native-boringssl-156c7b75ae9b8c3b3f847acf264f17594c3859fb.zip",
+      "bytes": 80313844,
+      "sha256": "450e169b284697c6eafe523cb7679f4221fbe1a0993f773a566c33b188762844",
+      "url": "https://github.com/google/boringssl/archive/156c7b75ae9b8c3b3f847acf264f17594c3859fb.zip",
+      "component": "curl-impersonate native BORINGSSL",
+      "kind": "source-archive",
+      "identityEvidence": "URL and SHA-256 from curl-impersonate v2.0.0 CMakeLists.txt, matched on retrieval",
+      "coverage": "recipe input retained; actual DLL build, overrides and toolchain still require reconciliation"
+    },
+    {
+      "file": "curl-native-brotli-v1.2.0.tar.gz",
+      "bytes": 646315,
+      "sha256": "816c96e8e8f193b40151dad7e8ff37b1221d019dbcb9c35cd3fadbfe6477dfec",
+      "url": "https://github.com/google/brotli/archive/refs/tags/v1.2.0.tar.gz",
+      "component": "curl-impersonate native BROTLI",
+      "kind": "source-archive",
+      "identityEvidence": "URL and SHA-256 from curl-impersonate v2.0.0 CMakeLists.txt, matched on retrieval",
+      "coverage": "recipe input retained; actual DLL build, overrides and toolchain still require reconciliation"
+    },
+    {
+      "file": "curl-native-curl-curl-8_21_0.tar.gz",
+      "bytes": 3592963,
+      "sha256": "ec753aa6f408a3ca9f0d6d5f7a77417aecd1544db13c03ae5d443612bf367364",
+      "url": "https://github.com/curl/curl/archive/curl-8_21_0.tar.gz",
+      "component": "curl-impersonate native CURL",
+      "kind": "source-archive",
+      "identityEvidence": "URL and SHA-256 from curl-impersonate v2.0.0 CMakeLists.txt, matched on retrieval",
+      "coverage": "recipe input retained; actual DLL build, overrides and toolchain still require reconciliation"
+    },
+    {
+      "file": "curl-native-nghttp2-nghttp2-1.63.0.tar.bz2",
+      "bytes": 2012107,
+      "sha256": "607b174554d22a828bc532d1d734fe0f729b5d5ed207f2f12e96a62e83f29c55",
+      "url": "https://github.com/nghttp2/nghttp2/releases/download/v1.63.0/nghttp2-1.63.0.tar.bz2",
+      "component": "curl-impersonate native NGHTTP2",
+      "kind": "source-archive",
+      "identityEvidence": "URL and SHA-256 from curl-impersonate v2.0.0 CMakeLists.txt, matched on retrieval",
+      "coverage": "recipe input retained; actual DLL build, overrides and toolchain still require reconciliation"
+    },
+    {
+      "file": "curl-native-nghttp3-nghttp3-1.15.0.tar.bz2",
+      "bytes": 519681,
+      "sha256": "c6c491a52804814098e446630e6efc459afc0d3da7952ffe6cbdc0b3f99b2b62",
+      "url": "https://github.com/ngtcp2/nghttp3/releases/download/v1.15.0/nghttp3-1.15.0.tar.bz2",
+      "component": "curl-impersonate native NGHTTP3",
+      "kind": "source-archive",
+      "identityEvidence": "URL and SHA-256 from curl-impersonate v2.0.0 CMakeLists.txt, matched on retrieval",
+      "coverage": "recipe input retained; actual DLL build, overrides and toolchain still require reconciliation"
+    },
+    {
+      "file": "curl-native-ngtcp2-ngtcp2-1.20.0.tar.bz2",
+      "bytes": 898205,
+      "sha256": "871ec97ad86803cf312901b0c393b0ee70163e25a87c9b2894d1234341ce4e97",
+      "url": "https://github.com/ngtcp2/ngtcp2/releases/download/v1.20.0/ngtcp2-1.20.0.tar.bz2",
+      "component": "curl-impersonate native NGTCP2",
+      "kind": "source-archive",
+      "identityEvidence": "URL and SHA-256 from curl-impersonate v2.0.0 CMakeLists.txt, matched on retrieval",
+      "coverage": "recipe input retained; actual DLL build, overrides and toolchain still require reconciliation"
+    },
+    {
+      "file": "curl-native-zlib-zlib-1.3.1.tar.gz",
+      "bytes": 1512791,
+      "sha256": "9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23",
+      "url": "https://github.com/madler/zlib/releases/download/v1.3.1/zlib-1.3.1.tar.gz",
+      "component": "curl-impersonate native ZLIB",
+      "kind": "source-archive",
+      "identityEvidence": "URL and SHA-256 from curl-impersonate v2.0.0 CMakeLists.txt, matched on retrieval",
+      "coverage": "recipe input retained; actual DLL build, overrides and toolchain still require reconciliation"
+    },
+    {
+      "file": "curl-native-zstd-zstd-1.5.7.tar.gz",
+      "bytes": 2434947,
+      "sha256": "eb33e51f49a15e023950cd7825ca74a4a2b43db8354825ac24fc1b7ee09e6fa3",
+      "url": "https://github.com/facebook/zstd/releases/download/v1.5.7/zstd-1.5.7.tar.gz",
+      "component": "curl-impersonate native ZSTD",
+      "kind": "source-archive",
+      "identityEvidence": "URL and SHA-256 from curl-impersonate v2.0.0 CMakeLists.txt, matched on retrieval",
+      "coverage": "recipe input retained; actual DLL build, overrides and toolchain still require reconciliation"
+    },
+    {
+      "file": "curl_cffi-0.16.0.tar.gz",
+      "bytes": 238344,
+      "sha256": "b00b423da8028eb6221e3b63bcd63d681150c07cee8b16000d1f7ea292731895",
+      "url": "https://files.pythonhosted.org/packages/b4/23/d32e113b16dbfb458bea408871ed98dd12f306a366a04215e84537e0af7e/curl_cffi-0.16.0.tar.gz",
+      "component": "curl-cffi",
+      "version": "0.16.0",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-curl-cffi-0.16.0.json",
+      "metadataUrl": "https://pypi.org/pypi/curl-cffi/0.16.0/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "idna-3.18.tar.gz",
+      "bytes": 196711,
+      "sha256": "ffb385a7e039654cef1ab9ef32c6fafe283c0c0467bba1d9029738ce4a14a848",
+      "url": "https://files.pythonhosted.org/packages/cd/63/9496c57188a2ee585e0f1db071d75089a11e98aa86eb99d9d7618fc1edce/idna-3.18.tar.gz",
+      "component": "idna",
+      "version": "3.18",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-idna-3.18.json",
+      "metadataUrl": "https://pypi.org/pypi/idna/3.18/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "meriyah-v6.1.4-abbbfe0c4e4d52649716028a4416bd0fe6644e57.tar.gz",
+      "bytes": 944070,
+      "sha256": "addecf994d152cfdfbe0acf492ce9a51aa16220ace76a5538de17d1cee46b2d1",
+      "url": "https://codeload.github.com/meriyah/meriyah/tar.gz/abbbfe0c4e4d52649716028a4416bd0fe6644e57",
+      "component": "meriyah/meriyah",
+      "revision": "abbbfe0c4e4d52649716028a4416bd0fe6644e57",
+      "version": "v6.1.4",
+      "kind": "source-archive",
+      "identityEvidence": "yt-dlp-ejs package-lock.json; official repository ref resolved to full commit",
+      "metadataFile": "meriyah-v6.1.4-abbbfe0c4e4d52649716028a4416bd0fe6644e57.tar.gz.commit.json",
+      "metadataUrl": "https://api.github.com/repos/meriyah/meriyah/commits/v6.1.4",
+      "coverage": "recipe-matched source snapshot; actual compiled dependency provenance still requires reconciliation"
+    },
+    {
+      "file": "mutagen-1.48.1.tar.gz",
+      "bytes": 1276978,
+      "sha256": "8f95637ab9f6f305cec6bd1294e197debe207998e3e068596563c74f86b0a173",
+      "url": "https://files.pythonhosted.org/packages/df/70/1675da133ea92227da41bf5b24e1c66be597ff736a1533ade41da986852f/mutagen-1.48.1.tar.gz",
+      "component": "mutagen",
+      "version": "1.48.1",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-mutagen-1.48.1.json",
+      "metadataUrl": "https://pypi.org/pypi/mutagen/1.48.1/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "packaging-26.3.tar.gz",
+      "bytes": 313412,
+      "sha256": "94edc256424af38762eb31306eed28beb9f0efc50a8837492c9d6fd6004aed79",
+      "url": "https://files.pythonhosted.org/packages/7d/fa/3944b40b07da9ce895c0e6303a5ab7d53da063554f534556b134a54d6093/packaging-26.3.tar.gz",
+      "component": "packaging",
+      "version": "26.3",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-packaging-26.3.json",
+      "metadataUrl": "https://pypi.org/pypi/packaging/26.3/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "pefile-2024.8.26.tar.gz",
+      "bytes": 76008,
+      "sha256": "3ff6c5d8b43e8c37bb6e6dd5085658d658a7a0bdcd20b6a07b1fcfc1c4e9d632",
+      "url": "https://files.pythonhosted.org/packages/03/4f/2750f7f6f025a1507cd3b7218691671eecfd0bbebebe8b39aa0fe1d360b8/pefile-2024.8.26.tar.gz",
+      "component": "pefile",
+      "version": "2024.8.26",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-pefile-2024.8.26.json",
+      "metadataUrl": "https://pypi.org/pypi/pefile/2024.8.26/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "pycparser-3.0.tar.gz",
+      "bytes": 103492,
+      "sha256": "600f49d217304a5902ac3c37e1281c9fe94e4d0489de643a9504c5cdfdfc6b29",
+      "url": "https://files.pythonhosted.org/packages/1b/7d/92392ff7815c21062bea51aa7b87d45576f649f16458d78b7cf94b9ab2e6/pycparser-3.0.tar.gz",
+      "component": "pycparser",
+      "version": "3.0",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-pycparser-3.0.json",
+      "metadataUrl": "https://pypi.org/pypi/pycparser/3.0/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "pycryptodomex-3.23.0.tar.gz",
+      "bytes": 4922157,
+      "sha256": "71909758f010c82bc99b0abf4ea12012c98962fbf0583c2164f8b84533c2e4da",
+      "url": "https://files.pythonhosted.org/packages/c9/85/e24bf90972a30b0fcd16c73009add1d7d7cd9140c2498a68252028899e41/pycryptodomex-3.23.0.tar.gz",
+      "component": "pycryptodomex",
+      "version": "3.23.0",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-pycryptodomex-3.23.0.json",
+      "metadataUrl": "https://pypi.org/pypi/pycryptodomex/3.23.0/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "pyinstaller-6.22.0-py3-none-win_amd64.whl",
+      "bytes": 1101025,
+      "sha256": "294099ecb5fdd2a13ae4c29006d4e335b697a63b6a16cf052b90ec2b40bef05a",
+      "url": "https://github.com/yt-dlp/Pyinstaller-Builds/releases/download/2026.08.19.215425/pyinstaller-6.22.0-py3-none-win_amd64.whl",
+      "component": "PyInstaller Windows x64 build package",
+      "kind": "build-input-wheel",
+      "identityEvidence": "exact URL and SHA-256 match tagged Windows x64 requirement",
+      "coverage": "binary build input only; not counted as source"
+    },
+    {
+      "file": "pyinstaller-6.22.0.tar.gz",
+      "bytes": 3527013,
+      "sha256": "2fadbed5d951d53f003ed899312823a07dbba59990a223cbe538933e1c42a168",
+      "url": "https://github.com/yt-dlp/Pyinstaller-Builds/releases/download/2026.08.19.215425/pyinstaller-6.22.0.tar.gz",
+      "component": "PyInstaller release source",
+      "kind": "source-archive",
+      "identityEvidence": "runtime-reported Python version or official PyInstaller release revision; HTTPS acquisition, local hash recorded; publisher signature not verified",
+      "coverage": "partial build/source evidence, not the complete executable source set"
+    },
+    {
+      "file": "pyinstaller-70fc17210920bce17f4ab09bbf8104b0dbd45338.tar.gz",
+      "bytes": 3617860,
+      "sha256": "587eb41e1087aeaf2a879b04db35b68bbe44b85f9227e263c873396806103540",
+      "url": "https://codeload.github.com/pyinstaller/pyinstaller/tar.gz/70fc17210920bce17f4ab09bbf8104b0dbd45338",
+      "component": "PyInstaller upstream repository",
+      "kind": "source-archive",
+      "identityEvidence": "runtime-reported Python version or official PyInstaller release revision; HTTPS acquisition, local hash recorded; publisher signature not verified",
+      "coverage": "partial build/source evidence, not the complete executable source set"
+    },
+    {
+      "file": "pyinstaller_hooks_contrib-2026.6.tar.gz",
+      "bytes": 173354,
+      "sha256": "bef5002c32f4f50bd55b005da12cff64eca8783e7eaf86a06a62410164bab725",
+      "url": "https://files.pythonhosted.org/packages/94/5b/c9fe0db5e83ee1c39b2258fa21d23b15e1a60786b6c5990ee5074ead8bb6/pyinstaller_hooks_contrib-2026.6.tar.gz",
+      "component": "pyinstaller-hooks-contrib",
+      "version": "2026.6",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-pyinstaller-hooks-contrib-2026.6.json",
+      "metadataUrl": "https://pypi.org/pypi/pyinstaller-hooks-contrib/2026.6/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "pywin32-ctypes-0.2.3.tar.gz",
+      "bytes": 29471,
+      "sha256": "d162dc04946d704503b2edc4d55f3dba5c1d539ead017afa00142c38b9885755",
+      "url": "https://files.pythonhosted.org/packages/85/9f/01a1a99704853cb63f253eea009390c88e7131c67e66a0a02099a8c917cb/pywin32-ctypes-0.2.3.tar.gz",
+      "component": "pywin32-ctypes",
+      "version": "0.2.3",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-pywin32-ctypes-0.2.3.json",
+      "metadataUrl": "https://pypi.org/pypi/pywin32-ctypes/0.2.3/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "requests-2.34.2.tar.gz",
+      "bytes": 142856,
+      "sha256": "f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed",
+      "url": "https://files.pythonhosted.org/packages/ac/c3/e2a2b89f2d3e2179abd6d00ebd70bff6273f37fb3e0cc209f48b39d00cbf/requests-2.34.2.tar.gz",
+      "component": "requests",
+      "version": "2.34.2",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-requests-2.34.2.json",
+      "metadataUrl": "https://pypi.org/pypi/requests/2.34.2/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "setuptools-84.0.0.tar.gz",
+      "bytes": 1168449,
+      "sha256": "f4695c21257f0d9b537ec2692c941d02ee143b7cc1276941349a546573b2ef73",
+      "url": "https://files.pythonhosted.org/packages/6d/44/f5da03a8ef95d369145c5bb53050e7877c9f3d312e128605fd9504829143/setuptools-84.0.0.tar.gz",
+      "component": "setuptools",
+      "version": "84.0.0",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-setuptools-84.0.0.json",
+      "metadataUrl": "https://pypi.org/pypi/setuptools/84.0.0/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "typing_extensions-4.16.0.tar.gz",
+      "bytes": 113555,
+      "sha256": "dc983d19a509c94dba722ee6abd33940f7c05a89e243c47e907eb4db6f1a43e5",
+      "url": "https://files.pythonhosted.org/packages/f6/cc/6253133b5bb138fc3306cebfbda2c520f545d36b5be2c7255cc528bb45d6/typing_extensions-4.16.0.tar.gz",
+      "component": "typing-extensions",
+      "version": "4.16.0",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-typing-extensions-4.16.0.json",
+      "metadataUrl": "https://pypi.org/pypi/typing-extensions/4.16.0/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "urllib3-2.7.0.tar.gz",
+      "bytes": 433602,
+      "sha256": "231e0ec3b63ceb14667c67be60f2f2c40a518cb38b03af60abc813da26505f4c",
+      "url": "https://files.pythonhosted.org/packages/53/0c/06f8b233b8fd13b9e5ee11424ef85419ba0d8ba0b3138bf360be2ff56953/urllib3-2.7.0.tar.gz",
+      "component": "urllib3",
+      "version": "2.7.0",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-urllib3-2.7.0.json",
+      "metadataUrl": "https://pypi.org/pypi/urllib3/2.7.0/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "websockets-16.1.1.tar.gz",
+      "bytes": 182204,
+      "sha256": "db234eda965dcce15df96bb9709f587cd87d4d52aaf0e80e2f34ec04c7670c57",
+      "url": "https://files.pythonhosted.org/packages/21/f7/bc3a25c5ec26ce62ce487690becc2f3710bbc7b33338f005ad390db0b986/websockets-16.1.1.tar.gz",
+      "component": "websockets",
+      "version": "16.1.1",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-websockets-16.1.1.json",
+      "metadataUrl": "https://pypi.org/pypi/websockets/16.1.1/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    },
+    {
+      "file": "yt_dlp_ejs-0.8.0.tar.gz",
+      "bytes": 96571,
+      "sha256": "d5fa1639f63b5c4af8d932495f60689d5370f1a095782c944f7f62a303eb104e",
+      "url": "https://files.pythonhosted.org/packages/d3/e6/cceb9530e8f4e5940f6f7822d90e9d94f1b85343329a16baaf47bbbb3de1/yt_dlp_ejs-0.8.0.tar.gz",
+      "component": "yt-dlp-ejs",
+      "version": "0.8.0",
+      "kind": "package-source",
+      "identityEvidence": "tagged Windows recipe pin; source SHA-256 matches both tagged requirement hashes and PyPI release metadata",
+      "metadataFile": "pypi-yt-dlp-ejs-0.8.0.json",
+      "metadataUrl": "https://pypi.org/pypi/yt-dlp-ejs/0.8.0/json",
+      "coverage": "source release retained; does not establish native vendored inputs, build logs or binary reproducibility"
+    }
+  ],
+  "files": [
+    {
+      "file": "altgraph-0.17.5.tar.gz",
+      "bytes": 48428,
+      "sha256": "c87b395dd12fabde9c99573a9749d67da8d29ef9de0125c7f536699b4a9bc9e7"
+    },
+    {
+      "file": "astring-v1.9.0-96dfb2b347fc7e4f359b26579198097b9f0b1256.tar.gz",
+      "bytes": 153057,
+      "sha256": "cc907fe097a83c529235823820c787b1112d77c6ff216cae5fe17b14e5524fd5"
+    },
+    {
+      "file": "astring-v1.9.0-96dfb2b347fc7e4f359b26579198097b9f0b1256.tar.gz.commit.json",
+      "bytes": 6477,
+      "sha256": "d3fd780f40b5a25908de6d5a97a79af2ae91488f708fcd7573d7a1135c1edee1"
+    },
+    {
+      "file": "brotli-1.2.0.tar.gz",
+      "bytes": 7388632,
+      "sha256": "e310f77e41941c13340a95976fe66a8a95b01e783d430eeaf7a2f87e0a57dd0a"
+    },
+    {
+      "file": "certifi-2026.7.22.tar.gz",
+      "bytes": 138112,
+      "sha256": "741e2c3b351ddf169a738da9f2c048608ff7f2c5cc02f1ebc6b118bb090d5d55"
+    },
+    {
+      "file": "cffi-2.1.1.tar.gz",
+      "bytes": 530807,
+      "sha256": "dd31f52ea1086513bb9df30f8fcee9b8918323ae067a3d5b78bc826a000712be"
+    },
+    {
+      "file": "charset_normalizer-3.5.0.tar.gz",
+      "bytes": 169295,
+      "sha256": "49bd5feb59b0bf3cbf6ebcf4352e371c95b9da9bacd4449f8b64d0ad2c10a26e"
+    },
+    {
+      "file": "collection.json",
+      "bytes": 32101,
+      "sha256": "8935d23ef57585438c5060cf47c976ea86fe1727ad2a155fec671dd35052f58c"
+    },
+    {
+      "file": "cpython-source-deps-bzip2-1.0.8-05301997b2f9590f49c672cf3dfd3d3dfa7ad521.tar.gz",
+      "bytes": 819016,
+      "sha256": "ab14accac86cdd92021d50465deeb221b476d6675bd1383d3c7fb83751c2e0a3"
+    },
+    {
+      "file": "cpython-source-deps-bzip2-1.0.8-05301997b2f9590f49c672cf3dfd3d3dfa7ad521.tar.gz.commit.json",
+      "bytes": 105502,
+      "sha256": "13dc66a427a63bb8d3a5b7e74fec05ef06613fa35edaaa80b980cb4dc9fba2b9"
+    },
+    {
+      "file": "cpython-source-deps-libffi-3.3.0-35a5081d073058159e8db96c43029f88c1da501a.tar.gz",
+      "bytes": 508528,
+      "sha256": "34e0130e4065b0efc71a6c5af75e9b451c96a9a8f8418e911c59b7dc6f2452e4"
+    },
+    {
+      "file": "cpython-source-deps-libffi-3.3.0-35a5081d073058159e8db96c43029f88c1da501a.tar.gz.commit.json",
+      "bytes": 110825,
+      "sha256": "0ff789f78c53f8baaef45ae6e0aeffedef45fee2a1963af65fb71945e93d0b83"
+    },
+    {
+      "file": "cpython-source-deps-openssl-1.1.1t-82bfdc9e019e4892c5bd8f90b71c42fbf79f29d0.tar.gz",
+      "bytes": 10068642,
+      "sha256": "e5aa38e691368396daed27e4f336f5f0f5ca0ff8c6f7f673394500224079e654"
+    },
+    {
+      "file": "cpython-source-deps-openssl-1.1.1t-82bfdc9e019e4892c5bd8f90b71c42fbf79f29d0.tar.gz.commit.json",
+      "bytes": 5561,
+      "sha256": "8fe098ceff148b26e5faa0766d5ac56790da10e785f33bbef86785c61d873039"
+    },
+    {
+      "file": "cpython-source-deps-sqlite-3.40.1.0-db4ca556b25787c263ee72a4b764c4be474c322f.tar.gz",
+      "bytes": 2595070,
+      "sha256": "61a33a1f61b30617564ae869296339b19dfd30b9b32a0e1b3493d8b93b23b54c"
+    },
+    {
+      "file": "cpython-source-deps-sqlite-3.40.1.0-db4ca556b25787c263ee72a4b764c4be474c322f.tar.gz.commit.json",
+      "bytes": 23188,
+      "sha256": "f36029e1bc1d457b950474d3e60bf83d9187bb05f09cff005be7bfa75234d227"
+    },
+    {
+      "file": "cpython-source-deps-xz-5.2.5-c6bc0c612605622aaef101a33a751f9de2ecc193.tar.gz",
+      "bytes": 1745919,
+      "sha256": "115433c946ee069e857fd04cf41b38a4a74ed45d868a3b2e08ccd4a1f04f39d0"
+    },
+    {
+      "file": "cpython-source-deps-xz-5.2.5-c6bc0c612605622aaef101a33a751f9de2ecc193.tar.gz.commit.json",
+      "bytes": 993905,
+      "sha256": "42f05d06197740e4ac43b80044bd169fff40f312a3d48398e3cdef6ef691521c"
+    },
+    {
+      "file": "cpython-source-deps-zlib-1.2.13-9071e5ae1bd90c30518404b95ec0be0d4cf6cf84.tar.gz",
+      "bytes": 1554772,
+      "sha256": "0200469024cfc47334c7f6a28855a54d33740a7207d1b9e860fbbaf0bebfca63"
+    },
+    {
+      "file": "cpython-source-deps-zlib-1.2.13-9071e5ae1bd90c30518404b95ec0be0d4cf6cf84.tar.gz.commit.json",
+      "bytes": 298900,
+      "sha256": "343f37f1953017a911c58143b56fb921892299f44bafe0134f2c0372f17b2730"
+    },
+    {
+      "file": "curl-cffi-libs.json",
+      "bytes": 3758,
+      "sha256": "ba419bd9f736e63447db0abb7129a7659f2e9d0298d3f81735292b7aa551fb9c"
+    },
+    {
+      "file": "curl-impersonate-CMakeLists.txt",
+      "bytes": 24113,
+      "sha256": "925b124f13fd6e80c410da00c3c71ae23051fae3e11fc40060def0efd91db32f"
+    },
+    {
+      "file": "curl-impersonate-docs_Makefile",
+      "bytes": 705,
+      "sha256": "778a2d794be902a682301b682927e699b9f8259d5878a63fb177cd5e644ed79f"
+    },
+    {
+      "file": "curl-impersonate-Makefile",
+      "bytes": 1761,
+      "sha256": "38530e8c51cf320f457a839b2321946cdbb6fdce5cc936bea630d94a5117b2f3"
+    },
+    {
+      "file": "curl-impersonate-v2.0.0-ec41b71ce888806bfec56ada7a7258d333eb3d19.tar.gz",
+      "bytes": 207810,
+      "sha256": "9f64512f18dc8b9ce0d95f0ea9588065e69048456e53817506a0241a13798cd7"
+    },
+    {
+      "file": "curl-impersonate-v2.0.0-ec41b71ce888806bfec56ada7a7258d333eb3d19.tar.gz.commit.json",
+      "bytes": 15486,
+      "sha256": "bf7ae7aeeae7d7e97be45a2fc88d9b62c8f52dfc90b77893046664a503988607"
+    },
+    {
+      "file": "curl-native-boringssl-156c7b75ae9b8c3b3f847acf264f17594c3859fb.zip",
+      "bytes": 80313844,
+      "sha256": "450e169b284697c6eafe523cb7679f4221fbe1a0993f773a566c33b188762844"
+    },
+    {
+      "file": "curl-native-brotli-v1.2.0.tar.gz",
+      "bytes": 646315,
+      "sha256": "816c96e8e8f193b40151dad7e8ff37b1221d019dbcb9c35cd3fadbfe6477dfec"
+    },
+    {
+      "file": "curl-native-curl-curl-8_21_0.tar.gz",
+      "bytes": 3592963,
+      "sha256": "ec753aa6f408a3ca9f0d6d5f7a77417aecd1544db13c03ae5d443612bf367364"
+    },
+    {
+      "file": "curl-native-nghttp2-nghttp2-1.63.0.tar.bz2",
+      "bytes": 2012107,
+      "sha256": "607b174554d22a828bc532d1d734fe0f729b5d5ed207f2f12e96a62e83f29c55"
+    },
+    {
+      "file": "curl-native-nghttp3-nghttp3-1.15.0.tar.bz2",
+      "bytes": 519681,
+      "sha256": "c6c491a52804814098e446630e6efc459afc0d3da7952ffe6cbdc0b3f99b2b62"
+    },
+    {
+      "file": "curl-native-ngtcp2-ngtcp2-1.20.0.tar.bz2",
+      "bytes": 898205,
+      "sha256": "871ec97ad86803cf312901b0c393b0ee70163e25a87c9b2894d1234341ce4e97"
+    },
+    {
+      "file": "curl-native-zlib-zlib-1.3.1.tar.gz",
+      "bytes": 1512791,
+      "sha256": "9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23"
+    },
+    {
+      "file": "curl-native-zstd-zstd-1.5.7.tar.gz",
+      "bytes": 2434947,
+      "sha256": "eb33e51f49a15e023950cd7825ca74a4a2b43db8354825ac24fc1b7ee09e6fa3"
+    },
+    {
+      "file": "curl_cffi-0.16.0-build.py",
+      "bytes": 7090,
+      "sha256": "fe39067f4cb9aa4ecb653f66e4cccbaa59d3a8b1690a658c0ce1486c61206fe1"
+    },
+    {
+      "file": "curl_cffi-0.16.0-libs.json",
+      "bytes": 3758,
+      "sha256": "ba419bd9f736e63447db0abb7129a7659f2e9d0298d3f81735292b7aa551fb9c"
+    },
+    {
+      "file": "curl_cffi-0.16.0-pyproject.toml",
+      "bytes": 4587,
+      "sha256": "1506a83d8ca5f34abac430cd9609fce5ffbfecfc9d1dc4330d3b4e4d4d3fbc01"
+    },
+    {
+      "file": "curl_cffi-0.16.0-setup.py",
+      "bytes": 916,
+      "sha256": "237247d5a4be2999fc2385e1eac5e06b6cedb6d47c07b1589690153078553d8d"
+    },
+    {
+      "file": "curl_cffi-0.16.0.tar.gz",
+      "bytes": 238344,
+      "sha256": "b00b423da8028eb6221e3b63bcd63d681150c07cee8b16000d1f7ea292731895"
+    },
+    {
+      "file": "FFmpeg-bf608f16fd6772b1977a2637e8ab49644f6b5eb5.tar.gz",
+      "bytes": 17129546,
+      "sha256": "dde20e6b2d8da09f13d62f9c0837847d3018a3ba2e7932779fc219bcc81f22ed"
+    },
+    {
+      "file": "ffmpeg-buildconf.txt",
+      "bytes": 2385,
+      "sha256": "3c5b9accd7f24f2dd6602c76d27e174b180f048cb253bd1db39c373a8a0edd51"
+    },
+    {
+      "file": "ffmpeg-repo.json",
+      "bytes": 5004,
+      "sha256": "0c8e733facda59617760e00549fc82aeb2fdbb8142d89ecb1af680acc369eefe"
+    },
+    {
+      "file": "gyan-246-comments.json",
+      "bytes": 1619,
+      "sha256": "ad26eee878064a442c41b33dbe28447cf8c2b37c4211c65f07ce383d3703198a"
+    },
+    {
+      "file": "gyan-246.json",
+      "bytes": 4954,
+      "sha256": "d2cba003ef2dbc098b8dd674f8e33206579a5d9f62d89ce38d53927754ef6404"
+    },
+    {
+      "file": "gyan-source-issues.json",
+      "bytes": 10102,
+      "sha256": "e03b3d41b409bcf57f8af14a8485fbf101cbdd606e8944b9cac044840533c836"
+    },
+    {
+      "file": "gyan-tree.json",
+      "bytes": 832,
+      "sha256": "63f810e8d4645b4221178650fc07ef3c592e6fd40aaa97dc663a86d0190096b1"
+    },
+    {
+      "file": "idna-3.18.tar.gz",
+      "bytes": 196711,
+      "sha256": "ffb385a7e039654cef1ab9ef32c6fafe283c0c0467bba1d9029738ce4a14a848"
+    },
+    {
+      "file": "meriyah-v6.1.4-abbbfe0c4e4d52649716028a4416bd0fe6644e57.tar.gz",
+      "bytes": 944070,
+      "sha256": "addecf994d152cfdfbe0acf492ce9a51aa16220ace76a5538de17d1cee46b2d1"
+    },
+    {
+      "file": "meriyah-v6.1.4-abbbfe0c4e4d52649716028a4416bd0fe6644e57.tar.gz.commit.json",
+      "bytes": 5473,
+      "sha256": "e4af2368e31ad0bcd9012a5aa19238815dd12e124fed5b026fb4ee50785d5dbd"
+    },
+    {
+      "file": "mutagen-1.48.1.tar.gz",
+      "bytes": 1276978,
+      "sha256": "8f95637ab9f6f305cec6bd1294e197debe207998e3e068596563c74f86b0a173"
+    },
+    {
+      "file": "packaging-26.3.tar.gz",
+      "bytes": 313412,
+      "sha256": "94edc256424af38762eb31306eed28beb9f0efc50a8837492c9d6fd6004aed79"
+    },
+    {
+      "file": "pefile-2024.8.26.tar.gz",
+      "bytes": 76008,
+      "sha256": "3ff6c5d8b43e8c37bb6e6dd5085658d658a7a0bdcd20b6a07b1fcfc1c4e9d632"
+    },
+    {
+      "file": "pycparser-3.0.tar.gz",
+      "bytes": 103492,
+      "sha256": "600f49d217304a5902ac3c37e1281c9fe94e4d0489de643a9504c5cdfdfc6b29"
+    },
+    {
+      "file": "pycryptodomex-3.23.0.tar.gz",
+      "bytes": 4922157,
+      "sha256": "71909758f010c82bc99b0abf4ea12012c98962fbf0583c2164f8b84533c2e4da"
+    },
+    {
+      "file": "pyinstaller-6.22.0-py3-none-win_amd64.whl",
+      "bytes": 1101025,
+      "sha256": "294099ecb5fdd2a13ae4c29006d4e335b697a63b6a16cf052b90ec2b40bef05a"
+    },
+    {
+      "file": "pyinstaller-6.22.0.tar.gz",
+      "bytes": 3527013,
+      "sha256": "2fadbed5d951d53f003ed899312823a07dbba59990a223cbe538933e1c42a168"
+    },
+    {
+      "file": "pyinstaller-70fc17210920bce17f4ab09bbf8104b0dbd45338.tar.gz",
+      "bytes": 3617860,
+      "sha256": "587eb41e1087aeaf2a879b04db35b68bbe44b85f9227e263c873396806103540"
+    },
+    {
+      "file": "pyinstaller-build-tag.json",
+      "bytes": 9217,
+      "sha256": "f218b9f63c08bde9b0f9845f95eec508e343985204670997ea3baaa5c5efc294"
+    },
+    {
+      "file": "pyinstaller-build-workflow.txt",
+      "bytes": 8863,
+      "sha256": "4b065facf2f20493e534534980ac64557c5ead4f3de24f9282b55cc8d5735fb8"
+    },
+    {
+      "file": "Pyinstaller-Builds-5eb86b862d61adc3df0f44e6e0b815b7d74fa3f5.tar.gz",
+      "bytes": 7782,
+      "sha256": "65fa1589e00923522b289ad4fbde68feca06850acd699e1a4764882b2734c582"
+    },
+    {
+      "file": "pyinstaller-release.json",
+      "bytes": 9039,
+      "sha256": "ee670523d64164af9f4876ccde66c283c54d519abc143846f34dfb66cb9c1f9a"
+    },
+    {
+      "file": "pyinstaller-tag-tree.json",
+      "bytes": 3418,
+      "sha256": "85558df1e1835429adb3beaa6e07b515debc4ec2aec2d6fdc8abb6547159c0bf"
+    },
+    {
+      "file": "pyinstaller-upstream-commit.json",
+      "bytes": 22151,
+      "sha256": "750fbb65ef2cd67456ecb0dc00af26e161f50d1f0cd7452cd416cf21f1e6d03d"
+    },
+    {
+      "file": "pyinstaller_hooks_contrib-2026.6.tar.gz",
+      "bytes": 173354,
+      "sha256": "bef5002c32f4f50bd55b005da12cff64eca8783e7eaf86a06a62410164bab725"
+    },
+    {
+      "file": "pypi-altgraph-0.17.5.json",
+      "bytes": 9839,
+      "sha256": "378b0103a514bcb2a2fc35f1016e7c53bd94425857f4c36152152810f0316bd5"
+    },
+    {
+      "file": "pypi-brotli-1.2.0.json",
+      "bytes": 92928,
+      "sha256": "fff7b315334c40e145ed39acf6fa025c315f2a18a023e64b39efbd4c5a4efbd8"
+    },
+    {
+      "file": "pypi-certifi-2026.7.22.json",
+      "bytes": 4584,
+      "sha256": "c6fe912677e373608eab51e324946005998faeb0fa999e6ddada24676e3556d3"
+    },
+    {
+      "file": "pypi-cffi-2.1.1.json",
+      "bytes": 89333,
+      "sha256": "2255e530e3f80593a354e3d84a29966924d0e10309d1e3a6d50f845ab7d8df66"
+    },
+    {
+      "file": "pypi-charset-normalizer-3.5.0.json",
+      "bytes": 199999,
+      "sha256": "fd331ab77816ca781a994e7d65cb05b6f0d54f404bce98170f370b027eb844cf"
+    },
+    {
+      "file": "pypi-curl-cffi-0.16.0.json",
+      "bytes": 36182,
+      "sha256": "61ede413e74c1296057cac10888e4a5ba0863d15f67e2b2b255435076070849b"
+    },
+    {
+      "file": "pypi-idna-3.18.json",
+      "bytes": 8146,
+      "sha256": "419b11e68bbc25e19d37eba0d65acdf93f6278f8768c542fa4e261f063e9e1b0"
+    },
+    {
+      "file": "pypi-mutagen-1.48.1.json",
+      "bytes": 3986,
+      "sha256": "9d04c5c8befb6750ddfe7ad97af875cdf61699acec08df1b947e67264aff38e2"
+    },
+    {
+      "file": "pypi-packaging-26.3.json",
+      "bytes": 5748,
+      "sha256": "4f190d2f0b312b3086058cee64ab4333bf3ce67fb78b4c2bdb43899049b29f4d"
+    },
+    {
+      "file": "pypi-pefile-2024.8.26.json",
+      "bytes": 3686,
+      "sha256": "1429d48b5cf73f88a3933b012c990c0ca15606228ccec3f7ff112e79407f240c"
+    },
+    {
+      "file": "pypi-pycparser-3.0.json",
+      "bytes": 10557,
+      "sha256": "5eb63b17852f6bec41e2ea542377ae6ad61185467916bf9947eb24f86c0fd132"
+    },
+    {
+      "file": "pypi-pycryptodomex-3.23.0.json",
+      "bytes": 42265,
+      "sha256": "8e3ec5afbff0d7cbd5e3783520959a65bb7c9a4521e68747e61bfd504b7004e7"
+    },
+    {
+      "file": "pypi-pyinstaller-hooks-contrib-2026.6.json",
+      "bytes": 18813,
+      "sha256": "ed987330c2154376b62e3f83f8f679af16b0930751db31b27e23360708623859"
+    },
+    {
+      "file": "pypi-pywin32-ctypes-0.2.3.json",
+      "bytes": 6336,
+      "sha256": "31b3fd15200f74e96940467fd34bb11cab92fbcc8a7f9e0fb0f90599e56e1604"
+    },
+    {
+      "file": "pypi-requests-2.34.2.json",
+      "bytes": 6811,
+      "sha256": "8622e50ffd295ed759ec793f2a009172a4ed0204bbc5e948de23111bc3d2aeae"
+    },
+    {
+      "file": "pypi-setuptools-84.0.0.json",
+      "bytes": 8162,
+      "sha256": "24d07932459261bbf9e66e5cfdebfeba23a977234ab24bf9c3a1df053c53ba21"
+    },
+    {
+      "file": "pypi-typing-extensions-4.16.0.json",
+      "bytes": 5631,
+      "sha256": "2140da00d62dde967f52d0be0ae28444f1d6a3fe603f52c83c23988c32122d5a"
+    },
+    {
+      "file": "pypi-urllib3-2.7.0.json",
+      "bytes": 30292,
+      "sha256": "54db1e362e04e390c23c2182dd425a6b3f0c1a73c5bd3f3e40611c3590c7a43a"
+    },
+    {
+      "file": "pypi-websockets-16.1.1.json",
+      "bytes": 104101,
+      "sha256": "96ee39a2519d39d06c5f2f4e45b196fbb1ac9ca6bbe697ed316df511d8ae8bb6"
+    },
+    {
+      "file": "pypi-yt-dlp-ejs-0.8.0.json",
+      "bytes": 5709,
+      "sha256": "0fb174287bd859559a12a401f0147e62d34a2b2793ad9cebc8ce31c3e24c9188"
+    },
+    {
+      "file": "Python-3.10.11-get_externals.bat",
+      "bytes": 4507,
+      "sha256": "e7641ea765ca752dbc4c9fb83df2144be639038895ac188a989de1165167c20b"
+    },
+    {
+      "file": "Python-3.10.11-python.props",
+      "bytes": 16419,
+      "sha256": "599b6a63cd5a0d353131461df7f9bcf849614578cac5d85c3a05f14668b626ea"
+    },
+    {
+      "file": "Python-3.10.11.tgz",
+      "bytes": 26085141,
+      "sha256": "f3db31b668efa983508bd67b5712898aa4247899a346f2eb745734699ccd3859"
+    },
+    {
+      "file": "pywin32-ctypes-0.2.3.tar.gz",
+      "bytes": 29471,
+      "sha256": "d162dc04946d704503b2edc4d55f3dba5c1d539ead017afa00142c38b9885755"
+    },
+    {
+      "file": "README-PARTIAL.txt",
+      "bytes": 1991,
+      "sha256": "31acfd070e9e4d731fbbbe0873fe873bc7b47d5f6fa3bc28d62de20880dd2adc"
+    },
+    {
+      "file": "requests-2.34.2.tar.gz",
+      "bytes": 142856,
+      "sha256": "f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed"
+    },
+    {
+      "file": "setuptools-84.0.0.tar.gz",
+      "bytes": 1168449,
+      "sha256": "f4695c21257f0d9b537ec2692c941d02ee143b7cc1276941349a546573b2ef73"
+    },
+    {
+      "file": "typing_extensions-4.16.0.tar.gz",
+      "bytes": 113555,
+      "sha256": "dc983d19a509c94dba722ee6abd33940f7c05a89e243c47e907eb4db6f1a43e5"
+    },
+    {
+      "file": "urllib3-2.7.0.tar.gz",
+      "bytes": 433602,
+      "sha256": "231e0ec3b63ceb14667c67be60f2f2c40a518cb38b03af60abc813da26505f4c"
+    },
+    {
+      "file": "websockets-16.1.1.tar.gz",
+      "bytes": 182204,
+      "sha256": "db234eda965dcce15df96bb9709f587cd87d4d52aaf0e80e2f34ec04c7670c57"
+    },
+    {
+      "file": "yt-dlp-2026.08.19-SHA2-256SUMS.txt",
+      "bytes": 1595,
+      "sha256": "a63701f30755cb4d9317950d69703e9d751d490cb1b7059e1bb501a353fe7dcb"
+    },
+    {
+      "file": "yt-dlp-2026.08.19.tar.gz",
+      "bytes": 6020567,
+      "sha256": "072aad4f2a7604e92155f61a275a4752dc64046c8f6d90df3710525d94cd37c1"
+    },
+    {
+      "file": "yt-dlp-actions-runtime-head.json",
+      "bytes": 105492,
+      "sha256": "8684272cdd521c8fa7446353cec276ef86145aab73d41943de313b6ee41e95e2"
+    },
+    {
+      "file": "yt-dlp-build-workflow.yml",
+      "bytes": 22091,
+      "sha256": "cd9aae06afaa22166670bd7182d7279ae12dad2c1034c1cbeb0db3f5d993fc04"
+    },
+    {
+      "file": "yt-dlp-curl-cffi-requirements.txt",
+      "bytes": 52256,
+      "sha256": "898c4d3bf40a6f1cb59e8cb8184536c0b97c543367e3256621a5b6d791729632"
+    },
+    {
+      "file": "yt-dlp-default-requirements.txt",
+      "bytes": 41348,
+      "sha256": "fa81ca6ed6a0fdf6a3ad9708ae8a16b56ff165d9d5d677a1ff51480d4d1bba7a"
+    },
+    {
+      "file": "yt-dlp-ejs-package-lock.json",
+      "bytes": 98986,
+      "sha256": "dd1660d8db3804297a11e1769015e7a2b1390697cdf81c2a6905bd1dae292837"
+    },
+    {
+      "file": "yt-dlp-git-3a08beaf031ab68f966401ead017ac81fe8486cf.tar.gz",
+      "bytes": 3115089,
+      "sha256": "7206981142eb461cfa603c360a55e0d08f3ed58cc754000ed821ad3ebac31ea0"
+    },
+    {
+      "file": "yt-dlp-release-jobs.json",
+      "bytes": 38446,
+      "sha256": "d2997e015ea6439d5f440c3eeeb107dc59e3dcc67974f231e1bf0050a768c3a9"
+    },
+    {
+      "file": "yt-dlp-release-source-version.txt",
+      "bytes": 250,
+      "sha256": "5d7c9a50dbacbdb3596a77c9856a7c1aeded2ffce3cfdd25a7df76954791cf4d"
+    },
+    {
+      "file": "yt-dlp-release.json",
+      "bytes": 52422,
+      "sha256": "f3b139dd6a3fd8137c8699abccae27a7b6a7c41fdab3b3f294fcf0750cb134e7"
+    },
+    {
+      "file": "yt-dlp-runtime-commit.json",
+      "bytes": 7233,
+      "sha256": "4947d1eb06cf96017b96e64044d47f51562e1132f9c3522d06732a2f757d3488"
+    },
+    {
+      "file": "yt-dlp-runtime-inspection.txt",
+      "bytes": 1125,
+      "sha256": "872546c3370afae2bec077eec5faa4574cfc85ec3cc0744aacec5abe339dfb74"
+    },
+    {
+      "file": "yt-dlp-tag-version.txt",
+      "bytes": 250,
+      "sha256": "5d7c9a50dbacbdb3596a77c9856a7c1aeded2ffce3cfdd25a7df76954791cf4d"
+    },
+    {
+      "file": "yt-dlp-tagged-third-party-notices.txt",
+      "bytes": 243550,
+      "sha256": "472aefe951c7db35e1657c1d13fd337140511ed6f2b329205105ad441c5a02b7"
+    },
+    {
+      "file": "yt-dlp-win-x64-pyinstaller-requirements.txt",
+      "bytes": 1855,
+      "sha256": "473e6212ff85da7320b55933edf7fdc294b5da7d8f4348d1863d7d06865a60c6"
+    },
+    {
+      "file": "yt_dlp_ejs-0.8.0-pyproject.toml",
+      "bytes": 1793,
+      "sha256": "9fd202a0e8185cdaea8213532e362fa8a6a463ab0f150ede87ea68aef3c804f2"
+    },
+    {
+      "file": "yt_dlp_ejs-0.8.0-README.md",
+      "bytes": 2484,
+      "sha256": "168cf007cdb4012b5aea1b1a00bbbde9767837ee4628cb1997ef3df43d428fdb"
+    },
+    {
+      "file": "yt_dlp_ejs-0.8.0.tar.gz",
+      "bytes": 96571,
+      "sha256": "d5fa1639f63b5c4af8d932495f60689d5370f1a095782c944f7f62a303eb104e"
+    }
+  ],
+  "runtimeInspection": {
+    "file": "yt-dlp-runtime-inspection.txt",
+    "bytes": 1125,
+    "sha256": "872546c3370afae2bec077eec5faa4574cfc85ec3cc0744aacec5abe339dfb74",
+    "binary": "yt-dlp.exe",
+    "binarySha256": "66674953fe251b89f4d08c5f0e35e0728679bd67ab3d7d05c0562af101dd3e7a",
+    "python": "3.10.11",
+    "openssl": "1.1.1t",
+    "sqlite": "3.40.1",
+    "releaseGitHead": "594bd50c2c78ac432f81600d309fdc4e0a92d82c",
+    "expectedProbeExit": 1,
+    "coverage": "runtime-reported versions; unsupported local scheme used, no remote media download"
+  },
+  "limits": [
+    "No downloaded source/build scripts or wheel code executed.",
+    "Runtime version output and tagged recipes are not proof of native binary reproducibility.",
+    "Publisher signatures and upstream build logs not verified; public jobs metadata retained, job-log API returned HTTP 403.",
+    "FFmpeg exact linked sources, modifications and toolchain remain unresolved."
+  ]
+}
