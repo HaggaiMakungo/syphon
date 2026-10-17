@@ -9,7 +9,7 @@ import struct
 import zipfile
 from dependencies import digest, plain_path, verify_file
 
-REQUIRED=('app/Syphon.exe','host/Syphon.NativeHost.exe','Uninstall.exe','extensions/manifest.json','app/.tools/media/ffmpeg.exe','app/.tools/media/ffprobe.exe','app/.tools/media/yt-dlp.exe','app/.tools/media/node.exe','prerequisites/MicrosoftEdgeWebview2Setup.exe')
+REQUIRED=('app/Syphon.exe','host/Syphon.NativeHost.exe','Uninstall.exe','extensions/manifest.json','app/.tools/media/ffmpeg.exe','app/.tools/media/ffprobe.exe','app/.tools/media/yt-dlp.exe','app/.tools/media/node.exe','prerequisites/MicrosoftEdgeWebview2Setup.exe','LICENSE.txt','THIRD-PARTY-NOTICES.md')
 STAGED_DEPENDENCIES={name:'app/.tools/media/'+name for name in ('ffmpeg.exe','ffprobe.exe','yt-dlp.exe','node.exe')}
 STAGED_DEPENDENCIES.update({'FFmpeg-GPLv3.txt':'licenses/FFmpeg-GPLv3.txt','FFmpeg-build-and-source.txt':'licenses/FFmpeg-build-and-source.txt','MicrosoftEdgeWebview2Setup.exe':'prerequisites/MicrosoftEdgeWebview2Setup.exe'})
 

@@ -51,11 +51,11 @@ def verify_materials(root,lock_hash):
  return result
 
 
-def make_inventory(lock,lock_hash,vendor_text,notices_text,materials,recipes=None):
+def make_inventory(lock,lock_hash,vendor_text,notices_text,materials,recipes=None,app_license=None):
  vendor=ffmpeg_versions(vendor_text);notices=third_party_notices(notices_text)
  return {
   'schema':1,'scope':'Media-tool source-material triage; not a complete application SBOM or legal approval',
-  'dependencyLockSha256':lock_hash,'sourceDistributionComplete':False,
+  'dependencyLockSha256':lock_hash,'sourceDistributionComplete':False,'syphonLicense':app_license,
   'binaryInputs':{name:item for name,item in lock['files'].items() if name.endswith('.exe')},
   'ffmpegExternalLibraries':vendor,'ytDlpThirdPartyNotices':notices,'sourceArchives':materials,'upstreamRecipeEvidence':recipes or [],
   'gaps':[
@@ -64,7 +64,7 @@ def make_inventory(lock,lock_hash,vendor_text,notices_text,materials,recipes=Non
    'The yt-dlp notices do not establish exact binary component versions. Tagged recipe/requirement evidence is retained when supplied, but exact build inputs and Python/PyInstaller provenance still require reconciliation.',
    'The yt-dlp release source alone does not include the whole bundled executable dependency source set.',
    'Node/.NET/native/frontend/font notice and redistribution review is outside this media-source collection pass.',
-   'Syphon publisher licensing and the final public source-distribution location are still decisions to confirm.'
+   'The final public source-distribution location and retention process still need confirmation.'
   ],
   'references':[
    'https://www.ffmpeg.org/legal.html',
@@ -81,6 +81,7 @@ def markdown(report):
   '**Status: incomplete. Collected core sources do not close the external/bundled dependency gaps.**','',
   'Dependency lock SHA-256: `'+report['dependencyLockSha256']+'`','',
   '## Retained source archives','', '| Component | File | SHA-256 |','|---|---|---|']
+ if report.get('syphonLicense'):lines[4:4]=['Syphon original-code license: '+report['syphonLicense']['identifier']+'. Third-party licenses remain separate.','']
  for item in report['sourceArchives']:lines.append('| '+cell(item.get('component','source evidence'))+' | '+cell(item['file'])+' | '+item['sha256']+' |')
  if not report['sourceArchives']:lines.append('| None verified locally | — | — |')
  lines+=['','A matching file hash establishes retained bytes, not completeness of source/build inputs or publisher authenticity. The source evidence manifest retains the retrieval and verification notes.','',
@@ -107,7 +108,9 @@ def main():
  out=plain_path(args.output);dep=plain_path(args.dependency_root)
  if out==dep or out in dep.parents or dep in out.parents:raise ValueError('Audit output must be separate from the dependency cache')
  if args.source_materials and (out==plain_path(args.source_materials) or out in plain_path(args.source_materials).parents):raise ValueError('Audit output must not replace the source-materials directory')
- report=make_inventory(lock,lock_hash,cache['FFmpeg-build-and-source.txt'].read_text(encoding='utf-8'),(ROOT/'packaging/licenses/yt-dlp-THIRD-PARTY.txt').read_text(encoding='utf-8'),materials,details.get('recipeEvidence',[]))
+ license_path=ROOT/'LICENSE'
+ app_license={'identifier':'MIT','sha256':digest(license_path)} if license_path.is_file() and license_path.read_text(encoding='utf-8').startswith('MIT License\n') else None
+ report=make_inventory(lock,lock_hash,cache['FFmpeg-build-and-source.txt'].read_text(encoding='utf-8'),(ROOT/'packaging/licenses/yt-dlp-THIRD-PARTY.txt').read_text(encoding='utf-8'),materials,details.get('recipeEvidence',[]),app_license)
  marker=plain_path(out/'.syphon-source-audit')
  if out.exists() and any(out.iterdir()) and (not marker.is_file() or marker.read_text(encoding='utf-8')!='Syphon source audit schema 1\n'):raise ValueError('Use a new dedicated audit output directory')
  out.mkdir(parents=True,exist_ok=True)
@@ -116,6 +119,7 @@ def main():
  plain_path(out/'source-audit.md').write_bytes(markdown(report).encode('utf-8'))
  evidence=out/'notices';plain_path(evidence);evidence.mkdir(exist_ok=True)
  inputs=[cache['FFmpeg-GPLv3.txt'],cache['FFmpeg-build-and-source.txt'],LOCK,ROOT/'packaging/licenses/yt-dlp-LICENSE.txt',ROOT/'packaging/licenses/yt-dlp-THIRD-PARTY.txt']
+ if app_license:inputs.extend([license_path,ROOT/'THIRD-PARTY-NOTICES.md'])
  if args.source_materials:
   inputs.append(args.source_materials/'source-materials.json')
   inputs.extend(args.source_materials/item['file'] for item in details.get('recipeEvidence',[]))

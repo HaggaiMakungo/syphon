@@ -12,7 +12,7 @@
       <Border x:Name="Step2" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="○    Install" FontSize="16"/></Border>
       <Border x:Name="Step3" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="○    Browser setup" FontSize="16"/></Border>
       <Border x:Name="Step4" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="○    Finish" FontSize="16"/></Border>
-     </StackPanel><TextBlock x:Name="VersionLabel" Grid.Row="2" Text="0.1.0-beta.8 · Windows x64" Foreground="#9284AA" FontSize="11" Margin="30,12"/>
+     </StackPanel><TextBlock x:Name="VersionLabel" Grid.Row="2" Text="0.1.0-beta.9 · Windows x64" Foreground="#9284AA" FontSize="11" Margin="30,12"/>
     </Grid>
    </Border>
    <Grid Grid.Column="1"><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/><RowDefinition Height="86"/></Grid.RowDefinitions>

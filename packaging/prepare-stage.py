@@ -3,7 +3,7 @@ import os,shutil,subprocess,json,hashlib,argparse
 from dependencies import DEFAULT_CACHE, LOCK, digest, load_lock, plain_path, verify_dependencies
 root=Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser()
-parser.add_argument('--version',default='0.1.0-beta.8')
+parser.add_argument('--version',default='0.1.0-beta.9')
 parser.add_argument('--stage',type=Path,default=root/'artifacts/setup-stage')
 parser.add_argument('--core',type=Path,default=root/'artifacts/setup-core/Syphon.Setup.exe')
 parser.add_argument('--dependency-root',type=Path,default=DEFAULT_CACHE)
@@ -13,6 +13,8 @@ stage=plain_path(args.stage);core=plain_path(args.core);app=stage/'app';media=ap
 if not (app/'Syphon.exe').is_file() or not (stage/'host/Syphon.NativeHost.exe').is_file() or not core.is_file():
  raise SystemExit('Publish app, host and setup core into a fresh staging directory first.')
 if (stage/'extensions').exists():raise SystemExit('Staging directory was already prepared. Start a new build to avoid stale files.')
+for required in ['LICENSE','THIRD-PARTY-NOTICES.md']:
+ if not (root/required).is_file():raise SystemExit('Missing project license/third-party scope notice: '+required)
 if media.exists() and {p.name for p in media.iterdir()}-{'ffmpeg.exe','ffprobe.exe','yt-dlp.exe','node.exe'}:
  raise SystemExit('Unexpected files in the staged media folder.')
 media.mkdir(parents=True,exist_ok=True)
@@ -26,6 +28,8 @@ def link(source,target):
 for name in ['ffmpeg.exe','ffprobe.exe','yt-dlp.exe','node.exe']:link(deps[name],media/name)
 link(deps['MicrosoftEdgeWebview2Setup.exe'],stage/'prerequisites/MicrosoftEdgeWebview2Setup.exe')
 shutil.copy2(root/'packaging/browser-distribution.json',stage/'browser-distribution.json')
+shutil.copy2(root/'LICENSE',stage/'LICENSE.txt')
+shutil.copy2(root/'THIRD-PARTY-NOTICES.md',stage/'THIRD-PARTY-NOTICES.md')
 licenses=stage/'licenses';licenses.mkdir(exist_ok=True)
 for source in (root/'packaging/licenses').glob('*.txt'):shutil.copy2(source,licenses/source.name)
 for name in ['FFmpeg-GPLv3.txt','FFmpeg-build-and-source.txt']:shutil.copy2(deps[name],licenses/name)

@@ -99,6 +99,10 @@ class PackagingTests(unittest.TestCase):
   stage,core=self.stage(); (stage/'app/Syphon.exe').unlink()
   with self.assertRaises(ValueError): assemble(stage,core,self.root/'out','0.1.0-test')
 
+ def test_project_license_cannot_be_omitted(self):
+  stage,core=self.stage(); (stage/'LICENSE.txt').unlink()
+  with self.assertRaises(ValueError): assemble(stage,core,self.root/'out','0.1.0-test')
+
  def test_staged_dependency_must_still_match_lock(self):
   stage,core=self.stage()
   for name,relative in STAGED_DEPENDENCIES.items():
