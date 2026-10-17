@@ -12,7 +12,7 @@
       <Border x:Name="Step2" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="○    Install" FontSize="16"/></Border>
       <Border x:Name="Step3" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="○    Browser setup" FontSize="16"/></Border>
       <Border x:Name="Step4" Padding="28,15" BorderThickness="4,0,0,0"><TextBlock Text="○    Finish" FontSize="16"/></Border>
-     </StackPanel><TextBlock x:Name="VersionLabel" Grid.Row="2" Text="0.1.0-beta.6 · Windows x64" Foreground="#9284AA" FontSize="11" Margin="30,12"/>
+     </StackPanel><TextBlock x:Name="VersionLabel" Grid.Row="2" Text="0.1.0-beta.7 · Windows x64" Foreground="#9284AA" FontSize="11" Margin="30,12"/>
     </Grid>
    </Border>
    <Grid Grid.Column="1"><Grid.RowDefinitions><RowDefinition Height="*"/><RowDefinition Height="Auto"/><RowDefinition Height="86"/></Grid.RowDefinitions>
@@ -21,6 +21,22 @@
       <StackPanel>
        <TextBlock x:Name="Heading" Text="Welcome to Syphon" FontSize="34" FontWeight="SemiBold" Margin="0,0,0,12"/>
        <TextBlock x:Name="Subtitle" Text="Set up your download workspace." FontSize="19" Foreground="#B9AACD" Margin="0,0,0,32"/>
+       <StackPanel x:Name="MaintenancePanel" Visibility="Collapsed">
+        <TextBlock Text="Choose an installed copy" FontWeight="SemiBold" Margin="0,0,0,10"/>
+        <ListBox x:Name="InstallationList" Background="#17111F" Foreground="#ECE9F2" BorderBrush="#4C395F" BorderThickness="1" Padding="6" MaxHeight="115" SelectionChanged="InstallationChanged" AutomationProperties.Name="Installed Syphon copies">
+         <ListBox.ItemContainerStyle><Style TargetType="ListBoxItem"><Setter Property="HorizontalContentAlignment" Value="Stretch"/><Setter Property="Template"><Setter.Value><ControlTemplate TargetType="ListBoxItem"><Border x:Name="ItemBorder" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" CornerRadius="8" Padding="3"><ContentPresenter/></Border><ControlTemplate.Triggers><Trigger Property="IsSelected" Value="True"><Setter TargetName="ItemBorder" Property="Background" Value="#392A4E"/></Trigger><Trigger Property="IsKeyboardFocusWithin" Value="True"><Setter TargetName="ItemBorder" Property="BorderBrush" Value="#C49AF5"/></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter></Style></ListBox.ItemContainerStyle>
+         <ListBox.ItemTemplate><DataTemplate><StackPanel Margin="5"><TextBlock Text="{Binding Version}" FontWeight="SemiBold"/><TextBlock Text="{Binding Root}" Foreground="#B9AACD" FontSize="12" TextWrapping="Wrap"/></StackPanel></DataTemplate></ListBox.ItemTemplate>
+        </ListBox>
+        <TextBlock x:Name="MaintenanceNote" Foreground="#B9AACD" Margin="0,15,0,16"/>
+        <WrapPanel><Button x:Name="RepairButton" Content="Repair installation" Click="RepairClick" Margin="0,0,10,8"/><Button Content="Uninstall Syphon" Click="MaintenanceUninstallClick" Margin="0,0,0,8"/></WrapPanel>
+        <TextBlock Text="Continue below to upgrade or reinstall using this package. Repair restores packaged files and integration choices. Your downloads, history and preferences stay." Foreground="#9284AA" FontSize="12" Margin="0,12,0,0"/>
+       </StackPanel>
+       <StackPanel x:Name="CleanupPanel" Visibility="Collapsed" Margin="0,22,0,0">
+        <TextBlock Text="Broken setup entries found" FontWeight="SemiBold" Margin="0,0,0,8"/>
+        <TextBlock x:Name="CleanupSummary" Foreground="#B9AACD" FontSize="12" Margin="0,0,0,12"/>
+        <Button x:Name="CleanupButton" Content="Clean up broken setup entries" Click="CleanupClick" HorizontalAlignment="Left"/>
+        <TextBlock x:Name="CleanupResult" Foreground="#B9AACD" FontSize="12" Margin="0,9,0,0" AutomationProperties.LiveSetting="Polite"/>
+       </StackPanel>
        <StackPanel x:Name="WelcomePanel">
         <Grid Margin="0,0,0,27"><Grid.ColumnDefinitions><ColumnDefinition Width="64"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Border BorderBrush="#9D64E5" BorderThickness="1" CornerRadius="10" Width="51" Height="51" HorizontalAlignment="Left"><TextBlock Text="↓" FontSize="33" Foreground="#C49AF5" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border><StackPanel Grid.Column="1"><TextBlock Text="Resumable downloads" FontWeight="SemiBold" FontSize="18"/><TextBlock Text="Pause and continue when the source supports resume." Foreground="#B9AACD" Margin="0,6,0,0"/></StackPanel></Grid>
         <Grid Margin="0,0,0,27"><Grid.ColumnDefinitions><ColumnDefinition Width="64"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Border BorderBrush="#9D64E5" BorderThickness="1" CornerRadius="10" Width="51" Height="51" HorizontalAlignment="Left"><TextBlock Text="▤" FontSize="29" Foreground="#C49AF5" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border><StackPanel Grid.Column="1"><TextBlock Text="Browser integration" FontWeight="SemiBold" FontSize="18"/><TextBlock Text="Send links from your browser with the Syphon extension." Foreground="#B9AACD" Margin="0,6,0,0"/></StackPanel></Grid>
@@ -28,9 +44,9 @@
         <TextBlock Text="Includes FFmpeg, FFprobe, yt-dlp, Node.js and .NET. Internet is needed only if the Microsoft WebView2 runtime is missing." Foreground="#9284AA" FontSize="12" Margin="0,28,0,0"/>
        </StackPanel>
        <StackPanel x:Name="LocationPanel" Visibility="Collapsed">
-        <TextBlock Text="Install Syphon for all users on this computer" FontWeight="SemiBold" Margin="0,0,0,10"/><Grid><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBox x:Name="Location" AutomationProperties.Name="Installation folder"/><Button Grid.Column="1" Content="Browse…" Click="BrowseClick" Margin="10,0,0,0" Padding="12,8"/></Grid>
+        <TextBlock Text="Install Syphon for all users on this computer" FontWeight="SemiBold" Margin="0,0,0,10"/><Grid><Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions><TextBox x:Name="Location" AutomationProperties.Name="Installation folder"/><Button x:Name="BrowseLocation" Grid.Column="1" Content="Browse…" Click="BrowseClick" Margin="10,0,0,0" Padding="12,8"/></Grid>
         <TextBlock x:Name="SizeNote" Foreground="#9284AA" Margin="0,9,0,18" Text="Setup checks the available space before installing."/>
-        <TextBlock Text="Browser setup follows installation. You can connect your browser or explicitly continue without integration." Foreground="#B9AACD" Margin="0,12"/><CheckBox x:Name="DesktopOption" IsChecked="True" Content="Create a desktop shortcut"/>
+        <TextBlock x:Name="BrowserReviewNote" Text="Browser setup follows installation. You can connect your browser or explicitly continue without integration." Foreground="#B9AACD" Margin="0,12"/><CheckBox x:Name="DesktopOption" IsChecked="True" Content="Create a desktop shortcut"/>
         <TextBlock Text="Your existing downloads, history and preferences are preserved. New downloads use Videos, Music, Documents, Programs and Misc folders." Foreground="#B9AACD" Margin="0,20,0,10"/>
         <TextBlock Text="Browser extension installation still requires your approval inside Chrome or Edge. Bundled tool licences and release notes are included in the installation folder." Foreground="#9284AA" FontSize="12"/>
        </StackPanel>

@@ -12,9 +12,10 @@ using Microsoft.Win32;
 namespace Syphon.Setup;
 public partial class SetupWindow : Window
 {
- private int step;private bool busy;private readonly bool uninstall;private string installedRoot="";private readonly CancellationTokenSource cancellation=new();
- public SetupWindow(bool uninstall=false) {
-  InitializeComponent();this.uninstall=uninstall;
+ private int step;private bool busy;private bool uninstall;private readonly SetupMaintenance maintenance;private InstallReceipt? maintenanceReceipt;private bool repair;private string? removalRoot;private string installedRoot="";private readonly CancellationTokenSource cancellation=new();
+ public SetupWindow(bool uninstall=false):this(uninstall,new SetupMaintenance()){}
+ internal SetupWindow(bool uninstall,SetupMaintenance maintenance) {
+  this.maintenance=maintenance;InitializeComponent();this.uninstall=uninstall;
   VersionLabel.Text=(typeof(SetupWindow).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0] ?? "Beta")+" · Windows x64";
   Width=Math.Min(1060,SystemParameters.WorkArea.Width-32);Height=Math.Min(700,SystemParameters.WorkArea.Height-32);
   Location.Text=InstallEngine.DefaultRoot;
@@ -25,16 +26,57 @@ public partial class SetupWindow : Window
    ((TextBlock)((Border)Steps.Children[2]).Child).Text="○    Removing";
    ((TextBlock)((Border)Steps.Children[4]).Child).Text="○    Done";
    Location.Text=AppContext.BaseDirectory;Heading.Text="Remove Syphon";Subtitle.Text="Your downloaded files, history and preferences will stay.";WelcomePanel.Visibility=Visibility.Collapsed;Next.Content="Uninstall";}
-  Closing+=(_,e)=>{if(busy)e.Cancel=true;};ShowStep(0);
+  Closing+=(_,e)=>{if(busy)e.Cancel=true;};
+  if(!uninstall)RefreshMaintenance();ShowStep(0);
  }
  private void ShowStep(int value) {
   step=value;Error.Visibility=Visibility.Collapsed;UninstallPanel.Visibility=uninstall&&step==0?Visibility.Visible:Visibility.Collapsed;
   for(int i=0;i<5;i++){var border=(Border)Steps.Children[i];border.Background=new SolidColorBrush(i==step?Color.FromArgb(100,54,35,80):Colors.Transparent);border.BorderBrush=new SolidColorBrush(i==step?Color.FromRgb(182,115,255):Colors.Transparent);((TextBlock)border.Child).Foreground=new SolidColorBrush(i<=step?Color.FromRgb(236,233,242):Color.FromRgb(146,132,170));}
-  WelcomePanel.Visibility=!uninstall&&step==0?Visibility.Visible:Visibility.Collapsed;LocationPanel.Visibility=!uninstall&&step==1?Visibility.Visible:Visibility.Collapsed;InstallPanel.Visibility=step==2?Visibility.Visible:Visibility.Collapsed;BrowserPanel.Visibility=!uninstall&&step==3?Visibility.Visible:Visibility.Collapsed;FinishPanel.Visibility=step==4?Visibility.Visible:Visibility.Collapsed;
+  MaintenancePanel.Visibility=!uninstall&&step==0&&InstallationList.Items.Count>0?Visibility.Visible:Visibility.Collapsed;
+  CleanupPanel.Visibility=!uninstall&&step==0&&CleanupButton.Tag is int count&&count>0?Visibility.Visible:Visibility.Collapsed;
+  WelcomePanel.Visibility=!uninstall&&step==0&&InstallationList.Items.Count==0?Visibility.Visible:Visibility.Collapsed;LocationPanel.Visibility=!uninstall&&step==1?Visibility.Visible:Visibility.Collapsed;InstallPanel.Visibility=step==2?Visibility.Visible:Visibility.Collapsed;BrowserPanel.Visibility=!uninstall&&step==3?Visibility.Visible:Visibility.Collapsed;FinishPanel.Visibility=step==4?Visibility.Visible:Visibility.Collapsed;
   Back.Visibility=step==1?Visibility.Visible:Visibility.Collapsed;Cancel.Visibility=step>=3?Visibility.Collapsed:Visibility.Visible;
   Next.IsEnabled=step!=3||ReadyBrowser.IsChecked==true||SkipBrowser.IsChecked==true;
   if(uninstall){Heading.Text=step==2?"Removing Syphon":step==4?"Syphon has been removed":"Uninstall Syphon";Subtitle.Text="Your downloads, history and preferences will be preserved.";Next.Content=step==4?"Close":"Uninstall";}
-  if(!uninstall){Heading.Text=step switch{0=>"Welcome to Syphon",1=>"Choose your workspace",2=>"Installing Syphon",3=>"Connect your browser",_=>"You're ready to download"};Subtitle.Text=step switch{0=>"Set up your download workspace.",1=>"Everything you need, in one place.",2=>"Preparing your download workspace.",3=>"One last step before you finish.",_=>"Syphon is installed on this computer."};Next.Content=step==1?"Install":step==4?"Finish":"Continue";}
+  if(!uninstall){Heading.Text=step switch{0=>"Welcome to Syphon",1=>"Choose your workspace",2=>"Installing Syphon",3=>"Connect your browser",_=>"You're ready to download"};Subtitle.Text=step switch{0=>"Set up your download workspace.",1=>"Everything you need, in one place.",2=>"Preparing your download workspace.",3=>"One last step before you finish.",_=>"Syphon is installed on this computer."};Next.Content=step==1?(maintenanceReceipt is null?"Install":repair?"Repair":"Upgrade / reinstall"):step==4?"Finish":step==0&&InstallationList.SelectedItem is InstallReceipt?"Upgrade / reinstall":"Continue";
+   if(step==0&&InstallationList.Items.Count==0&&CleanupButton.Tag is int staleCount&&staleCount>0){Heading.Text="Set up or clean up Syphon";Subtitle.Text="An older setup entry remains, but its application files are missing.";WelcomePanel.Visibility=Visibility.Collapsed;}
+   if(step==0&&InstallationList.Items.Count>0){Heading.Text="Manage Syphon";Subtitle.Text="Upgrade, repair or remove an existing installation.";}
+   if(step==1&&maintenanceReceipt is not null){Heading.Text=repair?"Repair Syphon":"Upgrade or reinstall Syphon";Subtitle.Text=$"Installed: {maintenanceReceipt.Version} · Package: {PackageVersion}";}
+   if(step==2&&maintenanceReceipt is not null){Heading.Text=repair?"Repairing Syphon":"Updating Syphon";}
+   if(step==4&&maintenanceReceipt is not null){Heading.Text=repair?"Syphon has been repaired":"Syphon has been updated";Subtitle.Text="Your downloads, history and preferences were preserved.";FinishNote.Text="Launch Syphon from the Start menu or desktop shortcut. Your previous browser connection choice was preserved.";}}
+ }
+ private string PackageVersion=>typeof(SetupWindow).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0]??"this package";
+ private void RefreshMaintenance() {
+  try{InstallationList.ItemsSource=maintenance.FindInstallations();if(InstallationList.Items.Count>0)InstallationList.SelectedIndex=0;var entries=maintenance.FindCleanup();CleanupButton.Tag=entries.Count;CleanupSummary.Text=string.Join("\n",entries.Select(e=>e.Description).Distinct())+"\nOnly missing-installation entries are removed. No folders or personal files are deleted.";}
+  catch(Exception ex){Error.Text="Setup could not check all installations: "+ex.Message;Error.Visibility=Visibility.Visible;}
+ }
+ private void InstallationChanged(object sender,SelectionChangedEventArgs e) {
+  if(InstallationList.SelectedItem is not InstallReceipt receipt)return;
+  Steps.Children[3].Visibility=Visibility.Collapsed;
+  ((TextBlock)((Border)Steps.Children[0]).Child).Text="○    Manage installation";
+  ((TextBlock)((Border)Steps.Children[1]).Child).Text="○    Review";
+  RepairButton.IsEnabled=SetupMaintenance.ProtectedRoot(receipt.Root)||receipt.MachineWide;
+  MaintenanceNote.Text=(SetupMaintenance.ProtectedRoot(receipt.Root)||receipt.MachineWide)?$"Installed {receipt.Version}. This package: {PackageVersion}.":"This legacy copy can be uninstalled here. Upgrade installs the current all-user edition in Program Files and retains the old copy; remove it separately when ready.";
+ }
+ internal void PrepareMaintenance(bool repairInstallation) {
+  if(InstallationList.SelectedItem is not InstallReceipt receipt)return;
+  repair=repairInstallation;maintenanceReceipt=receipt;
+  // Existing protected installations are updated in place. Never elevate an app from a legacy writable folder.
+  var inPlace=SetupMaintenance.ProtectedRoot(receipt.Root)||receipt.MachineWide;
+  if(repair&&!inPlace)throw new IOException("Install the all-user edition in Program Files before using repair.");
+  Location.Text=inPlace?receipt.Root:InstallEngine.DefaultRoot;Location.IsReadOnly=true;BrowseLocation.IsEnabled=false;DesktopOption.IsChecked=receipt.DesktopShortcut;DesktopOption.IsEnabled=!repair;BrowserReviewNote.Text="Your existing browser integration choice is preserved. You do not need to repeat browser setup.";
+  ((TextBlock)((Border)Steps.Children[2]).Child).Text=repair?"○    Repairing":"○    Updating";
+  ShowStep(1);SizeNote.Text=inPlace?"The existing installation folder and integration choices will be kept.":"The legacy installation is retained. This installs the current edition in Program Files.";
+ }
+ private void RepairClick(object sender,RoutedEventArgs e){try{PrepareMaintenance(true);}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}}
+ private void MaintenanceUninstallClick(object sender,RoutedEventArgs e) {
+  if(InstallationList.SelectedItem is not InstallReceipt receipt)return;
+  uninstall=true;removalRoot=receipt.Root;Title="Uninstall Syphon";WindowCaption.Text=Title;Steps.Children[1].Visibility=Visibility.Collapsed;Steps.Children[3].Visibility=Visibility.Collapsed;
+  ((TextBlock)((Border)Steps.Children[0]).Child).Text="○    Confirm removal";((TextBlock)((Border)Steps.Children[2]).Child).Text="○    Removing";((TextBlock)((Border)Steps.Children[4]).Child).Text="○    Done";ShowStep(0);
+ }
+ private void CleanupClick(object sender,RoutedEventArgs e) {
+  try{var count=maintenance.Cleanup();CleanupResult.Text=$"Cleaned {count} broken setup {(count==1?"entry":"entries")}. No personal files were changed.";CleanupButton.IsEnabled=false;CleanupSummary.Text="No folders or personal files were deleted. Other installations and development connections were left intact.";if(InstallationList.Items.Count==0){Heading.Text="Setup entries cleaned";Subtitle.Text="Continue below to install Syphon.";}Error.Visibility=Visibility.Collapsed;}
+  catch(Exception ex){Error.Text="Cleanup stopped: "+ex.Message;Error.Visibility=Visibility.Visible;}
  }
  private void DragHeader(object sender,MouseButtonEventArgs e){if(e.ChangedButton==MouseButton.Left)DragMove();}
  private void BrowseClick(object sender,RoutedEventArgs e){var picker=new OpenFolderDialog{Title="Choose the Syphon installation folder"};if(picker.ShowDialog(this)==true)Location.Text=picker.FolderName;}
@@ -49,12 +91,12 @@ public partial class SetupWindow : Window
    return;
   }
   if(step==4){if(!uninstall&&LaunchOption.IsChecked==true)try{Process.Start(new ProcessStartInfo(Path.Combine(installedRoot,"app","Syphon.exe")){UseShellExecute=true});}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;return;}Close();return;}
-  if(!uninstall&&step==0){ShowStep(1);return;}
+  if(!uninstall&&step==0){if(InstallationList.SelectedItem is InstallReceipt)PrepareMaintenance(false);else ShowStep(1);return;}
   try {
-   var root=uninstall?Path.TrimEndingDirectorySeparator(Path.GetFullPath(AppContext.BaseDirectory)):InstallEngine.ValidateRoot(Location.Text.Trim());
+   var root=uninstall?Path.TrimEndingDirectorySeparator(Path.GetFullPath(removalRoot??AppContext.BaseDirectory)):InstallEngine.ValidateRoot(Location.Text.Trim());
    if(!uninstall&& !Environment.Is64BitOperatingSystem)throw new IOException("This installer requires 64-bit Windows.");
    if(uninstall){StartUninstallerCopy(root);return;}
-   var browser=false;var desktop=DesktopOption.IsChecked==true;
+   var browser=maintenanceReceipt?.Browser??false;var desktop=DesktopOption.IsChecked==true;
    ShowStep(2);busy=true;Next.IsEnabled=false;Back.IsEnabled=false;
    Status.Text="Verifying the installer and available space…";
    await Task.Run(()=>{using var payload=InstallEngine.OpenPayload();using var zip=new ZipArchive(payload,ZipArchiveMode.Read);var needed=zip.Entries.Sum(f=>f.Length)+200L*1024*1024;var drive=new DriveInfo(Path.GetPathRoot(root)!);if(drive.AvailableFreeSpace<needed)throw new IOException($"Setup needs at least {needed/1048576:N0} MB free on this drive.");});
@@ -64,7 +106,7 @@ public partial class SetupWindow : Window
    }
    var progress=new Progress<(double,string)>(value=>{Progress.Value=value.Item1;Percent.Text=$"{value.Item1:0}%";Status.Text=value.Item2;});
    var receipt=await Task.Run(()=>{using var payload=InstallEngine.OpenPayload();return InstallEngine.Install(payload,root,browser,desktop,progress,cancellation.Token);});
-   installedRoot=receipt.Root;busy=false;Next.IsEnabled=true;ShowStep(3);FinishPath.Text=installedRoot;ExtensionPath.Text=Path.Combine(installedRoot,"Extensions");
+   installedRoot=receipt.Root;busy=false;Next.IsEnabled=true;ShowStep(maintenanceReceipt is null?3:4);FinishPath.Text=installedRoot;ExtensionPath.Text=Path.Combine(installedRoot,"Extensions");
 
   } catch(Exception ex) {
    busy=false;Next.IsEnabled=true;Back.IsEnabled=true;Cancel.IsEnabled=true;
@@ -103,5 +145,5 @@ public partial class SetupWindow : Window
  private void OpenExtensionsClick(object sender,RoutedEventArgs e){try{Process.Start(new ProcessStartInfo(ExtensionsFolder){UseShellExecute=true});}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}}
  private void CopyExtensionsClick(object sender,RoutedEventArgs e){try{Clipboard.SetText(ExtensionsFolder);}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}}
  private void ExtensionClick(object sender,RoutedEventArgs e){try{new BrowserSetupWindow(installedRoot){Owner=this}.ShowDialog();}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}}
- internal void RenderPreview(string destination){Loaded+=(_,_)=>Dispatcher.BeginInvoke(new Action(()=>{Directory.CreateDirectory(destination);ExtensionPath.Text=Path.Combine(InstallEngine.DefaultRoot,"Extensions");foreach(var i in (uninstall?new[]{0,2,4}:new[]{0,1,2,3,4})){ShowStep(i);UpdateLayout();var bitmap=new RenderTargetBitmap((int)ActualWidth,(int)ActualHeight,96,96,PixelFormats.Pbgra32);bitmap.Render(this);using var output=File.Create(Path.Combine(destination,$"setup-{i}.png"));var encoder=new PngBitmapEncoder();encoder.Frames.Add(BitmapFrame.Create(bitmap));encoder.Save(output);}Application.Current.Shutdown();}),System.Windows.Threading.DispatcherPriority.ApplicationIdle);}
+ internal void RenderPreview(string destination){Loaded+=(_,_)=>Dispatcher.BeginInvoke(new Action(()=>{Directory.CreateDirectory(destination);ExtensionPath.Text=Path.Combine(InstallEngine.DefaultRoot,"Extensions");foreach(var i in (uninstall?new[]{0,2,4}:maintenanceReceipt is not null?new[]{0,1,2,4}:new[]{0,1,2,3,4})){if(uninstall&&i==4)CompleteRemoval();else ShowStep(i);UpdateLayout();var bitmap=new RenderTargetBitmap((int)ActualWidth,(int)ActualHeight,96,96,PixelFormats.Pbgra32);bitmap.Render(this);using var output=File.Create(Path.Combine(destination,$"setup-{i}.png"));var encoder=new PngBitmapEncoder();encoder.Frames.Add(BitmapFrame.Create(bitmap));encoder.Save(output);}Application.Current.Shutdown();}),System.Windows.Threading.DispatcherPriority.ApplicationIdle);}
 }

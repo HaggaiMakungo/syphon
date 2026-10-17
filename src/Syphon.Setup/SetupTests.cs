@@ -38,6 +38,7 @@ internal static class SetupTests
     next.RaiseEvent(new System.Windows.RoutedEventArgs(System.Windows.Controls.Button.ClickEvent));
     Check((string)next.Content=="Finish","Explicit choice did not reach Finish.");
    } finally {wizard.Close();}
+   SetupMaintenanceTests.Run(testRoot);
    var target=Path.Combine(testRoot,"Application");
    using(var stream=Fixture())InstallEngine.Install(stream,target,false,false,progress,CancellationToken.None,false);
    Check(File.Exists(Path.Combine(target,"app","Syphon.exe")),"Install did not publish files.");
@@ -79,7 +80,7 @@ internal static class SetupTests
    Check(distribution.StoreUrl(false)=="https://chromewebstore.google.com/detail/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","Incorrect Chrome store URL.");
    File.WriteAllText(Path.Combine(distributionRoot,"browser-distribution.json"),"{\"chromeExtensionId\":\"https://untrusted.test\"}");
    try{BrowserDistribution.Load(distributionRoot);throw new Exception("Invalid store ID accepted.");}catch(InvalidDataException){}
-   var log=Environment.GetEnvironmentVariable("SYPHON_SETUP_TEST_REPORT")??Path.Combine(Path.GetTempPath(),"Syphon-setup-tests.txt");File.WriteAllText(log,"PASS: staging, verification, upgrade, unknown-file preservation, uninstall, corrupt package, traversal, cancellation and unowned directory checks.\n");
+   var log=Environment.GetEnvironmentVariable("SYPHON_SETUP_TEST_REPORT")??Path.Combine(Path.GetTempPath(),"Syphon-setup-tests.txt");File.WriteAllText(log,"PASS: staging, verification, upgrade, unknown-file preservation, uninstall, corrupt package, traversal, cancellation and unowned directory, maintenance discovery, missing-file repair and safe stale-registration cleanup checks.\n");
   } finally {
    var full=Path.GetFullPath(testRoot);if(full.StartsWith(Path.Combine(Path.GetTempPath(),"Syphon.Setup.Tests")+Path.DirectorySeparatorChar,StringComparison.OrdinalIgnoreCase))Directory.Delete(full,true);
   }
@@ -99,7 +100,7 @@ internal static class SetupTests
   var bitmap=new System.Windows.Media.Imaging.RenderTargetBitmap((int)window.ActualWidth,(int)window.ActualHeight,96,96,System.Windows.Media.PixelFormats.Pbgra32);bitmap.Render(window);
   Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(output))!);using var file=File.Create(output);var encoder=new System.Windows.Media.Imaging.PngBitmapEncoder();encoder.Frames.Add(System.Windows.Media.Imaging.BitmapFrame.Create(bitmap));encoder.Save(file);window.Close();
  }
- private static MemoryStream Fixture(bool corrupt=false) {
+ internal static MemoryStream Fixture(bool corrupt=false) {
   var files=new Dictionary<string,byte[]> { ["app/Syphon.exe"]=[1,2,3], ["host/Syphon.NativeHost.exe"]=[4,5,6], ["Uninstall.exe"]=[7,8], ["extensions/manifest.json"]=System.Text.Encoding.UTF8.GetBytes("{\"key\":\"AQIDBA==\"}") };
   var manifest=new PackageManifest("0.1.0-test",files.ToDictionary(k=>k.Key,k=>new PackageFile(k.Value.Length,Convert.ToHexString(SHA256.HashData(k.Value)))));
   var stream=new MemoryStream();using(var zip=new ZipArchive(stream,ZipArchiveMode.Create,true)) {

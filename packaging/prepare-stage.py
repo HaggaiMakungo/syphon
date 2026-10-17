@@ -1,6 +1,6 @@
 from pathlib import Path
 import os,shutil,subprocess,json,hashlib,argparse
-parser=argparse.ArgumentParser();parser.add_argument('--version',default='0.1.0-beta.6');args=parser.parse_args()
+parser=argparse.ArgumentParser();parser.add_argument('--version',default='0.1.0-beta.7');args=parser.parse_args()
 root=Path(__file__).resolve().parents[1];stage=root/'artifacts/setup-stage';app=stage/'app';media=app/'.tools/media';media.mkdir(parents=True,exist_ok=True)
 def link(source,target):
  source=Path(source);target=Path(target);target.parent.mkdir(parents=True,exist_ok=True)
