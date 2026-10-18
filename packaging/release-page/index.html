@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="A local preview of the Syphon Windows download manager release.">
+  <title>Syphon — Beta @@BETA@@ for Windows</title>
+  <link rel="icon" href="assets/emblem.png">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to download</a>
+  <div class="preview"><span class="preview-dot" aria-hidden="true"></span> Local release preview <span class="preview-note">Not published</span></div>
+  <header class="masthead wrap">
+    <a class="brand" href="#main" aria-label="Syphon home"><img src="assets/emblem.png" alt="" width="42" height="42"><span>SYPHON</span></a>
+    <nav aria-label="Page navigation"><a href="#browser">Browser setup</a><a href="RELEASE-NOTES.md">Release notes</a><a href="https://github.com/HaggaiMakungo/syphon">Source <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main id="main" class="wrap">
+    <section class="hero" aria-labelledby="headline">
+      <div class="eyebrow"><span class="version">BETA @@BETA@@</span> Windows x64 <span aria-hidden="true">·</span> @@DATE@@</div>
+      <h1 id="headline">Your downloads.<br><span>A little more in control.</span></h1>
+      <p class="intro">A home for your files, videos and audio. Queue the next download, follow the current one, and retire the ritual of asking where on earth it went.</p>
+      <div class="download-row"><a class="button primary" href="@@INSTALLER@@" download><svg aria-hidden="true" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></svg> Download Beta @@BETA@@</a><a class="quiet-link" href="SHA256SUMS.txt">Checksums <span aria-hidden="true">↗</span></a></div>
+      <p class="download-meta">@@MB@@ MB <span aria-hidden="true">·</span> Windows 10 or later <span aria-hidden="true">·</span> Media tools included</p>
+      <p class="trust-note">Locally self-signed. Windows may show publisher or SmartScreen warnings. <a href="RELEASE-NOTES.md">Read before installing</a>.</p>
+      <div class="trace" aria-hidden="true"><svg viewBox="0 0 900 100" preserveAspectRatio="none"><defs><linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#a791ff" stop-opacity=".16"/><stop offset="1" stop-color="#a791ff" stop-opacity="0"/></linearGradient></defs><path class="fill" d="M0 83H75C90 83 90 67 110 67H185C205 67 200 44 228 44H310C335 44 340 54 365 54H420C446 54 440 24 475 24S520 41 550 41H615C643 41 640 12 675 12S716 28 744 28H900V100H0Z"/><path class="line" d="M0 83H75C90 83 90 67 110 67H185C205 67 200 44 228 44H310C335 44 340 54 365 54H420C446 54 440 24 475 24S520 41 550 41H615C643 41 640 12 675 12S716 28 744 28H900"/></svg></div>
+    </section>
+    <section class="features" aria-label="Included features">
+      <article><span class="feature-number" aria-hidden="true">01</span><h2>Keep your place</h2><p>Pause and resume supported file transfers. Your queue and history stay with you.</p></article>
+      <article><span class="feature-number" aria-hidden="true">02</span><h2>Bring the artwork</h2><p>YouTube MP3 downloads embed available cover art or the video thumbnail. One audio file, no extra image.</p></article>
+      <article><span class="feature-number" aria-hidden="true">03</span><h2>Find it again</h2><p>Videos, Music, Documents, Programs and Misc folders keep everyday downloads easy to find.</p></article>
+    </section>
+    <section id="browser" class="browser-section" aria-labelledby="browser-title">
+      <div class="section-intro"><p class="eyebrow">ONE-TIME CONNECTION</p><h2 id="browser-title">From your browser<br>to your workspace.</h2><p>The companion for Chrome and Edge is included with setup. Store listings are not available yet; this beta loads from a folder.</p><a class="quiet-link" href="BROWSER-SETUP.md">Full setup and troubleshooting <span aria-hidden="true">↗</span></a></div>
+      <ol class="steps">
+        <li><span class="step">1</span><div><h3>Install Syphon</h3><p>Enable <strong>Browser integration</strong>. At the end of setup, choose <strong>Browser extension setup → Open extension folder</strong>.</p></div></li>
+        <li><span class="step">2</span><div><h3>Load the companion</h3><p>Open <code>chrome://extensions</code> or <code>edge://extensions</code>. Enable <strong>Developer mode</strong>, choose <strong>Load unpacked</strong>, and select the folder containing <code>manifest.json</code>.</p></div></li>
+        <li><span class="step">3</span><div><h3>Check the connection</h3><p>Open <strong>Syphon this</strong> from your browser's Extensions menu and select <strong>Check connection</strong>. Refresh existing video tabs.</p></div></li>
+      </ol>
+    </section>
+    <section class="release-details" aria-labelledby="release-title">
+      <div><p class="eyebrow">THIS BUILD</p><h2 id="release-title">Beta @@BETA@@, ready to review.</h2><p>Includes the Open folder repair, embedded MP3 artwork, and the latest violet interface refinements.</p><p class="small">Functional and installer checks were confirmed by the owner on their PC. <a href="RELEASE-READINESS.md">See readiness and remaining work</a>.</p></div>
+      <dl><dt>Version</dt><dd>@@VERSION@@</dd><dt>Platform</dt><dd>Windows x64</dd><dt>Companion</dt><dd><a href="@@EXTENSION@@" download>Extension @@EXTENSION_VERSION@@ ZIP <span aria-hidden="true">↗</span></a></dd><dt>Installer SHA-256</dt><dd class="hash">@@SHA256@@</dd></dl>
+    </section>
+  </main>
+  <footer class="wrap"><span>Syphon · Made to keep things moving.</span><div><a href="LICENSE.txt">MIT license</a><a href="THIRD-PARTY-NOTICES.md">Third-party notices</a><a href="release.json">Build details</a></div></footer>
+</body>
+</html>
