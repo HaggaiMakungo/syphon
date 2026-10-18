@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "candidateOutputs": [
+    {
+      "file": "ffmpeg.exe",
+      "bytes": 35277312,
+      "sha256": "12edcc74fad58331649273a5bd7b44f834602670d2206479a9eca69cee84410a"
+    },
+    {
+      "file": "ffprobe.exe",
+      "bytes": 35075584,
+      "sha256": "6b711190d7bcde7765c6a7edb1943437533c85dd36f94492957640e219085cfc"
+    }
+  ],
+  "applicationSourceRevision": "e6c0193fbe698a9730487e46e119b9aa4a005763",
+  "testAssemblySha256": "efa74189197157305f7f63a7367d9dc450d79aec10b31d830e96af05f9daaaf9",
+  "engineAssemblySha256": "83e123733db5c9fb74935c1e2aa1d048b8d4f64768f71cbabc38d339fea21b36",
+  "media": {
+    "passed": 13,
+    "failed": 0
+  },
+  "youtubeAdapter": {
+    "passed": 18,
+    "failed": 0
+  },
+  "sizeDiscovery": {
+    "passed": 8,
+    "failed": 0
+  },
+  "mp3Artwork": {
+    "passed": 3,
+    "failed": 0,
+    "cases": [
+      "available WebP converted and embedded as JPEG",
+      "no artwork",
+      "unavailable artwork"
+    ],
+    "sidecarImages": false
+  },
+  "liveYoutube": {
+    "passed": true,
+    "testVideo": "https://www.youtube.com/watch?v=YE7VzlLtp-4",
+    "mp4": "separate video/audio download and merge; AV1 video/AAC audio validated",
+    "mp3": "MP3 audio and MJPEG cover stream validated"
+  },
+  "https": {
+    "validPublicCertificate": "passed",
+    "untrustedLocalCertificateRejected": "passed with tls_verify=1; Windows security error0x80090325",
+    "untrustedCertificateControl": "same fixture succeeds with tls_verify=0; diagnostic control only",
+    "trustStoreModified": false
+  },
+  "environmentNotes": "Initial concurrent PowerShell launches failed under Windows memory pressure before tests started. Serial test launches through Windows PowerShell5.1 completed. Test-owned stores and temporary media only.",
+  "releaseCacheChanged": false,
+  "limits": [
+    "One-PC compatibility evaluation, not clean-machine certification.",
+    "Source candidate was built incrementally; fresh end-to-end CLI rebuild remains pending.",
+    "Complete independent recipe/source-material review remains pending.",
+    "No installer rebuilt, public binary release or browser-store submission performed."
+  ],
+  "evidenceArchive": {
+    "file": "Syphon-FFmpeg-9.0.2-compatibility-evidence.zip",
+    "bytes": 7720,
+    "sha256": "2020cf6cedcb779be67a1e758aa1b9c4b5a36eb54d4d60cc9fe5101129496d26",
+    "verifiedMembers": 11
+  }
+}

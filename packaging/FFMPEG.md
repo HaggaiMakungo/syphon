@@ -25,4 +25,10 @@ The existing release dependency lock continues to identify the shipped candidate
 
 The local native development build produced FFmpeg 9.0.2-syphon-source-build and FFprobe from the locked inputs. Their identities are retained in `ffmpeg-build-record.win-x64.json`. Startup, compiled capability, Windows import and local MP4/MP3/WebP/embedded-JPEG smoke checks passed. Only ordinary Windows DLL imports were observed.
 
-This candidate was built incrementally while developing the recipe. Failed attempts and recipe snapshots are retained with its material bundle. A fresh end-to-end CLI rebuild, full application/media regression, HTTPS certificate-behavior tests and final source-inventory review are pending. The first independent review stopped at an account usage limit after preliminary provenance and material-retention findings; those findings were addressed, but a complete review verdict is not claimed. The shipped release lock is unchanged.
+This candidate was built incrementally while developing the recipe. Failed attempts and recipe snapshots are retained with its material bundle. Application/media regression and HTTPS certificate-behavior checks have now passed; see `ffmpeg-compatibility.win-x64.json`. A fresh end-to-end CLI rebuild and final source-inventory review remain pending. The first independent review stopped at an account usage limit after preliminary provenance and material-retention findings; those findings were addressed, but a complete review verdict is not claimed. The shipped release lock is unchanged.
+
+## Application compatibility
+
+The same candidate pair passed 13 engine media checks, 18 YouTube adapter checks, eight size-discovery checks and three album-art scenarios. Live Big Buck Bunny downloads through Syphon completed as MP4 (AV1/AAC) and MP3 with JPEG artwork, with FFprobe validation.
+
+HTTPS inspection succeeded against a valid public certificate. The same local media fixture succeeded with verification disabled as a diagnostic control, then failed with verification enabled against its untrusted certificate. No certificate was added to Windows trust stores. This is one-PC evidence, not clean-machine certification or an exhaustive website-compatibility claim. The shipped dependency cache and installer remain unchanged.
