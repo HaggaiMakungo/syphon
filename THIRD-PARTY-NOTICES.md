@@ -13,10 +13,10 @@ The installer retains component notices in `licenses/`, and frontend/font notice
 | WebView2 SDK/bootstrapper | Microsoft SDK license/notice and the original bootstrapper remain subject to their own terms. |
 | Frontend libraries, icons and fonts | Existing package/font/icon notices remain with the assets. |
 
-These entries identify retained evidence; they are not an exhaustive application SBOM. Exact bundled binary versions and hashes are recorded in `packaging/dependencies.win-x64.json` and the generated package provenance. Original source materials and unresolved vendor/bundled input gaps are tracked in `docs/source-material-readiness.md`.
+These entries identify retained evidence; they are not an exhaustive application SBOM. Exact bundled binary versions and hashes are recorded in `packaging/dependencies.win-x64.json` and the generated package provenance. Original source materials and unresolved vendor/bundled input gaps are tracked in the source manifests under `packaging/`; coverage remains incomplete.
 
 Choosing MIT for Syphon's original code does not close those third-party distribution requirements. The current installer remains a local beta candidate, pending the documented public-release checks.
 
 Upstream references: [FFmpeg](https://www.ffmpeg.org/legal.html), [yt-dlp 2026.08.19](https://github.com/yt-dlp/yt-dlp/blob/2026.08.19/README.md#licensing).
 
-Beta 10 uses a Syphon-local yt-dlp build with Python 3.13.16. Exact Python/wheel notices are retained under packaging/licenses/yt-dlp-runtime and included in the installer alongside original upstream notices and build/input records. See docs/media-runtime-build.md for scope and remaining source-material gaps.
+Beta 10 uses a Syphon-local yt-dlp build with Python 3.13.16. Exact Python/wheel notices are retained under packaging/licenses/yt-dlp-runtime and included in the installer alongside original upstream notices and build/input records. See packaging/MEDIA-RUNTIME.md for scope and remaining source-material gaps.

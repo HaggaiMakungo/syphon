@@ -12,7 +12,7 @@ try {
     $DependencyRoot=[IO.Path]::GetFullPath($DependencyRoot)
     $OutputDirectory=[IO.Path]::GetFullPath($OutputDirectory)
     & python packaging/dependencies.py verify --root $DependencyRoot
-    if ($LASTEXITCODE -ne 0) { throw 'Import the pinned release dependencies before building. See docs/packaging-inputs.md.' }
+    if ($LASTEXITCODE -ne 0) { throw 'Import the pinned release dependencies before building. See packaging/README.md.' }
     & python tests/media_runtime_test.py
     if ($LASTEXITCODE -ne 0) { throw 'Media runtime regression checks failed.' }
     & python tests/yt_dlp_build_test.py

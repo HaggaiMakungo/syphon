@@ -5,4 +5,4 @@ build. The original aggregate THIRD_PARTY file is retained separately as upstrea
 evidence and is not an exhaustive assertion of the new runtime's versions.
 CPython-LICENSE.txt describes Python and its included third-party components.
 The original GPL media/source-distribution requirements remain applicable.
-See docs/media-runtime-build.md and the exact build-input manifest.
+See packaging/MEDIA-RUNTIME.md and the exact build-input manifest.

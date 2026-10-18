@@ -21,3 +21,17 @@ research/**/*.json
 .env
 .env.*
 !.env.example
+
+# Private planning, research and inspiration; never ship these.
+/docs/
+/UI_References/
+/design/references/
+/research/
+/ui/desktop/prepare.py
+/scripts/trace-wordmark.py
+/design/brand/syphon_original_reference.png
+/design/brand/hybrid-v3/preview/
+/design/brand/hybrid-v3/archive-provenance.json
+/design/brand/README.md
+/design/brand/README.txt
+/design/brand/hybrid-v3/README.md

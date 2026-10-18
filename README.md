@@ -20,7 +20,7 @@ It is also very purple. Someone was allowed to discover gradients without a resp
 
 The installer is built and locally self-signed. Functional and installer acceptance checks have passed according to the owner on their PC, including the latest Open folder fix. A download-page preview, release notes, checksums and browser instructions are prepared.
 
-Public downloads and browser-store listings have **not** been published. Outstanding FFmpeg source/build-material work is tracked in the [release preparation notes](docs/release-preparation-beta13.md). The current [release notes](docs/releases/0.1.0-beta.13.md) describe the exact build and its limits.
+Public downloads and browser-store listings have **not** been published. FFmpeg corresponding-source and build-material review remains unfinished. The current [release notes](RELEASE-NOTES.md) describe the exact build and its limits.
 
 ## What it does
 
@@ -79,7 +79,7 @@ Your browser still needs a one-time introduction to the companion. Please select
 3. Open `chrome://extensions` or `edge://extensions`, enable **Developer mode**, and choose **Load unpacked**.
 4. Select the folder containing `manifest.json`. Open **Syphon this** from the browser's Extensions menu and select **Check connection**.
 
-Refresh existing video tabs afterwards. The installer registers the native host; the browser still needs you to load its extension. The prepared package includes full setup and troubleshooting instructions, and [browser integration documentation](docs/browser-integration.md) covers development installs.
+Refresh existing video tabs afterwards. The installer registers the native host; the browser still needs you to load its extension. The prepared package includes full setup and troubleshooting instructions, and [the contributor guide](CONTRIBUTING.md) covers development installs.
 
 ## The important limits
 
@@ -91,7 +91,7 @@ Syphon does not bypass DRM. Browser sign-in sharing is optional, limited to elig
 
 Download URLs and history are stored locally in `%LOCALAPPDATA%\Syphon\tasks.db`. URLs can contain access tokens, so treat that database as private. Temporary browser sign-in context stays in memory rather than the task database. Removing a task erases its resume history; unfinished file deletion is a separate choice. Completed files are preserved.
 
-Successful tests on the owner's PC are not clean-machine or power-loss certification. [Release preparation](docs/release-preparation-beta13.md) keeps the remaining checks visible.
+Successful tests on the owner's PC are not clean-machine or power-loss certification. Source-material review and browser-store distribution remain unfinished.
 
 ## Build it yourself
 
@@ -107,7 +107,7 @@ Use Windows x64 and the .NET SDK pinned in `global.json`. Run `./bootstrap.ps1` 
 
 After building, `Syphon.cmd` also launches the app. For a development browser connection, use `./connect-browser.ps1 -NoBuild`, then load `extensions\syphon` as an unpacked extension. Installer users should use setup's connection flow instead.
 
-Development media checks require FFmpeg/FFprobe and the appropriate local extractor/runtime tools. [Media behavior](docs/media.md), [YouTube setup](docs/youtube.md) and [the pinned runtime build](docs/media-runtime-build.md) explain those inputs. The packaged installer already includes its reviewed versions.
+Development media checks require FFmpeg/FFprobe and the appropriate local extractor/runtime tools. [Packaging instructions](packaging/README.md) and [the pinned runtime build](packaging/MEDIA-RUNTIME.md) explain those inputs. The packaged installer already includes its reviewed versions.
 
 <details>
 <summary>Transfer internals and developer checks</summary>
@@ -149,7 +149,7 @@ Core extension tests require Node 20 or later; the optional DOM suite uses jsdom
 | `packaging` | Pinned inputs, installer assembly and local release preparation |
 | `tests` | Transfer, desktop, browser, packaging and release checks |
 
-For the latest continuation context, read [the release handoff](docs/RELEASE-HANDOFF.md). For transfer details, see [segmentation and recovery](docs/segmented-downloads.md) and [queue compatibility](docs/queue-and-compatibility.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and verification, and [packaging/README.md](packaging/README.md) for installer builds.
 
 ## License
 
