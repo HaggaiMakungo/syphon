@@ -1,0 +1,139 @@
+{
+  "version": "0.1.0-beta.17",
+  "applicationSourceRevision": "d3eb55b930f7465d39a10ba72efbe0a0cfef05a4",
+  "applicationSourceFilesVerified": 474,
+  "publiclyPublished": false,
+  "ownerBeta17AcceptancePending": true,
+  "assets": [
+    {
+      "file": "beta17-release.win-x64.json",
+      "bytes": 4892,
+      "sha256": "edaa92148f9dbdcfa6e28df1fb160df65b71a1b9218c2fd0b66e5ab198f030f4"
+    },
+    {
+      "file": "BROWSER-SETUP.md",
+      "bytes": 3123,
+      "sha256": "d507ea5ed8e16d6fca6137335bd619891a8ad2f76acabd5793f1dede578c606e"
+    },
+    {
+      "file": "build-inputs.json",
+      "bytes": 499,
+      "sha256": "787c86e1881724bf4164fc653ca38099ff217722d0579c4f5ec7a0a234d3e457"
+    },
+    {
+      "file": "CURL-NATIVE-SOURCE.md",
+      "bytes": 2391,
+      "sha256": "135c7abd70bdbbf09dbc6453cb15e8cf86f0694176487315f9c761cbc418c2f1"
+    },
+    {
+      "file": "ffmpeg-source-evidence.win-x64.json",
+      "bytes": 809,
+      "sha256": "86e3ae4138895cbc40ef89adec028be8e3268f24d6ede2d07d165068fcac35d3"
+    },
+    {
+      "file": "ffmpeg-source-review.win-x64.json",
+      "bytes": 2333,
+      "sha256": "8f2144f9260e4423a7a9aa2e03a892f08f4a4f8d1d2faee7b39eff9ba9102215"
+    },
+    {
+      "file": "LICENSE.txt",
+      "bytes": 1076,
+      "sha256": "03e642c5e27d811a59b2cec9b7c428a74a28449036002944ec4660ca1df4e425"
+    },
+    {
+      "file": "native-source-bundle.win-x64.json",
+      "bytes": 591,
+      "sha256": "599afdeac4ee9d36b1fb1ffed070fb870871ffa1a07c29395d0cc97724d14048"
+    },
+    {
+      "file": "NATIVE-SOURCE-CLOSURE.md",
+      "bytes": 3660,
+      "sha256": "e0b2af743f5acef3fae527905352c9b5b0cb21bf4a5bd95a769611bb2a96ddba"
+    },
+    {
+      "file": "native-source-closure.win-x64.json",
+      "bytes": 3369,
+      "sha256": "3b0ab81e4d00d3dd45bd90977465829bef422943e158a38261a6451c7407e122"
+    },
+    {
+      "file": "NATIVE-WHEELS-SOURCE.md",
+      "bytes": 4482,
+      "sha256": "7dd9d5bef860e49b0ae8ad89e47fafc0becc09fbe46bdbcafedb2d72588da3ca"
+    },
+    {
+      "file": "PYINSTALLER-SOURCE.md",
+      "bytes": 3618,
+      "sha256": "5acfc1b36787b4a95eb968f240b81351f854456117063c8d666c0c11f629e0bc"
+    },
+    {
+      "file": "PYTHON-NATIVE-SOURCE.md",
+      "bytes": 5409,
+      "sha256": "eee339744f8711fac83c8f930d8cc0ab6b7e77d79b2e10ab9d604d59b682e2ca"
+    },
+    {
+      "file": "RELEASE-NOTES.md",
+      "bytes": 6322,
+      "sha256": "be6ca23d8626287aa5693b7955e78840484dff1a929a894c70b5983e1709190c"
+    },
+    {
+      "file": "RELEASE-READINESS.md",
+      "bytes": 1956,
+      "sha256": "1a65570abfc1a42814eec3deb69cab166a56ec7a4f6aa0e847f6cf392c053922"
+    },
+    {
+      "file": "self-sign-summary.json",
+      "bytes": 994,
+      "sha256": "cc29903a9df829faa4d348734022ecd2108de72ef8d59b67ebff3062d11a9aee"
+    },
+    {
+      "file": "SELF-SIGNING.txt",
+      "bytes": 300,
+      "sha256": "4c661362ec81a6eabffe24b8c55f5d10c039ab445d4d8824db2d7db53c3ecd12"
+    },
+    {
+      "file": "START-HERE.txt",
+      "bytes": 1137,
+      "sha256": "5935387eb0ed62ccab1b50b7b2e130ef03cfba05cdbb2420171b4aab7725b120"
+    },
+    {
+      "file": "Syphon-0.1.0-beta.17-source.zip",
+      "bytes": 14602135,
+      "sha256": "deaec5afb76c4053c0ba26fe7cd7bfe74c8f8c1e30d678e1e6b784088988fc3b"
+    },
+    {
+      "file": "Syphon-Extension-0.7.4-beta17.zip",
+      "bytes": 171301,
+      "sha256": "08bf5fd8c4fb89c186e65fd8b1d14cc0036a6d13b579a3d62c44f652b859a39a"
+    },
+    {
+      "file": "Syphon-FFmpeg-9.0.2-clean-source-and-build-materials.zip",
+      "bytes": 329880819,
+      "sha256": "7fd6e215e2374c0089c905f0ff189149fbdda0bcf4fc91ecc60c46178c44fcf4"
+    },
+    {
+      "file": "Syphon-Local-Development.cer",
+      "bytes": 1050,
+      "sha256": "b3b6fe22113991ae15cd8c6da3599105f0d983839da252ce8df9815633787692"
+    },
+    {
+      "file": "Syphon-native-source-and-build-materials.zip",
+      "bytes": 554904430,
+      "sha256": "86e3a2e4835c215b8bffe5cf9f291a63b7adb9c9e65b55458e5f6ba84ab77415"
+    },
+    {
+      "file": "Syphon-Setup-0.1.0-beta.17-win-x64.exe",
+      "bytes": 332415312,
+      "sha256": "52615b3fe7765e241ad6a7cb6699e431ea8ed2bc3c43ec260747a749b6f2a1c3"
+    },
+    {
+      "file": "THIRD-PARTY-NOTICES.md",
+      "bytes": 3613,
+      "sha256": "377372bc23c67b0bb94bdde03a9777ae288f4d3af6ed6abf8c7de5bfab8efc6d"
+    },
+    {
+      "file": "WINDOWS-RUNTIME.md",
+      "bytes": 7310,
+      "sha256": "651c63615a352942cc3b7d2495dec2398815b532f77cb7a17e859016e0e6f72a"
+    }
+  ]
+}
