@@ -16,9 +16,9 @@ It is also very purple. Someone was allowed to discover gradients without a resp
 
 ## Where things stand
 
-**Current local beta: 0.1.0-beta.14 · Windows x64.**
+**Current local beta: 0.1.0-beta.15 · Windows x64.**
 
-The installer is built and locally self-signed (333.5 MB). Beta 14 bundles the reviewed FFmpeg 9.0.2 source build and restores **Open Syphon** on the final setup screen. Package extraction, tool execution and maintenance fixture checks passed. Owner acceptance of the new upgrade and completion button is still pending; Beta 13 had already passed the owner’s checks. The existing download-page preview remains Beta 13 until its separate update.
+The installer is built and locally self-signed (333.4 MB). Beta 15 removes installer diagnostics from the shipped build, restricts packaged media-tool lookup and verifies the browser pipe's desktop process before sending request data. **Open Syphon** remains on the final setup screen. Security regression, desktop workflow and package checks passed; owner acceptance of Beta 15 is pending. The owner confirmed the Beta 14 upgrade and app worked well. The existing download-page preview remains Beta 13 until its separate update.
 
 Public downloads and browser-store listings have **not** been published. The FFmpeg engineering source/build-material review has passed, and the matching source archive is retained beside the candidate installer. Other public-release checks remain separate. The current [release notes](RELEASE-NOTES.md) describe the exact build and its limits.
 

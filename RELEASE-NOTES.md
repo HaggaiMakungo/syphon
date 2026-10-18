@@ -1,3 +1,35 @@
+# Syphon 0.1.0-beta.15 — the bouncer has learned to check ID
+
+Prepared 2026-10-18 · Windows x64 · Local self-signed candidate, not published.
+
+The browser connection used to check that the caller belonged to your Windows account and then get on with things. It now also checks which executable is actually serving the connection before sending a URL or any opted-in session data. Owning a clipboard does not make you the receptionist.
+
+This build also removes the installer's development test controls from the shipped program and makes packaged media processing use its own bundled tools. Development conveniences can stay in the workshop. They do not need a company car and administrator rights.
+
+## Security fixes
+
+- Production setup excludes diagnostic implementations, external package-source overrides and preview entry points. Unsupported test commands exit before opening the wizard. Package tests use a separate local checker that is not distributed.
+- Packaged Syphon resolves FFmpeg, FFprobe, yt-dlp and Node only from its private media folder. Environment settings, global installations and PATH cannot override them. Missing or linked tools fail with a repair/reinstall message.
+- Browser handoffs verify the actual connected pipe server's process image against the configured desktop executable before sending request bytes. Identity failure sends no URL or session context and does not fall through to automatic launch/retry behavior.
+
+## Verification
+
+Production metadata and 16 rejected-command probes passed. Browser/native checks passed 18/18, including a fake endpoint receiving zero request bytes, normal cold start and signed-in handoff. Tool-policy checks passed in development and packaged modes; three link-creation cases per mode were skipped because Windows denied link creation. Media, YouTube adapter, size-discovery and desktop workflow checks passed. Both unsigned and signed packages passed full extraction, hashes and bundled-tool execution checks.
+
+**Beta 14 owner acceptance is confirmed. Beta 15 upgrade and browser acceptance are still pending.** Tests used generated directories; the installed app and personal downloads/history were not changed. Same-account process injection, administrator tampering and a compromised development checkout remain outside these defenses. This is focused hardening, not a claim of a complete security audit.
+
+## Package
+
+`Syphon-Setup-0.1.0-beta.15-win-x64.exe` — 333,431,488 bytes (333.4 MB).
+
+SHA-256: `4ee53a6da40d9cba89c7e55b0ec7d368656c652537545a1cc68f0205dfba1e58`
+
+The verified FFmpeg 9.0.2 build, embedded MP3 artwork and final **Open Syphon** action remain included. The matching FFmpeg source/build archive stays beside the installer. The outer installer uses the existing local self-signing identity without a timestamp or public certificate trust; Windows warnings may remain.
+
+No public release was performed. The Beta 13 download-page preview remains unchanged.
+
+---
+
 # Syphon 0.1.0-beta.14 — the installer has lost some luggage
 
 Prepared 2026-10-18 · Windows x64 · Local self-signed candidate, not published.

@@ -1,0 +1,101 @@
+{
+  "schema": 1,
+  "version": "0.1.0-beta.15",
+  "date": "2026-10-18",
+  "architecture": "win-x64",
+  "status": "Local self-signed security hardening candidate; not published; Beta15 owner acceptance pending",
+  "applicationSourceRevision": "c7cbbb72f94c14f6826d73cc9cc1cbb84ab7997c",
+  "applicationSourceDirty": false,
+  "installer": {
+    "file": "Syphon-Setup-0.1.0-beta.15-win-x64.exe",
+    "bytes": 333431488,
+    "sha256": "4ee53a6da40d9cba89c7e55b0ec7d368656c652537545a1cc68f0205dfba1e58"
+  },
+  "signing": {
+    "signed": true,
+    "signatureType": "self-signed Authenticode",
+    "cryptographicSignatureValid": true,
+    "fileDigestValid": true,
+    "certificateThumbprint": "3B47C910EDA7360A3F486154954A22A7DABBABDE",
+    "timestamped": false,
+    "publiclyTrusted": false,
+    "scope": "Outer installer only; embedded files retain their existing signatures"
+  },
+  "priorOwnerAcceptance": {
+    "version": "0.1.0-beta.14",
+    "date": "2026-10-18",
+    "statement": "Owner reports upgrading the current installation and testing the app successfully."
+  },
+  "securityChanges": [
+    "Production setup excludes diagnostic commands, types, preview code and external package-source override; unsupported arguments exit before UI.",
+    "Packaged engine resolves only its four private media executables and refuses missing or linked paths; environment/global/PATH overrides are ignored.",
+    "Native host verifies actual connected pipe server process image against configured desktop before writing any request bytes; mismatch does not retry or cold-start."
+  ],
+  "verification": {
+    "productionDiagnosticMetadata": "passed",
+    "productionRejectedInvocationProbes": 16,
+    "installerMaintenanceFixtures": "passed",
+    "mediaPolicyDevelopment": {
+      "passed": 8,
+      "symlinkTestsSkipped": 3
+    },
+    "mediaPolicyPackaged": {
+      "passed": 8,
+      "symlinkTestsSkipped": 3
+    },
+    "publishedAndExtractedMediaPolicy": "passed",
+    "browserNativeChecks": {
+      "passed": 18,
+      "includes": "Impersonated pipe receives zero bytes; signed-in handoff and cold start pass"
+    },
+    "desktopWorkflows": "passed in test-owned folders including native-host/WPF handoff",
+    "mediaRegression": 13,
+    "youtubeAdapterRegression": 18,
+    "sizeDiscoveryRegression": 8,
+    "packaging": {
+      "run": 18,
+      "passed": 17,
+      "skipped": 1
+    },
+    "unsignedPackageExtractionHashesTools": "passed using separate development checker",
+    "signedPackageExtractionHashesTools": "passed using separate development checker",
+    "independentSecurityCodeReview": "No material bypass found after fixture update; full checks passed."
+  },
+  "packagedAssemblies": {
+    "Syphon.Engine.dll": "cd107b0dbc17da8145f656d702c4fc29f49282d1d2b9dae13c4c6f0fc1f425f9",
+    "Syphon.NativeHost.dll": "416bf161e4c77b8c3ecf60e7e7ed6d4cc364de74d272fca4e806b89ced9edcfb",
+    "Syphon.BrowserBridge.dll": "c077cc1dcce50ce25adcf355b57e62cfe5cf21dc482a0cebebe6d48a16104bdb"
+  },
+  "ffmpegSource": {
+    "schema": 1,
+    "file": "Syphon-FFmpeg-9.0.2-clean-source-and-build-materials.zip",
+    "bytes": 329880819,
+    "sha256": "7fd6e215e2374c0089c905f0ff189149fbdda0bcf4fc91ecc60c46178c44fcf4",
+    "verifiedMembers": 94,
+    "status": "Fresh end-to-end build, candidate compatibility and independent engineering source-material review passed",
+    "reviewRecord": "ffmpeg-source-review.win-x64.json",
+    "binaries": [
+      {
+        "file": "ffmpeg.exe",
+        "bytes": 35277312,
+        "sha256": "3acb0d04648d7a1031086eb31d20ba176e6fe535e447489acc30d5aa13a7d7ee"
+      },
+      {
+        "file": "ffprobe.exe",
+        "bytes": 35075584,
+        "sha256": "ab28380e0c18bc1e47ad5414fc9007216808907ee6cddd89e9e90b2208a3372f"
+      }
+    ],
+    "buildMode": "Fresh end-to-end CLI; new empty work directory; no manual continuation or repair"
+  },
+  "limits": [
+    "No claim of a complete security audit or protection against arbitrary same-account process injection/privileged tampering.",
+    "Symlink fixture cases skipped because this account could not create filesystem links; production reparse-point checks remain enabled.",
+    "No real installed app, user download/history, registry or trust-store changes performed by these tests.",
+    "Published Git history was not rewritten; historical deleted files remain reachable.",
+    "No public binary release, Pages publication or extension-store submission."
+  ],
+  "acceptancePending": [
+    "Owner upgrades to Beta15 and checks normal browser handoff, download and Open Syphon completion action."
+  ]
+}
