@@ -1,0 +1,856 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "complete": false,
+  "buildLockSha256": "9bd13f453970e94ce501043f9039d90ed61df70412fbfcb171ef9010356aef7b",
+  "authentication": "HTTPS PyPI metadata digest matching. No independent Sigstore/GPG verification claimed.",
+  "packages": [
+    {
+      "name": "altgraph",
+      "version": "0.17.5",
+      "wheel": "altgraph-0.17.5-py2.py3-none-any.whl",
+      "wheelSha256": "f3a22400bce1b0c701683820ac4f3b159cd301acab067c51c653e06961600597",
+      "metadata": {
+        "file": "pypi-altgraph-0.17.5.json",
+        "bytes": 9839,
+        "sha256": "378b0103a514bcb2a2fc35f1016e7c53bd94425857f4c36152152810f0316bd5",
+        "url": "https://pypi.org/pypi/altgraph/0.17.5/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/a9/ba/000a1996d4308bc65120167c21241a3b205464a2e0b58deda26ae8ac21d1/altgraph-0.17.5-py2.py3-none-any.whl",
+      "licenseExpression": null,
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "wheelNotices": [
+        {
+          "member": "altgraph-0.17.5.dist-info/LICENSE",
+          "sha256": "6c194d6db0c64d45535d10c95142b9b0cda7b7dcc7f1ddee302b3d536f3dbe46"
+        }
+      ],
+      "nativeMembers": [],
+      "sources": [
+        {
+          "file": "pypi-altgraph-0.17.5.tar.gz",
+          "bytes": 48428,
+          "sha256": "c87b395dd12fabde9c99573a9749d67da8d29ef9de0125c7f536699b4a9bc9e7",
+          "url": "https://files.pythonhosted.org/packages/7e/f8/97fdf103f38fed6792a1601dbc16cc8aac56e7459a9fff08c812d8ae177a/altgraph-0.17.5.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "brotli",
+      "version": "1.2.0",
+      "wheel": "brotli-1.2.0-cp313-cp313-win_amd64.whl",
+      "wheelSha256": "b63daa43d82f0cdabf98dee215b375b4058cce72871fd07934f179885aad16e8",
+      "metadata": {
+        "file": "pypi-brotli-1.2.0.json",
+        "bytes": 92928,
+        "sha256": "fff7b315334c40e145ed39acf6fa025c315f2a18a023e64b39efbd4c5a4efbd8",
+        "url": "https://pypi.org/pypi/brotli/1.2.0/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/ff/91/e739587be970a113b37b821eae8097aac5a48e5f0eca438c22e4c7dd8648/brotli-1.2.0-cp313-cp313-win_amd64.whl",
+      "licenseExpression": null,
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "wheelNotices": [
+        {
+          "member": "brotli-1.2.0.dist-info/licenses/LICENSE",
+          "sha256": "60ae0f13e76cc2eaaa108677eefa4ce16b647f6bbe8cf0a1ac9429d82eca7248"
+        }
+      ],
+      "nativeMembers": [
+        "_brotli.cp313-win_amd64.pyd"
+      ],
+      "sources": [
+        {
+          "file": "pypi-brotli-1.2.0.tar.gz",
+          "bytes": 7388632,
+          "sha256": "e310f77e41941c13340a95976fe66a8a95b01e783d430eeaf7a2f87e0a57dd0a",
+          "url": "https://files.pythonhosted.org/packages/f7/16/c92ca344d646e71a43b8bb353f0a6490d7f6e06210f8554c8f874e454285/brotli-1.2.0.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "certifi",
+      "version": "2026.7.22",
+      "wheel": "certifi-2026.7.22-py3-none-any.whl",
+      "wheelSha256": "62f22742b58a1a33014a2b6b706588a8d7e2a88ae7bd1a6ebe8c992928483775",
+      "metadata": {
+        "file": "pypi-certifi-2026.7.22.json",
+        "bytes": 4584,
+        "sha256": "c6fe912677e373608eab51e324946005998faeb0fa999e6ddada24676e3556d3",
+        "url": "https://pypi.org/pypi/certifi/2026.7.22/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/0b/a7/71ac2cff56fec219ed242bb11b8efb69fcc4bec75db06fb7bfe35de520e6/certifi-2026.7.22-py3-none-any.whl",
+      "licenseExpression": null,
+      "license": "MPL-2.0",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "wheelNotices": [
+        {
+          "member": "certifi-2026.7.22.dist-info/licenses/LICENSE",
+          "sha256": "e93716da6b9c0d5a4a1df60fe695b370f0695603d21f6f83f053e42cfc10caf7"
+        }
+      ],
+      "nativeMembers": [],
+      "sources": [
+        {
+          "file": "pypi-certifi-2026.7.22.tar.gz",
+          "bytes": 138112,
+          "sha256": "741e2c3b351ddf169a738da9f2c048608ff7f2c5cc02f1ebc6b118bb090d5d55",
+          "url": "https://files.pythonhosted.org/packages/a3/c2/24167ea9858356b47a87a50d39908bfdb72ceeefe0041586e704e5376b3a/certifi-2026.7.22.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "cffi",
+      "version": "2.1.1",
+      "wheel": "cffi-2.1.1-cp313-cp313-win_amd64.whl",
+      "wheelSha256": "1aa5645c30469b09530c4ebca77ebf8f17618293c58f8549cb1a543a50236e7d",
+      "metadata": {
+        "file": "pypi-cffi-2.1.1.json",
+        "bytes": 89333,
+        "sha256": "2255e530e3f80593a354e3d84a29966924d0e10309d1e3a6d50f845ab7d8df66",
+        "url": "https://pypi.org/pypi/cffi/2.1.1/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/60/a6/8b149b2c3f2e11aaa1618ef64500b45f50f22c57a977a4dff1aff1f91042/cffi-2.1.1-cp313-cp313-win_amd64.whl",
+      "licenseExpression": "MIT-0",
+      "license": null,
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "wheelNotices": [
+        {
+          "member": "cffi-2.1.1.dist-info/licenses/LICENSE",
+          "sha256": "5ba24ddc57067f9249add644c3afc41a5d6dc37e23433ef759d95df370b0af63"
+        }
+      ],
+      "nativeMembers": [
+        "_cffi_backend.cp313-win_amd64.pyd"
+      ],
+      "sources": [
+        {
+          "file": "pypi-cffi-2.1.1.tar.gz",
+          "bytes": 530807,
+          "sha256": "dd31f52ea1086513bb9df30f8fcee9b8918323ae067a3d5b78bc826a000712be",
+          "url": "https://files.pythonhosted.org/packages/9e/ef/008a1939e372c06329a3fce4279c02f328488f3526744906eeec3da7ad5f/cffi-2.1.1.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.5.0",
+      "wheel": "charset_normalizer-3.5.0-cp313-cp313-win_amd64.whl",
+      "wheelSha256": "72982d9958a42f8132bf2d6b90214ed66477295ef1188731f98ae3511c6eeb5a",
+      "metadata": {
+        "file": "pypi-charset-normalizer-3.5.0.json",
+        "bytes": 199999,
+        "sha256": "fd331ab77816ca781a994e7d65cb05b6f0d54f404bce98170f370b027eb844cf",
+        "url": "https://pypi.org/pypi/charset-normalizer/3.5.0/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/fb/88/6018cc8d76ea2b7cb02918f37e23e86c261d1a102713d7e88d2cfb8b211c/charset_normalizer-3.5.0-cp313-cp313-win_amd64.whl",
+      "licenseExpression": null,
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "wheelNotices": [
+        {
+          "member": "charset_normalizer-3.5.0.dist-info/licenses/LICENSE",
+          "sha256": "18577485d3704f1a479ded8e573c0976cfed315fd2fd17983fa988da4c2f70d1"
+        }
+      ],
+      "nativeMembers": [
+        "charset_normalizer/cd.cp313-win_amd64.pyd",
+        "charset_normalizer/md.cp313-win_amd64.pyd"
+      ],
+      "sources": [
+        {
+          "file": "pypi-charset_normalizer-3.5.0.tar.gz",
+          "bytes": 169295,
+          "sha256": "49bd5feb59b0bf3cbf6ebcf4352e371c95b9da9bacd4449f8b64d0ad2c10a26e",
+          "url": "https://files.pythonhosted.org/packages/cb/31/4971872b3ed8715346231fb6eb4da8fcba65a4143c189db151ee28a2812b/charset_normalizer-3.5.0.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "curl_cffi",
+      "version": "0.16.0",
+      "wheel": "curl_cffi-0.16.0-cp310-abi3-win_amd64.whl",
+      "wheelSha256": "e22a8212d830108e977ff394237f637238e265f5f65037d6c1ee71ea8cc03bcb",
+      "metadata": {
+        "file": "pypi-curl_cffi-0.16.0.json",
+        "bytes": 36182,
+        "sha256": "61ede413e74c1296057cac10888e4a5ba0863d15f67e2b2b255435076070849b",
+        "url": "https://pypi.org/pypi/curl_cffi/0.16.0/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/ad/03/b9df2973f1119f9d11d8fb3bf2682e5ffe5c52ef3ab89f720473c60fe97e/curl_cffi-0.16.0-cp310-abi3-win_amd64.whl",
+      "licenseExpression": "MIT",
+      "license": null,
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "wheelNotices": [
+        {
+          "member": "curl_cffi-0.16.0.dist-info/licenses/LICENSE",
+          "sha256": "47e6ce96c02170758c16164e66f920620db614523d642eba5000ba0c7aa2be6e"
+        }
+      ],
+      "nativeMembers": [
+        "curl_cffi/_wrapper.pyd",
+        "curl_cffi.libs/libcurl-impersonate-ec8ead0e422fe4ae62a99233a63f6007.dll"
+      ],
+      "sources": [
+        {
+          "file": "pypi-curl_cffi-0.16.0.tar.gz",
+          "bytes": 238344,
+          "sha256": "b00b423da8028eb6221e3b63bcd63d681150c07cee8b16000d1f7ea292731895",
+          "url": "https://files.pythonhosted.org/packages/b4/23/d32e113b16dbfb458bea408871ed98dd12f306a366a04215e84537e0af7e/curl_cffi-0.16.0.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "idna",
+      "version": "3.18",
+      "wheel": "idna-3.18-py3-none-any.whl",
+      "wheelSha256": "7f952cbe720b688055e3f87de14f5c3e5fdaa8bc3928985c4077ca689de849a2",
+      "metadata": {
+        "file": "pypi-idna-3.18.json",
+        "bytes": 8146,
+        "sha256": "419b11e68bbc25e19d37eba0d65acdf93f6278f8768c542fa4e261f063e9e1b0",
+        "url": "https://pypi.org/pypi/idna/3.18/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/1e/5e/d4e9f1a599fb8e573b7b87160658329fbf28d19eac2718f51fc3def3aa5a/idna-3.18-py3-none-any.whl",
+      "licenseExpression": "BSD-3-Clause",
+      "license": null,
+      "licenseFiles": [
+        "LICENSE.md"
+      ],
+      "wheelNotices": [
+        {
+          "member": "idna-3.18.dist-info/licenses/LICENSE.md",
+          "sha256": "1a9a4f0e3d479a27240ddd59a9137a66ab4a0f9dfdc8ca6188cc0bfd85187f04"
+        }
+      ],
+      "nativeMembers": [],
+      "sources": [
+        {
+          "file": "pypi-idna-3.18.tar.gz",
+          "bytes": 196711,
+          "sha256": "ffb385a7e039654cef1ab9ef32c6fafe283c0c0467bba1d9029738ce4a14a848",
+          "url": "https://files.pythonhosted.org/packages/cd/63/9496c57188a2ee585e0f1db071d75089a11e98aa86eb99d9d7618fc1edce/idna-3.18.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "mutagen",
+      "version": "1.48.1",
+      "wheel": "mutagen-1.48.1-py3-none-any.whl",
+      "wheelSha256": "4f077fe87d3fc7fba259aa63d8c026b18382ca6a42ef37c61e16f1b1b5b82fe7",
+      "metadata": {
+        "file": "pypi-mutagen-1.48.1.json",
+        "bytes": 3986,
+        "sha256": "9d04c5c8befb6750ddfe7ad97af875cdf61699acec08df1b947e67264aff38e2",
+        "url": "https://pypi.org/pypi/mutagen/1.48.1/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/47/d8/a29e4e3991765e7ce4ed1f7e4074fe1ba9da03e0048639734de60f9cadb9/mutagen-1.48.1-py3-none-any.whl",
+      "licenseExpression": "GPL-2.0-or-later",
+      "license": null,
+      "licenseFiles": [
+        "COPYING"
+      ],
+      "wheelNotices": [
+        {
+          "member": "mutagen-1.48.1.dist-info/licenses/COPYING",
+          "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643"
+        }
+      ],
+      "nativeMembers": [],
+      "sources": [
+        {
+          "file": "pypi-mutagen-1.48.1.tar.gz",
+          "bytes": 1276978,
+          "sha256": "8f95637ab9f6f305cec6bd1294e197debe207998e3e068596563c74f86b0a173",
+          "url": "https://files.pythonhosted.org/packages/df/70/1675da133ea92227da41bf5b24e1c66be597ff736a1533ade41da986852f/mutagen-1.48.1.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "packaging",
+      "version": "26.3",
+      "wheel": "packaging-26.3-py3-none-any.whl",
+      "wheelSha256": "d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c",
+      "metadata": {
+        "file": "pypi-packaging-26.3.json",
+        "bytes": 5748,
+        "sha256": "4f190d2f0b312b3086058cee64ab4333bf3ce67fb78b4c2bdb43899049b29f4d",
+        "url": "https://pypi.org/pypi/packaging/26.3/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/63/34/ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527/packaging-26.3-py3-none-any.whl",
+      "licenseExpression": "Apache-2.0 OR BSD-2-Clause",
+      "license": null,
+      "licenseFiles": [
+        "LICENSE",
+        "LICENSE.APACHE",
+        "LICENSE.BSD"
+      ],
+      "wheelNotices": [
+        {
+          "member": "packaging-26.3.dist-info/licenses/LICENSE",
+          "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48"
+        },
+        {
+          "member": "packaging-26.3.dist-info/licenses/LICENSE.APACHE",
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+        },
+        {
+          "member": "packaging-26.3.dist-info/licenses/LICENSE.BSD",
+          "sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5"
+        }
+      ],
+      "nativeMembers": [],
+      "sources": [
+        {
+          "file": "pypi-packaging-26.3.tar.gz",
+          "bytes": 313412,
+          "sha256": "94edc256424af38762eb31306eed28beb9f0efc50a8837492c9d6fd6004aed79",
+          "url": "https://files.pythonhosted.org/packages/7d/fa/3944b40b07da9ce895c0e6303a5ab7d53da063554f534556b134a54d6093/packaging-26.3.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "pefile",
+      "version": "2024.8.26",
+      "wheel": "pefile-2024.8.26-py3-none-any.whl",
+      "wheelSha256": "76f8b485dcd3b1bb8166f1128d395fa3d87af26360c2358fb75b80019b957c6f",
+      "metadata": {
+        "file": "pypi-pefile-2024.8.26.json",
+        "bytes": 3686,
+        "sha256": "1429d48b5cf73f88a3933b012c990c0ca15606228ccec3f7ff112e79407f240c",
+        "url": "https://pypi.org/pypi/pefile/2024.8.26/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/54/16/12b82f791c7f50ddec566873d5bdd245baa1491bac11d15ffb98aecc8f8b/pefile-2024.8.26-py3-none-any.whl",
+      "licenseExpression": null,
+      "license": "MIT",
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "wheelNotices": [
+        {
+          "member": "pefile-2024.8.26.dist-info/LICENSE",
+          "sha256": "b44409c067c6da52bfb54bb6624fb11a7b52157c3a13ae1400232f8196e86ad3"
+        }
+      ],
+      "nativeMembers": [],
+      "sources": [
+        {
+          "file": "pypi-pefile-2024.8.26.tar.gz",
+          "bytes": 76008,
+          "sha256": "3ff6c5d8b43e8c37bb6e6dd5085658d658a7a0bdcd20b6a07b1fcfc1c4e9d632",
+          "url": "https://files.pythonhosted.org/packages/03/4f/2750f7f6f025a1507cd3b7218691671eecfd0bbebebe8b39aa0fe1d360b8/pefile-2024.8.26.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "pycparser",
+      "version": "3.0",
+      "wheel": "pycparser-3.0-py3-none-any.whl",
+      "wheelSha256": "b727414169a36b7d524c1c3e31839a521725078d7b2ff038656844266160a992",
+      "metadata": {
+        "file": "pypi-pycparser-3.0.json",
+        "bytes": 10557,
+        "sha256": "5eb63b17852f6bec41e2ea542377ae6ad61185467916bf9947eb24f86c0fd132",
+        "url": "https://pypi.org/pypi/pycparser/3.0/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/0c/c3/44f3fbbfa403ea2a7c779186dc20772604442dde72947e7d01069cbe98e3/pycparser-3.0-py3-none-any.whl",
+      "licenseExpression": "BSD-3-Clause",
+      "license": null,
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "wheelNotices": [
+        {
+          "member": "pycparser-3.0.dist-info/licenses/LICENSE",
+          "sha256": "0c846399369ea76ddd7b5c44fe6d16497415fcf015f5cbb508c24bf98b81c5b1"
+        }
+      ],
+      "nativeMembers": [],
+      "sources": [
+        {
+          "file": "pypi-pycparser-3.0.tar.gz",
+          "bytes": 103492,
+          "sha256": "600f49d217304a5902ac3c37e1281c9fe94e4d0489de643a9504c5cdfdfc6b29",
+          "url": "https://files.pythonhosted.org/packages/1b/7d/92392ff7815c21062bea51aa7b87d45576f649f16458d78b7cf94b9ab2e6/pycparser-3.0.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "pycryptodomex",
+      "version": "3.23.0",
+      "wheel": "pycryptodomex-3.23.0-cp37-abi3-win_amd64.whl",
+      "wheelSha256": "52e5ca58c3a0b0bd5e100a9fbc8015059b05cffc6c66ce9d98b4b45e023443b9",
+      "metadata": {
+        "file": "pypi-pycryptodomex-3.23.0.json",
+        "bytes": 42265,
+        "sha256": "8e3ec5afbff0d7cbd5e3783520959a65bb7c9a4521e68747e61bfd504b7004e7",
+        "url": "https://pypi.org/pypi/pycryptodomex/3.23.0/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/69/96/11f36f71a865dd6df03716d33bd07a67e9d20f6b8d39820470b766af323c/pycryptodomex-3.23.0-cp37-abi3-win_amd64.whl",
+      "licenseExpression": null,
+      "license": "BSD, Public Domain",
+      "licenseFiles": [
+        "LICENSE.rst",
+        "AUTHORS.rst"
+      ],
+      "wheelNotices": [
+        {
+          "member": "pycryptodomex-3.23.0.dist-info/LICENSE.rst",
+          "sha256": "60b8958a9ef9b7ec512087b725555372175ed2b02b969f8725b8534fde48acdd"
+        }
+      ],
+      "nativeMembers": [
+        "Cryptodome/Cipher/_ARC4.pyd",
+        "Cryptodome/Cipher/_Salsa20.pyd",
+        "Cryptodome/Cipher/_chacha20.pyd",
+        "Cryptodome/Cipher/_pkcs1_decode.pyd",
+        "Cryptodome/Cipher/_raw_aes.pyd",
+        "Cryptodome/Cipher/_raw_aesni.pyd",
+        "Cryptodome/Cipher/_raw_arc2.pyd",
+        "Cryptodome/Cipher/_raw_blowfish.pyd",
+        "Cryptodome/Cipher/_raw_cast.pyd",
+        "Cryptodome/Cipher/_raw_cbc.pyd",
+        "Cryptodome/Cipher/_raw_cfb.pyd",
+        "Cryptodome/Cipher/_raw_ctr.pyd",
+        "Cryptodome/Cipher/_raw_des.pyd",
+        "Cryptodome/Cipher/_raw_des3.pyd",
+        "Cryptodome/Cipher/_raw_ecb.pyd",
+        "Cryptodome/Cipher/_raw_eksblowfish.pyd",
+        "Cryptodome/Cipher/_raw_ocb.pyd",
+        "Cryptodome/Cipher/_raw_ofb.pyd",
+        "Cryptodome/Hash/_BLAKE2b.pyd",
+        "Cryptodome/Hash/_BLAKE2s.pyd",
+        "Cryptodome/Hash/_MD2.pyd",
+        "Cryptodome/Hash/_MD4.pyd",
+        "Cryptodome/Hash/_MD5.pyd",
+        "Cryptodome/Hash/_RIPEMD160.pyd",
+        "Cryptodome/Hash/_SHA1.pyd",
+        "Cryptodome/Hash/_SHA224.pyd",
+        "Cryptodome/Hash/_SHA256.pyd",
+        "Cryptodome/Hash/_SHA384.pyd",
+        "Cryptodome/Hash/_SHA512.pyd",
+        "Cryptodome/Hash/_ghash_clmul.pyd",
+        "Cryptodome/Hash/_ghash_portable.pyd",
+        "Cryptodome/Hash/_keccak.pyd",
+        "Cryptodome/Hash/_poly1305.pyd",
+        "Cryptodome/Math/_modexp.pyd",
+        "Cryptodome/Protocol/_scrypt.pyd",
+        "Cryptodome/PublicKey/_curve25519.pyd",
+        "Cryptodome/PublicKey/_curve448.pyd",
+        "Cryptodome/PublicKey/_ec_ws.pyd",
+        "Cryptodome/PublicKey/_ed25519.pyd",
+        "Cryptodome/PublicKey/_ed448.pyd",
+        "Cryptodome/Util/_cpuid_c.pyd",
+        "Cryptodome/Util/_strxor.pyd"
+      ],
+      "sources": [
+        {
+          "file": "pypi-pycryptodomex-3.23.0.tar.gz",
+          "bytes": 4922157,
+          "sha256": "71909758f010c82bc99b0abf4ea12012c98962fbf0583c2164f8b84533c2e4da",
+          "url": "https://files.pythonhosted.org/packages/c9/85/e24bf90972a30b0fcd16c73009add1d7d7cd9140c2498a68252028899e41/pycryptodomex-3.23.0.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "pyinstaller",
+      "version": "6.22.0",
+      "wheel": "pyinstaller-6.22.0-py3-none-win_amd64.whl",
+      "wheelSha256": "294099ecb5fdd2a13ae4c29006d4e335b697a63b6a16cf052b90ec2b40bef05a",
+      "metadata": {
+        "file": "pypi-pyinstaller-6.22.0.json",
+        "bytes": 18999,
+        "sha256": "e0decdd5aca660abcee53db54d232a7e2e66108520aeeaaaf0ea433cf2092028",
+        "url": "https://pypi.org/pypi/pyinstaller/6.22.0/json"
+      },
+      "wheelMatchesPyPI": false,
+      "wheelSource": "https://github.com/yt-dlp/Pyinstaller-Builds/releases/download/2026.08.19.215425/pyinstaller-6.22.0-py3-none-win_amd64.whl",
+      "licenseExpression": null,
+      "license": "GPLv2-or-later with a special exception which allows to use PyInstaller to build and distribute non-free programs (including commercial ones)",
+      "licenseFiles": [
+        "COPYING.txt"
+      ],
+      "wheelNotices": [
+        {
+          "member": "pyinstaller-6.22.0.dist-info/licenses/COPYING.txt",
+          "sha256": "0272fb1ecee668bf0cc359ef4cd5d5ca1551b686be0abc27a660f68a3cb85ae5"
+        }
+      ],
+      "nativeMembers": [
+        "PyInstaller/bootloader/Windows-64bit-intel/run.exe",
+        "PyInstaller/bootloader/Windows-64bit-intel/run_d.exe",
+        "PyInstaller/bootloader/Windows-64bit-intel/runw.exe",
+        "PyInstaller/bootloader/Windows-64bit-intel/runw_d.exe"
+      ],
+      "sources": [
+        {
+          "file": "pypi-pyinstaller-6.22.0.tar.gz",
+          "bytes": 4072247,
+          "sha256": "8b0166fff4583b374bbe7fa044bf03ddc33cab0f792a665807d96048e63f060e",
+          "url": "https://files.pythonhosted.org/packages/05/03/669d06735cf57d7e2e5dfc3c2e1643554b34c559eff21449c58172ca0335/pyinstaller-6.22.0.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "pyinstaller-hooks-contrib",
+      "version": "2026.6",
+      "wheel": "pyinstaller_hooks_contrib-2026.6-py3-none-any.whl",
+      "wheelSha256": "fd13b8ac126b35361175edacd41a0d97080b75dd5f4b594ecefefff969509dd3",
+      "metadata": {
+        "file": "pypi-pyinstaller-hooks-contrib-2026.6.json",
+        "bytes": 18813,
+        "sha256": "ed987330c2154376b62e3f83f8f679af16b0930751db31b27e23360708623859",
+        "url": "https://pypi.org/pypi/pyinstaller-hooks-contrib/2026.6/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/e7/31/f2d7343d8ed5f7c4678377886f6ce533e6eaaa131b252ce950114c2a7efa/pyinstaller_hooks_contrib-2026.6-py3-none-any.whl",
+      "licenseExpression": null,
+      "license": null,
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "wheelNotices": [
+        {
+          "member": "pyinstaller_hooks_contrib-2026.6.dist-info/licenses/LICENSE",
+          "sha256": "91d0baaff00773038e72c0a1fc9d5d2d38706b7a2b9c04f34296608f931b9cd0"
+        }
+      ],
+      "nativeMembers": [],
+      "sources": [
+        {
+          "file": "pypi-pyinstaller_hooks_contrib-2026.6.tar.gz",
+          "bytes": 173354,
+          "sha256": "bef5002c32f4f50bd55b005da12cff64eca8783e7eaf86a06a62410164bab725",
+          "url": "https://files.pythonhosted.org/packages/94/5b/c9fe0db5e83ee1c39b2258fa21d23b15e1a60786b6c5990ee5074ead8bb6/pyinstaller_hooks_contrib-2026.6.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "pywin32-ctypes",
+      "version": "0.2.3",
+      "wheel": "pywin32_ctypes-0.2.3-py3-none-any.whl",
+      "wheelSha256": "8a1513379d709975552d202d942d9837758905c8d01eb82b8bcc30918929e7b8",
+      "metadata": {
+        "file": "pypi-pywin32-ctypes-0.2.3.json",
+        "bytes": 6336,
+        "sha256": "31b3fd15200f74e96940467fd34bb11cab92fbcc8a7f9e0fb0f90599e56e1604",
+        "url": "https://pypi.org/pypi/pywin32-ctypes/0.2.3/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/de/3d/8161f7711c017e01ac9f008dfddd9410dff3674334c233bde66e7ba65bbf/pywin32_ctypes-0.2.3-py3-none-any.whl",
+      "licenseExpression": null,
+      "license": "BSD-3-Clause",
+      "licenseFiles": [],
+      "wheelNotices": [
+        {
+          "member": "pywin32_ctypes-0.2.3.dist-info/LICENSE.txt",
+          "sha256": "dfa83b3e2709adfcdb838d9ad55823ca674abb780e60563d9dd9544ccbf785e9"
+        }
+      ],
+      "nativeMembers": [],
+      "sources": [
+        {
+          "file": "pypi-pywin32-ctypes-0.2.3.tar.gz",
+          "bytes": 29471,
+          "sha256": "d162dc04946d704503b2edc4d55f3dba5c1d539ead017afa00142c38b9885755",
+          "url": "https://files.pythonhosted.org/packages/85/9f/01a1a99704853cb63f253eea009390c88e7131c67e66a0a02099a8c917cb/pywin32-ctypes-0.2.3.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "requests",
+      "version": "2.34.2",
+      "wheel": "requests-2.34.2-py3-none-any.whl",
+      "wheelSha256": "2a0d60c172f83ac6ab31e4554906c0f3b3588d37b5cb939b1c061f4907e278e0",
+      "metadata": {
+        "file": "pypi-requests-2.34.2.json",
+        "bytes": 6811,
+        "sha256": "8622e50ffd295ed759ec793f2a009172a4ed0204bbc5e948de23111bc3d2aeae",
+        "url": "https://pypi.org/pypi/requests/2.34.2/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/a0/f4/c67b0b3f1b9245e8d266f0f112c500d50e5b4e83cb6f3b71b6528104182a/requests-2.34.2-py3-none-any.whl",
+      "licenseExpression": null,
+      "license": "Apache-2.0",
+      "licenseFiles": [
+        "LICENSE",
+        "NOTICE"
+      ],
+      "wheelNotices": [
+        {
+          "member": "requests-2.34.2.dist-info/licenses/LICENSE",
+          "sha256": "09e8a9bcec8067104652c168685ab0931e7868f9c8284b66f5ae6edae5f1130b"
+        },
+        {
+          "member": "requests-2.34.2.dist-info/licenses/NOTICE",
+          "sha256": "f5110972dedad2b4e9d314518daf3b7d72d6e02e499acd802181de6f74571dcc"
+        }
+      ],
+      "nativeMembers": [],
+      "sources": [
+        {
+          "file": "pypi-requests-2.34.2.tar.gz",
+          "bytes": 142856,
+          "sha256": "f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed",
+          "url": "https://files.pythonhosted.org/packages/ac/c3/e2a2b89f2d3e2179abd6d00ebd70bff6273f37fb3e0cc209f48b39d00cbf/requests-2.34.2.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "setuptools",
+      "version": "84.0.0",
+      "wheel": "setuptools-84.0.0-py3-none-any.whl",
+      "wheelSha256": "51a52592b3b99e102b609654876bd65f19f999935166d1352678931132b0c670",
+      "metadata": {
+        "file": "pypi-setuptools-84.0.0.json",
+        "bytes": 8162,
+        "sha256": "24d07932459261bbf9e66e5cfdebfeba23a977234ab24bf9c3a1df053c53ba21",
+        "url": "https://pypi.org/pypi/setuptools/84.0.0/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/95/9c/c510029fc6ef33a6275cd2c5d3cecd6613dfd6aa401d57c54f1c18852ccf/setuptools-84.0.0-py3-none-any.whl",
+      "licenseExpression": "MIT",
+      "license": null,
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "wheelNotices": [
+        {
+          "member": "setuptools/_vendor/importlib_metadata-8.7.1.dist-info/licenses/LICENSE",
+          "sha256": "458502e12d97bbf64438606a20044aa85eb05fb0a8a807bb35dbec253fd1fc04"
+        },
+        {
+          "member": "setuptools/_vendor/jaraco_context-6.1.0.dist-info/licenses/LICENSE",
+          "sha256": "9755a18519666e5f0f4cae3daad3d7012bcae48a600b31237d75e9fe134e6683"
+        },
+        {
+          "member": "setuptools/_vendor/jaraco_functools-4.4.0.dist-info/licenses/LICENSE",
+          "sha256": "5a57cb4db85e2a2dd88c290628908add57e3451449e0a9a71fdfb38776fd759d"
+        },
+        {
+          "member": "setuptools/_vendor/more_itertools-10.8.0.dist-info/licenses/LICENSE",
+          "sha256": "09f1c8c9e941af3e584d59641ea9b87d83c0cb0fd007eb5ef391a7e2643c1a46"
+        },
+        {
+          "member": "setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE",
+          "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48"
+        },
+        {
+          "member": "setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE.APACHE",
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+        },
+        {
+          "member": "setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE.BSD",
+          "sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5"
+        },
+        {
+          "member": "setuptools/_vendor/platformdirs-4.4.0.dist-info/licenses/LICENSE",
+          "sha256": "29e0fd62e929850e86eb28c3fdccf0cefdf4fa94879011cffb3d0d4bed6d4db6"
+        },
+        {
+          "member": "setuptools/_vendor/tomli-2.4.0.dist-info/licenses/LICENSE",
+          "sha256": "b80816b0d530b8accb4c2211783790984a6e3b61922c2b5ee92f3372ab2742fe"
+        },
+        {
+          "member": "setuptools/_vendor/wheel-0.46.3.dist-info/licenses/LICENSE.txt",
+          "sha256": "30c23618679108f3e8ea1d2a658c7ca417bdfc891c98ef1a89fa4ff0c9828654"
+        },
+        {
+          "member": "setuptools/_vendor/zipp-3.23.0.dist-info/licenses/LICENSE",
+          "sha256": "5a57cb4db85e2a2dd88c290628908add57e3451449e0a9a71fdfb38776fd759d"
+        },
+        {
+          "member": "setuptools/config/NOTICE",
+          "sha256": "2dddf08818297a3b89d43d95ff659d8da85741108c9136dfa3a4d856c0623bd8"
+        },
+        {
+          "member": "setuptools/config/_validate_pyproject/NOTICE",
+          "sha256": "09c9bcea95ca086f8bc5bed174e40bc835b297d40fb5f86bbbb570fe0a5581a7"
+        },
+        {
+          "member": "setuptools-84.0.0.dist-info/licenses/LICENSE",
+          "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741"
+        },
+        {
+          "member": "setuptools/_vendor/autocommand-2.2.2.dist-info/LICENSE",
+          "sha256": "ade78d04982d69972d444a8e14a94f87a2334dd3855cc80348ea8e240aa0df2d"
+        },
+        {
+          "member": "setuptools/_vendor/backports.tarfile-1.2.0.dist-info/LICENSE",
+          "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741"
+        },
+        {
+          "member": "setuptools/_vendor/jaraco.text-4.0.0.dist-info/LICENSE",
+          "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741"
+        }
+      ],
+      "nativeMembers": [
+        "setuptools/cli-32.exe",
+        "setuptools/cli-64.exe",
+        "setuptools/cli-arm64.exe",
+        "setuptools/cli.exe",
+        "setuptools/gui-32.exe",
+        "setuptools/gui-64.exe",
+        "setuptools/gui-arm64.exe",
+        "setuptools/gui.exe"
+      ],
+      "sources": [
+        {
+          "file": "pypi-setuptools-84.0.0.tar.gz",
+          "bytes": 1168449,
+          "sha256": "f4695c21257f0d9b537ec2692c941d02ee143b7cc1276941349a546573b2ef73",
+          "url": "https://files.pythonhosted.org/packages/6d/44/f5da03a8ef95d369145c5bb53050e7877c9f3d312e128605fd9504829143/setuptools-84.0.0.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "urllib3",
+      "version": "2.8.0",
+      "wheel": "urllib3-2.8.0-py3-none-any.whl",
+      "wheelSha256": "0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3",
+      "metadata": {
+        "file": "pypi-urllib3-2.8.0.json",
+        "bytes": 9510,
+        "sha256": "5315e7401db3cacccd0c2ce5daf81f752a9cc3614b18c37f2b79930b7159ce2f",
+        "url": "https://pypi.org/pypi/urllib3/2.8.0/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl",
+      "licenseExpression": "MIT",
+      "license": null,
+      "licenseFiles": [
+        "LICENSE.txt"
+      ],
+      "wheelNotices": [
+        {
+          "member": "urllib3-2.8.0.dist-info/licenses/LICENSE.txt",
+          "sha256": "130e3a64d5fdd5d096a752694634a7d9df284469de86e5732100268041e3d686"
+        }
+      ],
+      "nativeMembers": [],
+      "sources": [
+        {
+          "file": "pypi-urllib3-2.8.0.tar.gz",
+          "bytes": 458972,
+          "sha256": "63bf2ead4c879426ebf22ef2a781eeb4aa3b4ae798a0435506f8687fd5bb9b63",
+          "url": "https://files.pythonhosted.org/packages/e3/05/b17359e1cefb4f909b5e40b1b90a496d987258916dbbf88e842c729f510e/urllib3-2.8.0.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "websockets",
+      "version": "17.0.1",
+      "wheel": "websockets-17.0.1-cp313-cp313-win_amd64.whl",
+      "wheelSha256": "409d93efcaa14f7a99592c5baaef5ec6ca94fba0f5aec1a86f693977c69c9c1c",
+      "metadata": {
+        "file": "pypi-websockets-17.0.1.json",
+        "bytes": 102635,
+        "sha256": "413fce25348251e6273548c0e511db3282b9311dde1803b5c8d67d1f36d14bc7",
+        "url": "https://pypi.org/pypi/websockets/17.0.1/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/81/2f/ea1380f72bb11b64fc5bc7ae0d42de5bbf3e6dc13b965706b2a1d4e17cdf/websockets-17.0.1-cp313-cp313-win_amd64.whl",
+      "licenseExpression": "BSD-3-Clause",
+      "license": null,
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "wheelNotices": [
+        {
+          "member": "websockets-17.0.1.dist-info/licenses/LICENSE",
+          "sha256": "0f44514998aca209d3482d10204a8adf2aa4296ff157a36a5c0922f2280632d3"
+        }
+      ],
+      "nativeMembers": [
+        "websockets/speedups.cp313-win_amd64.pyd"
+      ],
+      "sources": [
+        {
+          "file": "pypi-websockets-17.0.1.tar.gz",
+          "bytes": 183298,
+          "sha256": "5baa9bc0dfbae8c507e51c8cf1b6d4628086f7a87bbd3a9952bd5f035451f1cc",
+          "url": "https://files.pythonhosted.org/packages/f7/96/e01084f83a64bcb3a27994bd0cb0db68ff29d9c6707fae37ec19b18ba990/websockets-17.0.1.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    },
+    {
+      "name": "yt-dlp-ejs",
+      "version": "0.8.0",
+      "wheel": "yt_dlp_ejs-0.8.0-py3-none-any.whl",
+      "wheelSha256": "79300e5fca7f937a1eeede11f0456862c1b41107ce1d726871e0207424f4bdb4",
+      "metadata": {
+        "file": "pypi-yt-dlp-ejs-0.8.0.json",
+        "bytes": 5709,
+        "sha256": "0fb174287bd859559a12a401f0147e62d34a2b2793ad9cebc8ce31c3e24c9188",
+        "url": "https://pypi.org/pypi/yt-dlp-ejs/0.8.0/json"
+      },
+      "wheelMatchesPyPI": true,
+      "wheelSource": "https://files.pythonhosted.org/packages/e3/bd/520769863744b669440a924271a6159ddd82ad5ae26b4ac4d4b69e9f8d44/yt_dlp_ejs-0.8.0-py3-none-any.whl",
+      "licenseExpression": "Unlicense AND MIT AND ISC",
+      "license": null,
+      "licenseFiles": [
+        "LICENSE"
+      ],
+      "wheelNotices": [
+        {
+          "member": "yt_dlp_ejs-0.8.0.dist-info/licenses/LICENSE",
+          "sha256": "b5065838cbac452dfc855ba6e6e031481ad2c68406f70d21ead9321374653e6c"
+        }
+      ],
+      "nativeMembers": [],
+      "sources": [
+        {
+          "file": "pypi-yt_dlp_ejs-0.8.0.tar.gz",
+          "bytes": 96571,
+          "sha256": "d5fa1639f63b5c4af8d932495f60689d5370f1a095782c944f7f62a303eb104e",
+          "url": "https://files.pythonhosted.org/packages/d3/e6/cceb9530e8f4e5940f6f7822d90e9d94f1b85343329a16baaf47bbbb3de1/yt_dlp_ejs-0.8.0.tar.gz"
+        }
+      ],
+      "coverage": "Source-release archive verified; wheelMatchesPyPI explicitly distinguishes the custom yt-dlp PyInstaller wheel from PyPI. Checked against retained HTTPS PyPI metadata; not proof of native library provenance, build recipe completeness or reproducibility."
+    }
+  ]
+}

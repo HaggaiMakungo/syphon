@@ -31,8 +31,10 @@ public static class BrowserProtocol
             throw new InvalidDataException("Invalid download options.");
         if (request.Title is not null && (request.Action != "download" || request.Title.Length > 512))
             throw new InvalidDataException("Invalid video title.");
-        if (request.Version != 1 || request.RequestId == Guid.Empty || request.Action is not ("download" or "status" or "ping" or "media-inspect"))
+        if (request.Version != 1 || request.RequestId == Guid.Empty || request.Action is not ("download" or "status" or "ping" or "media-inspect" or "activate"))
             throw new InvalidDataException("Unsupported Syphon browser request.");
+        if (request.Action == "activate" && request.Url is not null)
+            throw new InvalidDataException("Activation cannot contain a download URL.");
         if (request.QualityHeight is not null && (request.Action != "download" || request.Format != "mp4" || request.VideoStream is not null || request.YoutubeFormat is not null || request.QualityHeight is not (144 or 240 or 360 or 480 or 720 or 1080 or 1440 or 2160 or 4320)))
             throw new InvalidDataException("Invalid advertised video quality.");
         if (request.Format is not (null or "mp3" or "mp4") || request.VideoStream is < 0 or > 255 || request.AudioStream is < 0 or > 255 ||

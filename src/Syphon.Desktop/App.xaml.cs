@@ -6,7 +6,7 @@ namespace Syphon.Desktop;
 public partial class App : Application
 {
     private Mutex? ownership;
-    protected override void OnStartup(StartupEventArgs e)
+    protected override async void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
         if (MainWindow is null)
@@ -14,8 +14,13 @@ public partial class App : Application
             ownership = new Mutex(false, "Local\\" + BrowserProtocol.PipeName + ".Desktop");
             bool owned;
             try { owned = ownership.WaitOne(0); } catch (AbandonedMutexException) { owned = true; }
-            if (!owned) { ownership.Dispose(); ownership = null; Shutdown(0); return; }
+            if (!owned) {
+                ownership.Dispose(); ownership = null;
+                try { await BrowserPipeClient.SendAsync(BrowserProtocol.PipeName, new BrowserRequest(1, "activate", Guid.NewGuid()), TimeSpan.FromSeconds(3), expectedServerExecutable: Environment.ProcessPath); } catch (Exception) { /* Existing instance may still be starting or shutting down. */ }
+                Shutdown(0); return;
+            }
             MainWindow = new MainWindow();
+            ((MainWindow)MainWindow).EnableTray();
             MainWindow.Show();
         }
     }

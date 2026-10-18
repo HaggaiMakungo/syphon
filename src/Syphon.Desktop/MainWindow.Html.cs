@@ -68,7 +68,7 @@ public partial class MainWindow
             ready = IsReady, initializationError,
             historyClearResult, quickDownload = htmlQuickDownload,
             batch = new { id = batchId, folder = batchFolder, rows = batchRows.Select(r => new { id = r.Id, url = r.Url, filename = r.Filename, bytes = r.Bytes, message = r.Message, valid = r.Valid, added = r.Added }).ToArray() },
-            preferences = new { folder = preferences.Folder ?? browserDownloads, preferences.DefaultSingleConnection, preferences.ShowFloatingWindow, preferences.FloatingOnTop, preferences.HistoryDensity, preferences.HistoryGroupAttempts, preferences.TypographyPreset },
+            preferences = new { folder = preferences.Folder ?? browserDownloads, preferences.DefaultSingleConnection, preferences.ShowFloatingWindow, preferences.FloatingOnTop, preferences.HistoryDensity, preferences.HistoryGroupAttempts, preferences.TypographyPreset, preferences.CloseToTray, preferences.MinimizeToTray },
             limits = new { perFile = limits.MaximumConnectionsPerFile, perSite = limits.MaximumConnectionsPerOrigin, concurrent = limits.MaximumConcurrentDownloads, retries = limits.MaximumRetries, thresholdMiB = limits.SegmentationThreshold / 1048576, globalKiB = limits.GlobalBytesPerSecond / 1024 },
             schedule = new { enabled = limits.Schedule?.Enabled ?? false, start = ScheduleTime(limits.Schedule?.StartMinute ?? 0), stop = ScheduleTime(limits.Schedule?.StopMinute ?? 360), status = coordinator?.ScheduleStatus ?? "Schedule off" },
             settingsPending = coordinator?.SettingsPending ?? false,
@@ -132,7 +132,7 @@ public partial class MainWindow
                     transfer = transfer with { Schedule = new QueueSchedule(schedule.GetProperty("enabled").GetBoolean(), ScheduleMinute(schedule.GetProperty("start").GetString()), ScheduleMinute(schedule.GetProperty("stop").GetString())) };
                     transfer.Validate();
                 }
-                (DownloadPreferences.Load(preferencesPath) with { Folder = Path.GetFullPath(path), DefaultSingleConnection = value.GetProperty("defaultSingleConnection").GetBoolean(),
+                (DownloadPreferences.Load(preferencesPath) with { CloseToTray = value.TryGetProperty("closeToTray", out var closeTray) && closeTray.GetBoolean(), MinimizeToTray = value.TryGetProperty("minimizeToTray", out var minimizeTray) && minimizeTray.GetBoolean(), Folder = Path.GetFullPath(path), DefaultSingleConnection = value.GetProperty("defaultSingleConnection").GetBoolean(),
                     ShowFloatingWindow = value.GetProperty("showFloatingWindow").GetBoolean(), FloatingOnTop = value.GetProperty("floatingOnTop").GetBoolean(), Transfer = transfer, HistoryDensity = density,
                     HistoryGroupAttempts = value.TryGetProperty("historyGroupAttempts", out var groupAttempts) ? groupAttempts.GetBoolean() : DownloadPreferences.Load(preferencesPath).HistoryGroupAttempts }).Save(preferencesPath);
                 ApplyPreferences(); await coordinator.RefreshScheduleAsync(); HtmlSurface?.Publish(); return;

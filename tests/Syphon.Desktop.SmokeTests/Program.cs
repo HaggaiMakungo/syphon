@@ -20,6 +20,7 @@ internal static class Program
     [STAThread]
     public static int Main(string[] args)
     {
+        if (args.FirstOrDefault() == "--tray") return TraySmokeTests.Run();
         if (args.FirstOrDefault() == "--typography") return TypographySmokeTests.Run(args.Skip(1).ToArray());
         if (args.FirstOrDefault() == "--history-audit") {
             SQLitePCL.raw.SetProvider(new SQLitePCL.SQLite3Provider_winsqlite3());

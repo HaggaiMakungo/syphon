@@ -1,0 +1,143 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "scope": "Beta16 dependency checks completed; complete corresponding-source/public distribution approval remains open.",
+  "runtime": {
+    "python": "3.13.16",
+    "openssl": "3.5.9",
+    "urllib3": "2.8.0"
+  },
+  "securityFix": {
+    "previous": "urllib3 2.7.0",
+    "replacement": "2.8.0",
+    "advisories": [
+      "GHSA-8988-9cw3-xx77",
+      "GHSA-gh4c-6fx4-qh6g",
+      "GHSA-vxq7-64xx-v4gw"
+    ],
+    "aliasesAreNotAdditionalVulnerabilities": true
+  },
+  "audits": {
+    "npm": "No reported vulnerabilities in retained npm audit, locked frontend dependencies.",
+    "nuget": "No reported vulnerabilities in retained .NET transitive audit.",
+    "pypi": [
+      {
+        "name": "altgraph",
+        "version": "0.17.5",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "brotli",
+        "version": "1.2.0",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "certifi",
+        "version": "2026.7.22",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "cffi",
+        "version": "2.1.1",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "charset-normalizer",
+        "version": "3.5.0",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "curl_cffi",
+        "version": "0.16.0",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "idna",
+        "version": "3.18",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "mutagen",
+        "version": "1.48.1",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "packaging",
+        "version": "26.3",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "pefile",
+        "version": "2024.8.26",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "pycparser",
+        "version": "3.0",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "pycryptodomex",
+        "version": "3.23.0",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "pyinstaller",
+        "version": "6.22.0",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "pyinstaller-hooks-contrib",
+        "version": "2026.6",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "pywin32-ctypes",
+        "version": "0.2.3",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "requests",
+        "version": "2.34.2",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "setuptools",
+        "version": "84.0.0",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "urllib3",
+        "version": "2.8.0",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "websockets",
+        "version": "17.0.1",
+        "activePyPIAdvisories": 0
+      },
+      {
+        "name": "yt-dlp-ejs",
+        "version": "0.8.0",
+        "activePyPIAdvisories": 0
+      }
+    ],
+    "limits": "Registry metadata checks are a dated snapshot, not an exhaustive native-binary or supply-chain security audit."
+  },
+  "sourceCoverage": {
+    "ffmpeg": "Replacement source-build engineering review completed separately; see ffmpeg-source-review.win-x64.json.",
+    "ytDlp": "Exact source tag, version identity patch, builder, all22 hash-pinned inputs and42 retained notices.",
+    "wheels": "All20 source-release archives retained and verified against HTTPS PyPI metadata.19 exact wheel hashes match PyPI; custom yt-dlp PyInstaller wheel explicitly differs.",
+    "python": "Exact embeddable input pinned; matching CPython source retained. Installer SBOM is contextual, not exact embeddable-archive provenance.",
+    "node": "Matching v24.21.0 source retrieved afresh and checked against publisher SHASUMS. Incomplete earlier archive quarantined, not executed.",
+    "dotnet": "Self-contained published runtime and package licenses; SDK/RID lock identifies dependency versions.",
+    "webview2": "Microsoft-signed Evergreen bootstrapper; runtime installer remains Microsoft-managed."
+  },
+  "publicSourceGateComplete": false,
+  "remainingGaps": [
+    "Native linked build inputs/patches/toolchains for curl_cffi (curl-impersonate/BoringSSL and linked libraries) and other native wheels require exact provenance mapping; historical candidates cannot be relabelled current proof.",
+    "Custom yt-dlp PyInstaller wheel needs exact bootloader/build provenance mapping; same-named PyPI source alone is insufficient.",
+    "CPython embeddable native components must be matched to the exact binary build rather than assumed from installer SBOM.",
+    "Whole combined downloader corresponding-source completeness and redistribution review remain open; permissive Syphon MIT license does not replace third-party terms."
+  ]
+}

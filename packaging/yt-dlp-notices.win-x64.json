@@ -73,10 +73,6 @@
       "bytes": 1644,
       "sha256": "dfa83b3e2709adfcdb838d9ad55823ca674abb780e60563d9dd9544ccbf785e9"
     },
-    "README.txt": {
-      "bytes": 526,
-      "sha256": "2dae2945a8e2e5a11acb342dc87ed2f6182e18791c0778cfb361abbf29811cdd"
-    },
     "requests-2.34.2-py3-none-any--requests-2.34.2.dist-info_licenses_LICENSE": {
       "bytes": 10142,
       "sha256": "09e8a9bcec8067104652c168685ab0931e7868f9c8284b66f5ae6edae5f1130b"
@@ -153,7 +149,7 @@
       "bytes": 493,
       "sha256": "2dddf08818297a3b89d43d95ff659d8da85741108c9136dfa3a4d856c0623bd8"
     },
-    "urllib3-2.7.0-py3-none-any--urllib3-2.7.0.dist-info_licenses_LICENSE.txt": {
+    "urllib3-2.8.0-py3-none-any--urllib3-2.8.0.dist-info_licenses_LICENSE.txt": {
       "bytes": 1093,
       "sha256": "130e3a64d5fdd5d096a752694634a7d9df284469de86e5732100268041e3d686"
     },

@@ -4,7 +4,7 @@ using Syphon.Engine;
 
 namespace Syphon.Desktop;
 
-internal sealed record DownloadPreferences(string? Folder = null, bool DefaultSingleConnection = false, bool ShowFloatingWindow = true, bool FloatingOnTop = true, TransferOptions? Transfer = null, string HistoryDensity = "comfortable", bool HistoryGroupAttempts = false, string TypographyPreset = "hybrid")
+internal sealed record DownloadPreferences(string? Folder = null, bool DefaultSingleConnection = false, bool ShowFloatingWindow = true, bool FloatingOnTop = true, TransferOptions? Transfer = null, string HistoryDensity = "comfortable", bool HistoryGroupAttempts = false, string TypographyPreset = "hybrid", bool CloseToTray = false, bool MinimizeToTray = false)
 {
     public static DownloadPreferences Load(string path)
     {

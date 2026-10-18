@@ -13,7 +13,7 @@ Example import using your own paths:
 ```powershell
 python packaging/dependencies.py import --root "D:/Syphon build inputs" --ffmpeg-directory "D:/tool-distributions/ffmpeg" --node "D:/tool-distributions/node.exe" --yt-dlp "D:/tool-distributions/yt-dlp.exe" --webview2 "D:/tool-distributions/MicrosoftEdgeWebview2Setup.exe"
 python packaging/dependencies.py verify --root "D:/Syphon build inputs"
-./packaging/build-installer.ps1 -Version 0.1.0-beta.15 -DependencyRoot "D:/Syphon build inputs" -OutputDirectory "D:/Syphon builds/beta15"
+./packaging/build-installer.ps1 -Version 0.1.0-beta.16 -DependencyRoot "D:/Syphon build inputs" -OutputDirectory "D:/Syphon builds/beta16"
 ```
 
 Omit `--root` / `-DependencyRoot` to use `.tools/release-deps/win-x64` in this checkout. The import verifies every source before writing the cache, copies bytes rather than sharing hardlinks with installed global tools, and refuses unrelated cache files. Missing inputs, hash/length mismatches and filesystem links are errors. Changing the lock is a deliberate dependency update, not a workaround for a failed checksum.
@@ -50,3 +50,5 @@ The installer build publishes Desktop and NativeHost with `SyphonPackagedBuild=t
 Setup diagnostics are excluded by default, including their implementation types and external package-source override. Delivered setup accepts only its install and validated removal command shapes. `EnableSetupDiagnostics=true` is for a separate local development checker, never a distributable core. The builder isolates checker and production output/intermediate directories, verifies production metadata and rejected command behavior, then verifies the assembled package using the checker. For a signed candidate, run that checker's `--verify-package <new-test-target> <signed-installer>` command; the shipped installer intentionally does not offer it.
 
 The native host authenticates the actual server process behind the connected same-user pipe against its configured desktop executable before serializing a request. Identity failure sends no URL or browser context and does not fall through to retry/launch behavior. Installed settings and executables are protected by the installation's Program Files permissions. A user-writable development installation is not a boundary against malware already controlling that account; neither process-image checks nor these changes claim to prevent process injection.
+
+Beta 16 dependency review: [DEPENDENCY-REVIEW.md](DEPENDENCY-REVIEW.md). The patched private downloader requires urllib3 2.8.0; older release caches are rejected.

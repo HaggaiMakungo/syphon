@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "file": "Syphon-Beta16-dependency-source-evidence.zip",
+  "bytes": 376760942,
+  "sha256": "64e479369bb8a1171d4aae4ac565d2f2822405a1f867bd3a0b5e90a8d251816a",
+  "verifiedMembers": 199,
+  "completeCorrespondingSource": false,
+  "review": "dependency-review.win-x64.json"
+}

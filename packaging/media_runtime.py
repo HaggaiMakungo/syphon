@@ -7,7 +7,9 @@ def validate_runtime(text):
  if not python or tuple(map(int,python[1].split('.'))) < (3,13,16):raise ValueError('yt-dlp must report reviewed Python 3.13.16 or newer on Windows x64')
  ssl=re.search(r'OpenSSL (\d+\.\d+\.\d+)',text)
  if not ssl or tuple(map(int,ssl[1].split('.'))) < (3,5,9):raise ValueError('yt-dlp must report reviewed OpenSSL 3.5.9 or newer')
- return {'python':python[1],'openssl':ssl[1]}
+ urllib3=re.search(r'\[debug\] Optional libraries:.*\burllib3-(\d+\.\d+\.\d+)(?:,|\s|$)',text)
+ if not urllib3 or tuple(map(int,urllib3[1].split('.'))) < (2,8,0):raise ValueError('yt-dlp must report patched urllib3 2.8.0 or newer')
+ return {'python':python[1],'openssl':ssl[1],'urllib3':urllib3[1]}
 
 def inspect(executable):
  # Verify the pinned binary before execution, ignore user config/plugins/cache,

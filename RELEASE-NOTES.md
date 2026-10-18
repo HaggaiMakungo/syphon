@@ -1,3 +1,17 @@
+# Syphon 0.1.0-beta.16 - small icon, unreasonable responsibility
+
+Prepared 2026-10-18. Windows x64. Local self-signed candidate, not published.
+
+Syphon now has a system tray. Open it, pause everything, resume everything, or actually quit. A tiny icon has been appointed operations manager. We wish it well.
+
+Appearance settings can make Close or Minimize hide Syphon while downloads continue. Both options start off: a window should not secretly become a submarine because somebody clicked an X. Launching Syphon again restores the existing window. If Windows loses the tray icon and cannot restore it, the manager comes back instead of conducting its business from the shadow realm.
+
+The bundled downloader also replaces urllib3 2.7.0 with 2.8.0, addressing three published networking advisories. Exact build inputs, runtime checks and notices identify the replacement. Dependencies remain bundled; users do not need to install Python, Node or FFmpeg.
+
+Beta 15 upgrade and normal use were confirmed by the owner. Beta 16 upgrade and physical tray-menu acceptance remain pending. Source-material collection now covers all 20 pinned wheels, but exact native build provenance for several embedded dependencies still blocks a claim of complete corresponding-source coverage. See packaging/DEPENDENCY-REVIEW.md. No public binary release or extension-store submission was performed.
+
+---
+
 # Syphon 0.1.0-beta.15 — the bouncer has learned to check ID
 
 Prepared 2026-10-18 · Windows x64 · Local self-signed candidate, not published.

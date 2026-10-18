@@ -91,6 +91,7 @@ public partial class MainWindow : Window
         return await Dispatcher.InvokeAsync(() =>
         {
             if (!IsReady || coordinator is null) return new BrowserReply(1, request.RequestId, "unavailable", null, "Syphon is closing. Open it and retry the same request.");
+            if (request.Action == "activate") { RestoreFromTray(); return new BrowserReply(1, request.RequestId, "ready", null, "Syphon is ready."); }
             if (request.Action == "ping") return new BrowserReply(1, request.RequestId, "ready", null, "Syphon is ready.");
             try
             {
@@ -248,9 +249,11 @@ public partial class MainWindow : Window
     private async void Window_Closing(object? sender, CancelEventArgs e)
     {
         if (allowClose) return;
+        if (!explicitExit && !closing && tray?.IsRegistered == true && DownloadPreferences.Load(preferencesPath).CloseToTray) { e.Cancel = true; Hide(); return; }
         e.Cancel = true;
         if (closing) return;
         closing = true;
+        tray?.Dispose(); tray = null;
         htmlVerificationCancellation?.Cancel();
         batchCancellation?.Cancel();
         ManagerSpeedChart.Dispose();

@@ -77,6 +77,16 @@ async Task<BrowserReply> Native(string folder, BrowserRequest request, string ca
 
 try
 {
+    await Run("Activation is a bounded command without download or session payload", () =>
+    {
+        var activation=new BrowserRequest(1,"activate",Guid.NewGuid());BrowserProtocol.Validate(activation);
+        foreach(var invalid in new[]{activation with{Url="https://example.test/private"},activation with{ShowOptions=true},activation with{Title="unexpected"},activation with{Format="mp3"},activation with{Context=new("https://example.test/private")}})
+        {
+            try{BrowserProtocol.Validate(invalid);throw new InvalidOperationException("Activation accepted a download payload.");}
+            catch(InvalidDataException){}
+        }
+        return Task.CompletedTask;
+    });
     await Run("Media inspection separates quick connection admission from processing deadline", async () =>
     {
         var pipe = Pipe();
