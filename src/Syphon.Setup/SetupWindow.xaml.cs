@@ -153,5 +153,7 @@ public partial class SetupWindow : Window
  private void OpenExtensionsClick(object sender,RoutedEventArgs e){try{Process.Start(new ProcessStartInfo(ExtensionsFolder){UseShellExecute=true});}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}}
  private void CopyExtensionsClick(object sender,RoutedEventArgs e){try{Clipboard.SetText(ExtensionsFolder);}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}}
  private void ExtensionClick(object sender,RoutedEventArgs e){try{new BrowserSetupWindow(installedRoot){Owner=this}.ShowDialog();}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}}
+#if SETUP_DIAGNOSTICS
  internal void RenderPreview(string destination){Loaded+=(_,_)=>Dispatcher.BeginInvoke(new Action(()=>{Directory.CreateDirectory(destination);ExtensionPath.Text=Path.Combine(InstallEngine.DefaultRoot,"Extensions");foreach(var i in (uninstall?new[]{0,2,4}:maintenanceReceipt is not null?new[]{0,1,2,4}:new[]{0,1,2,3,4})){if(uninstall&&i==4)CompleteRemoval();else ShowStep(i);UpdateLayout();var bitmap=new RenderTargetBitmap((int)ActualWidth,(int)ActualHeight,96,96,PixelFormats.Pbgra32);bitmap.Render(this);using var output=File.Create(Path.Combine(destination,$"setup-{i}.png"));var encoder=new PngBitmapEncoder();encoder.Frames.Add(BitmapFrame.Create(bitmap));encoder.Save(output);}Application.Current.Shutdown();}),System.Windows.Threading.DispatcherPriority.ApplicationIdle);}
+#endif
 }

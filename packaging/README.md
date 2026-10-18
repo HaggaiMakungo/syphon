@@ -13,7 +13,7 @@ Example import using your own paths:
 ```powershell
 python packaging/dependencies.py import --root "D:/Syphon build inputs" --ffmpeg-directory "D:/tool-distributions/ffmpeg" --node "D:/tool-distributions/node.exe" --yt-dlp "D:/tool-distributions/yt-dlp.exe" --webview2 "D:/tool-distributions/MicrosoftEdgeWebview2Setup.exe"
 python packaging/dependencies.py verify --root "D:/Syphon build inputs"
-./packaging/build-installer.ps1 -Version 0.1.0-beta.14 -DependencyRoot "D:/Syphon build inputs" -OutputDirectory "D:/Syphon builds/beta14"
+./packaging/build-installer.ps1 -Version 0.1.0-beta.15 -DependencyRoot "D:/Syphon build inputs" -OutputDirectory "D:/Syphon builds/beta15"
 ```
 
 Omit `--root` / `-DependencyRoot` to use `.tools/release-deps/win-x64` in this checkout. The import verifies every source before writing the cache, copies bytes rather than sharing hardlinks with installed global tools, and refuses unrelated cache files. Missing inputs, hash/length mismatches and filesystem links are errors. Changing the lock is a deliberate dependency update, not a workaround for a failed checksum.
@@ -42,3 +42,11 @@ The input hashes pin the previously inspected local baseline; they do not indepe
 The private yt-dlp build is documented in [MEDIA-RUNTIME.md](MEDIA-RUNTIME.md). The dependency lock, source manifests and retained notices identify the bundled tools; corresponding-source coverage remains incomplete.
 
 Beta 14 selects the reviewed [FFmpeg/FFprobe source build](FFMPEG.md). Its clean-build identities, compatibility checks and independent engineering review are retained in the FFmpeg records. Keep the source archive identified by ffmpeg-source-evidence.win-x64.json alongside the installer. Component notices and records are mandatory payload entries. This engineering review does not establish legal/patent clearance or clearance for other dependencies.
+
+## Security boundaries in Beta 15
+
+The installer build publishes Desktop and NativeHost with `SyphonPackagedBuild=true`. The packaged engine uses only the four private media executables under its application `.tools/media` folder and refuses missing files, links and linked ancestors. Environment, PATH and development tool overrides are ignored in this mode. Ordinary development builds retain explicit fixture overrides.
+
+Setup diagnostics are excluded by default, including their implementation types and external package-source override. Delivered setup accepts only its install and validated removal command shapes. `EnableSetupDiagnostics=true` is for a separate local development checker, never a distributable core. The builder isolates checker and production output/intermediate directories, verifies production metadata and rejected command behavior, then verifies the assembled package using the checker. For a signed candidate, run that checker's `--verify-package <new-test-target> <signed-installer>` command; the shipped installer intentionally does not offer it.
+
+The native host authenticates the actual server process behind the connected same-user pipe against its configured desktop executable before serializing a request. Identity failure sends no URL or browser context and does not fall through to retry/launch behavior. Installed settings and executables are protected by the installation's Program Files permissions. A user-writable development installation is not a boundary against malware already controlling that account; neither process-image checks nor these changes claim to prevent process injection.

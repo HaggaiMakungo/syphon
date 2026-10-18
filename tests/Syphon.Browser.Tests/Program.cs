@@ -43,7 +43,7 @@ async Task<string> HostFolder(string pipe, object? settings = null)
     var folder = Folder();
     foreach (var file in Directory.GetFiles(hostBuild)) File.Copy(file, Path.Combine(folder, Path.GetFileName(file)));
     await File.WriteAllTextAsync(Path.Combine(folder, "host-settings.json"), JsonSerializer.Serialize(settings ?? new
-    { desktopPath = Path.Combine(folder, "missing-desktop.exe"), allowedOrigins = new[] { origin }, pipeName = pipe }, BrowserProtocol.JsonOptions));
+    { desktopPath = Environment.ProcessPath!, allowedOrigins = new[] { origin }, pipeName = pipe }, BrowserProtocol.JsonOptions));
     return folder;
 }
 
@@ -173,6 +173,20 @@ try
         Check(reply.Status == "unavailable" && calls == 0, "Unapproved origin reached pipe.");
     });
 
+    await Run("Impersonated pipe receives no browser context before server verification", async () =>
+    {
+        var pipe=Pipe();var request=Request();
+        request=request with {Context=new(request.Url!,Cookies:[new("SyphonFixtureSession","fixture-secret",fixture.BaseAddress.Host)])};
+        using var impostor=new NamedPipeServerStream(pipe,PipeDirection.InOut,1,PipeTransmissionMode.Byte,PipeOptions.Asynchronous|PipeOptions.CurrentUserOnly);
+        var expectedExecutable=Path.Combine(hostBuild,"Syphon.NativeHost.exe");Check(File.Exists(expectedExecutable),"The expected executable fixture is missing.");
+        var host=await HostFolder(pipe,new {desktopPath=expectedExecutable,allowedOrigins=new[]{origin},pipeName=pipe});var attempt=Native(host,request);
+        await impostor.WaitForConnectionAsync().WaitAsync(TimeSpan.FromSeconds(5));
+        var received=new byte[1];using var deadline=new CancellationTokenSource(TimeSpan.FromSeconds(5));
+        var count=await impostor.ReadAsync(received,deadline.Token);
+        Check(count==0,"An unverified server received browser request bytes.");
+        var reply=await attempt;Check(reply.Status=="unavailable","An impersonated desktop was accepted.");
+    });
+
     await Run("Unsupported link rejected before pipe connection", async () =>
     {
         var host = await HostFolder(Pipe());
@@ -182,7 +196,7 @@ try
 
     await Run("Unavailable desktop returns a framed uncertain outcome", async () =>
     {
-        var request = Request(); var host = await HostFolder(Pipe()); var reply = await Native(host, request);
+        var request = Request(); var pipe=Pipe();var host = await HostFolder(pipe,new {desktopPath=Path.Combine(Folder(),"missing-desktop.exe"),allowedOrigins=new[]{origin},pipeName=pipe}); var reply = await Native(host, request);
         Check(reply.Status == "unavailable" && reply.RequestId == request.RequestId && reply.Message.Contains("retry", StringComparison.OrdinalIgnoreCase), "Missing app falsely acknowledged a task.");
     });
 

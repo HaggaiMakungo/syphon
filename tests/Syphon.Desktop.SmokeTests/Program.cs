@@ -180,7 +180,7 @@ internal static class Program
                 foreach (var source in Directory.GetFiles(hostBuild)) File.Copy(source, Path.Combine(host, Path.GetFileName(source)));
                 const string caller = "chrome-extension://aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/";
                 await File.WriteAllTextAsync(Path.Combine(host, "host-settings.json"), JsonSerializer.Serialize(new
-                { desktopPath = Path.Combine(temporary, "not-needed.exe"), allowedOrigins = new[] { caller }, pipeName }, BrowserProtocol.JsonOptions));
+                { desktopPath = Environment.ProcessPath!, allowedOrigins = new[] { caller }, pipeName }, BrowserProtocol.JsonOptions));
                 var request = new BrowserRequest(1, "download", Guid.NewGuid(), new Uri(fixture.BaseAddress, "file?size=100003").AbsoluteUri);
                 var rowsBeforeHandoff = Control<DataGrid>("TaskList").Items.Count;
                 for (var repeat = 0; repeat < 3; repeat++)

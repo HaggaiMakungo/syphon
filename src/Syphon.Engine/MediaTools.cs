@@ -19,24 +19,13 @@ public static partial class MediaTools
     internal static Action<string>? TestToolError { get; set; }
     public static string FindTool(string name)
     {
-        var directory = Environment.GetEnvironmentVariable("SYPHON_MEDIA_DIRECTORY");
-        var local = new List<string>();
-        for (var parent = new DirectoryInfo(AppContext.BaseDirectory); parent is not null; parent = parent.Parent)
-            local.Add(Path.Combine(parent.FullName, ".tools", "media"));
-        var candidates = new[] { directory, AppContext.BaseDirectory, @"C:\ffmpeg\bin", @"C:\Program Files\nodejs" }.Concat(local)
-            .Concat((Environment.GetEnvironmentVariable("PATH") ?? "").Split(Path.PathSeparator));
-        foreach (var folder in candidates)
-            if (!string.IsNullOrWhiteSpace(folder))
-            {
-                var file = Path.Combine(folder.Trim('"'), name + ".exe");
-                if (File.Exists(file)) return Path.GetFullPath(file);
-            }
-        throw new IOException(name switch {
-            "yt-dlp" => "YouTube support needs yt-dlp. Run install-youtube.ps1 in the Syphon folder.",
-            "node" => "YouTube support needs Node.js 22 or later. Install it or place node.exe on PATH.",
-            _ => $"{name} is required for media processing. Install FFmpeg and FFprobe, or set SYPHON_MEDIA_DIRECTORY to their folder." });
+        // Packaged builds never consult user-controlled environment or search paths.
+        if (MediaToolResolver.IsPackagedBuild)
+            return MediaToolResolver.Resolve(name, true, AppContext.BaseDirectory, null, []);
+        return MediaToolResolver.Resolve(name, false, AppContext.BaseDirectory,
+            Environment.GetEnvironmentVariable("SYPHON_MEDIA_DIRECTORY"),
+            (Environment.GetEnvironmentVariable("PATH") ?? "").Split(Path.PathSeparator));
     }
-
     public static bool IsManifestUrl(string url) => ManifestExtension().IsMatch(new Uri(url).AbsolutePath);
     [GeneratedRegex(@"\.(m3u8|mpd)$", RegexOptions.IgnoreCase)] private static partial Regex ManifestExtension();
     [GeneratedRegex("(?:^|,)URI=\"([^\"]+)\"", RegexOptions.IgnoreCase)] private static partial Regex HlsUri();

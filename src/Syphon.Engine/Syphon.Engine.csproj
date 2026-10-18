@@ -1,4 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup Condition="'$(SyphonPackagedBuild)' == 'true'">
+    <DefineConstants>$(DefineConstants);SYPHON_PACKAGED_BUILD</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="10.0.13" />
     <PackageReference Include="SQLitePCLRaw.provider.winsqlite3" Version="3.0.0" />

@@ -7,6 +7,8 @@ using Syphon.Core;
 using Syphon.Engine;
 using Syphon.TestServer;
 
+if (args.FirstOrDefault() == "--media-tool-security-tests") return MediaToolSecurityTests.Run(args.Skip(1).ToArray());
+if (args.FirstOrDefault() == "--verify-packaged-media-policy") return MediaToolSecurityTests.VerifyPackagedAssembly(args[1]);
 if (args.FirstOrDefault() == "--category-tests") return await CategoryTests.RunAsync();
 if (args.FirstOrDefault() == "--progressive-tests") return await ProgressiveTests.StandaloneAsync(args.Skip(1).ToArray());
 if (args.FirstOrDefault() == "--verify-tests") return await FileVerificationTests.StandaloneAsync(args.Skip(1).ToArray());

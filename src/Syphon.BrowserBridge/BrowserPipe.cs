@@ -4,23 +4,24 @@ namespace Syphon.BrowserBridge;
 
 public static class BrowserPipeClient
 {
-    public static async Task<BrowserReply> SendAsync(string name, BrowserRequest request, TimeSpan timeout, CancellationToken token = default, TimeSpan? connectTimeout = null)
+    public static async Task<BrowserReply> SendAsync(string name, BrowserRequest request, TimeSpan timeout, CancellationToken token = default, TimeSpan? connectTimeout = null, string? expectedServerExecutable = null)
     {
         using var deadline = CancellationTokenSource.CreateLinkedTokenSource(token);
         deadline.CancelAfter(timeout);
         while (true)
         {
-            try { return await SendOnceAsync(name, request, deadline.Token, connectTimeout).ConfigureAwait(false); }
+            try { return await SendOnceAsync(name, request, deadline.Token, connectTimeout, expectedServerExecutable ?? Environment.ProcessPath ?? "").ConfigureAwait(false); }
             catch (IOException) when (!deadline.IsCancellationRequested)
             { await Task.Delay(25, deadline.Token).ConfigureAwait(false); }
         }
     }
 
-    private static async Task<BrowserReply> SendOnceAsync(string name, BrowserRequest request, CancellationToken token, TimeSpan? connectTimeout)
+    private static async Task<BrowserReply> SendOnceAsync(string name, BrowserRequest request, CancellationToken token, TimeSpan? connectTimeout, string expectedServerExecutable)
     {
         await using var pipe = new NamedPipeClientStream(".", name, PipeDirection.InOut, PipeOptions.Asynchronous | PipeOptions.CurrentUserOnly);
         using (var connect = CancellationTokenSource.CreateLinkedTokenSource(token))
         { if (connectTimeout is TimeSpan limit) connect.CancelAfter(limit); await pipe.ConnectAsync(connect.Token).ConfigureAwait(false); }
+        using var verifiedServer = PipeServerIdentity.Verify(pipe, expectedServerExecutable);
         await BrowserProtocol.WriteAsync(pipe, request, token).ConfigureAwait(false);
         var reply = await BrowserProtocol.ReadAsync<BrowserReply>(pipe, token).ConfigureAwait(false)
             ?? throw new IOException("Syphon closed the connection before acknowledging this request.");

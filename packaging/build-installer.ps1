@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([string]$OutputDirectory, [string]$Version='0.1.0-beta.14', [string]$DependencyRoot)
+param([string]$OutputDirectory, [string]$Version='0.1.0-beta.15', [string]$DependencyRoot)
 $ErrorActionPreference='Stop'
 if ($Version -notmatch '^\d+\.\d+\.\d+(-[a-zA-Z0-9.]+)?$') { throw 'Use a valid release version.' }
 $taskRoot=Split-Path -Parent $PSScriptRoot
@@ -28,6 +28,10 @@ try {
     $taskWork=Join-Path $taskRoot ('artifacts\installer-work\'+[Guid]::NewGuid().ToString('N'))
     $taskStage=Join-Path $taskWork 'stage'
     $taskCore=Join-Path $taskWork 'core'
+    $taskChecker=Join-Path $taskWork 'setup-checker'
+    $taskCheckerObj=Join-Path $taskWork 'setup-checker-obj'
+    $taskProductionBuild=Join-Path $taskWork 'setup-production'
+    $taskProductionObj=Join-Path $taskWork 'setup-production-obj'
     New-Item -ItemType Directory -Force -Path $taskStage,$taskCore | Out-Null
     Write-Host "Fresh build workspace: $taskWork"
     $taskNode=Join-Path $DependencyRoot 'node.exe'
@@ -35,11 +39,19 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Frontend build failed.' }
     foreach ($taskProject in @('Desktop','NativeHost')) {
         $taskSubfolder=if ($taskProject -eq 'Desktop') {'app'} else {'host'}
-        & $taskDotnet publish "src/Syphon.$taskProject/Syphon.$taskProject.csproj" -c Release -r win-x64 --self-contained true -p:RestoreLockedMode=true -p:NuGetLockFilePath=packages.win-x64.lock.json "-p:Version=$Version" -p:DebugType=None -o (Join-Path $taskStage $taskSubfolder) --nologo
+        & $taskDotnet publish "src/Syphon.$taskProject/Syphon.$taskProject.csproj" -p:SyphonPackagedBuild=true -c Release -r win-x64 --self-contained true -p:RestoreLockedMode=true -p:NuGetLockFilePath=packages.win-x64.lock.json "-p:Version=$Version" -p:DebugType=None -o (Join-Path $taskStage $taskSubfolder) --nologo
         if ($LASTEXITCODE -ne 0) { throw "$taskProject publish failed." }
     }
-    & $taskDotnet publish src/Syphon.Setup/Syphon.Setup.csproj -c Release -r win-x64 --self-contained true -p:RestoreLockedMode=true -p:NuGetLockFilePath=packages.win-x64.lock.json "-p:Version=$Version" -p:DebugType=None -o $taskCore --nologo
+    # Diagnostic commands exist only in this isolated development checker.
+    & $taskDotnet build src/Syphon.Setup/Syphon.Setup.csproj -c Release -r win-x64 --self-contained true -p:RestoreLockedMode=true -p:NuGetLockFilePath=packages.win-x64.lock.json -p:EnableSetupDiagnostics=true -p:PublishSingleFile=false "-p:OutputPath=$taskChecker/" "-p:IntermediateOutputPath=$taskCheckerObj/" --nologo
+    if ($LASTEXITCODE -ne 0) { throw 'Setup diagnostic checker build failed.' }
+    & $taskDotnet (Join-Path $taskChecker 'Syphon.Setup.dll') --self-test
+    if ($LASTEXITCODE -ne 0) { throw 'Installer engine checks failed.' }
+    # The delivered core is compiled separately with diagnostics explicitly disabled.
+    & $taskDotnet publish src/Syphon.Setup/Syphon.Setup.csproj -p:EnableSetupDiagnostics=false "-p:OutputPath=$taskProductionBuild/" "-p:IntermediateOutputPath=$taskProductionObj/" -c Release -r win-x64 --self-contained true -p:RestoreLockedMode=true -p:NuGetLockFilePath=packages.win-x64.lock.json "-p:Version=$Version" -p:DebugType=None -o $taskCore --nologo
     if ($LASTEXITCODE -ne 0) { throw 'Setup publish failed.' }
+    & $taskDotnet (Join-Path $taskChecker 'Syphon.Setup.dll') --verify-production (Join-Path $taskProductionBuild 'Syphon.Setup.dll') $taskDotnet (Join-Path $taskWork 'setup-production-checks.txt')
+    if ($LASTEXITCODE -ne 0) { throw 'Production installer diagnostic isolation checks failed.' }
     $taskRevision=(& git rev-parse HEAD).Trim()
     if ($LASTEXITCODE -ne 0) { throw 'Cannot identify the source revision.' }
     $taskDirty=[bool](& git status --porcelain | Select-Object -First 1)
@@ -55,9 +67,9 @@ try {
     $taskCoreExe=Join-Path $taskCore 'Syphon.Setup.exe'
     & python packaging/prepare-stage.py --version $Version --stage $taskStage --core $taskCoreExe --dependency-root $DependencyRoot
     if ($LASTEXITCODE -ne 0) { throw 'Dependency staging failed.' }
-    & $taskDotnet src/Syphon.Setup/bin/Release/net10.0-windows10.0.19041.0/win-x64/Syphon.Setup.dll --self-test
-    if ($LASTEXITCODE -ne 0) { throw 'Installer engine checks failed.' }
     & python packaging/assemble-installer.py --output $OutputDirectory --version $Version --stage $taskStage --core $taskCoreExe
     if ($LASTEXITCODE -ne 0) { throw 'Installer assembly failed.' }
+    & $taskDotnet (Join-Path $taskChecker 'Syphon.Setup.dll') --verify-package (Join-Path $taskWork 'package-check') (Join-Path $OutputDirectory "Syphon-Setup-$Version-win-x64.exe")
+    if ($LASTEXITCODE -ne 0) { throw 'Assembled package verification failed.' }
     Copy-Item -LiteralPath (Join-Path $taskStage 'build-inputs.json') -Destination (Join-Path $OutputDirectory 'build-inputs.json')
 } finally { Pop-Location }

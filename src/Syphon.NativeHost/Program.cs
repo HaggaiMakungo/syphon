@@ -21,7 +21,7 @@ try
     BrowserReply reply;
     var pipeName = settings.PipeName ?? BrowserProtocol.PipeName;
     try { reply = await BrowserPipeClient.SendAsync(pipeName, request, request.ShowOptions ? TimeSpan.FromMinutes(10) : TimeSpan.FromSeconds(inspection ? 45 : 3), deadline.Token,
-        inspection || request.ShowOptions ? TimeSpan.FromSeconds(3) : null); }
+        inspection || request.ShowOptions ? TimeSpan.FromSeconds(3) : null, expectedServerExecutable: settings.DesktopPath); }
     catch (Exception ex) when (ex is IOException or OperationCanceledException or TimeoutException)
     {
         if (!File.Exists(settings.DesktopPath)) throw new IOException("The Syphon desktop app could not be found. Reconnect the browser integration.");
@@ -35,7 +35,7 @@ try
         foreach (var standard in new[] { -10, -11, -12 })
             NativeHandles.SetHandleInformation(NativeHandles.GetStdHandle(standard), 1, 0);
         using (var desktop = Process.Start(start)) { desktop?.StandardInput.Close(); }
-        reply = await BrowserPipeClient.SendAsync(pipeName, request, request.ShowOptions ? TimeSpan.FromMinutes(10) : TimeSpan.FromSeconds(inspection ? 60 : 20), deadline.Token);
+        reply = await BrowserPipeClient.SendAsync(pipeName, request, request.ShowOptions ? TimeSpan.FromMinutes(10) : TimeSpan.FromSeconds(inspection ? 60 : 20), deadline.Token, expectedServerExecutable: settings.DesktopPath);
     }
     await BrowserProtocol.WriteAsync(Console.OpenStandardOutput(), reply);
     return reply.Status is "accepted" or "ready" or "removed" or "not_found" or "cancelled" ? 0 : 1;

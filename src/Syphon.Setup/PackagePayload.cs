@@ -5,9 +5,16 @@ namespace Syphon.Setup;
 internal static class PackagePayload
 {
  private static readonly byte[] Magic=Encoding.ASCII.GetBytes("SYPHON-PAYLOAD01");
+#if SETUP_DIAGNOSTICS
  internal static string? TestSource;
+#endif
  internal static Stream Open() {
-  var file=new FileStream(TestSource ?? Environment.ProcessPath!,FileMode.Open,FileAccess.Read,FileShare.Read);
+#if SETUP_DIAGNOSTICS
+  var source=TestSource ?? Environment.ProcessPath!;
+#else
+  var source=Environment.ProcessPath!;
+#endif
+  var file=new FileStream(source,FileMode.Open,FileAccess.Read,FileShare.Read);
   try {
    long end=file.Length;
    // Authenticode appends its certificate after the signed payload. Its PE directory
