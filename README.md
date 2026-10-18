@@ -16,11 +16,11 @@ It is also very purple. Someone was allowed to discover gradients without a resp
 
 ## Where things stand
 
-**Current local beta: 0.1.0-beta.13 · Windows x64.**
+**Current local beta: 0.1.0-beta.14 · Windows x64.**
 
-The installer is built and locally self-signed. Functional and installer acceptance checks have passed according to the owner on their PC, including the latest Open folder fix. A download-page preview, release notes, checksums and browser instructions are prepared.
+The installer is built and locally self-signed (333.5 MB). Beta 14 bundles the reviewed FFmpeg 9.0.2 source build and restores **Open Syphon** on the final setup screen. Package extraction, tool execution and maintenance fixture checks passed. Owner acceptance of the new upgrade and completion button is still pending; Beta 13 had already passed the owner’s checks. The existing download-page preview remains Beta 13 until its separate update.
 
-Public downloads and browser-store listings have **not** been published. FFmpeg corresponding-source and build-material review remains unfinished. The current [release notes](RELEASE-NOTES.md) describe the exact build and its limits.
+Public downloads and browser-store listings have **not** been published. The FFmpeg engineering source/build-material review has passed, and the matching source archive is retained beside the candidate installer. Other public-release checks remain separate. The current [release notes](RELEASE-NOTES.md) describe the exact build and its limits.
 
 ## What it does
 
@@ -91,7 +91,7 @@ Syphon does not bypass DRM. Browser sign-in sharing is optional, limited to elig
 
 Download URLs and history are stored locally in `%LOCALAPPDATA%\Syphon\tasks.db`. URLs can contain access tokens, so treat that database as private. Temporary browser sign-in context stays in memory rather than the task database. Removing a task erases its resume history; unfinished file deletion is a separate choice. Completed files are preserved.
 
-Successful tests on the owner's PC are not clean-machine or power-loss certification. Source-material review and browser-store distribution remain unfinished.
+Successful tests on the owner's PC are not clean-machine or power-loss certification. FFmpeg's engineering source-material review has passed; other component obligations and browser-store distribution remain separate release work.
 
 ## Build it yourself
 

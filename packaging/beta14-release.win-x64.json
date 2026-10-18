@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "version": "0.1.0-beta.14",
+  "date": "2026-10-18",
+  "architecture": "win-x64",
+  "status": "Local self-signed candidate; not published; owner upgrade and finish-button acceptance pending",
+  "applicationSourceRevision": "f3599fcbf1eef5f423ca87dd76e31b6ab06dc93f",
+  "applicationSourceDirty": false,
+  "installer": {
+    "file": "Syphon-Setup-0.1.0-beta.14-win-x64.exe",
+    "bytes": 333461760,
+    "sha256": "c6385f0c7c8056b88fa60bf305683a6fa148023a5f0a9e6e767e968eeb4972ed"
+  },
+  "signing": {
+    "signed": true,
+    "signatureType": "self-signed Authenticode",
+    "cryptographicSignatureValid": true,
+    "fileDigestValid": true,
+    "certificateThumbprint": "3B47C910EDA7360A3F486154954A22A7DABBABDE",
+    "timestamped": false,
+    "publiclyTrusted": false,
+    "scope": "Outer installer only; embedded files retain their existing signatures"
+  },
+  "ffmpegSource": {
+    "schema": 1,
+    "file": "Syphon-FFmpeg-9.0.2-clean-source-and-build-materials.zip",
+    "bytes": 329880819,
+    "sha256": "7fd6e215e2374c0089c905f0ff189149fbdda0bcf4fc91ecc60c46178c44fcf4",
+    "verifiedMembers": 94,
+    "status": "Fresh end-to-end build, candidate compatibility and independent engineering source-material review passed",
+    "reviewRecord": "ffmpeg-source-review.win-x64.json",
+    "binaries": [
+      {
+        "file": "ffmpeg.exe",
+        "bytes": 35277312,
+        "sha256": "3acb0d04648d7a1031086eb31d20ba176e6fe535e447489acc30d5aa13a7d7ee"
+      },
+      {
+        "file": "ffprobe.exe",
+        "bytes": 35075584,
+        "sha256": "ab28380e0c18bc1e47ad5414fc9007216808907ee6cddd89e9e90b2208a3372f"
+      }
+    ],
+    "buildMode": "Fresh end-to-end CLI; new empty work directory; no manual continuation or repair"
+  },
+  "verification": {
+    "unsignedPayloadExtractionAndHashes": "passed",
+    "signedPayloadExtractionAndHashes": "passed",
+    "allSevenPinnedInputs": "passed after extraction",
+    "allFourPrivateMediaTools": "passed after extraction",
+    "all14FfmpegComponentNotices": "passed after extraction",
+    "setupUpgradeRepairRemovalAndPreservationFixtures": "passed in generated directories",
+    "packagingTests": {
+      "run": 18,
+      "passed": 17,
+      "skipped": 1,
+      "reason": "Filesystem symlink privilege unavailable"
+    },
+    "sourceBuilderTests": 17,
+    "mediaRuntimeTests": 4,
+    "ytDlpBuildTests": 4,
+    "desktopLaunchProbe": "passed from development invocation; Explorer launched harmless token probe as non-administrator",
+    "independentCodeReview": "passed after notice/record corruption checks added"
+  },
+  "acceptancePending": [
+    "Normal elevated installation/upgrade on this PC",
+    "Open Syphon from the installed completion screen; confirm ordinary-user operation"
+  ],
+  "limits": [
+    "No current installed app or personal downloads/history modified by these tests",
+    "Existing Beta13 artifact and preview preserved",
+    "No public release, Pages publication or extension-store submission",
+    "Engineering source review does not establish legal/patent clearance, other-component clearance or clean-machine certification"
+  ]
+}

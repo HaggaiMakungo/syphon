@@ -1,3 +1,37 @@
+# Syphon 0.1.0-beta.14 — the installer has lost some luggage
+
+Prepared 2026-10-18 · Windows x64 · Local self-signed candidate, not published.
+
+The installer is now **333.5 MB**, down from Beta 13’s 476.4 MB. The old FFmpeg pair had apparently packed for a six-month expedition. We built the reviewed replacement from its exact sources, kept the tools Syphon needs, and politely removed the expedition’s second wardrobe. Your downloads remain blissfully unaware of this organisational breakthrough.
+
+**Open Syphon** is back on the final setup screen. Click it to open the app, or choose **Finish** and launch later. Setup hands the launch to your Windows desktop rather than deliberately giving a download manager the installer’s administrator privileges. It is here to fetch an MP3, not annex the machine.
+
+## What changed
+
+- Replaced the vendor FFmpeg/FFprobe pair with the reviewed Syphon 9.0.2 source build.
+- Included exact component notices, build inputs, binary identities, compatibility evidence and engineering review in the installed licenses folder.
+- Kept the matching source/build archive beside the installer for inspection and rebuilding.
+- Restored the separate **Open Syphon** action, with a visible, retryable error if Windows cannot launch it.
+- Added final-assembly rejection of missing or altered FFmpeg notices and build records.
+
+## Checked, and still to check
+
+The unsigned and signed installers both passed extraction, file-hash and bundled-tool execution checks. Upgrade, repair, removal, corruption rejection and file preservation passed in generated test folders. The desktop launch handoff started a harmless probe without administrator rights. The fresh media pair previously passed 42 local compatibility checks, HTTPS verification controls and live MP4/MP3 artwork checks; the first live MP3 attempt failed before an identical retry passed.
+
+**Owner acceptance is still pending for the actual Beta 14 upgrade and final Open Syphon button.** The tests did not alter the current installation, personal history or downloaded files. A desktop probe from the development invocation is not a completed elevated-installer acceptance test.
+
+## Package
+
+`Syphon-Setup-0.1.0-beta.14-win-x64.exe` — 333,461,760 bytes.
+
+SHA-256: `c6385f0c7c8056b88fa60bf305683a6fa148023a5f0a9e6e767e968eeb4972ed`
+
+Includes the private app/runtime, native browser host, FFmpeg, FFprobe, yt-dlp, Node and unpacked browser companion. WebView2 may require an internet connection if absent. Existing browser setup instructions still apply.
+
+The outer installer is locally self-signed using the existing identity, without a timestamp or public certificate trust. Windows warnings may remain. No trust-store import or public release was performed. Engineering source-material review is not legal/patent clearance or clean-machine certification. The Beta 13 download-page preview remains unchanged.
+
+---
+
 # Syphon 0.1.0-beta.13 — a folder opens, civilisation limps onwards
 
 Prepared 2026-10-18 · Windows x64 · Local release preview, not published.
