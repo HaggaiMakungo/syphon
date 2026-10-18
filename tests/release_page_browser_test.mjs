@@ -5,8 +5,9 @@ import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 import {randomUUID} from 'node:crypto';
 
-const [url, browser, output] = process.argv.slice(2);
-if (!url || !browser || !output || !/^http:\/\/127\.0\.0\.1:\d+\/index\.html$/.test(url)) {
+const [url, browser, output, mode = 'preview'] = process.argv.slice(2);
+const publicPage = mode === 'public';
+if (!url || !browser || !output || !(/^http:\/\/127\.0\.0\.1:\d+\/index\.html$/.test(url) || (publicPage && /^https:\/\/HaggaiMakungo\.github\.io\/syphon\/(?:index\.html)?$/i.test(url)))) {
   throw new Error('Pass a loopback index.html URL, browser executable and output folder.');
 }
 await mkdir(output,{recursive:true});
@@ -36,7 +37,7 @@ try{
     const report=await evaluate(`(()=>{
       const primary=document.querySelector('a.primary'),r=primary.getBoundingClientRect();
       return {width:innerWidth,scrollWidth:document.documentElement.scrollWidth,
-        preview:document.querySelector('.preview').textContent.includes('Not published'),
+        preview:document.querySelector('.preview').textContent.includes(${JSON.stringify(publicPage ? 'Public beta' : 'Not published')}),
         primaryHeight:r.height,primaryAboveFold:r.top>=0&&r.bottom<=innerHeight,fonts:document.fonts.check('400 14px Inter')&&document.fonts.check('500 30px Space'),
         brokenImages:[...document.images].filter(i=>!i.complete||!i.naturalWidth).length,
         duplicateIds:[...document.querySelectorAll('[id]')].map(e=>e.id).filter((id,i,a)=>a.indexOf(id)!==i),
@@ -51,8 +52,8 @@ try{
     reports.push(report);
   }
   const metadata=await(await fetch(new URL('release.json',url))).json();
-  for(const item of [metadata.installer,metadata.extension,...metadata.sources]){
-    const response=await fetch(new URL(item.file,url),{method:'HEAD'});
+  for(const item of [metadata.installer,metadata.extension,...metadata.sources,...(metadata.applicationSource?[metadata.applicationSource]:[])]){
+    const response=await fetch(new URL(item.url||item.file,url),{method:'HEAD'});
     if(!response.ok||Number(response.headers.get('content-length'))!==item.bytes)throw new Error('Download link/length mismatch: '+item.file);
   }
   await call('Input.dispatchKeyEvent',{type:'keyDown',key:'Tab',code:'Tab',windowsVirtualKeyCode:9},sessionId);

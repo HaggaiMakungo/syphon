@@ -16,11 +16,15 @@ It is also very purple. Someone was allowed to discover gradients without a resp
 
 ## Where things stand
 
-**Current local beta: 0.1.0-beta.17 · Windows x64.**
+**Current public beta: 0.1.0-beta.17 · Windows x64.**
 
-The installer is built and locally self-signed (332.4 MB). Beta17 closes the remaining native source/recipe gaps, isolates the downloader build from unrelated host DLLs, and enables Close to system tray by default. Existing explicit preferences are preserved. Source, native-input, tray-default, live MP4/MP3 and signed-package checks passed. The owner confirmed Beta16 works; Beta17 upgrade acceptance is pending. The local download-page preview now includes Beta17, the exact bundled extension and both verified dependency source archives. It remains unpublished.
+**[Download Syphon](https://haggaimakungo.github.io/syphon/)** · [GitHub beta release](https://github.com/HaggaiMakungo/syphon/releases/tag/v0.1.0-beta.17)
 
-Public downloads and browser-store listings have **not** been published. The FFmpeg engineering source/build-material review has passed, and the matching source archive is retained beside the candidate installer. The remaining native source/recipe mapping is now verified in [the source closure review](packaging/NATIVE-SOURCE-CLOSURE.md). Publication and other release checks remain separate. The current [release notes](RELEASE-NOTES.md) describe the exact build and its limits.
+You only need the **332.4 MB installer**. The app runtime and media tools are bundled; source archives are separate, optional downloads. Browser-store listings are not available yet, so Chrome/Edge setup uses the included unpacked extension.
+
+Beta17 enables Close to system tray by default, preserves explicit saved preferences, isolates the downloader build from unrelated host DLLs and closes identified native source/archive/build-recipe engineering gaps. Signed-package, media and tray checks passed on this PC. The owner confirmed Beta16 works; Beta17 upgrade acceptance and clean-machine testing remain pending.
+
+The installer is locally self-signed, not publicly trusted or timestamped; Windows warnings may remain. The release includes checksums, the exact application source and both dependency source companions. See the [release notes](RELEASE-NOTES.md) and [source closure review](packaging/NATIVE-SOURCE-CLOSURE.md) for evidence and limits.
 
 ## What it does
 

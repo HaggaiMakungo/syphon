@@ -1,0 +1,198 @@
+{
+  "version": "0.1.0-beta.17",
+  "publishedAt": "2026-10-18T17:26:49Z",
+  "releaseUrl": "https://github.com/HaggaiMakungo/syphon/releases/tag/v0.1.0-beta.17",
+  "releaseId": 416566680,
+  "prerelease": true,
+  "tag": "v0.1.0-beta.17",
+  "taggedApplicationRevision": "d3eb55b930f7465d39a10ba72efbe0a0cfef05a4",
+  "pagesUrl": "https://haggaimakungo.github.io/syphon/",
+  "pagesBranch": "gh-pages",
+  "pagesCommit": "39439def2a6f53bf3d46cb00876fa3a8d371bbef",
+  "uploadedAssetsVerified": 28,
+  "ownerBeta17UpgradeAcceptancePending": true,
+  "assets": [
+    {
+      "file": "beta17-release.win-x64.json",
+      "bytes": 4892,
+      "sha256": "edaa92148f9dbdcfa6e28df1fb160df65b71a1b9218c2fd0b66e5ab198f030f4",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/beta17-release.win-x64.json"
+    },
+    {
+      "file": "BROWSER-SETUP.md",
+      "bytes": 3123,
+      "sha256": "d507ea5ed8e16d6fca6137335bd619891a8ad2f76acabd5793f1dede578c606e",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/BROWSER-SETUP.md"
+    },
+    {
+      "file": "build-inputs.json",
+      "bytes": 499,
+      "sha256": "787c86e1881724bf4164fc653ca38099ff217722d0579c4f5ec7a0a234d3e457",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/build-inputs.json"
+    },
+    {
+      "file": "CURL-NATIVE-SOURCE.md",
+      "bytes": 2391,
+      "sha256": "135c7abd70bdbbf09dbc6453cb15e8cf86f0694176487315f9c761cbc418c2f1",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/CURL-NATIVE-SOURCE.md"
+    },
+    {
+      "file": "ffmpeg-source-evidence.win-x64.json",
+      "bytes": 809,
+      "sha256": "86e3ae4138895cbc40ef89adec028be8e3268f24d6ede2d07d165068fcac35d3",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/ffmpeg-source-evidence.win-x64.json"
+    },
+    {
+      "file": "ffmpeg-source-review.win-x64.json",
+      "bytes": 2333,
+      "sha256": "8f2144f9260e4423a7a9aa2e03a892f08f4a4f8d1d2faee7b39eff9ba9102215",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/ffmpeg-source-review.win-x64.json"
+    },
+    {
+      "file": "LICENSE.txt",
+      "bytes": 1076,
+      "sha256": "03e642c5e27d811a59b2cec9b7c428a74a28449036002944ec4660ca1df4e425",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/LICENSE.txt"
+    },
+    {
+      "file": "native-source-bundle.win-x64.json",
+      "bytes": 591,
+      "sha256": "599afdeac4ee9d36b1fb1ffed070fb870871ffa1a07c29395d0cc97724d14048",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/native-source-bundle.win-x64.json"
+    },
+    {
+      "file": "NATIVE-SOURCE-CLOSURE.md",
+      "bytes": 3660,
+      "sha256": "e0b2af743f5acef3fae527905352c9b5b0cb21bf4a5bd95a769611bb2a96ddba",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/NATIVE-SOURCE-CLOSURE.md"
+    },
+    {
+      "file": "native-source-closure.win-x64.json",
+      "bytes": 3369,
+      "sha256": "3b0ab81e4d00d3dd45bd90977465829bef422943e158a38261a6451c7407e122",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/native-source-closure.win-x64.json"
+    },
+    {
+      "file": "NATIVE-WHEELS-SOURCE.md",
+      "bytes": 4482,
+      "sha256": "7dd9d5bef860e49b0ae8ad89e47fafc0becc09fbe46bdbcafedb2d72588da3ca",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/NATIVE-WHEELS-SOURCE.md"
+    },
+    {
+      "file": "PYINSTALLER-SOURCE.md",
+      "bytes": 3618,
+      "sha256": "5acfc1b36787b4a95eb968f240b81351f854456117063c8d666c0c11f629e0bc",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/PYINSTALLER-SOURCE.md"
+    },
+    {
+      "file": "PYTHON-NATIVE-SOURCE.md",
+      "bytes": 5409,
+      "sha256": "eee339744f8711fac83c8f930d8cc0ab6b7e77d79b2e10ab9d604d59b682e2ca",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/PYTHON-NATIVE-SOURCE.md"
+    },
+    {
+      "file": "release-assets.json",
+      "bytes": 4665,
+      "sha256": "1cf4bfc458c3a2505a3df8f1cb1a402ccbef4d6b0d90efd8a1b331afa6e58fca",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/release-assets.json"
+    },
+    {
+      "file": "RELEASE-NOTES.md",
+      "bytes": 6321,
+      "sha256": "589741196b6f8f4cbb5c322547c86014f4b53c4025c0a63b03694d07f8fe9e1a",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/RELEASE-NOTES.md"
+    },
+    {
+      "file": "RELEASE-READINESS.md",
+      "bytes": 2069,
+      "sha256": "092f0f92259cec21a32036e953757d08404139db4b52dd847a338072d015699a",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/RELEASE-READINESS.md"
+    },
+    {
+      "file": "self-sign-summary.json",
+      "bytes": 994,
+      "sha256": "cc29903a9df829faa4d348734022ecd2108de72ef8d59b67ebff3062d11a9aee",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/self-sign-summary.json"
+    },
+    {
+      "file": "SELF-SIGNING.txt",
+      "bytes": 300,
+      "sha256": "4c661362ec81a6eabffe24b8c55f5d10c039ab445d4d8824db2d7db53c3ecd12",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/SELF-SIGNING.txt"
+    },
+    {
+      "file": "SHA256SUMS.txt",
+      "bytes": 2531,
+      "sha256": "0efece0eadfdb8d6e41dfcb218a125edeb120b5edeaeedb8c146f2106cf651d0",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/SHA256SUMS.txt"
+    },
+    {
+      "file": "START-HERE.txt",
+      "bytes": 1140,
+      "sha256": "7cf0d648b7a9a1428b3ad0bb832773d3a715a741f041f44d645cfe2c1340aa3a",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/START-HERE.txt"
+    },
+    {
+      "file": "Syphon-0.1.0-beta.17-source.zip",
+      "bytes": 14602135,
+      "sha256": "deaec5afb76c4053c0ba26fe7cd7bfe74c8f8c1e30d678e1e6b784088988fc3b",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-0.1.0-beta.17-source.zip"
+    },
+    {
+      "file": "Syphon-Extension-0.7.4-beta17.zip",
+      "bytes": 171301,
+      "sha256": "08bf5fd8c4fb89c186e65fd8b1d14cc0036a6d13b579a3d62c44f652b859a39a",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-Extension-0.7.4-beta17.zip"
+    },
+    {
+      "file": "Syphon-FFmpeg-9.0.2-clean-source-and-build-materials.zip",
+      "bytes": 329880819,
+      "sha256": "7fd6e215e2374c0089c905f0ff189149fbdda0bcf4fc91ecc60c46178c44fcf4",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-FFmpeg-9.0.2-clean-source-and-build-materials.zip"
+    },
+    {
+      "file": "Syphon-Local-Development.cer",
+      "bytes": 1050,
+      "sha256": "b3b6fe22113991ae15cd8c6da3599105f0d983839da252ce8df9815633787692",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-Local-Development.cer"
+    },
+    {
+      "file": "Syphon-native-source-and-build-materials.zip",
+      "bytes": 554904430,
+      "sha256": "86e3a2e4835c215b8bffe5cf9f291a63b7adb9c9e65b55458e5f6ba84ab77415",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-native-source-and-build-materials.zip"
+    },
+    {
+      "file": "Syphon-Setup-0.1.0-beta.17-win-x64.exe",
+      "bytes": 332415312,
+      "sha256": "52615b3fe7765e241ad6a7cb6699e431ea8ed2bc3c43ec260747a749b6f2a1c3",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-Setup-0.1.0-beta.17-win-x64.exe"
+    },
+    {
+      "file": "THIRD-PARTY-NOTICES.md",
+      "bytes": 3613,
+      "sha256": "377372bc23c67b0bb94bdde03a9777ae288f4d3af6ed6abf8c7de5bfab8efc6d",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/THIRD-PARTY-NOTICES.md"
+    },
+    {
+      "file": "WINDOWS-RUNTIME.md",
+      "bytes": 7310,
+      "sha256": "651c63615a352942cc3b7d2495dec2398815b532f77cb7a17e859016e0e6f72a",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/WINDOWS-RUNTIME.md"
+    }
+  ],
+  "verification": {
+    "anonymousReleaseApi": "passed: public prerelease, 28 assets",
+    "anonymousPagesMetadata": "passed: public Beta17",
+    "githubAssetDigests": "all 28 SHA-256 values match local published assets",
+    "pagesBuild": "built",
+    "httpsEnforced": true,
+    "browserWidths": [
+      1280,
+      760,
+      390
+    ],
+    "responsiveLayoutFontsImagesKeyboardAndDownloadHeads": "passed",
+    "releasePreparationTests": 13
+  }
+}

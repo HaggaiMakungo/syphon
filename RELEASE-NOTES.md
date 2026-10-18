@@ -1,6 +1,6 @@
 # Syphon 0.1.0-beta.17 — the window has left, the download has not
 
-Prepared 2026-10-18 · Windows x64 · Local release preview, not published.
+Prepared 2026-10-18 · Windows x64 · Public beta prerelease.
 
 Closing the window now sends Syphon to the system tray by default. Your download keeps going. Previously, closing things was rather too effective at closing things. We have retained the concept of leaving while introducing the possibility of sitting quietly near the clock like a tiny violet pensioner.
 
@@ -61,7 +61,7 @@ That is not clean-machine or VM certification. Website compatibility varies, DRM
 
 ## Release status
 
-This package is prepared locally. No public release, hosted download page or extension-store submission has been made. Identified native source-material engineering gaps are closed. RELEASE-READINESS.md records the remaining acceptance and publication work. This does not certify legal conclusions or byte-identical rebuilds.
+This is a public GitHub beta prerelease. The download page is hosted on GitHub Pages; browser-store listings are not available yet. Identified native source-material engineering gaps are closed. RELEASE-READINESS.md records the remaining acceptance and publication work. This does not certify legal conclusions or byte-identical rebuilds.
 
 ## Optional source downloads
 
