@@ -43,7 +43,7 @@ try {
         if ($LASTEXITCODE -ne 0) { throw "$taskProject publish failed." }
     }
     # Diagnostic commands exist only in this isolated development checker.
-    & $taskDotnet build src/Syphon.Setup/Syphon.Setup.csproj -c Release -r win-x64 --self-contained true -p:RestoreLockedMode=true -p:NuGetLockFilePath=packages.win-x64.lock.json -p:EnableSetupDiagnostics=true -p:PublishSingleFile=false "-p:OutputPath=$taskChecker/" "-p:IntermediateOutputPath=$taskCheckerObj/" --nologo
+    & $taskDotnet build src/Syphon.Setup/Syphon.Setup.csproj -c Release -r win-x64 --self-contained true -p:RestoreLockedMode=true -p:NuGetLockFilePath=packages.win-x64.lock.json -p:EnableSetupDiagnostics=true -p:PublishSingleFile=true "-p:OutputPath=$taskChecker/" "-p:IntermediateOutputPath=$taskCheckerObj/" --nologo
     if ($LASTEXITCODE -ne 0) { throw 'Setup diagnostic checker build failed.' }
     & $taskDotnet (Join-Path $taskChecker 'Syphon.Setup.dll') --self-test
     if ($LASTEXITCODE -ne 0) { throw 'Installer engine checks failed.' }
