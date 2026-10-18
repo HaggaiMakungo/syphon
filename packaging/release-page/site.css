@@ -1,4 +1,5 @@
 @font-face{font-family:Inter;src:url(inter-400.woff2) format('woff2');font-weight:400;font-display:swap}
+.intermission{display:grid;grid-template-columns:1fr 1.15fr;gap:70px;padding:42px 0;border-bottom:1px solid var(--line)}.intermission .eyebrow{margin:0 0 14px}.intermission h2{font-size:28px;letter-spacing:-.03em}.intermission>div>p:not(.eyebrow){font-size:12px;line-height:1.85;color:var(--sub);margin:0 0 14px}.intermission>div>p:last-child{margin-bottom:0}@media(max-width:800px){.intermission{gap:35px}}@media(max-width:560px){.intermission{grid-template-columns:1fr;gap:23px;padding:35px 0}.intermission h2{font-size:26px}}
 @font-face{font-family:Inter;src:url(inter-500.woff2) format('woff2');font-weight:500;font-display:swap}
 @font-face{font-family:Inter;src:url(inter-600.woff2) format('woff2');font-weight:600;font-display:swap}
 @font-face{font-family:Space;src:url(space-500-600.woff2) format('woff2');font-weight:500 600;font-display:swap}

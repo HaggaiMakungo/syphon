@@ -37,11 +37,11 @@ try{
       const primary=document.querySelector('a.primary'),r=primary.getBoundingClientRect();
       return {width:innerWidth,scrollWidth:document.documentElement.scrollWidth,
         preview:document.querySelector('.preview').textContent.includes('Not published'),
-        primaryHeight:r.height,fonts:document.fonts.check('400 14px Inter')&&document.fonts.check('500 30px Space'),
+        primaryHeight:r.height,primaryAboveFold:r.top>=0&&r.bottom<=innerHeight,fonts:document.fonts.check('400 14px Inter')&&document.fonts.check('500 30px Space'),
         brokenImages:[...document.images].filter(i=>!i.complete||!i.naturalWidth).length,
         duplicateIds:[...document.querySelectorAll('[id]')].map(e=>e.id).filter((id,i,a)=>a.indexOf(id)!==i),
         scriptTags:document.scripts.length};})()`);
-    if(report.width!==width||report.scrollWidth>width+1||!report.preview||report.primaryHeight<44||!report.fonts||report.brokenImages||report.duplicateIds.length||report.scriptTags){
+    if(report.width!==width||report.scrollWidth>width+1||!report.preview||report.primaryHeight<44||!report.primaryAboveFold||!report.fonts||report.brokenImages||report.duplicateIds.length||report.scriptTags){
       throw new Error('Page assertion failed: '+JSON.stringify(report));
     }
     const {cssContentSize}=await call('Page.getLayoutMetrics',{},sessionId);

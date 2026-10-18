@@ -1,10 +1,14 @@
-# Syphon @@VERSION@@ — the folder has one job
+# Syphon @@VERSION@@ — a folder opens, civilisation limps onwards
 
 Prepared @@DATE@@ · Windows x64 · Local release preview, not published.
 
-You finish a download, click **Open folder**, and expect a folder. A modest request. Beta 13 replaces the Explorer command-line selection handoff with a direct Windows shell request to open the containing directory.
+You finish a download. You click **Open folder**. You wait. Somewhere, a clock ticks with the confidence of an appliance that is actually doing its job.
 
-The owner has confirmed the repaired button works on their PC. We can all return to the considerably more difficult task of remembering what we downloaded in the first place.
+The folder does not open.
+
+For a brief and deeply unhelpful period, Syphon interpreted the label as an invitation to contemplate the *concept* of folders. Very moving. Absolutely fuck all use when you are trying to find an MP3.
+
+**Beta 13 replaces the Explorer command-line selection handoff with a direct Windows shell request to open the containing directory.** The owner has confirmed it works on their PC. The button has stopped delivering a philosophy seminar and returned to its modest duties in local government.
 
 ## Fixed in Beta @@BETA@@
 
@@ -12,15 +16,31 @@ The owner has confirmed the repaired button works on their PC. We can all return
 - Missing folders and Windows launch failures produce an error message.
 - A successful retry clears the previous folder error.
 
-## The recent additions coming along
+## Also aboard this particular vehicle
 
-**MP3 artwork is embedded.** YouTube audio downloads use available source artwork or the video thumbnail as JPEG cover art. The picture lives inside the MP3, without a separate image tagging along. If artwork is unavailable, the audio can still finish. Blank squares have had a very long career; this reduces their opportunities.
+### The album art has been reunited with the album
 
-**New Download stays on top.** The window asking where your file should go now stays above other windows while it is open.
+YouTube MP3 downloads embed available source artwork or the video thumbnail as JPEG cover art. The image lives inside the MP3, with no separate picture saved beside it. If artwork is unavailable, the audio can still finish.
 
-**The interface has settled into its violet phase.** Statistics have a clearer hierarchy, the graph has a proper disclosure control, the floating window shares the main app's surfaces, and the graph line has a stronger glow. Apparently even a transfer rate enjoys a little stage lighting.
+This saves your music library from looking like a collection of missing-person notices for rectangles. Previously the singer was a blank square. The drummer was a blank square. The album was a blank square. At that point you have accidentally downloaded a spreadsheet with a bass line.
 
-**Files get a sensible home.** Default download categories are Videos, Music, Documents, Programs and Misc. Custom destinations are still available. Setup also supports upgrade, repair and uninstall while preserving downloaded files and local history by default.
+### New Download has remembered that you were speaking to it
+
+The New Download window stays on top while open. You can finish choosing the destination without the dialog disappearing behind another window halfway through the conversation.
+
+I have relatives who do this. You ask a straightforward question, they wander into another room, and suddenly you are negotiating a save location through a wall. The dialog now has better manners. We are leaving the relatives for a later release.
+
+### Someone has been left alone with the purple again
+
+Statistics have a clearer hierarchy. The graph has a proper disclosure control and a stronger violet line glow. The floating window shares the main app's surfaces and controls.
+
+There was a point where the graph was simply reporting a transfer rate. It has since discovered stage lighting and begun referring to the Ethernet cable as its booking agent. The numbers still describe the download; the dramatic entrance is a personal choice.
+
+### Misc has accepted the custody arrangement
+
+Default download categories are Videos, Music, Documents, Programs and Misc. Custom destinations are still available. Setup supports upgrade, repair and uninstall, preserving downloaded files and local history by default.
+
+Misc is for everything that refuses a conventional introduction. A ZIP arrives. Nobody recognises the surname. It says it is “with Programs”, but Programs has asked us to stop giving out its address. Into Misc it goes, pending further nonsense.
 
 ## Installation
 
