@@ -4,22 +4,24 @@
   "notes": "Exact inspected binary inputs. Source URLs are provenance, not an automated download list or a complete corresponding-source distribution. WebView2 uses a pinned snapshot of its mutable Evergreen bootstrapper URL.",
   "files": {
     "ffmpeg.exe": {
-      "sha256": "0b87b1bf5fa3d78e847dd26c5433643d66888ff8d018027ff1c04a999fa49016",
-      "bytes": 226639360,
-      "version": "2026-06-01-git-bf608f16fd-full_build-www.gyan.dev",
-      "source": "https://www.gyan.dev/ffmpeg/builds/"
+      "bytes": 35277312,
+      "sha256": "3acb0d04648d7a1031086eb31d20ba176e6fe535e447489acc30d5aa13a7d7ee",
+      "version": "9.0.2-syphon-source-build",
+      "source": "https://github.com/HaggaiMakungo/syphon/blob/main/packaging/FFMPEG.md",
+      "buildRecord": "ffmpeg-build-record.win-x64.json"
     },
     "ffprobe.exe": {
-      "sha256": "ed85f2270561d3ad58fba4552965fac424f2013374bcc30b0bdd85f8cd969b4c",
-      "bytes": 226433536,
-      "version": "2026-06-01-git-bf608f16fd-full_build-www.gyan.dev",
-      "source": "https://www.gyan.dev/ffmpeg/builds/"
+      "bytes": 35075584,
+      "sha256": "ab28380e0c18bc1e47ad5414fc9007216808907ee6cddd89e9e90b2208a3372f",
+      "version": "9.0.2-syphon-source-build",
+      "source": "https://github.com/HaggaiMakungo/syphon/blob/main/packaging/FFMPEG.md",
+      "buildRecord": "ffmpeg-build-record.win-x64.json"
     },
     "yt-dlp.exe": {
       "sha256": "7cc1dd43e07ec25b625b9d1851070f06d8993d45d68ba184833b9a0c578fc283",
       "bytes": 21971777,
       "version": "2026.08.19",
-      "source": "https://github.com/HaggaiMakungo/syphon/blob/main/docs/media-runtime-build.md",
+      "source": "https://github.com/HaggaiMakungo/syphon/blob/main/packaging/MEDIA-RUNTIME.md",
       "buildVariant": "syphon_win_x64_py313",
       "python": "3.13.16"
     },
@@ -30,16 +32,16 @@
       "source": "https://nodejs.org/dist/v24.21.0/win-x64/node.exe"
     },
     "FFmpeg-GPLv3.txt": {
-      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
       "bytes": 35147,
+      "sha256": "8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903",
       "version": "GPLv3",
-      "source": "https://www.gyan.dev/ffmpeg/builds/"
+      "source": "https://github.com/HaggaiMakungo/syphon/blob/main/packaging/FFMPEG.md"
     },
     "FFmpeg-build-and-source.txt": {
-      "sha256": "c9bd548a773471d614fbd7f86b45b43df0bb6cc5b5d35893629aaffa1accb660",
-      "bytes": 45479,
-      "version": "2026-06-01-git-bf608f16fd-full_build-www.gyan.dev",
-      "source": "https://www.gyan.dev/ffmpeg/builds/"
+      "bytes": 1451,
+      "sha256": "a089462053d99e15c6a7d5eeccb6feb93aa8ff8c57134bbb7e7100decd764305",
+      "version": "9.0.2-syphon-source-build",
+      "source": "https://github.com/HaggaiMakungo/syphon/blob/main/packaging/FFMPEG.md"
     },
     "MicrosoftEdgeWebview2Setup.exe": {
       "sha256": "c90f9cdcec5e1997e581127dd1cb4526c239551908e9adbfe63ad14671bdcc94",

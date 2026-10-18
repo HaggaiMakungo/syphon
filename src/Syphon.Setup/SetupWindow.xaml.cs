@@ -12,6 +12,7 @@ using Microsoft.Win32;
 namespace Syphon.Setup;
 public partial class SetupWindow : Window
 {
+ internal Action<string> LaunchInstalledApp {get;set;}=SetupAppLauncher.Open;
  private int step;private bool busy;private bool uninstall;private readonly SetupMaintenance maintenance;private InstallReceipt? maintenanceReceipt;private bool repair;private string? removalRoot;private string installedRoot="";private readonly CancellationTokenSource cancellation=new();
  public SetupWindow(bool uninstall=false):this(uninstall,new SetupMaintenance()){}
  internal SetupWindow(bool uninstall,SetupMaintenance maintenance) {
@@ -19,7 +20,7 @@ public partial class SetupWindow : Window
   VersionLabel.Text=(typeof(SetupWindow).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0] ?? "Beta")+" · Windows x64";
   Width=Math.Min(1060,SystemParameters.WorkArea.Width-32);Height=Math.Min(700,SystemParameters.WorkArea.Height-32);
   Location.Text=InstallEngine.DefaultRoot;
-  LaunchOption.IsChecked=false;LaunchOption.Visibility=Visibility.Collapsed;FinishNote.Text="Launch Syphon from the Start menu or desktop shortcut. Your downloads remain in your own folders.";
+  FinishNote.Text="Open Syphon to start downloading, or finish setup and launch it later. Your downloads remain in your own folders.";
   if(uninstall){
    Title="Uninstall Syphon";WindowCaption.Text=Title;Steps.Children[1].Visibility=Visibility.Collapsed;Steps.Children[3].Visibility=Visibility.Collapsed;
    ((TextBlock)((Border)Steps.Children[0]).Child).Text="○    Confirm removal";
@@ -36,6 +37,7 @@ public partial class SetupWindow : Window
   CleanupPanel.Visibility=!uninstall&&step==0&&CleanupButton.Tag is int count&&count>0?Visibility.Visible:Visibility.Collapsed;
   WelcomePanel.Visibility=!uninstall&&step==0&&InstallationList.Items.Count==0?Visibility.Visible:Visibility.Collapsed;LocationPanel.Visibility=!uninstall&&step==1?Visibility.Visible:Visibility.Collapsed;InstallPanel.Visibility=step==2?Visibility.Visible:Visibility.Collapsed;BrowserPanel.Visibility=!uninstall&&step==3?Visibility.Visible:Visibility.Collapsed;FinishPanel.Visibility=step==4?Visibility.Visible:Visibility.Collapsed;
   Back.Visibility=step==1?Visibility.Visible:Visibility.Collapsed;Cancel.Visibility=step>=3?Visibility.Collapsed:Visibility.Visible;
+  OpenSyphon.Visibility=!uninstall&&step==4?Visibility.Visible:Visibility.Collapsed;
   Next.IsEnabled=step!=3||ReadyBrowser.IsChecked==true||SkipBrowser.IsChecked==true;
   if(uninstall){Heading.Text=step==2?"Removing Syphon":step==4?"Syphon has been removed":"Uninstall Syphon";Subtitle.Text="Your downloads, history and preferences will be preserved.";Next.Content=step==4?"Close":"Uninstall";}
   if(!uninstall){Heading.Text=step switch{0=>"Welcome to Syphon",1=>"Choose your workspace",2=>"Installing Syphon",3=>"Connect your browser",_=>"You're ready to download"};Subtitle.Text=step switch{0=>"Set up your download workspace.",1=>"Everything you need, in one place.",2=>"Preparing your download workspace.",3=>"One last step before you finish.",_=>"Syphon is installed on this computer."};Next.Content=step==1?(maintenanceReceipt is null?"Install":repair?"Repair":"Upgrade / reinstall"):step==4?"Finish":step==0&&InstallationList.SelectedItem is InstallReceipt?"Upgrade / reinstall":"Continue";
@@ -43,7 +45,7 @@ public partial class SetupWindow : Window
    if(step==0&&InstallationList.Items.Count>0){Heading.Text="Manage Syphon";Subtitle.Text="Upgrade, repair or remove an existing installation.";}
    if(step==1&&maintenanceReceipt is not null){Heading.Text=repair?"Repair Syphon":"Upgrade or reinstall Syphon";Subtitle.Text=$"Installed: {maintenanceReceipt.Version} · Package: {PackageVersion}";}
    if(step==2&&maintenanceReceipt is not null){Heading.Text=repair?"Repairing Syphon":"Updating Syphon";}
-   if(step==4&&maintenanceReceipt is not null){Heading.Text=repair?"Syphon has been repaired":"Syphon has been updated";Subtitle.Text="Your downloads, history and preferences were preserved.";FinishNote.Text="Launch Syphon from the Start menu or desktop shortcut. Your previous browser connection choice was preserved.";}}
+   if(step==4&&maintenanceReceipt is not null){Heading.Text=repair?"Syphon has been repaired":"Syphon has been updated";Subtitle.Text="Your downloads, history and preferences were preserved.";FinishNote.Text="Open Syphon now, or finish setup and launch it later. Your previous browser connection choice was preserved.";}}
  }
  private string PackageVersion=>typeof(SetupWindow).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0]??"this package";
  private void RefreshMaintenance() {
@@ -90,7 +92,7 @@ public partial class SetupWindow : Window
    catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}
    return;
   }
-  if(step==4){if(!uninstall&&LaunchOption.IsChecked==true)try{Process.Start(new ProcessStartInfo(Path.Combine(installedRoot,"app","Syphon.exe")){UseShellExecute=true});}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;return;}Close();return;}
+  if(step==4){Close();return;}
   if(!uninstall&&step==0){if(InstallationList.SelectedItem is InstallReceipt)PrepareMaintenance(false);else ShowStep(1);return;}
   try {
    var root=uninstall?Path.TrimEndingDirectorySeparator(Path.GetFullPath(removalRoot??AppContext.BaseDirectory)):InstallEngine.ValidateRoot(Location.Text.Trim());
@@ -132,7 +134,7 @@ public partial class SetupWindow : Window
  }
  internal void CompleteRemoval() {
   busy=false;Next.IsEnabled=true;Progress.Value=100;Percent.Text="100%";Status.Text="Syphon has been removed.";ShowStep(4);
-  Heading.Text="Syphon has been removed";Subtitle.Text="Your downloads, history and preferences were preserved.";LaunchOption.Visibility=Visibility.Collapsed;ExtensionHelp.Visibility=Visibility.Collapsed;
+  Heading.Text="Syphon has been removed";Subtitle.Text="Your downloads, history and preferences were preserved.";OpenSyphon.Visibility=Visibility.Collapsed;ExtensionHelp.Visibility=Visibility.Collapsed;
   FinishNote.Text="The application and its shortcuts have been removed. You can close this window. Your browser extension can be removed separately in your browser.";FinishPath.Text="";Next.Content="Close";Next.Focus();
  }
  internal void RemoveFrom(string root,int parentProcessId=0) {
@@ -142,6 +144,12 @@ public partial class SetupWindow : Window
  internal void ContinueConfirmedRemoval(){Loaded+=(_,_)=>Dispatcher.BeginInvoke(new Action(()=>Next.RaiseEvent(new RoutedEventArgs(Button.ClickEvent))),System.Windows.Threading.DispatcherPriority.ApplicationIdle);}
  private void BrowserChoiceChanged(object sender,RoutedEventArgs e){if(step==3)Next.IsEnabled=ReadyBrowser.IsChecked==true||SkipBrowser.IsChecked==true;}
  private string ExtensionsFolder=>Path.Combine(installedRoot,"Extensions");
+ private void OpenSyphonClick(object sender,RoutedEventArgs e){
+  if(uninstall||step!=4||!OpenSyphon.IsEnabled)return;
+  Error.Visibility=Visibility.Collapsed;
+  try{LaunchInstalledApp(installedRoot);OpenSyphon.IsEnabled=false;OpenSyphon.Content="Syphon opened";}
+  catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}
+ }
  private void OpenExtensionsClick(object sender,RoutedEventArgs e){try{Process.Start(new ProcessStartInfo(ExtensionsFolder){UseShellExecute=true});}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}}
  private void CopyExtensionsClick(object sender,RoutedEventArgs e){try{Clipboard.SetText(ExtensionsFolder);}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}}
  private void ExtensionClick(object sender,RoutedEventArgs e){try{new BrowserSetupWindow(installedRoot){Owner=this}.ShowDialog();}catch(Exception ex){Error.Text=ex.Message;Error.Visibility=Visibility.Visible;}}

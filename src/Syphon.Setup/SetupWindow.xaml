@@ -68,7 +68,7 @@
         <RadioButton x:Name="ReadyBrowser" GroupName="BrowserChoice" Content="I've added the extension, or will finish connecting it later." Foreground="#ECE9F2" Margin="0,6" Checked="BrowserChoiceChanged"/>
         <RadioButton x:Name="SkipBrowser" GroupName="BrowserChoice" Content="Use Syphon without the browser extension." Foreground="#B9AACD" Margin="0,6" Checked="BrowserChoiceChanged"/>
        </StackPanel>
-       <StackPanel x:Name="FinishPanel" Visibility="Collapsed"><TextBlock x:Name="FinishNote" Text="Your download workspace is ready." Foreground="#B9AACD" FontSize="16"/><CheckBox x:Name="LaunchOption" IsChecked="True" Content="Launch Syphon" Margin="0,24,0,8"/><Button x:Name="ExtensionHelp" Content="Review browser instructions" Click="ExtensionClick" HorizontalAlignment="Left" Margin="0,14,0,0"/><TextBlock x:Name="FinishPath" Foreground="#9284AA" Margin="0,22,0,0" FontSize="12"/></StackPanel>
+       <StackPanel x:Name="FinishPanel" Visibility="Collapsed"><TextBlock x:Name="FinishNote" Text="Your download workspace is ready." Foreground="#B9AACD" FontSize="16"/><Button x:Name="OpenSyphon" Content="Open Syphon" Click="OpenSyphonClick" HorizontalAlignment="Left" Margin="0,24,0,8"/><Button x:Name="ExtensionHelp" Content="Review browser instructions" Click="ExtensionClick" HorizontalAlignment="Left" Margin="0,14,0,0"/><TextBlock x:Name="FinishPath" Foreground="#9284AA" Margin="0,22,0,0" FontSize="12"/></StackPanel>
       </StackPanel>
      </ScrollViewer>
     </Grid>

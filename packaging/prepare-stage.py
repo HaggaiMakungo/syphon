@@ -1,9 +1,9 @@
 from pathlib import Path
 import os,shutil,subprocess,json,hashlib,argparse
-from dependencies import DEFAULT_CACHE, LOCK, digest, load_lock, plain_path, verify_dependencies
+from dependencies import DEFAULT_CACHE, LOCK, digest, load_lock, plain_path, verify_dependencies, verify_file
 root=Path(__file__).resolve().parents[1]
 parser=argparse.ArgumentParser()
-parser.add_argument('--version',default='0.1.0-beta.10')
+parser.add_argument('--version',default='0.1.0-beta.14')
 parser.add_argument('--stage',type=Path,default=root/'artifacts/setup-stage')
 parser.add_argument('--core',type=Path,default=root/'artifacts/setup-core/Syphon.Setup.exe')
 parser.add_argument('--dependency-root',type=Path,default=DEFAULT_CACHE)
@@ -36,6 +36,12 @@ shutil.copytree(root/'packaging/licenses/yt-dlp-runtime',licenses/'yt-dlp-runtim
 shutil.copy2(root/'packaging/yt-dlp-build-record.win-x64.json',licenses/'yt-dlp-build-record.json')
 shutil.copy2(root/'packaging/yt-dlp-build.win-x64.json',licenses/'yt-dlp-build-inputs.json')
 for name in ['FFmpeg-GPLv3.txt','FFmpeg-build-and-source.txt']:shutil.copy2(deps[name],licenses/name)
+ffmpeg_notices=json.loads((root/'packaging/ffmpeg-notices.win-x64.json').read_text(encoding='utf-8'))
+for name,item in ffmpeg_notices['files'].items():
+ source=verify_file(root/'packaging/licenses/ffmpeg-source-build'/name,item)
+ target=licenses/'ffmpeg-source-build'/name;target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(source,target)
+for source,target in [('ffmpeg-build-record.win-x64.json','ffmpeg-build-record.json'),('ffmpeg-build.win-x64.json','ffmpeg-build-inputs.json'),('ffmpeg-source-evidence.win-x64.json','ffmpeg-source-evidence.json'),('ffmpeg-source-review.win-x64.json','ffmpeg-source-review.json'),('ffmpeg-compatibility.win-x64.json','ffmpeg-compatibility.json'),('ffmpeg-notices.win-x64.json','ffmpeg-notices.json')]:
+ shutil.copy2(root/'packaging'/source,licenses/target)
 for folder in ['DesktopAssets','ChartAssets']:
  p=app/folder/'THIRD-PARTY-NOTICES.txt'
  if p.exists():shutil.copy2(p,licenses/(folder+'-THIRD-PARTY-NOTICES.txt'))
@@ -51,7 +57,7 @@ link(core,stage/'Uninstall.exe')
 provenance={'build':args.version,'dependencyLockSha256':digest(LOCK),'components':{name:dict(lock['files'][name]) for name in ['ffmpeg.exe','ffprobe.exe','yt-dlp.exe','node.exe']},'webview2':dict(lock['files']['MicrosoftEdgeWebview2Setup.exe'],mode='Microsoft-signed pinned Evergreen bootstrapper snapshot')}
 (stage/'dependency-provenance.json').write_text(json.dumps(provenance,indent=2,sort_keys=True)+'\n',encoding='utf-8')
 (stage/'BROWSER-SETUP.txt').write_text('''Syphon browser setup (beta)\n\nThe installer connects the native host for the included extension identity when Browser integration is enabled. Chrome and Edge still require you to install the extension yourself.\n\nUntil store distribution is available:\n1. Open chrome://extensions or edge://extensions in your browser.\n2. Enable Developer mode, choose Load unpacked, and select the extensions folder beside this file.\n3. Refresh existing video tabs. Open the Syphon extension to enable optional capture/video features.\n\nTo remove it, use the browser extension management page. Syphon uninstall does not change your browser permissions or delete downloaded files.\n\nIf a development checkout previously registered the Syphon host, this installer replaces that registration. Run the development connect-browser.ps1 again only if you intend to switch back to the development copy.\n''',encoding='utf-8')
-(stage/'RELEASE-NOTES.txt').write_text('''Syphon 0.1.0-beta.1 - local installer candidate\n\nIncludes the Windows x64 desktop app, private .NET runtimes, native browser host, extension files, FFmpeg, FFprobe, yt-dlp and Node.js. Media tools do not alter system PATH. Microsoft WebView2 is downloaded only if absent; internet is required for that step.\n\nNew downloads using the default root are sorted into Videos, Music, Documents, Programs and Misc. Explicit custom destinations are preserved.\n\nKnown limits: media jobs restart on resume; ordinary-file bandwidth caps do not cover media subprocesses; source support varies; no DRM bypass or live recording. Browser store distribution is not configured. This installer is unsigned and intended for local evaluation, not a certified public release.\n\nThird-party licences are in licenses. Public redistribution remains gated on corresponding-source obligations for the exact GPL media binaries and their dependencies, signing, and clean-machine acceptance. Local SHA-256 checks detect corruption, not publisher authenticity.\n''',encoding='utf-8')
+(stage/'RELEASE-NOTES.txt').write_text('''Syphon 0.1.0-beta.1 - local installer candidate\n\nIncludes the Windows x64 desktop app, private .NET runtimes, native browser host, extension files, FFmpeg, FFprobe, yt-dlp and Node.js. Media tools do not alter system PATH. Microsoft WebView2 is downloaded only if absent; internet is required for that step.\n\nNew downloads using the default root are sorted into Videos, Music, Documents, Programs and Misc. Explicit custom destinations are preserved.\n\nKnown limits: media jobs restart on resume; ordinary-file bandwidth caps do not cover media subprocesses; source support varies; no DRM bypass or live recording. Browser store distribution is not configured. This is a local evaluation build, not a certified public release. Outer-installer signing is recorded separately; embedded components retain their existing signatures.\n\nThird-party licences are in licenses. The FFmpeg pair is the reviewed 9.0.2 Syphon source build; its component notices and build/source records are included. Retain its matching source archive alongside this candidate. Engineering review does not establish legal/patent clearance; other component obligations and clean-machine acceptance remain separate release checks. Local SHA-256 checks detect corruption, not publisher authenticity.\n''',encoding='utf-8')
 print('Prepared bundled files:',sum(1 for p in stage.rglob('*') if p.is_file()))
 
 notes=stage/'RELEASE-NOTES.txt';notes.write_text(notes.read_text(encoding='utf-8').replace('0.1.0-beta.1',args.version),encoding='utf-8')

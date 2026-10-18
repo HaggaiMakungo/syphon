@@ -80,6 +80,12 @@ class PackagingTests(unittest.TestCase):
   stage=self.root/'stage'; stage.mkdir()
   for name in REQUIRED:
    file=stage/name; file.parent.mkdir(parents=True,exist_ok=True); file.write_bytes(('payload '+name).encode())
+  notice_root=Path(__file__).resolve().parents[1]/'packaging'
+  for file in (notice_root/'licenses/ffmpeg-source-build').iterdir():
+   (stage/'licenses/ffmpeg-source-build'/file.name).write_bytes(file.read_bytes())
+  for name in ('build-record','build-inputs','source-evidence','source-review','compatibility','notices'):
+   source='build' if name=='build-inputs' else name
+   (stage/('licenses/ffmpeg-'+name+'.json')).write_bytes((notice_root/('ffmpeg-'+source+'.win-x64.json')).read_bytes())
   core=self.root/'core.exe'; core.write_bytes((stage/'Uninstall.exe').read_bytes())
   return stage,core
 
@@ -108,6 +114,19 @@ class PackagingTests(unittest.TestCase):
   stage,core=self.stage(); (stage/'LICENSE.txt').unlink()
   with self.assertRaises(ValueError): assemble(stage,core,self.root/'out','0.1.0-test')
 
+ def test_ffmpeg_source_notices_and_build_identity_cannot_be_omitted(self):
+  stage,core=self.stage()
+  for relative in ['licenses/ffmpeg-source-build/x264-COPYING',
+                   'licenses/ffmpeg-source-build/libwebp-PATENTS',
+                   'licenses/ffmpeg-build-record.json',
+                   'licenses/ffmpeg-source-evidence.json']:
+   with self.subTest(missing=relative):
+    target=stage/relative;target.parent.mkdir(parents=True,exist_ok=True)
+    previous=target.read_bytes() if target.exists() else b'notice fixture'
+    target.write_bytes(previous);target.unlink()
+    with self.assertRaises(ValueError): assemble(stage,core,self.root/('missing-'+target.name),'0.1.0-test')
+    target.write_bytes(previous)
+
  def test_staged_dependency_must_still_match_lock(self):
   stage,core=self.stage()
   for name,relative in STAGED_DEPENDENCIES.items():
@@ -115,6 +134,14 @@ class PackagingTests(unittest.TestCase):
   assemble(stage,core,self.root/'verified','0.1.0-test',self.lock)
   (stage/STAGED_DEPENDENCIES['node.exe']).write_bytes(b'changed after import')
   with self.assertRaises(ValueError): assemble(stage,core,self.root/'bad','0.1.0-test',self.lock)
+
+ def test_corrupt_ffmpeg_notice_or_record_rejected(self):
+  stage,core=self.stage()
+  for relative in ('licenses/ffmpeg-source-build/x264-COPYING','licenses/ffmpeg-build-record.json'):
+   with self.subTest(corrupt=relative):
+    target=stage/relative;original=target.read_bytes();target.write_bytes(b'wrong source identity or notice')
+    with self.assertRaises(ValueError):assemble(stage,core,self.root/('corrupt-'+target.name),'0.1.0-test')
+    target.write_bytes(original)
 
  def test_stage_link_rejected(self):
   stage,core=self.stage()

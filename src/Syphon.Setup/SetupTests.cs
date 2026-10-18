@@ -2,6 +2,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Text.Json;
 using System.Security.Cryptography;
+using System.Windows;
 namespace Syphon.Setup;
 internal static class SetupTests
 {
@@ -27,6 +28,8 @@ internal static class SetupTests
    }finally{removal.Close();}
    var wizard=new SetupWindow();
    try {
+    typeof(SetupWindow).GetMethod("ShowStep",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic)!.Invoke(wizard,[4]);
+    Check(wizard.FindName("OpenSyphon") is System.Windows.Controls.Button {Visibility:System.Windows.Visibility.Visible},"Completion must offer an Open Syphon button.");
     typeof(SetupWindow).GetMethod("ShowStep",System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic)!.Invoke(wizard,[3]);
     Check((string)((System.Windows.Controls.Button)wizard.FindName("Next")).Content!="Finish","Browser setup must precede Finish.");
     Check(wizard.FindName("BrowserPanel") is System.Windows.Controls.StackPanel { Visibility: System.Windows.Visibility.Visible },"Browser instructions must be visible after installation.");
@@ -37,11 +40,24 @@ internal static class SetupTests
     Check(next.IsEnabled,"Explicit skip did not enable Continue.");
     next.RaiseEvent(new System.Windows.RoutedEventArgs(System.Windows.Controls.Button.ClickEvent));
     Check((string)next.Content=="Finish","Explicit choice did not reach Finish.");
+    var open=(System.Windows.Controls.Button)wizard.FindName("OpenSyphon");
+    wizard.LaunchInstalledApp=_=>throw new IOException("Launch test failure");
+    open.RaiseEvent(new RoutedEventArgs(System.Windows.Controls.Button.ClickEvent));
+    Check(open.IsEnabled&&wizard.FindName("Error") is System.Windows.Controls.TextBlock {Visibility:Visibility.Visible,Text:"Launch test failure"},"Launch failure must remain visible and retryable.");
+    var launched=false;wizard.LaunchInstalledApp=_=>launched=true;
+    open.RaiseEvent(new RoutedEventArgs(System.Windows.Controls.Button.ClickEvent));
+    Check(launched&&!open.IsEnabled,"Open Syphon did not invoke the launch action exactly once.");
    } finally {wizard.Close();}
    SetupMaintenanceTests.Run(testRoot);
    var target=Path.Combine(testRoot,"Application");
    using(var stream=Fixture())InstallEngine.Install(stream,target,false,false,progress,CancellationToken.None,false);
    Check(File.Exists(Path.Combine(target,"app","Syphon.exe")),"Install did not publish files.");
+   string? openedPath=null,openedDirectory=null;
+   SetupAppLauncher.Open(target,(path,directory)=>{openedPath=path;openedDirectory=directory;});
+   Check(openedPath==Path.Combine(target,"app","Syphon.exe")&&openedDirectory==Path.Combine(target,"app"),"Launch must target the owned installation without shell command quoting.");
+   var missingTarget=Path.Combine(testRoot,"not-installed");
+   var rejected=false;try{SetupAppLauncher.Open(missingTarget,(_,_)=>throw new Exception("Unowned target launched"));}catch(IOException){rejected=true;}
+   Check(rejected,"Launch accepted an unowned installation.");
    Check(InstallEngine.ReadReceipt(target+Path.DirectorySeparatorChar).Product==InstallEngine.Product,"Uninstaller folder trailing separator was rejected.");
    Check(!InstallEngine.ReadReceipt(target).Browser,"Browser integration must remain off until chosen.");
    InstallEngine.EnableBrowserIntegration(target,false);
@@ -94,6 +110,18 @@ internal static class SetupTests
    using var process=System.Diagnostics.Process.Start(start)!;var output=process.StandardOutput.ReadToEnd();var error=process.StandardError.ReadToEnd();if(!process.WaitForExit(30000)||process.ExitCode!=0)throw new IOException(tool+" could not run: "+error);versions[tool]=output.Split('\n')[0];
   }
   File.WriteAllText(target+".report.json",JsonSerializer.Serialize(new{passed=true,checks="Full payload extraction, file hashes, native media tool execution, generated installed paths",versions},new JsonSerializerOptions{WriteIndented=true}));
+ }
+ internal static void VerifyDesktopLaunch(string target) {
+  target=Path.GetFullPath(target);if(Directory.Exists(target))throw new IOException("Launch probe requires a new dedicated target.");
+  Directory.CreateDirectory(target);var report=Path.Combine(target,"desktop-token.json");
+  var code="$p=[Security.Principal.WindowsPrincipal]::new([Security.Principal.WindowsIdentity]::GetCurrent());@{user=[Security.Principal.WindowsIdentity]::GetCurrent().Name;elevated=$p.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)}|ConvertTo-Json|Set-Content -LiteralPath '"+report.Replace("'","''")+"' -Encoding UTF8";
+  var executable=Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System),"WindowsPowerShell","v1.0","powershell.exe");
+  var command="\""+executable+"\" -NoProfile -NonInteractive -WindowStyle Hidden -EncodedCommand "+Convert.ToBase64String(System.Text.Encoding.Unicode.GetBytes(code));
+  var script=Path.Combine(target,"probe.vbs");File.WriteAllText(script,"CreateObject(\"WScript.Shell\").Run \""+command.Replace("\"","\"\"")+"\", 0, True",System.Text.Encoding.ASCII);
+  SetupAppLauncher.ExecuteFromDesktop(script,target);
+  var timeout=DateTime.UtcNow.AddSeconds(30);while(!File.Exists(report)){if(DateTime.UtcNow>=timeout)throw new IOException("Desktop launch probe did not finish.");Thread.Sleep(100);}
+  JsonDocument? value=null;while(value is null){try{value=JsonDocument.Parse(File.ReadAllText(report));}catch(IOException){if(DateTime.UtcNow>=timeout)throw;Thread.Sleep(100);}catch(JsonException){if(DateTime.UtcNow>=timeout)throw;Thread.Sleep(100);}}
+  using(value){Check(!value.RootElement.GetProperty("elevated").GetBoolean(),"Desktop launch inherited administrator rights.");}
  }
  internal static void RenderBrowser(string root,string output) {
   var window=new BrowserSetupWindow(root);window.Show();window.UpdateLayout();

@@ -11,6 +11,8 @@ from dependencies import digest, plain_path, verify_file
 
 REQUIRED=('app/Syphon.exe','host/Syphon.NativeHost.exe','Uninstall.exe','extensions/manifest.json','app/.tools/media/ffmpeg.exe','app/.tools/media/ffprobe.exe','app/.tools/media/yt-dlp.exe','app/.tools/media/node.exe','prerequisites/MicrosoftEdgeWebview2Setup.exe','LICENSE.txt','THIRD-PARTY-NOTICES.md','licenses/yt-dlp-runtime/CPython-LICENSE.txt','licenses/yt-dlp-build-record.json','licenses/yt-dlp-build-inputs.json')
 REQUIRED+=tuple('licenses/yt-dlp-runtime/'+name for name in json.loads(Path(__file__).with_name('yt-dlp-notices.win-x64.json').read_text(encoding='utf-8'))['files'])
+REQUIRED+=tuple('licenses/ffmpeg-source-build/'+name for name in json.loads(Path(__file__).with_name('ffmpeg-notices.win-x64.json').read_text(encoding='utf-8'))['files'])
+REQUIRED+=tuple('licenses/ffmpeg-'+name+'.json' for name in ('build-record','build-inputs','source-evidence','source-review','compatibility','notices'))
 
 STAGED_DEPENDENCIES={name:'app/.tools/media/'+name for name in ('ffmpeg.exe','ffprobe.exe','yt-dlp.exe','node.exe')}
 STAGED_DEPENDENCIES.update({'FFmpeg-GPLv3.txt':'licenses/FFmpeg-GPLv3.txt','FFmpeg-build-and-source.txt':'licenses/FFmpeg-build-and-source.txt','MicrosoftEdgeWebview2Setup.exe':'prerequisites/MicrosoftEdgeWebview2Setup.exe'})
@@ -23,6 +25,12 @@ def assemble(stage,core,out,version,dependency_lock=None):
  if not stage.is_dir() or not core.is_file(): raise ValueError('Published stage and setup core are required')
  for required in REQUIRED:
   if not plain_path(stage/required).is_file(): raise ValueError(f'Missing payload file: {required}')
+ notice_root=Path(__file__).parent
+ notice_lock=json.loads((notice_root/'ffmpeg-notices.win-x64.json').read_text(encoding='utf-8'))
+ for name,item in notice_lock['files'].items():verify_file(stage/'licenses/ffmpeg-source-build'/name,item)
+ for name in ('build-record','build-inputs','source-evidence','source-review','compatibility','notices'):
+  source=notice_root/('ffmpeg-'+('build' if name=='build-inputs' else name)+'.win-x64.json')
+  verify_file(stage/('licenses/ffmpeg-'+name+'.json'),{'bytes':source.stat().st_size,'sha256':digest(source)})
  pinned={}
  if dependency_lock:
   for name,relative in STAGED_DEPENDENCIES.items():
