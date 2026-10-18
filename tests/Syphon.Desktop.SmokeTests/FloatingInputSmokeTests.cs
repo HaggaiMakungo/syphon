@@ -92,6 +92,8 @@ internal static class FloatingInputSmokeTests
                     await JsUntil("Number(document.querySelector('#speedChart').dataset.maxSpeed)>0");
                     Check(window.Width==480&&window.Height>=490&&window.Height<=540,"Expanded controller is outside its compact size target.");
                     Check(await core.ExecuteScriptAsync("!document.querySelector('#statSpeed')&&!document.querySelector('#segStrip')&&document.querySelectorAll('[role=progressbar]').length===1&&document.querySelector('#fileStatus').textContent==='Downloading'")=="true","Redundant statistics/segments or missing explicit status.");
+                    await JsUntil("document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1");
+                    Check(await core.ExecuteScriptAsync("parseFloat(getComputedStyle(document.querySelector('#statPct')).fontSize)<parseFloat(getComputedStyle(document.querySelector('#chartSpeed')).fontSize)")=="true","Progress metadata competes with live speed.");
                     await Capture("expanded.png");
                     var before = updates;
                     await Click("minBtn"); await Until(() => window.Width==360&&window.Height>=150&&window.Height<=185);

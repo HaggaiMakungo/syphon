@@ -611,7 +611,12 @@ public sealed partial class FloatingDownloadWindow
           // Stroke
           ctx.beginPath();
           trace();
-          ctx.strokeStyle = colour('edge-light');ctx.lineWidth=8;ctx.stroke();
+          ctx.save();
+          ctx.shadowColor = colour('chart-line');
+          ctx.shadowBlur = 10;
+          ctx.globalAlpha = 0.65;
+          ctx.strokeStyle = colour('chart-line');ctx.lineWidth=3.5;ctx.stroke();
+          ctx.restore();
           ctx.strokeStyle = colour('chart-line');
           ctx.lineWidth   = 2.5;
           ctx.lineJoin    = 'round';
@@ -696,7 +701,7 @@ public sealed partial class FloatingDownloadWindow
           drawChart(samples);
 
           // Report natural height so C# can resize the window
-          send({ action: 'layout', height: document.querySelector('.win').scrollHeight });
+          send({ action: 'layout', height: Math.ceil(document.querySelector('.win').getBoundingClientRect().height) + 2 });
         });
 
         // ── User actions ─────────────────────────────────────────────────────
@@ -716,14 +721,14 @@ public sealed partial class FloatingDownloadWindow
           $('miniPill').style.display = collapsed ? 'flex' : 'none';
           send({ action: 'collapse', collapsed });
           if(!collapsed)requestAnimationFrame(()=>drawChart(latestSamples));
-          send({action:'layout',height:document.querySelector('.win').scrollHeight});
+          send({action:'layout',height:Math.ceil(document.querySelector('.win').getBoundingClientRect().height)+2});
         });
 
         $('pauseBtn').addEventListener('click',   () => send({ action: 'toggle'  }));
         $('managerBtn').addEventListener('click', () => send({ action: 'manager' }));
         $('cancelBtn').addEventListener('click',  () => send({ action: 'cancel'  }));
 
-        const observer=new ResizeObserver(()=>{drawChart(latestSamples);send({action:'layout',height:document.querySelector('.win').scrollHeight});});
+        const observer=new ResizeObserver(()=>{drawChart(latestSamples);send({action:'layout',height:Math.ceil(document.querySelector('.win').getBoundingClientRect().height)+2});});
         observer.observe(document.querySelector('.win'));
         // Handshake
         send({ action: 'ready' });

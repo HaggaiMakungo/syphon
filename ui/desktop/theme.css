@@ -206,3 +206,39 @@ input[aria-invalid=true]{outline-color:var(--ov-danger)!important;border-color:v
 .clear-history-actions .clear-history-confirm{background:var(--ov-primary-face)!important;border-color:var(--ov-accent-pressed)!important;color:var(--ov-text-primary)}
 .clear-history-actions .clear-history-confirm:hover:not(:disabled){background:var(--ov-primary-hover)!important}
 .clear-history-actions button:disabled{background:var(--ov-panel)!important;color:var(--ov-text-disabled)!important;box-shadow:none!important}
+
+/* Operational hierarchy: live metrics lead; labels and accumulated totals recede. */
+.dashboard-main .summary-label,.dashboard-summary .summary-detail>span:first-child{color:var(--ov-text-muted)}
+.dashboard-main .summary-active .summary-value,.dashboard-main .summary-speed .summary-value{font-size:var(--type-stat);color:var(--ov-text-primary)}
+.dashboard-main .summary-metric .summary-value[data-idle=true]{font-size:20px;color:var(--ov-text-secondary)}
+.dashboard-main .summary-queued .summary-value{font-size:17.6px;color:var(--ov-text-secondary)}
+.dashboard-main .summary-queued .summary-value[data-idle=true]{font-size:17.6px}
+.dashboard-summary .summary-detail>span:last-child{font-size:16px;color:var(--ov-text-secondary);font-weight:500;line-height:1.4}
+.transfer-file-info>div:not(.transfer-filename){color:var(--ov-text-muted)!important}
+.transfer-metadata{color:var(--ov-text-muted)}
+.activity-toggle .activity-title{font-size:var(--type-section);font-weight:500;color:var(--ov-text-secondary)}
+.activity-toggle .activity-hint{color:var(--ov-text-muted)}
+.activity-switch{position:relative;width:28px;height:16px;flex:0 0 28px;border-radius:10px;background:var(--ov-progress-track);border:1px solid var(--ov-border-hover);box-shadow:var(--dashboard-inset)}
+.activity-switch:after{content:'';position:absolute;width:10px;height:10px;top:2px;left:3px;border-radius:50%;background:var(--ov-text-muted);transition:transform 160ms ease,background-color 160ms ease}
+.activity-toggle[aria-expanded=true] .activity-switch{background:var(--ov-accent-pressed);border-color:var(--ov-accent)}
+.activity-toggle[aria-expanded=true] .activity-switch:after{transform:translateX(11px);background:var(--ov-text-primary)}
+/* The native floating host uses the same surface, edge and control recipes. */
+.violet-chart .recharts-area-curve{filter:drop-shadow(0 0 3px var(--ov-chart-line)) drop-shadow(0 0 6px var(--ov-glow-strong))}
+.win{background:var(--ov-panel-face)!important;border:1px solid var(--ov-border-hover);box-shadow:var(--dashboard-shadow)!important}
+.win .titlebar{background:var(--ov-shell);box-shadow:none;border-bottom:1px solid var(--ov-border-subtle)}
+.win .file-name{color:var(--ov-text-primary);font-weight:500}
+.win .file-host{color:var(--ov-text-muted)}
+.win .icon-well{color:var(--ov-accent-hover);background:var(--ov-control-face)!important;border:1px solid var(--ov-border);box-shadow:var(--dashboard-inset)!important}
+.win .chart-well{background:var(--ov-panel-face)!important;border:1px solid var(--ov-border-hover)!important;border-radius:12px;box-shadow:var(--ov-panel-shadow)!important}
+.win .chart-heading{color:var(--ov-text-secondary)}
+.win .chart-hint,.win .chart-footer,.win .stat-label{color:var(--ov-text-muted)}
+.win .chart-speed{font-size:22.4px;color:var(--ov-text-primary)}
+.win .stats{gap:0;background:var(--ov-panel-raised);border:1px solid var(--ov-border);border-radius:10px;overflow:hidden}
+.win .stat{background:transparent!important;border:0;border-radius:0;box-shadow:none!important;padding:8px 10px}
+.win .stat+.stat{border-left:1px solid var(--ov-border)}
+.win .stat-val{font-size:14.4px;font-weight:500;color:var(--ov-text-secondary)!important}
+.win .detail{font-size:9.6px;font-weight:400;color:var(--ov-text-muted)}
+.win .action-btn{border-radius:8px;min-height:30px;border:1px solid var(--ov-border);font-weight:500}
+.win #pauseBtn:not(:disabled){background:var(--ov-primary-face)!important;border-color:var(--ov-accent-pressed);color:var(--ov-text-primary);box-shadow:0 3px 10px var(--ov-glow-soft)!important}
+.win #pauseBtn:hover:not(:disabled){background:var(--ov-primary-hover)!important}
+@media(prefers-reduced-motion:reduce){.activity-switch:after{transition:none}}

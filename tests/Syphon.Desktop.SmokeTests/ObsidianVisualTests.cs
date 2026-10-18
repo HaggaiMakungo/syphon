@@ -39,6 +39,10 @@ internal static class ObsidianVisualTests
         try {
             window.Show();var end=DateTime.UtcNow.AddSeconds(20);while(!ui.IsReady){if(ui.InitializationError!=null||DateTime.UtcNow>end)throw new Exception(ui.InitializationError??"Startup timeout");await Task.Delay(30);}ui.Publish();await Until("!!document.querySelector('#empty-new-download')");
             var browser=ui.Children.OfType<WebView2>().Single();
+            await Assert("parseFloat(getComputedStyle(document.querySelector('#summary-today')).fontSize)<parseFloat(getComputedStyle(document.querySelector('#summary-speed')).fontSize)","secondary statistics are smaller than live metrics");
+            await Assert("getComputedStyle(document.querySelector('.summary-label')).color!==getComputedStyle(document.querySelector('#summary-speed')).color","metric labels have distinct emphasis");
+            await Assert("document.querySelector('.activity-title').textContent==='Transfer activity'&&!!document.querySelector('.activity-switch')","graph has stable section heading and visible toggle");
+
             await Until("[...document.querySelectorAll('.window-brand img')].length===2&&[...document.querySelectorAll('.window-brand img')].every(i=>i.complete&&i.naturalWidth>0)");
             await Assert("document.querySelector('.window-wordmark').alt==='Syphon'&&!document.querySelector('.window-mark b')","supplied emblem and wordmark load in desktop chrome");
             await browser.CoreWebView2.CallDevToolsProtocolMethodAsync("Emulation.setFocusEmulationEnabled","{\"enabled\":true}");
