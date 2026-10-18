@@ -18,7 +18,7 @@ It is also very purple. Someone was allowed to discover gradients without a resp
 
 **Current local beta: 0.1.0-beta.16 · Windows x64.**
 
-The installer is built and locally self-signed (333.4 MB). Beta 15 removes installer diagnostics from the shipped build, restricts packaged media-tool lookup and verifies the browser pipe's desktop process before sending request data. **Open Syphon** remains on the final setup screen. Security regression, desktop workflow and package checks passed; owner acceptance of Beta 15 is pending. The owner confirmed the Beta 14 upgrade and app worked well. The existing download-page preview remains Beta 13 until its separate update.
+The installer is built and locally self-signed (333.4 MB). Beta 16 adds the system tray and updates the bundled downloader's networking library. Security regression, desktop workflow, live MP4/MP3 and signed-package checks passed. The owner confirmed the Beta 15 upgrade and app worked well; Beta 16 upgrade and tray-menu acceptance are pending. The existing download-page preview remains Beta 13 until its separate update.
 
 Public downloads and browser-store listings have **not** been published. The FFmpeg engineering source/build-material review has passed, and the matching source archive is retained beside the candidate installer. Other public-release checks remain separate. The current [release notes](RELEASE-NOTES.md) describe the exact build and its limits.
 
@@ -31,6 +31,8 @@ Add a link, choose where it goes, and start it now or leave it queued. Pause and
 Eligible large files can use multiple connections. Temporary network failures retry with a delay. Closing Syphon saves the queue; reopening restores it and waits for you to Resume.
 
 This means you can stop staring at a progress bar as though sustained eye contact will frighten the remaining megabytes down the cable. I have tried that. I leaned closer. I made a little encouraging noise. The router continued blinking with the emotional availability of a filing cabinet.
+
+Appearance settings can make Close or Minimize hide Syphon to the system tray while transfers continue. Both switches start off. The tray menu can open Syphon, pause or resume everything, and Exit; launching Syphon again restores the existing window.
 
 The floating window is there for a quick look instead. You may still make the noise. That part is between you and your furniture.
 

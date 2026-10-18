@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "version": "0.1.0-beta.16",
+  "date": "2026-10-18",
+  "architecture": "win-x64",
+  "status": "Verified local self-signed candidate; not publicly released; owner Beta16 upgrade/tray acceptance pending",
+  "applicationSourceRevision": "3b431ab5bf7adc0fdc00e04266d74a2156fa11f8",
+  "applicationSourceDirty": false,
+  "installer": {
+    "file": "Syphon-Setup-0.1.0-beta.16-win-x64.exe",
+    "bytes": 333439720,
+    "sha256": "0dd410ca30c05de98a4d0620df61f993816cb5130b0d936dd495398b963a37e1"
+  },
+  "signing": {
+    "signed": true,
+    "signatureType": "self-signed Authenticode",
+    "cryptographicSignatureValid": true,
+    "fileDigestValid": true,
+    "certificateThumbprint": "3B47C910EDA7360A3F486154954A22A7DABBABDE",
+    "timestamped": false,
+    "publiclyTrusted": false,
+    "scope": "Outer installer only; embedded files retain their existing signatures"
+  },
+  "priorOwnerAcceptance": {
+    "version": "0.1.0-beta.15",
+    "statement": "Owner reports successful upgrade and testing."
+  },
+  "changes": [
+    "Native system tray with Open, Pause all, Resume all and Exit; opt-in close/minimize hiding, default off.",
+    "Verified second-instance activation restores the existing manager.",
+    "Failed tray icon registration restores the window, including after Explorer restarts.",
+    "Private downloader rebuilt with urllib3 2.8.0; other21 input identities unchanged."
+  ],
+  "verification": {
+    "trayLifecycleAndHiddenDownload": "passed, including failed icon re-registration fallback and verified activation IPC",
+    "independentTrayReview": "No remaining important findings after fallback fix",
+    "browserNativeChecks": 19,
+    "desktopWorkflows": "passed, including native-host/WPF handoff",
+    "mediaRegression": 13,
+    "youtubeAdapterRegression": 18,
+    "sizeDiscoveryRegression": 8,
+    "mp3ArtworkFixtures": 3,
+    "liveYoutube": "MP4 and MP3 downloaded and validated with FFprobe; MP3 embedded MJPEG artwork present",
+    "runtimeGate": {
+      "python": "3.13.16",
+      "openssl": "3.5.9",
+      "urllib3": "2.8.0"
+    },
+    "productionDiagnosticIsolationAnd16RejectedCommands": "passed",
+    "packagedMediaPolicy": "passed for published and signed-extracted Engine assembly",
+    "packagingTests": {
+      "run": 18,
+      "passed": 17,
+      "skipped": 1
+    },
+    "runtimeRegressionTests": 6,
+    "mediaBuilderRegressionTests": 4,
+    "unsignedAndSignedFullExtractionHashesTools": "passed",
+    "sourceEvidenceVerifiedMembers": 199
+  },
+  "dependencyReview": "dependency-review.win-x64.json",
+  "dependencySource": {
+    "schema": 1,
+    "file": "Syphon-Beta16-dependency-source-evidence.zip",
+    "bytes": 376760942,
+    "sha256": "64e479369bb8a1171d4aae4ac565d2f2822405a1f867bd3a0b5e90a8d251816a",
+    "verifiedMembers": 199,
+    "completeCorrespondingSource": false,
+    "review": "dependency-review.win-x64.json"
+  },
+  "ffmpegSource": {
+    "schema": 1,
+    "file": "Syphon-FFmpeg-9.0.2-clean-source-and-build-materials.zip",
+    "bytes": 329880819,
+    "sha256": "7fd6e215e2374c0089c905f0ff189149fbdda0bcf4fc91ecc60c46178c44fcf4",
+    "verifiedMembers": 94,
+    "status": "Fresh end-to-end build, candidate compatibility and independent engineering source-material review passed",
+    "reviewRecord": "ffmpeg-source-review.win-x64.json",
+    "binaries": [
+      {
+        "file": "ffmpeg.exe",
+        "bytes": 35277312,
+        "sha256": "3acb0d04648d7a1031086eb31d20ba176e6fe535e447489acc30d5aa13a7d7ee"
+      },
+      {
+        "file": "ffprobe.exe",
+        "bytes": 35075584,
+        "sha256": "ab28380e0c18bc1e47ad5414fc9007216808907ee6cddd89e9e90b2208a3372f"
+      }
+    ],
+    "buildMode": "Fresh end-to-end CLI; new empty work directory; no manual continuation or repair"
+  },
+  "historyCleanup": {
+    "filteredApplicationCommits": 31,
+    "forbiddenHistoricalPathsRemaining": 0,
+    "tipTreeIdentical": true,
+    "scope": "Clean branch prepared for origin/main; historical local recovery copies and third-party clones are outside the published branch."
+  },
+  "limits": [
+    "Complete native corresponding-source/public redistribution gate remains open; see dependency review.",
+    "Self-signed certificate has no public trust or timestamp.",
+    "Physical tray menu/double-click and real upgrade acceptance remain for owner; automated state, native icon and transfer tests passed.",
+    "Filesystem-link fixture skipped because Windows denied link creation; production reparse checks remain.",
+    "No real installation, user downloads/history, registry or trust-store changes made by automated tests.",
+    "No public binary release, Pages publication or extension-store submission."
+  ]
+}

@@ -10,6 +10,8 @@ The bundled downloader also replaces urllib3 2.7.0 with 2.8.0, addressing three 
 
 Beta 15 upgrade and normal use were confirmed by the owner. Beta 16 upgrade and physical tray-menu acceptance remain pending. Source-material collection now covers all 20 pinned wheels, but exact native build provenance for several embedded dependencies still blocks a claim of complete corresponding-source coverage. See packaging/DEPENDENCY-REVIEW.md. No public binary release or extension-store submission was performed.
 
+Installer: `Syphon-Setup-0.1.0-beta.16-win-x64.exe` - 333,439,720 bytes (333.4 MB). SHA-256: `0dd410ca30c05de98a4d0620df61f993816cb5130b0d936dd495398b963a37e1`. Signature and file digest verified; full extraction and bundled-tool execution passed for both unsigned and signed copies. Live MP4/MP3 downloads passed, including embedded MP3 artwork.
+
 ---
 
 # Syphon 0.1.0-beta.15 — the bouncer has learned to check ID
