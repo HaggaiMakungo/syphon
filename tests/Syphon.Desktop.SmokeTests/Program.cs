@@ -29,6 +29,7 @@ internal static class Program
             return 0;
         }
         if (args.FirstOrDefault() == "--floating-input") return FloatingInputSmokeTests.Run(args.Skip(1).ToArray());
+        if (args.FirstOrDefault() == "--folder") return FolderSmokeTests.Run();
         if (args.FirstOrDefault() == "--details") return DetailsSmokeTests.Run(args.Skip(1).ToArray());
         if (args.FirstOrDefault() == "--size-display") return SizeDisplaySmokeTests.Run();
         if (args.FirstOrDefault() == "--history-layout") return HistoryLayoutSmokeTests.Run(args.Skip(1).ToArray());

@@ -27,6 +27,7 @@ public partial class MainWindow : Window
     private bool refreshing;
     private Guid? selectedId;
     private string? commandError;
+    internal Action<ProcessStartInfo> FolderProcessStarter { get; set; } = start => Process.Start(start);
     private string? initializationError;
     private readonly ObservableCollection<DownloadRow> rows = [];
     public bool IsReady => coordinator is not null && !closing;
@@ -220,9 +221,10 @@ public partial class MainWindow : Window
     {
         if (selectedId is not Guid id || coordinator is null) return;
         try {
+            commandError = null;
             var destination = coordinator.Get(id).Destination; var folder = Path.GetDirectoryName(destination);
             if (!Directory.Exists(folder)) throw new IOException("The download folder is no longer available at its saved location.");
-            Process.Start(new ProcessStartInfo("explorer.exe", File.Exists(destination) ? $"/select,\"{destination}\"" : $"\"{folder}\"") { UseShellExecute = true });
+            FolderProcessStarter(new ProcessStartInfo(folder) { UseShellExecute = true, Verb = "open" });
         }
         catch (Exception ex) when (ex is Win32Exception or IOException or UnauthorizedAccessException) { commandError = ex is Win32Exception ? "The folder could not be opened." : ex.Message; StatusText.Text = commandError; HtmlSurface?.Publish(); }
     }
