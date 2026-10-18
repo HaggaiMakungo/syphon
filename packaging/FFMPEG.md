@@ -1,0 +1,28 @@
+# Building FFmpeg and FFprobe
+
+The Windows source build uses `ffmpeg-build.win-x64.json` and `build_ffmpeg.py`. It does not replace the release dependency cache or discover third-party media libraries from PATH.
+
+Use Windows x64 and Python 3.11+. Collect the exact files named in the lock into a dedicated input folder. The lock records upstream URLs, byte lengths, hashes and the authentication performed for each input. Downloads are separate; the builder performs no package installation or download.
+
+```powershell
+python tests/ffmpeg_build_test.py
+python packaging/build_ffmpeg.py --inputs D:/Syphon-FFmpeg-inputs --work D:/Syphon-FFmpeg-build --jobs 2
+```
+
+The work directory must be new and outside the input directory. Allow several GiB of free space and use a short path. Two workers are the default; a six-worker run on the development PC exhausted available memory. Every locked input is verified before extraction or code execution. The build extracts its portable w64devkit compiler and NASM, then compiles zlib, libxml2, libwebp, LAME, x264 and FFmpeg. No system compiler installation is needed. The legacy LAME configuration uses explicit Windows target and executable/path conventions. Its install tool is named explicitly. Windows zlib metadata is adjusted to reference the static archive it actually installs.
+
+External-library autodetection is disabled in FFmpeg. The recipe explicitly selects Windows Schannel, zlib, libxml2, libwebp, LAME and x264; GPL and version-3 licensing are enabled, and nonfree is not enabled. Native FFmpeg codecs and containers remain broadly enabled. Schannel provides Windows HTTPS support; network certificate behavior requires separate runtime verification.
+
+Successful builds produce `output/ffmpeg.exe`, `output/ffprobe.exe`, a build record, command log and version reports. Input archives include the compiler's source bundle and recipe, NASM source, exact media-library sources and FFmpeg's detached release signature/key. A locally calculated hash is not independent publisher authentication; the lock distinguishes those cases.
+
+The pinned x264 configuration script receives a guarded shell-syntax patch for BusyBox. The build retains the original, modified script and unified diff under `patches/`; encoder source is unchanged. Executing recipe snapshots are retained under `recipes/`.
+
+Keep the exact input archives, recipe, logs, configure outputs and notices with the candidate. The source build is a local candidate until import inspection, media compatibility and corresponding-source inventory review pass. It does not by itself clear public redistribution of every bundled dependency. Cross-machine byte-for-byte reproducibility is not claimed.
+
+The existing release dependency lock continues to identify the shipped candidate until an explicit reviewed update. Do not replace its binaries with an untested source build or relabel an old installer's source records.
+
+## Current candidate
+
+The local native development build produced FFmpeg 9.0.2-syphon-source-build and FFprobe from the locked inputs. Their identities are retained in `ffmpeg-build-record.win-x64.json`. Startup, compiled capability, Windows import and local MP4/MP3/WebP/embedded-JPEG smoke checks passed. Only ordinary Windows DLL imports were observed.
+
+This candidate was built incrementally while developing the recipe. Failed attempts and recipe snapshots are retained with its material bundle. A fresh end-to-end CLI rebuild, full application/media regression, HTTPS certificate-behavior tests and final source-inventory review are pending. The first independent review stopped at an account usage limit after preliminary provenance and material-retention findings; those findings were addressed, but a complete review verdict is not claimed. The shipped release lock is unchanged.

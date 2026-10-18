@@ -1,0 +1,126 @@
+{
+  "schema": 1,
+  "variant": "syphon-source-build",
+  "sourceDateEpoch": 1789699562,
+  "files": [
+    {
+      "file": "w64devkit-x64-2.10.1.7z.exe",
+      "bytes": 67263552,
+      "sha256": "add1edf984ce4d473cfeb7c52e0ab38db73a855bba6c7f564d5e16648eb2896a",
+      "url": "https://github.com/skeeto/w64devkit/releases/download/v2.10.1/w64devkit-x64-2.10.1.7z.exe",
+      "kind": "toolchain",
+      "authentication": "Matches immutable GitHub release asset SHA-256 retained in release metadata"
+    },
+    {
+      "file": "w64devkit-source-2.10.1.tar",
+      "bytes": 236267520,
+      "sha256": "25194ebc451be61915f62bf9170c8925151abf0571c4fbc230e3fe53907efc40",
+      "url": "https://github.com/skeeto/w64devkit/releases/download/v2.10.1/source.tar",
+      "kind": "toolchain-source",
+      "authentication": "Matches immutable GitHub release asset SHA-256 retained in release metadata"
+    },
+    {
+      "file": "ffmpeg-9.0.2.tar.xz",
+      "bytes": 12040788,
+      "sha256": "8c3850283eb25fa026482078a04051e0be17347b09ef81a0849bec15a96e002e",
+      "url": "https://ffmpeg.org/releases/ffmpeg-9.0.2.tar.xz",
+      "kind": "library",
+      "authentication": "Detached signature verified with upstream HTTPS-published FFmpeg key FCF986EA15E6E293A5644F10B4322F04D67658D8 in isolated keyring; no independent web-of-trust assertion",
+      "component": "ffmpeg"
+    },
+    {
+      "file": "lame-3.100.tar.gz",
+      "bytes": 1524133,
+      "sha256": "ddfe36cab873794038ae2c1210557ad34857a4b6bdc515785d1da9e175b1da1e",
+      "url": "https://netix.dl.sourceforge.net/project/lame/lame/3.100/lame-3.100.tar.gz",
+      "kind": "library",
+      "authentication": "HTTPS collection; locally calculated SHA-256; no independent signature verification",
+      "component": "lame"
+    },
+    {
+      "file": "x264-b35605ace3ddf7c1a5d67a2eb553f034aef41d55.tar.gz",
+      "bytes": 1040327,
+      "sha256": "cd71a7515b0e9a012e1ac9b1f8415bebcaf6fc97d4db32286642ac4c0fbe24f9",
+      "url": "https://code.videolan.org/videolan/x264/-/archive/b35605ace3ddf7c1a5d67a2eb553f034aef41d55/x264-b35605ace3ddf7c1a5d67a2eb553f034aef41d55.tar.gz",
+      "kind": "library",
+      "authentication": "HTTPS collection; locally calculated SHA-256; no independent signature verification",
+      "component": "x264"
+    },
+    {
+      "file": "libxml2-2.15.4.tar.xz",
+      "bytes": 3177444,
+      "sha256": "98087fd181d9070724f3fbc65c7377db03038eb92bd882374daff44940138821",
+      "url": "https://download.gnome.org/sources/libxml2/2.15/libxml2-2.15.4.tar.xz",
+      "kind": "library",
+      "authentication": "Matches upstream GNOME SHA-256 checksum file retrieved over HTTPS",
+      "component": "libxml2"
+    },
+    {
+      "file": "zlib-1.3.2.tar.xz",
+      "bytes": 1320064,
+      "sha256": "d7a0654783a4da529d1bb793b7ad9c3318020af77667bcae35f95d0e42a792f3",
+      "url": "https://zlib.net/zlib-1.3.2.tar.xz",
+      "kind": "library",
+      "authentication": "HTTPS collection; locally calculated SHA-256; no independent signature verification",
+      "component": "zlib"
+    },
+    {
+      "file": "libwebp-1.6.0.tar.gz",
+      "bytes": 4296070,
+      "sha256": "e4ab7009bf0629fd11982d4c2aa83964cf244cffba7347ecd39019a9e38c4564",
+      "url": "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-1.6.0.tar.gz",
+      "kind": "library",
+      "authentication": "HTTPS collection; locally calculated SHA-256; no independent signature verification",
+      "component": "libwebp"
+    },
+    {
+      "file": "nasm-3.02-win64.zip",
+      "bytes": 641314,
+      "sha256": "161d0bfaff53c2f9e9f3e69fd0672323ebabafd1268976a5cec11be92a19aee7",
+      "url": "https://www.nasm.us/pub/nasm/releasebuilds/3.02/win64/nasm-3.02-win64.zip",
+      "kind": "nasm-binary",
+      "authentication": "HTTPS collection; locally calculated SHA-256; no independent signature verification"
+    },
+    {
+      "file": "nasm-3.02.tar.xz",
+      "bytes": 1531636,
+      "sha256": "87336eba53b4acfe917424ab5d500d2b0054d9f5148d35c2273ccf2cfb712f0d",
+      "url": "https://www.nasm.us/pub/nasm/releasebuilds/3.02/nasm-3.02.tar.xz",
+      "kind": "tool-source",
+      "authentication": "HTTPS collection; locally calculated SHA-256; no independent signature verification"
+    },
+    {
+      "file": "ffmpeg-9.0.2.tar.xz.asc",
+      "bytes": 520,
+      "sha256": "d617fd94ea354dadd2a8bb16243d37c44e1e9729b06b6ad58fe30bfb0fa943f2",
+      "url": "https://ffmpeg.org/releases/ffmpeg-9.0.2.tar.xz.asc",
+      "kind": "signature",
+      "authentication": "HTTPS collection; locally calculated SHA-256; no independent signature verification"
+    },
+    {
+      "file": "ffmpeg-devel.asc",
+      "bytes": 1709,
+      "sha256": "397b3becedcd5a98769967ff1ff8501ddc89f8368b8f766e4701377d7dbaabe5",
+      "url": "https://ffmpeg.org/ffmpeg-devel.asc",
+      "kind": "signature-key",
+      "authentication": "HTTPS collection; locally calculated SHA-256; no independent signature verification"
+    },
+    {
+      "file": "w64devkit-release.json",
+      "bytes": 9182,
+      "sha256": "04b87b1e69784923ecbc95b751905b90174ea46b9f66b41dfb436542d6a40bfb",
+      "url": "https://api.github.com/repos/skeeto/w64devkit/releases/tags/v2.10.1",
+      "kind": "metadata",
+      "authentication": "HTTPS collection; locally calculated SHA-256; no independent signature verification"
+    },
+    {
+      "file": "w64devkit-Dockerfile",
+      "bytes": 44674,
+      "sha256": "aede4c01b5396412218fbff44b6b85615b11439585843fb07210bbee9e98df66",
+      "url": "https://raw.githubusercontent.com/skeeto/w64devkit/v2.10.1/Dockerfile",
+      "kind": "toolchain-recipe",
+      "authentication": "HTTPS collection; locally calculated SHA-256; no independent signature verification"
+    }
+  ],
+  "limits": "Closed locally hashed build inputs. Authentication differs per input as recorded. Complete corresponding-source and compatibility review separate; no public redistribution approval implied."
+}

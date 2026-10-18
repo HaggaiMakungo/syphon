@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "file": "Syphon-FFmpeg-9.0.2-source-and-build-materials.zip",
+  "bytes": 331315236,
+  "sha256": "59be12abe34e730a43dabb7a7d943cb8622eb4f79603f6b15dff6899c5162da8",
+  "verifiedMembers": 94,
+  "status": "Local source/build evidence for incremental candidate; source distribution completeness not independently signed off",
+  "binaries": [
+    {
+      "file": "ffmpeg.exe",
+      "bytes": 35277312,
+      "sha256": "12edcc74fad58331649273a5bd7b44f834602670d2206479a9eca69cee84410a"
+    },
+    {
+      "file": "ffprobe.exe",
+      "bytes": 35075584,
+      "sha256": "6b711190d7bcde7765c6a7edb1943437533c85dd36f94492957640e219085cfc"
+    }
+  ]
+}

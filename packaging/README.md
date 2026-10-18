@@ -40,3 +40,5 @@ The input hashes pin the previously inspected local baseline; they do not indepe
 
 
 The private yt-dlp build is documented in [MEDIA-RUNTIME.md](MEDIA-RUNTIME.md). The dependency lock, source manifests and retained notices identify the bundled tools; corresponding-source coverage remains incomplete.
+
+An optional [FFmpeg/FFprobe source-build recipe](FFMPEG.md) prepares a separate local candidate. It does not update the shipped dependency cache; compatibility and source-inventory review remain required before integration.
