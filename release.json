@@ -1,0 +1,56 @@
+{
+  "version": "0.1.0-beta.17",
+  "date": "2026-10-18",
+  "architecture": "win-x64",
+  "sourceRevision": "d3eb55b930f7465d39a10ba72efbe0a0cfef05a4",
+  "status": "public-beta",
+  "publiclyPublished": true,
+  "installer": {
+    "file": "Syphon-Setup-0.1.0-beta.17-win-x64.exe",
+    "bytes": 332415312,
+    "sha256": "52615b3fe7765e241ad6a7cb6699e431ea8ed2bc3c43ec260747a749b6f2a1c3",
+    "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-Setup-0.1.0-beta.17-win-x64.exe"
+  },
+  "extension": {
+    "file": "Syphon-Extension-0.7.4-beta17.zip",
+    "version": "0.7.4",
+    "bytes": 171301,
+    "sha256": "08bf5fd8c4fb89c186e65fd8b1d14cc0036a6d13b579a3d62c44f652b859a39a",
+    "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-Extension-0.7.4-beta17.zip"
+  },
+  "signing": {
+    "type": "local self-signed Authenticode",
+    "publiclyTrusted": false,
+    "certificateThumbprint": "3B47C910EDA7360A3F486154954A22A7DABBABDE",
+    "timestamped": false
+  },
+  "acceptance": {
+    "ownerReportedFunctionalAndInstallerPassOnThisPC": false,
+    "cleanMachineTested": false
+  },
+  "sources": [
+    {
+      "file": "Syphon-native-source-and-build-materials.zip",
+      "bytes": 554904430,
+      "sha256": "86e3a2e4835c215b8bffe5cf9f291a63b7adb9c9e65b55458e5f6ba84ab77415",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-native-source-and-build-materials.zip"
+    },
+    {
+      "file": "Syphon-FFmpeg-9.0.2-clean-source-and-build-materials.zip",
+      "bytes": 329880819,
+      "sha256": "7fd6e215e2374c0089c905f0ff189149fbdda0bcf4fc91ecc60c46178c44fcf4",
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-FFmpeg-9.0.2-clean-source-and-build-materials.zip"
+    }
+  ],
+  "pending": [
+    "Owner Beta17 upgrade acceptance",
+    "Browser store accounts, submission and store-installed acceptance"
+  ],
+  "applicationSource": {
+    "file": "Syphon-0.1.0-beta.17-source.zip",
+    "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-0.1.0-beta.17-source.zip",
+    "sha256": "deaec5afb76c4053c0ba26fe7cd7bfe74c8f8c1e30d678e1e6b784088988fc3b",
+    "bytes": 14602135
+  },
+  "releaseUrl": "https://github.com/HaggaiMakungo/syphon/releases/tag/v0.1.0-beta.17"
+}
