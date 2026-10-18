@@ -51,7 +51,7 @@ try{
     reports.push(report);
   }
   const metadata=await(await fetch(new URL('release.json',url))).json();
-  for(const item of [metadata.installer,metadata.extension]){
+  for(const item of [metadata.installer,metadata.extension,...metadata.sources]){
     const response=await fetch(new URL(item.file,url),{method:'HEAD'});
     if(!response.ok||Number(response.headers.get('content-length'))!==item.bytes)throw new Error('Download link/length mismatch: '+item.file);
   }

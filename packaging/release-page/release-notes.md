@@ -1,20 +1,15 @@
-# Syphon @@VERSION@@ — a folder opens, civilisation limps onwards
+# Syphon @@VERSION@@ — the window has left, the download has not
 
 Prepared @@DATE@@ · Windows x64 · Local release preview, not published.
 
-You finish a download. You click **Open folder**. You wait. Somewhere, a clock ticks with the confidence of an appliance that is actually doing its job.
+Closing the window now sends Syphon to the system tray by default. Your download keeps going. Previously, closing things was rather too effective at closing things. We have retained the concept of leaving while introducing the possibility of sitting quietly near the clock like a tiny violet pensioner.
 
-The folder does not open.
+## New in Beta @@BETA@@
 
-For a brief and deeply unhelpful period, Syphon interpreted the label as an invitation to contemplate the *concept* of folders. Very moving. Absolutely fuck all use when you are trying to find an MP3.
-
-**Beta 13 replaces the Explorer command-line selection handoff with a direct Windows shell request to open the containing directory.** The owner has confirmed it works on their PC. The button has stopped delivering a philosophy seminar and returned to its modest duties in local government.
-
-## Fixed in Beta @@BETA@@
-
-- **Open folder** uses the same direct-directory action from History, transfer details and the other folder controls.
-- Missing folders and Windows launch failures produce an error message.
-- A successful retry clears the previous folder error.
+- **Close to system tray is on by default** for new or missing settings. Existing explicit choices are preserved. Minimize to tray remains optional and off by default. Choose **Exit** from the tray to quit.
+- The downloader build now admits only its pinned private runtime. Unrelated host DLLs no longer get invited along because they happened to be standing near PATH wearing a lanyard.
+- Identified native dependency source/archive/build-recipe gaps are closed. Both source-material archives are available beside the installer. They are optional for running Syphon.
+- Signed-package extraction, payload hashes, bundled tools, tray defaults and live MP4/MP3 checks passed on this PC. **Owner Beta17 upgrade acceptance is pending.** Beta16 was accepted; we have not forged a small congratulatory certificate for its successor.
 
 ## Also aboard this particular vehicle
 
@@ -60,10 +55,15 @@ App source revision: `@@REVISION@@`. The companion ZIP uses the exact extension 
 
 ## Checks and limits
 
-Installer extraction, payload hashes and all four bundled-tool executions passed. Folder tests cover the actual desktop/WebView action dispatch with injected shell success/failure results. Artwork tests use the bundled tools with local cover, no-cover and unavailable-cover fixtures. The owner reports functional and installer acceptance checks passed on this PC.
+Installer extraction, payload hashes and all four bundled-tool executions passed. Folder tests cover the actual desktop/WebView action dispatch with injected shell success/failure results. Artwork tests use the bundled tools with local cover, no-cover and unavailable-cover fixtures. The owner confirmed Beta16 works on this PC; Beta17 upgrade acceptance is pending.
 
 That is not clean-machine or VM certification. Website compatibility varies, DRM bypass is unsupported, and media jobs may restart on Resume. A recorded SHA-256 alone does not establish a file's origin without a trusted reference.
 
 ## Release status
 
-This package is prepared locally. No public release, hosted download page or extension-store submission has been made. FFmpeg source/build-material follow-up remains pending; RELEASE-READINESS.md records the remaining work. Retained source evidence is partial and must stay labelled that way.
+This package is prepared locally. No public release, hosted download page or extension-store submission has been made. Identified native source-material engineering gaps are closed. RELEASE-READINESS.md records the remaining acceptance and publication work. This does not certify legal conclusions or byte-identical rebuilds.
+
+## Optional dependency source downloads
+
+- [Native source and build materials](@@SOURCE1@@) — @@SOURCE1_MB@@ MB; SHA-256 `@@SOURCE1_SHA256@@`.
+- [FFmpeg source and build materials](@@SOURCE2@@) — @@SOURCE2_MB@@ MB; SHA-256 `@@SOURCE2_SHA256@@`.

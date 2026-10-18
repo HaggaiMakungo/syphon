@@ -5,6 +5,7 @@ import hashlib
 import html
 from html.parser import HTMLParser
 import json
+import os
 from pathlib import Path
 import re
 import shutil
@@ -29,7 +30,7 @@ def require_file(path, entry):
         raise ValueError(f'File identity mismatch: {path.name}')
 
 
-def prepare(installer, record_path, extracted, manifest_path, output, release_date):
+def prepare(installer, record_path, extracted, manifest_path, output, release_date, sources=None):
     installer, extracted, output = installer.resolve(), extracted.resolve(), output.resolve()
     if output.exists() or output.is_relative_to(extracted):
         raise ValueError('Use a new output directory outside the extracted payload.')
@@ -41,7 +42,7 @@ def prepare(installer, record_path, extracted, manifest_path, output, release_da
     require_file(extracted / 'build-inputs.json', manifest['Files']['build-inputs.json'])
     build = read_json(extracted / 'build-inputs.json')
     version = build['version']
-    if version != '0.1.0-beta.13' or manifest['Version'] != version:
+    if version != '0.1.0-beta.17' or manifest['Version'] != version:
         raise ValueError('Release versions do not match.')
     if build['sourceDirty'] is not False or build['architecture'] != 'win-x64' or not re.fullmatch(r'[0-9a-f]{40}', build['sourceRevision']):
         raise ValueError('Expected clean Windows x64 build provenance.')
@@ -63,8 +64,22 @@ def prepare(installer, record_path, extracted, manifest_path, output, release_da
         raise ValueError('Invalid extension version.')
     beta = version.rsplit('.', 1)[1]
     extension_name = f'Syphon-Extension-{extension_version}-beta{beta}.zip'
+    if sources is None:
+        sources = [read_json(ROOT / 'packaging' / name) for name in
+                   ('native-source-bundle.win-x64.json', 'ffmpeg-source-evidence.win-x64.json')]
+    if len(sources) != 2 or len({item['file'] for item in sources}) != 2:
+        raise ValueError('Both source-material archives are required.')
+    for item in sources:
+        if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]*\.zip', item['file']) or item['file'] in (installer.name, extension_name):
+            raise ValueError('Invalid source archive filename.')
+        require_file(installer.parent / item['file'], {'Length': item['bytes'], 'Sha256': item['sha256']})
     output.mkdir(parents=True)
-    shutil.copyfile(installer, output / installer.name)
+    # Hardlink immutable release artifacts on the same volume; copy across volumes.
+    for source in [installer, *(installer.parent / item['file'] for item in sources)]:
+        try:
+            os.link(source, output / source.name)
+        except OSError:
+            shutil.copyfile(source, output / source.name)
     with zipfile.ZipFile(output / extension_name, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
         for path in members:
             info = zipfile.ZipInfo(path.relative_to(extension).as_posix(), date_time=(1980, 1, 1, 0, 0, 0))
@@ -79,8 +94,9 @@ def prepare(installer, record_path, extracted, manifest_path, output, release_da
                       'bytes': (output / extension_name).stat().st_size, 'sha256': extension_hash},
         'signing': {'type': 'local self-signed Authenticode', 'publiclyTrusted': False,
                     'certificateThumbprint': record['certificateThumbprint'], 'timestamped': False},
-        'acceptance': {'ownerReportedFunctionalAndInstallerPassOnThisPC': True, 'cleanMachineTested': False},
-        'pending': ['FFmpeg source/build-material follow-up', 'Public release authorization',
+        'acceptance': {'ownerReportedFunctionalAndInstallerPassOnThisPC': False, 'cleanMachineTested': False},
+        'sources': [{key: item[key] for key in ('file', 'bytes', 'sha256')} for item in sources],
+        'pending': ['Owner Beta17 upgrade acceptance', 'Public release authorization',
                     'Browser store accounts, submission and store-installed acceptance'],
     }
     values = {
@@ -89,6 +105,9 @@ def prepare(installer, record_path, extracted, manifest_path, output, release_da
         'EXTENSION': extension_name, 'EXTENSION_VERSION': extension_version,
         'EXTENSION_SHA256': extension_hash, 'REVISION': build['sourceRevision'],
     }
+    for index, item in enumerate(sources, 1):
+        values.update({f'SOURCE{index}': item['file'], f'SOURCE{index}_MB': f"{item['bytes'] / 1e6:.1f}",
+                       f'SOURCE{index}_SHA256': item['sha256']})
     for source, destination in [('index.html', 'index.html'), ('release-notes.md', 'RELEASE-NOTES.md'),
                                  ('browser-setup.md', 'BROWSER-SETUP.md'), ('readiness.md', 'RELEASE-READINESS.md')]:
         rendered = (TEMPLATES / source).read_text(encoding='utf-8')

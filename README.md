@@ -18,7 +18,7 @@ It is also very purple. Someone was allowed to discover gradients without a resp
 
 **Current local beta: 0.1.0-beta.17 · Windows x64.**
 
-The installer is built and locally self-signed (332.4 MB). Beta17 closes the remaining native source/recipe gaps, isolates the downloader build from unrelated host DLLs, and enables Close to system tray by default. Existing explicit preferences are preserved. Source, native-input, tray-default, live MP4/MP3 and signed-package checks passed. The owner confirmed Beta16 works; Beta17 upgrade acceptance is pending. The existing download-page preview remains Beta13 until its separate update.
+The installer is built and locally self-signed (332.4 MB). Beta17 closes the remaining native source/recipe gaps, isolates the downloader build from unrelated host DLLs, and enables Close to system tray by default. Existing explicit preferences are preserved. Source, native-input, tray-default, live MP4/MP3 and signed-package checks passed. The owner confirmed Beta16 works; Beta17 upgrade acceptance is pending. The local download-page preview now includes Beta17, the exact bundled extension and both verified dependency source archives. It remains unpublished.
 
 Public downloads and browser-store listings have **not** been published. The FFmpeg engineering source/build-material review has passed, and the matching source archive is retained beside the candidate installer. The remaining native source/recipe mapping is now verified in [the source closure review](packaging/NATIVE-SOURCE-CLOSURE.md). Publication and other release checks remain separate. The current [release notes](RELEASE-NOTES.md) describe the exact build and its limits.
 

@@ -14,18 +14,18 @@ class ReleasePreviewTests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(prefix='Syphon.Release.Tests-')
         self.root = Path(self.temp.name)
-        self.installer = self.root / 'Syphon-Setup-0.1.0-beta.13-win-x64.exe'
+        self.installer = self.root / 'Syphon-Setup-0.1.0-beta.17-win-x64.exe'
         self.installer.write_bytes(b'fixture installer')
         self.extracted = self.root / 'extracted'
         extension = self.extracted / 'extensions'
         extension.mkdir(parents=True)
         (extension / 'manifest.json').write_text(json.dumps({'version': '0.7.4', 'key': 'identity-fixture'}))
-        (extension / 'connection.js').write_text('exact beta13 fixture')
+        (extension / 'connection.js').write_text('exact beta17 fixture')
         (self.extracted / 'build-inputs.json').write_text(json.dumps({
-            'version': '0.1.0-beta.13', 'architecture': 'win-x64',
+            'version': '0.1.0-beta.17', 'architecture': 'win-x64',
             'sourceDirty': False, 'sourceRevision': 'a' * 40}))
         self.manifest = self.root / 'release-manifest.json'
-        self.manifest.write_text(json.dumps({'Version': '0.1.0-beta.13', 'Files': {
+        self.manifest.write_text(json.dumps({'Version': '0.1.0-beta.17', 'Files': {
             p.relative_to(self.extracted).as_posix(): {'Length': p.stat().st_size,
                 'Sha256': hashlib.sha256(p.read_bytes()).hexdigest()}
             for p in self.extracted.rglob('*') if p.is_file()}}))
@@ -34,23 +34,38 @@ class ReleasePreviewTests(unittest.TestCase):
             'bytes': self.installer.stat().st_size, 'signed': True,
             'cryptographicSignatureValid': True, 'fileDigestValid': True,
             'certificateThumbprint': 'B' * 40, 'publiclyTrusted': False}))
+        self.sources = []
+        for name in ('native', 'ffmpeg'):
+            archive = self.root / (name + '.zip')
+            archive.write_bytes(name.encode())
+            self.sources.append({'file': archive.name, 'bytes': archive.stat().st_size,
+                'sha256': hashlib.sha256(archive.read_bytes()).hexdigest()})
         self.output = self.root / 'preview'
 
     def tearDown(self):
         self.temp.cleanup()
 
     def build(self):
-        return prepare(self.installer, self.record, self.extracted, self.manifest, self.output, '2026-10-18')
+        return prepare(self.installer, self.record, self.extracted, self.manifest, self.output, '2026-10-18', self.sources)
 
     def test_exact_installer_extension_and_complete_local_links(self):
         result = self.build()
         self.assertFalse(result['publiclyPublished'])
+        self.assertFalse(result['acceptance']['ownerReportedFunctionalAndInstallerPassOnThisPC'])
+        self.assertEqual(len(result['sources']), 2)
+        for source in self.sources:
+            self.assertEqual((self.output / source['file']).read_bytes(), (self.root / source['file']).read_bytes())
         self.assertEqual((self.output / self.installer.name).read_bytes(), self.installer.read_bytes())
         with zipfile.ZipFile(self.output / result['extension']['file']) as archive:
             self.assertEqual(set(archive.namelist()), {'manifest.json', 'connection.js'})
-            self.assertEqual(archive.read('connection.js'), b'exact beta13 fixture')
+            self.assertEqual(archive.read('connection.js'), b'exact beta17 fixture')
             self.assertEqual(json.loads(archive.read('manifest.json'))['key'], 'identity-fixture')
         verify(self.output)
+
+    def test_source_tampering_refused_before_output(self):
+        (self.root / self.sources[0]['file']).write_bytes(b'corrupt')
+        with self.assertRaises(ValueError): self.build()
+        self.assertFalse(self.output.exists())
 
     def test_installer_tampering_refused_before_output(self):
         self.installer.write_bytes(b'wrong installer')
