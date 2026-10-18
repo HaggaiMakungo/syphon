@@ -1,0 +1,111 @@
+{
+  "schema": 1,
+  "version": "0.1.0-beta.17",
+  "date": "2026-10-18",
+  "architecture": "win-x64",
+  "status": "Verified local self-signed candidate; no public binary release; owner Beta17 acceptance pending",
+  "applicationSourceRevision": "d3eb55b930f7465d39a10ba72efbe0a0cfef05a4",
+  "applicationSourceDirty": false,
+  "installer": {
+    "file": "Syphon-Setup-0.1.0-beta.17-win-x64.exe",
+    "bytes": 332415312,
+    "sha256": "52615b3fe7765e241ad6a7cb6699e431ea8ed2bc3c43ec260747a749b6f2a1c3"
+  },
+  "signing": {
+    "signed": true,
+    "signatureType": "self-signed Authenticode",
+    "cryptographicSignatureValid": true,
+    "fileDigestValid": true,
+    "certificateThumbprint": "3B47C910EDA7360A3F486154954A22A7DABBABDE",
+    "timestamped": false,
+    "publiclyTrusted": false,
+    "scope": "Outer installer only; embedded files retain their existing signatures"
+  },
+  "priorOwnerAcceptance": {
+    "version": "0.1.0-beta.16",
+    "statement": "Owner confirms upgrade and system tray work."
+  },
+  "defaults": {
+    "CloseToTray": true,
+    "MinimizeToTray": false,
+    "explicitSavedPreferencesPreserved": true
+  },
+  "nativeRuntime": {
+    "sha256": "d7a74ab51f7d599c7de22678cb7cb327e21b00e7d9a5453e15828269fde7059b",
+    "python": "3.13.16",
+    "openssl": "3.5.9",
+    "urllib3": "2.8.0",
+    "nativeMembersMatchedToPinnedInputs": 75,
+    "additionalHostRuntimeMembers": 0,
+    "unclassifiedMembers": 0,
+    "removedFromHistoricalBuild": 43,
+    "inputArchiveChanges": 0
+  },
+  "sourceClosure": "native-source-closure.win-x64.json",
+  "nativeSourceCompanion": {
+    "schema": 1,
+    "date": "2026-10-18",
+    "file": "Syphon-native-source-and-build-materials.zip",
+    "bytes": 554904430,
+    "sha256": "86e3a2e4835c215b8bffe5cf9f291a63b7adb9c9e65b55458e5f6ba84ab77415",
+    "sourceGapScope": "Identified native source/archive/build-recipe mapping",
+    "engineeringSourceClosureComplete": true,
+    "legalCertification": false,
+    "crossMachineBitReproducibilityClaimed": false,
+    "verifiedMembers": 6805,
+    "closureRecord": "native-source-closure.win-x64.json",
+    "dependencyLockCanonicalSha256": "95012690d97f8fa64ab715c8703db2887d756d49861d6a53d652e36de2c6d0b2"
+  },
+  "ffmpegSourceCompanion": {
+    "schema": 1,
+    "file": "Syphon-FFmpeg-9.0.2-clean-source-and-build-materials.zip",
+    "bytes": 329880819,
+    "sha256": "7fd6e215e2374c0089c905f0ff189149fbdda0bcf4fc91ecc60c46178c44fcf4",
+    "verifiedMembers": 94,
+    "status": "Fresh end-to-end build, candidate compatibility and independent engineering source-material review passed",
+    "reviewRecord": "ffmpeg-source-review.win-x64.json",
+    "binaries": [
+      {
+        "file": "ffmpeg.exe",
+        "bytes": 35277312,
+        "sha256": "3acb0d04648d7a1031086eb31d20ba176e6fe535e447489acc30d5aa13a7d7ee"
+      },
+      {
+        "file": "ffprobe.exe",
+        "bytes": 35075584,
+        "sha256": "ab28380e0c18bc1e47ad5414fc9007216808907ee6cddd89e9e90b2208a3372f"
+      }
+    ],
+    "buildMode": "Fresh end-to-end CLI; new empty work directory; no manual continuation or repair"
+  },
+  "verification": {
+    "builderRegression": 7,
+    "sourceCompanionVerifierRegression": 7,
+    "sourceCompanionMembersVerified": 6805,
+    "mediaRuntimeRegression": 6,
+    "packagingRegression": {
+      "run": 18,
+      "passed": 17,
+      "skipped": 1
+    },
+    "trayDefaultAndLifecycle": "passed: missing and legacy defaults, explicit false preserved, actual native icon, hidden download, verified activation IPC, failure fallback and Exit disposal",
+    "publishedTrayDefaultMetadata": "Close=true, Minimize=false; published assembly hash matches signed package extraction",
+    "mp3ArtworkFixtures": 3,
+    "liveYoutube": "MP4 and MP3 downloaded and FFprobe-validated; MP3 contains embedded artwork",
+    "productionDiagnosticIsolationAndRejectedArguments": 16,
+    "unsignedAndSignedPayloadExtractionHashTools": "passed",
+    "signedExtractedMediaPolicy": "passed",
+    "signedExtractedNativeBinding": "all75 pinned matches; zero additional or unclassified DLLs",
+    "exactSupplementalNoticePlacement": "passed",
+    "independentCodeSourceReview": "No remaining important blocker after evidence wording fixes"
+  },
+  "limits": [
+    "Engineering source/archive/build-recipe mapping is closed for identified native components; no legal/patent or bit-identical reproduction certificate.",
+    "Precise original upstream compiler/runner patch versions remain unproven.",
+    "Self-signed outer installer is not publicly trusted or timestamped.",
+    "One packaging symlink fixture skipped because the account could not create links.",
+    "No real installation, user downloads/history, registry or trust-store changes made by these tests.",
+    "No public binary release, Pages publication or extension-store submission.",
+    "Real owner upgrade and physical default-close acceptance of Beta17 remain pending."
+  ]
+}

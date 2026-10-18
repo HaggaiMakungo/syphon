@@ -8,6 +8,8 @@ The downloader build no longer collects DLLs from whichever unrelated tool happe
 
 The remaining native source/material gaps are closed: exact Python, custom bootloader, curl-linked sources, other native wheel sources, patches and platform recipes are verified. A matching source companion and verifier accompany this candidate; the separate FFmpeg source companion remains included. MP3 artwork and video behavior are tested against the isolated replacement. See packaging/NATIVE-SOURCE-CLOSURE.md for evidence and reproducibility limits. No public binary release was performed.
 
+Installer: `Syphon-Setup-0.1.0-beta.17-win-x64.exe` - 332,415,312 bytes (332.4 MB), locally self-signed. SHA-256: `52615b3fe7765e241ad6a7cb6699e431ea8ed2bc3c43ec260747a749b6f2a1c3`. Signature/file digest, full signed extraction and bundled-tool checks passed. The matching native-source companion contains6,805 verified members; the FFmpeg companion remains alongside it. Beta16 owner acceptance is confirmed; Beta17 upgrade acceptance is pending.
+
 ---
 
 # Syphon 0.1.0-beta.16 - small icon, unreasonable responsibility
