@@ -139,6 +139,12 @@ internal static class YoutubeTests
                     Check(task.Sha256 == Convert.ToHexStringLower(SHA256.HashData(payload)), "Published bytes differ.");
                     Check(task.Filename == "A video_ title_." + output, "Video title did not become the filename.");
                     Check(invoked is not null && invoked.Last() == Url, "Extractor did not receive canonical page.");
+                    var downloadCommand = invoked ?? throw new Exception("Download command missing.");
+                    Check(downloadCommand.Contains("--embed-thumbnail") == (output == "mp3"), "Only MP3 downloads should embed source artwork.");
+                    if (output == "mp3") {
+                        Check(downloadCommand.Contains("--convert-thumbnails") && downloadCommand[Array.IndexOf(downloadCommand, "--convert-thumbnails") + 1] == "jpg", "Cover art must use a broadly supported image format.");
+                        Check(!downloadCommand.Contains("--write-thumbnail") && !downloadCommand.Contains("--write-all-thumbnails"), "Embedded artwork must not leave a separate image.");
+                    }
                     Check(!Directory.EnumerateFiles(Path.GetDirectoryName(task.PartPath)!).Any(f => Path.GetFileName(f).Contains(".yt.")), "Owned scratch files were left behind.");
                     Check(owner.AcceptBrowserDownload(request, new(Url), Path.Combine(folder, "downloads"), output, youtubeFormat: output == "mp4" ? "137" : null).TaskId == id, "Duplicate conversion created.");
                     if (output == "mp4") try { owner.AcceptBrowserDownload(request, new(Url), folder, output, youtubeFormat: "136"); throw new Exception("Changed format accepted for same request."); } catch (InvalidDataException) { }

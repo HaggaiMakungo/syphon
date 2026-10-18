@@ -123,7 +123,7 @@ public static partial class YoutubeTools
             var args = CommonArguments().Concat(new[] { "--no-overwrites", "--no-continue", "--no-part", "--no-keep-fragments", "--progress", "--newline", "--progress-template", "download:total_size=%(progress.downloaded_bytes)s",
                 "--ffmpeg-location", Path.GetDirectoryName(MediaTools.FindTool("ffmpeg"))!, "--format", FormatSelector(task.YoutubeFormat, task.MediaFormat!), "--output", OutputTemplate(task),
                 "--match-filters", "live_status!=is_live & live_status!=is_upcoming & live_status!=post_live" }).ToList();
-            if (task.MediaFormat == "mp3") args.AddRange(["--extract-audio", "--audio-format", "mp3", "--audio-quality", "2"]);
+            if (task.MediaFormat == "mp3") args.AddRange(["--extract-audio", "--audio-format", "mp3", "--audio-quality", "2", "--embed-thumbnail", "--convert-thumbnails", "jpg"]);
             else args.AddRange(["--merge-output-format", "mp4", "--remux-video", "mp4"]);
             args.AddRange(["--", canonical.AbsoluteUri]);
             using var deadline = CancellationTokenSource.CreateLinkedTokenSource(token); deadline.CancelAfter(TimeSpan.FromHours(12));

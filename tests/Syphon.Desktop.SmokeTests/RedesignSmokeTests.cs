@@ -33,7 +33,7 @@ internal static class RedesignSmokeTests
         try {
             window.Show();var end=DateTime.UtcNow.AddSeconds(20);while(!ui.IsReady){if(ui.InitializationError!=null||DateTime.UtcNow>end)throw new Exception(ui.InitializationError??"Startup timeout");await Task.Delay(30);}ui.Publish();await Until("!!document.querySelector('#empty-new-download')");
             await Assert("document.querySelector('#new-download').hidden&&!document.querySelector('#download-empty').hidden&&!document.querySelector('#quick-url')&&!document.querySelector('.workspace-drop-hint')&&document.querySelectorAll('#download-empty button').length===1");
-            await ui.EvaluateAsync("document.querySelector('#activity-toggle').click()");await Assert("document.querySelector('#activity-toggle').getAttribute('aria-expanded')==='true'&&document.querySelector('.activity-title').textContent==='Hide speed graph'");
+            await ui.EvaluateAsync("document.querySelector('#activity-toggle').click()");await Assert("document.querySelector('#activity-toggle').getAttribute('aria-expanded')==='true'&&document.querySelector('.activity-title').textContent==='Transfer activity'");
             await ui.EvaluateAsync("document.querySelector('#activity-toggle').click()");
             await ui.CaptureAsync(Path.Combine(output,"downloads.png"));
             await ui.EvaluateAsync("document.querySelector('#activity-toggle').click()");
@@ -114,6 +114,7 @@ internal static class RedesignSmokeTests
         }finally{window.Close();ui.Dispose();}
         var dialog=new DownloadOptionsDialog("Fixture","installer.exe",Path.GetTempPath(),null,1048576,false,"https://example.test/installer.exe",true){Left=-10000,Top=-10000,ShowInTaskbar=false,WindowStartupLocation=WindowStartupLocation.Manual};
         try {
+            if(!dialog.Topmost)throw new Exception("HTML New Download must stay above other windows.");
             dialog.Show();var form=dialog.HtmlSurface!;var end=DateTime.UtcNow.AddSeconds(20);while(!form.IsReady){if(form.InitializationError!=null||DateTime.UtcNow>end)throw new Exception(form.InitializationError??"Dialog timeout");await Task.Delay(30);}form.Publish();
             await Task.Delay(400);
             if(await form.EvaluateAsync("!!document.querySelector('#confirm-download')&&!document.querySelector('.download-advanced').open&&document.querySelector('#connections').offsetParent===null")!="true")throw new Exception("Advanced options must start collapsed: "+await form.EvaluateAsync("window.__syphonError||''"));

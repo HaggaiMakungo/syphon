@@ -36,6 +36,7 @@ internal static class OptionsSmokeTests
                     Title: "An example video", ShowOptions: true, Quality: "1080p", EstimatedBytes: 125000000);
                 var queued = Send(request); await Until(() => Dialog() is not null);
                 var dialog = Dialog()!;
+                Check(dialog.Topmost, "New Download must stay above other windows.");
                 Check(Rows().Items.Count == 0 && !queued.IsCompleted, "A download started before confirmation.");
                 Check(Control<TextBlock>(dialog, "DownloadDetails").Text == "1080p  ·  About 125 MB", "Quality or size detail was lost.");
                 var duplicate = Send(request); await Task.Delay(100); Check(app.Windows.OfType<DownloadOptionsDialog>().Count() == 1, "Duplicate handoff opened another window.");
@@ -68,7 +69,9 @@ internal static class OptionsSmokeTests
                 Control<Button>(dialog, "ConfirmDownload").RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 var immediateReply = await immediate; Check(immediateReply.Status == "accepted", "Download now failed.");
                 await Until(() => Rows().Items.Cast<DownloadRow>().Any(r => r.Snapshot.Id == immediateReply.TaskId && r.Snapshot.State == DownloadState.Completed));
-                Check(Convert.ToHexStringLower(SHA256.HashData(await File.ReadAllBytesAsync(Path.Combine(chosenFolder, "Download now.bin")))) == Payload.ExpectedHash(100003), "Download now bytes differ.");
+                var immediateRow = Rows().Items.Cast<DownloadRow>().Single(r => r.Snapshot.Id == immediateReply.TaskId);
+                Check(immediateRow.Snapshot.Destination == Path.Combine(chosenFolder, "Misc", "Download now.bin"), "Remembered download root did not use its category folder.");
+                Check(Convert.ToHexStringLower(SHA256.HashData(await File.ReadAllBytesAsync(immediateRow.Snapshot.Destination))) == Payload.ExpectedHash(100003), "Download now bytes differ.");
                 var reset = Send(request with { RequestId = Guid.NewGuid() }); await Until(() => Dialog() is not null); dialog = Dialog()!;
                 Check(Control<TextBox>(dialog, "DownloadFolder").Text == Path.Combine(root, "BrowserDownloads") && Control<CheckBox>(dialog, "RememberDownloadFolder").IsChecked == false, "Unchecking Remember did not clear the preference.");
                 dialog.Close(); Check((await reset).Status == "cancelled", "Closing the window was not cancellation.");
@@ -98,6 +101,7 @@ internal static class OptionsSmokeTests
                 ((Button)window.FindName("DownloadsNav")).RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 ((Button)window.FindName("NewDownloadButton")).RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 await Until(() => Dialog() is not null); dialog = Dialog()!;
+                Check(dialog.Topmost, "Manual New Download must stay above other windows.");
                 Check(Control<TextBox>(dialog, "DownloadFolder").Text == chosenFolder && Control<CheckBox>(dialog, "SingleDownloadConnection").IsChecked == true, "New download did not use settings defaults.");
                 Control<TextBox>(dialog, "DownloadSourceUrl").Text = new Uri(fixture.BaseAddress, "resume?size=67108864").AbsoluteUri;
                 Control<TextBox>(dialog, "DownloadFilename").Text = "Floating transfer.bin";

@@ -25,7 +25,7 @@ public sealed partial class DownloadOptionsDialog : Window
     public DownloadOptionsDialog(string title, string suggestedFilename, string initialFolder, string? quality, long? estimatedBytes, bool rememberFolder,
         string? sourceUrl = null, bool allowUrlEditing = false, bool singleConnection = false, bool htmlUi = true)
     {
-        Title = "Download options"; Width = 660; SizeToContent = SizeToContent.Height;
+        Title = "Download options"; Width = 660; SizeToContent = SizeToContent.Height; Topmost = true;
         Icon = (ImageSource)FindResource("SyphonWindowIcon");
         ResizeMode = ResizeMode.NoResize; WindowStartupLocation = WindowStartupLocation.CenterOwner;
         Background = (Brush)FindResource("Surface"); Foreground = (Brush)FindResource("Text");
