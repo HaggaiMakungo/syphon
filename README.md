@@ -2,11 +2,17 @@
 
 # Syphon
 
-**Your Downloads folder should not require an expedition.**
+**A download manager for people whose Downloads folder has developed its own government.**
 
-You saved a video, grabbed a document, and downloaded something called `final_final_2.zip`. Now one transfer has stopped, another has vanished into a browser menu, and finding the finished file has become a small archaeological project.
+You went online for one PDF. One. A perfectly respectable little document about something you were briefly convinced would improve your life.
 
-Syphon gives those downloads a home: a Windows desktop app for files, videos and audio, with a persistent queue, readable history and a floating transfer window. It also has a rather committed relationship with violet lighting. The downloads are doing the work; they may as well look good doing it.
+Forty minutes later, your Downloads folder contains three videos, an album, `final_final_ACTUALLY_FINAL.zip`, and a driver for a printer you have never owned. The PDF is missing. The printer driver has been elected treasurer. There are rumours of a border dispute with Documents.
+
+I would intervene, but frankly the driver has a stronger economic policy than I do.
+
+**Syphon is a Windows desktop download manager for files, videos and audio.** It gives you a persistent queue, readable history, supported pause/resume, browser integration and a floating transfer window. You can see what is happening and find the finished file without commissioning a bloody excavation.
+
+It is also very purple. Someone was allowed to discover gradients without a responsible adult in the room, and now the progress graph looks like it has a residency at a nightclub. We have decided to call this a visual identity.
 
 ## Where things stand
 
@@ -18,31 +24,45 @@ Public downloads and browser-store listings have **not** been published. Outstan
 
 ## What it does
 
-### Keeps the queue together
+### The queue gets some adult supervision
 
 Add a link, choose where it goes, and start it now or leave it queued. Pause and resume supported file transfers, set priorities and speed limits, and keep an eye on activity without giving the main window permanent custody of your screen.
 
 Eligible large files can use multiple connections. Temporary network failures retry with a delay. Closing Syphon saves the queue; reopening restores it and waits for you to Resume.
 
-### Brings your browser along
+This means you can stop staring at a progress bar as though sustained eye contact will frighten the remaining megabytes down the cable. I have tried that. I leaned closer. I made a little encouraging noise. The router continued blinking with the emotional availability of a filing cabinet.
+
+The floating window is there for a quick look instead. You may still make the noise. That part is between you and your furniture.
+
+### Your browser is invited, subject to basic manners
 
 The **Syphon this** companion connects Chrome or Edge to the desktop app. Send a supported link manually, or enable optional download capture and video detection. Quality and caption choices appear where the source supports them.
 
 Capture waits for Syphon's saved-task acknowledgment before cancelling an eligible browser transfer. Optional sign-in sharing can pass scoped context for supported direct-file downloads. Permissions are requested when you enable the relevant feature.
 
-### Gives audio its cover back
+There is a practical reason for the acknowledgment: snatching a download out of the browser before the desktop app has accepted it would be the software equivalent of throwing a parcel out of a moving van and shouting “DELIVERY” at a hedge. The hedge has not signed for anything. The hedge does not even live here.
 
-Supported YouTube downloads can become MP4 video or MP3 audio. MP3 downloads embed available source artwork or the video thumbnail, without leaving a separate image beside the track. Missing artwork still lets the audio finish. A music library full of blank squares has suffered enough.
+### The album art can come out of witness protection
+
+Supported YouTube downloads can become MP4 video or MP3 audio. MP3 downloads embed available source artwork or the video thumbnail, without leaving a separate image beside the track. Missing artwork still lets the audio finish.
+
+Because at some point a music library full of identical blank squares stops looking minimalist and starts looking like a police briefing. Every artist has apparently been anonymised. The bass player knows something. Nobody is talking.
+
+The picture lives inside the MP3, so it can travel with the file. You get the artwork without adopting a loose JPEG that will spend the next six months being called `hqdefault (7).jpg` and quietly ruining your afternoon.
 
 Unprotected on-demand HLS/DASH media is supported too. Website compatibility varies; media jobs restart from the beginning on Resume.
 
-### Makes finished files easier to find
+### Five folders and a small containment problem
 
 Default category folders are **Videos, Music, Documents, Programs and Misc**. You can still choose a custom destination. History provides search, filters, explicit outcomes, file details and checksum tools.
 
-Open folder now opens the containing folder directly through Windows. An extremely reasonable ambition for a button with that name.
+Misc is for the files that arrive wearing a false moustache and refuse to state their business. We considered calling it “Evidence”, but that gives a completely unreasonable impression of the project and would require me to explain several USB sticks.
+
+**Open folder now opens the containing folder directly through Windows.** That was a real bug fix. The button previously had the confidence to say Open folder while contributing absolutely fuck all to the opening of folders. A tiny management consultant in a rounded rectangle. It has since been given a more useful job description.
 
 ## Installing the packaged beta
+
+The installation process is considerably calmer than the person writing this README.
 
 The Windows installer includes the app runtime, native browser host, FFmpeg, FFprobe, yt-dlp, Node and the browser companion. You do not need to collect those dependencies yourself. WebView2 setup may need an internet connection if that runtime is absent.
 
@@ -52,7 +72,7 @@ The installer uses a **local self-signed certificate**, without a timestamp. It 
 
 ### Connecting Chrome or Edge
 
-There is one manual browser step before the companion can join in:
+Your browser still needs a one-time introduction to the companion. Please select the actual extension folder here; the browser has very little patience for interpretive dance.
 
 1. Enable **Browser integration** in Syphon setup.
 2. At the end, choose **Browser extension setup → Open extension folder**.
@@ -62,6 +82,8 @@ There is one manual browser step before the companion can join in:
 Refresh existing video tabs afterwards. The installer registers the native host; the browser still needs you to load its extension. The prepared package includes full setup and troubleshooting instructions, and [browser integration documentation](docs/browser-integration.md) covers development installs.
 
 ## The important limits
+
+The sensible paragraph has arrived. Please allow it to finish before I start accusing another peripheral of tax fraud.
 
 Resume depends on the server supporting the required validators and range requests. A changed source, missing partial data or incompatible server can require **Restart fresh**. Existing destination files are preserved.
 
@@ -73,7 +95,7 @@ Successful tests on the owner's PC are not clean-machine or power-loss certifica
 
 ## Build it yourself
 
-If opening the bonnet is part of the fun, this is the route in.
+For anyone who sees a working application and immediately thinks “lovely, but I should be inside its organs”, the source is here too. Pull up a chair. Put the screwdriver down until you have read the commands.
 
 Use Windows x64 and the .NET SDK pinned in `global.json`. Run `./bootstrap.ps1` if that SDK is missing; it verifies Microsoft's archive and puts the SDK in this checkout's `.tools` folder without changing the system installation or PATH.
 
