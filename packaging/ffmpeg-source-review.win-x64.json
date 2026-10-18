@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "scope": "Independent engineering source-material and clean-build evidence review",
+  "verdict": "PASS",
+  "criticalFindings": 0,
+  "importantFindings": 0,
+  "priorCleanBuildConditionsClosed": true,
+  "buildLockSha256Meaning": "SHA-256 of the retained canonical JSON lock snapshot under recipes/<recipeSha256>/ffmpeg-build.win-x64.json, not working-tree whitespace serialization",
+  "archive": {
+    "file": "Syphon-FFmpeg-9.0.2-clean-source-and-build-materials.zip",
+    "bytes": 329880819,
+    "sha256": "7fd6e215e2374c0089c905f0ff189149fbdda0bcf4fc91ecc60c46178c44fcf4",
+    "verifiedMembers": 94
+  },
+  "verified": [
+    "Exact locked sources, compiler sources including MinGW runtime and headers, assembler source, compiler build recipe and patches",
+    "Fresh end-to-end CLI build; 17 commands cover all five libraries and FFmpeg, without development continuation",
+    "Executing recipe, helper and canonical lock snapshots match their recorded identities",
+    "Generated configuration, command/build logs, version reports, guarded patches and notices retained",
+    "Both actual executable hashes match the build record, compatibility record and isolated test tools",
+    "42 local application compatibility checks, Windows imports and compiled capabilities",
+    "Trusted HTTPS succeeds and untrusted local certificate is rejected with verification enabled",
+    "Live MP4 and MP3 with JPEG artwork pass; unsuccessful first MP3 attempt and successful identical retry accurately disclosed",
+    "Archive has runnable packaging, tests and inputs layout with explicit standalone build commands",
+    "All 17 recipe tests pass after extracting only standalone recipe and test files from the archive"
+  ],
+  "historicalReview": "The archive retains the earlier conditional review in evidence/final-source-review.json. This separate final verdict closes its clean-build conditions without rewriting historical evidence.",
+  "notJudged": [
+    "Legal sufficiency, patent obligations or other installer dependencies",
+    "Clean-machine certification or uninterrupted live website reliability",
+    "Full third-party security audit",
+    "Cross-machine byte-identical output or building the compiler itself from source"
+  ],
+  "releaseCacheChanged": false,
+  "installerRebuilt": false
+}

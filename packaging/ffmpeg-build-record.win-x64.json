@@ -129,25 +129,13 @@
     {
       "file": "ffmpeg.exe",
       "bytes": 35277312,
-      "sha256": "12edcc74fad58331649273a5bd7b44f834602670d2206479a9eca69cee84410a"
+      "sha256": "3acb0d04648d7a1031086eb31d20ba176e6fe535e447489acc30d5aa13a7d7ee"
     },
     {
       "file": "ffprobe.exe",
       "bytes": 35075584,
-      "sha256": "6b711190d7bcde7765c6a7edb1943437533c85dd36f94492957640e219085cfc"
+      "sha256": "ab28380e0c18bc1e47ad5414fc9007216808907ee6cddd89e9e90b2208a3372f"
     }
   ],
-  "limits": "Local native source build; compatibility review and source distribution inventory required separately. No cross-machine byte reproducibility claimed.",
-  "buildMode": "Controlled incremental native development build; initial attempts and executing recipe snapshots retained. Fresh end-to-end CLI rebuild not yet performed.",
-  "candidateOnly": true,
-  "verification": {
-    "startupAndWindowsImports": "passed",
-    "requiredCompiledCapabilities": "passed",
-    "localH264AacMp3WebpEmbeddedJpegSmoke": "passed",
-    "applicationCompatibility": "pending",
-    "tlsVerificationBehavior": "pending",
-    "freshEndToEndBuild": "pending",
-    "fullIndependentCodeReview": "interrupted by reviewer account usage limit; preliminary provenance/material findings addressed"
-  },
-  "buildLockSha256Meaning": "SHA-256 of retained canonical JSON lock snapshot under recipes/<recipeSha256>/ffmpeg-build.win-x64.json, not working-tree whitespace serialization"
+  "limits": "Local native source build; compatibility review and source distribution inventory required separately. No cross-machine byte reproducibility claimed."
 }

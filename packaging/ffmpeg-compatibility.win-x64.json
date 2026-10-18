@@ -5,15 +5,15 @@
     {
       "file": "ffmpeg.exe",
       "bytes": 35277312,
-      "sha256": "12edcc74fad58331649273a5bd7b44f834602670d2206479a9eca69cee84410a"
+      "sha256": "3acb0d04648d7a1031086eb31d20ba176e6fe535e447489acc30d5aa13a7d7ee"
     },
     {
       "file": "ffprobe.exe",
       "bytes": 35075584,
-      "sha256": "6b711190d7bcde7765c6a7edb1943437533c85dd36f94492957640e219085cfc"
+      "sha256": "ab28380e0c18bc1e47ad5414fc9007216808907ee6cddd89e9e90b2208a3372f"
     }
   ],
-  "applicationSourceRevision": "e6c0193fbe698a9730487e46e119b9aa4a005763",
+  "applicationSourceRevision": "021686ccfa6a67b7ce53e7735c5e029f35d14a5d",
   "testAssemblySha256": "efa74189197157305f7f63a7367d9dc450d79aec10b31d830e96af05f9daaaf9",
   "engineAssemblySha256": "83e123733db5c9fb74935c1e2aa1d048b8d4f64768f71cbabc38d339fea21b36",
   "media": {
@@ -42,7 +42,10 @@
     "passed": true,
     "testVideo": "https://www.youtube.com/watch?v=YE7VzlLtp-4",
     "mp4": "separate video/audio download and merge; AV1 video/AAC audio validated",
-    "mp3": "MP3 audio and MJPEG cover stream validated"
+    "mp3": "MP3 audio and MJPEG cover stream validated",
+    "attempts": 2,
+    "initialAttempt": "MP4 completed; MP3 did not complete and the test cleanup reported Paused. Root cause was not retained by the existing test harness. Original log retained; identical live test passed on the second attempt.",
+    "retryHarnessSha256": "60b1a6ee429266fb8a00f165e3e0e18d989c833dd019e4b53a2811b668ef4be5"
   },
   "https": {
     "validPublicCertificate": "passed",
@@ -50,18 +53,13 @@
     "untrustedCertificateControl": "same fixture succeeds with tls_verify=0; diagnostic control only",
     "trustStoreModified": false
   },
-  "environmentNotes": "Initial concurrent PowerShell launches failed under Windows memory pressure before tests started. Serial test launches through Windows PowerShell5.1 completed. Test-owned stores and temporary media only.",
+  "environmentNotes": "Fresh unmodified end-to-end CLI build with two workers; subsequent compatibility tests executed sequentially on the development PC, using isolated tools and test-owned stores.",
   "releaseCacheChanged": false,
   "limits": [
     "One-PC compatibility evaluation, not clean-machine certification.",
-    "Source candidate was built incrementally; fresh end-to-end CLI rebuild remains pending.",
-    "Complete independent recipe/source-material review remains pending.",
+    "No cross-machine byte-identical reproducibility or legal/patent clearance asserted.",
     "No installer rebuilt, public binary release or browser-store submission performed."
   ],
-  "evidenceArchive": {
-    "file": "Syphon-FFmpeg-9.0.2-compatibility-evidence.zip",
-    "bytes": 7720,
-    "sha256": "2020cf6cedcb779be67a1e758aa1b9c4b5a36eb54d4d60cc9fe5101129496d26",
-    "verifiedMembers": 11
-  }
+  "buildMode": "Fresh end-to-end CLI; new empty work directory; no manual continuation or repair",
+  "verificationHarnessSha256": "01825ec1aa6db10bba00d73b9f8b86661d4ac2e6d96e820f2f4e35101a7fbc16"
 }
