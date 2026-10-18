@@ -3,11 +3,34 @@
 Downloads are deliberately separate. Use a new dedicated --work directory on a
 volume with sufficient space. No global Python, PATH or user data is changed.
 """
-import argparse,hashlib,json,os,re,shutil,subprocess,tarfile,zipfile
+import argparse,ast,hashlib,json,os,re,shutil,subprocess,tarfile,zipfile
 from pathlib import Path,PurePosixPath
 from dependencies import plain_path,verify_file,digest
 
 LOCK=Path(__file__).with_name('yt-dlp-build.win-x64.json')
+
+def build_environment(runtime,work):
+ env=os.environ.copy()
+ windows=Path(env.get('SystemRoot') or env['SYSTEMROOT'])
+ # Dependency discovery must not harvest unrelated DLLs from the caller's PATH.
+ env['PATH']=os.pathsep.join(map(str,[runtime,windows/'System32',windows]))
+ for key in ['PYTHONPATH','PYTHONHOME']:env.pop(key,None)
+ env['PYTHONNOUSERSITE']='1';env['PYTHONHASHSEED']='0'
+ env['PYINSTALLER_CONFIG_DIR']=str(work/'pyinstaller-cache')
+ return env
+
+def verify_native_origins(toc,runtime):
+ root=plain_path(runtime).resolve();records=[]
+ def walk(value):
+  if not isinstance(value,(tuple,list)):return
+  if len(value)>=3 and isinstance(value[0],str) and isinstance(value[1],str) and value[2] in ('BINARY','EXTENSION'):
+   binary=plain_path(value[1]).resolve()
+   if not binary.is_relative_to(root):raise ValueError('Unpinned host binary collected: '+value[0])
+   records.append({'member':value[0].replace('\\','/'),'privateInput':binary.relative_to(root).as_posix(),'bytes':binary.stat().st_size,'sha256':digest(binary)})
+  for child in value:walk(child)
+ walk(ast.literal_eval(Path(toc).read_text(encoding='utf-8')))
+ if not records:raise ValueError('Missing native binary build graph')
+ return records
 
 def safe_member(name):
  if not name or '\\' in name or ':' in name or name.startswith('/') or '..' in PurePosixPath(name).parts:raise ValueError('Unsafe archive member')
@@ -44,11 +67,12 @@ def build(inputs,work):
    if not member.isfile():raise ValueError('Source archive link or special file rejected')
    name=Path(*name.parts[1:]);target=source/name;plain_path(target);target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(archive.extractfile(member).read())
  version=source/'yt_dlp/version.py';version.write_bytes(patch_version(version.read_text(encoding='utf-8')).encode())
- python=runtime/'python.exe';env=os.environ.copy();env['PYTHONNOUSERSITE']='1';env['PYTHONHASHSEED']='0'
+ python=runtime/'python.exe';env=build_environment(runtime,work)
  # Private _pth excludes user/system packages. Direct entry script adds source root.
  with (work/'build.log').open('w',encoding='utf-8') as log:
   for command in [[str(python),'devscripts/make_lazy_extractors.py'],[str(python),'bundle/pyinstaller.py']]:
    subprocess.run(command,cwd=source,env=env,stdout=log,stderr=subprocess.STDOUT,check=True,timeout=900)
+ origins=verify_native_origins(source/'build/yt-dlp/PKG-00.toc',runtime)
  exe=source/'dist/yt-dlp.exe';verify=work/'runtime-inspection.txt'
  probe=subprocess.run([str(exe),'--ignore-config','--no-plugin-dirs','--no-cache-dir','--verbose','--simulate','--','syphon-runtime-check:'],capture_output=True,text=True,encoding='utf-8',errors='replace',timeout=45)
  from media_runtime import validate_runtime
@@ -64,7 +88,7 @@ def build(inputs,work):
    for part in z.infolist():
     if not part.is_dir() and any(x in Path(part.filename).name.lower() for x in ['license','copying','notice']):
      name=item['file'].removesuffix('.whl')+'--'+part.filename.replace('/','_');(notices/name).write_bytes(z.read(part))
- record={'schema':1,'variant':manifest['variant'],'sourceRevision':manifest['sourceRevision'],'releaseGitHead':manifest['releaseGitHead'],'buildLockSha256':digest(LOCK),'runtime':report,'output':{'file':'yt-dlp.exe','bytes':exe.stat().st_size,'sha256':digest(exe)},'inputs':manifest['files'],'limits':'Syphon-local build; not an official upstream EXE. Hash-locked inputs do not imply cross-machine bit reproducibility or complete corresponding-source distribution.'}
+ record={'schema':1,'variant':manifest['variant'],'sourceRevision':manifest['sourceRevision'],'releaseGitHead':manifest['releaseGitHead'],'buildLockSha256':digest(LOCK),'runtime':report,'nativeInputPolicy':'Private pinned runtime only; inherited PATH and shared PyInstaller cache excluded. Any external BINARY/EXTENSION in build graph is rejected.','nativeInputs':origins,'output':{'file':'yt-dlp.exe','bytes':exe.stat().st_size,'sha256':digest(exe)},'inputs':manifest['files'],'limits':'Syphon-local build; not an official upstream EXE. Hash-locked inputs do not imply cross-machine bit reproducibility or legal certification.'}
  (work/'build-record.json').write_bytes((json.dumps(record,indent=2)+'\n').encode());print(json.dumps(record['output']))
 
 if __name__=='__main__':

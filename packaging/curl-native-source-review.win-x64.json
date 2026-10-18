@@ -1,0 +1,453 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "status": "engineering-source-and-build-recipe-mapping-complete",
+  "scope": "Unchanged Beta16 curl_cffi Windows x64 wheel and its exact embedded libcurl DLL; not legal certification or bit reproducibility.",
+  "wheel": {
+    "file": "curl_cffi-0.16.0-cp310-abi3-win_amd64.whl",
+    "kind": "wheel",
+    "bytes": 1976497,
+    "sha256": "e22a8212d830108e977ff394237f637238e265f5f65037d6c1ee71ea8cc03bcb",
+    "source": "https://files.pythonhosted.org/packages/ad/03/b9df2973f1119f9d11d8fb3bf2682e5ffe5c52ef3ab89f720473c60fe97e/curl_cffi-0.16.0-cp310-abi3-win_amd64.whl"
+  },
+  "wrapperSource": {
+    "commit": "965508e0cd777369bd2f825162da6dbde9140f4e",
+    "archive": "curl-cffi-source-965508e.tar.gz",
+    "sha256": "3ed9809564e0e14dd20eba962a668f9132fe80b17da324527b0965cf086160bb",
+    "recipe": "scripts/build.py selects libcurl-impersonate2.0.0 x86_64-win32 dynamic release. Full wrapper workflow/setup/pyproject sources retained."
+  },
+  "nativeBinaryIdentity": {
+    "wheelMember": "curl_cffi.libs/libcurl-impersonate-ec8ead0e422fe4ae62a99233a63f6007.dll",
+    "releaseMember": "lib/libcurl-impersonate.dll",
+    "sha256": "ec8ead0e422fe4ae62a99233a63f6007adc727caba97ff1f87385c00cafe200f",
+    "bytes": 3881472,
+    "byteForByteMatch": true,
+    "asset": {
+      "name": "libcurl-impersonate-v2.0.0.x86_64-win32.tar.gz",
+      "size": 2892193,
+      "digest": "sha256:88e5b641a13b9a991857996947837c6f058cc3b0c9142ded0fc17b82008e98b2",
+      "browser_download_url": "https://github.com/lexiforest/curl-impersonate/releases/download/v2.0.0/libcurl-impersonate-v2.0.0.x86_64-win32.tar.gz"
+    },
+    "assetSha256Verified": true
+  },
+  "sourceCommit": "ec41b71ce888806bfec56ada7a7258d333eb3d19",
+  "sourceArchive": {
+    "file": "historical-curl-impersonate-v2.0.0-ec41b71ce888806bfec56ada7a7258d333eb3d19.tar.gz",
+    "bytes": 207810,
+    "sha256": "9f64512f18dc8b9ce0d95f0ea9588065e69048456e53817506a0241a13798cd7",
+    "url": "https://codeload.github.com/lexiforest/curl-impersonate/tar.gz/ec41b71ce888806bfec56ada7a7258d333eb3d19"
+  },
+  "nativeSources": [
+    {
+      "component": "zlib",
+      "versionOrCommit": "1.3.1",
+      "file": "historical-curl-native-zlib-zlib-1.3.1.tar.gz",
+      "bytes": 1512791,
+      "sha256": "9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23",
+      "url": "https://github.com/madler/zlib/releases/download/v1.3.1/zlib-1.3.1.tar.gz",
+      "verifiedAgainst": "Exact CMakeLists.txt URL_HASH at ec41b71ce888806bfec56ada7a7258d333eb3d19"
+    },
+    {
+      "component": "zstd",
+      "versionOrCommit": "1.5.7",
+      "file": "historical-curl-native-zstd-zstd-1.5.7.tar.gz",
+      "bytes": 2434947,
+      "sha256": "eb33e51f49a15e023950cd7825ca74a4a2b43db8354825ac24fc1b7ee09e6fa3",
+      "url": "https://github.com/facebook/zstd/releases/download/v1.5.7/zstd-1.5.7.tar.gz",
+      "verifiedAgainst": "Exact CMakeLists.txt URL_HASH at ec41b71ce888806bfec56ada7a7258d333eb3d19"
+    },
+    {
+      "component": "brotli",
+      "versionOrCommit": "1.2.0",
+      "file": "historical-curl-native-brotli-v1.2.0.tar.gz",
+      "bytes": 646315,
+      "sha256": "816c96e8e8f193b40151dad7e8ff37b1221d019dbcb9c35cd3fadbfe6477dfec",
+      "url": "https://github.com/google/brotli/archive/refs/tags/v1.2.0.tar.gz",
+      "verifiedAgainst": "Exact CMakeLists.txt URL_HASH at ec41b71ce888806bfec56ada7a7258d333eb3d19"
+    },
+    {
+      "component": "boringssl",
+      "versionOrCommit": "156c7b75ae9b8c3b3f847acf264f17594c3859fb",
+      "file": "historical-curl-native-boringssl-156c7b75ae9b8c3b3f847acf264f17594c3859fb.zip",
+      "bytes": 80313844,
+      "sha256": "450e169b284697c6eafe523cb7679f4221fbe1a0993f773a566c33b188762844",
+      "url": "https://github.com/google/boringssl/archive/156c7b75ae9b8c3b3f847acf264f17594c3859fb.zip",
+      "verifiedAgainst": "Exact CMakeLists.txt URL_HASH at ec41b71ce888806bfec56ada7a7258d333eb3d19"
+    },
+    {
+      "component": "nghttp2",
+      "versionOrCommit": "1.63.0",
+      "file": "historical-curl-native-nghttp2-nghttp2-1.63.0.tar.bz2",
+      "bytes": 2012107,
+      "sha256": "607b174554d22a828bc532d1d734fe0f729b5d5ed207f2f12e96a62e83f29c55",
+      "url": "https://github.com/nghttp2/nghttp2/releases/download/v1.63.0/nghttp2-1.63.0.tar.bz2",
+      "verifiedAgainst": "Exact CMakeLists.txt URL_HASH at ec41b71ce888806bfec56ada7a7258d333eb3d19"
+    },
+    {
+      "component": "ngtcp2",
+      "versionOrCommit": "1.20.0",
+      "file": "historical-curl-native-ngtcp2-ngtcp2-1.20.0.tar.bz2",
+      "bytes": 898205,
+      "sha256": "871ec97ad86803cf312901b0c393b0ee70163e25a87c9b2894d1234341ce4e97",
+      "url": "https://github.com/ngtcp2/ngtcp2/releases/download/v1.20.0/ngtcp2-1.20.0.tar.bz2",
+      "verifiedAgainst": "Exact CMakeLists.txt URL_HASH at ec41b71ce888806bfec56ada7a7258d333eb3d19"
+    },
+    {
+      "component": "nghttp3",
+      "versionOrCommit": "1.15.0",
+      "file": "historical-curl-native-nghttp3-nghttp3-1.15.0.tar.bz2",
+      "bytes": 519681,
+      "sha256": "c6c491a52804814098e446630e6efc459afc0d3da7952ffe6cbdc0b3f99b2b62",
+      "url": "https://github.com/ngtcp2/nghttp3/releases/download/v1.15.0/nghttp3-1.15.0.tar.bz2",
+      "verifiedAgainst": "Exact CMakeLists.txt URL_HASH at ec41b71ce888806bfec56ada7a7258d333eb3d19"
+    },
+    {
+      "component": "curl",
+      "versionOrCommit": "curl-8_21_0",
+      "file": "historical-curl-native-curl-curl-8_21_0.tar.gz",
+      "bytes": 3592963,
+      "sha256": "ec753aa6f408a3ca9f0d6d5f7a77417aecd1544db13c03ae5d443612bf367364",
+      "url": "https://github.com/curl/curl/archive/curl-8_21_0.tar.gz",
+      "verifiedAgainst": "Exact CMakeLists.txt URL_HASH at ec41b71ce888806bfec56ada7a7258d333eb3d19"
+    }
+  ],
+  "patchAndRecipeMembers": [
+    {
+      "member": ".github/workflows/build-win.yaml",
+      "bytes": 2495,
+      "sha256": "7783958190ccce2fd38bd81702fa9afdc8165cf4666423e9d82c9a510bc2274a"
+    },
+    {
+      "member": ".github/workflows/release.yml",
+      "bytes": 1603,
+      "sha256": "7d162f097c24542ea2fda02377fa860d34c6cd5e03e36df47c58e121b6f4c471"
+    },
+    {
+      "member": "CMakeLists.txt",
+      "bytes": 24113,
+      "sha256": "925b124f13fd6e80c410da00c3c71ae23051fae3e11fc40060def0efd91db32f"
+    },
+    {
+      "member": "Makefile",
+      "bytes": 1761,
+      "sha256": "38530e8c51cf320f457a839b2321946cdbb6fdce5cc936bea630d94a5117b2f3"
+    },
+    {
+      "member": "cmake/CheckFileContains.cmake",
+      "bytes": 444,
+      "sha256": "bb4614f762ec9e44dbbdc6fd64610a9773d00e2959a8df2eef3d5d76bd76c70f"
+    },
+    {
+      "member": "cmake/Uninstall.cmake.in",
+      "bytes": 792,
+      "sha256": "2892d18f4b02fcd7f04d5afed9b3cd0f1a4f5eeb9b593d253d2a86fe2b6837c3"
+    },
+    {
+      "member": "patches/OpenBSD.patch",
+      "bytes": 5201,
+      "sha256": "ced8461d3a55d55801e12eed21ff03cac14c7db7d8d63c85c7bdb7be33857a4c"
+    },
+    {
+      "member": "patches/boringssl.patch",
+      "bytes": 53237,
+      "sha256": "905078eeeaf4e258e26d7ee24af0ac1ae7769671da08fa0362b817d8196e7bcf"
+    },
+    {
+      "member": "patches/brotli.patch",
+      "bytes": 541,
+      "sha256": "d59ec1994ae6285222f65dd7192c2cbcbc0d0ae6c85eb5fce1cae735010f4d4f"
+    },
+    {
+      "member": "patches/curl.patch",
+      "bytes": 424546,
+      "sha256": "104945b7e8b69456714dacd19665173fb7896dca45490a9d9450edfe7bfb416b"
+    },
+    {
+      "member": "patches/nghttp3.patch",
+      "bytes": 12854,
+      "sha256": "f23395f2896a150910d7620044a0913b6179440326ce8c7f9e5ab93a30a615ac"
+    },
+    {
+      "member": "patches/ngtcp2.patch",
+      "bytes": 10877,
+      "sha256": "2a2634adcc78b2c213ee25af4ce6682e01f5061843bc81ad753150decc42ad34"
+    },
+    {
+      "member": "win/bin/curl_chrome100.bat",
+      "bytes": 1658,
+      "sha256": "52b06cf1b584f98a0eae10319b5b8177857cadd514feaf16e6ba03c936fa7618"
+    },
+    {
+      "member": "win/bin/curl_chrome101.bat",
+      "bytes": 1658,
+      "sha256": "0eb157707610bab751073d2cd1fd112e80216e03acf3180699ffef7554e72242"
+    },
+    {
+      "member": "win/bin/curl_chrome104.bat",
+      "bytes": 1654,
+      "sha256": "41d4af313f8e192a0d2c84fd8f2fcaa1318021edba14f7707b0438542ac2c298"
+    },
+    {
+      "member": "win/bin/curl_chrome107.bat",
+      "bytes": 1657,
+      "sha256": "832de33ebbd7609841fc5352e29e38eb227b7369e08166b773118dff67971904"
+    },
+    {
+      "member": "win/bin/curl_chrome110.bat",
+      "bytes": 1682,
+      "sha256": "744ac075b3f8b3e5767d4b8627bf5dfddef48065e218a5b6517d1ab43b5e09ee"
+    },
+    {
+      "member": "win/bin/curl_chrome116.bat",
+      "bytes": 1682,
+      "sha256": "5dff793cbe3a0954ac6165540e34a3035ff0aab782ebc7fd10931e5f96747c6c"
+    },
+    {
+      "member": "win/bin/curl_chrome119.bat",
+      "bytes": 1696,
+      "sha256": "9e960004b5442e7838e2b6bc642133518b2ea2a9ae30535aa43bdad9fa1ea836"
+    },
+    {
+      "member": "win/bin/curl_chrome120.bat",
+      "bytes": 1695,
+      "sha256": "d9609ccff2f067fd48ef2ab613bf5d38dd3522502b56112ecc5a7ae2da098889"
+    },
+    {
+      "member": "win/bin/curl_chrome123.bat",
+      "bytes": 1820,
+      "sha256": "ee99bc11f9feab2654f4859b2dc20b4f3bf6123aa660fb8541ecda9c48de4192"
+    },
+    {
+      "member": "win/bin/curl_chrome124.bat",
+      "bytes": 1886,
+      "sha256": "8fb2af3db6d731e40984b46403def06b1c2427004d7dc98915b941c23ae2e4a8"
+    },
+    {
+      "member": "win/bin/curl_chrome131.bat",
+      "bytes": 1856,
+      "sha256": "3c29e9dc5c7b1528307aa90cbf9c5a9d598493f3028d93cfb7b946a6953fd257"
+    },
+    {
+      "member": "win/bin/curl_chrome131_android.bat",
+      "bytes": 1821,
+      "sha256": "700e7a48553bba4e843a12d8986771bb87f804bd1be2324d089d280cb5feeb63"
+    },
+    {
+      "member": "win/bin/curl_chrome133a.bat",
+      "bytes": 1873,
+      "sha256": "9986e4ac1f1f8db251d35c4679268597c6e2abf4da6de597bb7370e671996cf9"
+    },
+    {
+      "member": "win/bin/curl_chrome136.bat",
+      "bytes": 1814,
+      "sha256": "85c99b0e76026e94ead5a5ff6a474d06d390fa9d2b3c56c69458de06e5c7cbfc"
+    },
+    {
+      "member": "win/bin/curl_chrome142.bat",
+      "bytes": 266,
+      "sha256": "c2cdd7622e847e6c3b6d4091dff84fb1be3604cfb949267692faba843b78375e"
+    },
+    {
+      "member": "win/bin/curl_chrome145.bat",
+      "bytes": 266,
+      "sha256": "9088e675fd9d8e4237eed26fb1c03cffc0a4b5c4f8f4ffcfbe1132a863ad6798"
+    },
+    {
+      "member": "win/bin/curl_chrome146.bat",
+      "bytes": 266,
+      "sha256": "0ae66b0ae9d86fe1a1d1486328e646c655ae0f5e797d3deecd2424876298a962"
+    },
+    {
+      "member": "win/bin/curl_chrome99.bat",
+      "bytes": 1655,
+      "sha256": "928d73708be08e788fc0004b0010e72aaae11889552bd513bffe3e6899700c28"
+    },
+    {
+      "member": "win/bin/curl_chrome99_android.bat",
+      "bytes": 1661,
+      "sha256": "d8d6a94b207b13c9ab68f4f1347ac8a3c61eb15444bc1afb4f81301854c2b3cc"
+    },
+    {
+      "member": "win/bin/curl_edge101.bat",
+      "bytes": 1666,
+      "sha256": "431d2eb053b6467cd6fe41c3fe606d5b3863b859a535bd2abdaf0d4b979cb2fc"
+    },
+    {
+      "member": "win/bin/curl_edge99.bat",
+      "bytes": 1662,
+      "sha256": "418c61659aa697438c470ed2f76eaca2793361041fd9f765f49d597d288c2834"
+    },
+    {
+      "member": "win/bin/curl_firefox133.bat",
+      "bytes": 2194,
+      "sha256": "5578cea9de43a3e3b09e4f47a8545451aa1af1930cab87f454f210dbd15b586e"
+    },
+    {
+      "member": "win/bin/curl_firefox135.bat",
+      "bytes": 2232,
+      "sha256": "2648e6739784242e10f4facf6c4d9f142cd7d0f92ae92bfbb093a346fdb59eb0"
+    },
+    {
+      "member": "win/bin/curl_firefox144.bat",
+      "bytes": 267,
+      "sha256": "c58b55370afe68fc1abfdf259af6cf2451e0c1bb5fd643044deb4a3b856ef0bb"
+    },
+    {
+      "member": "win/bin/curl_firefox147.bat",
+      "bytes": 267,
+      "sha256": "ee5cb001acace67f88cf260eecfb985aa5f9fac96f676ee9bff46c2a472ffba3"
+    },
+    {
+      "member": "win/bin/curl_safari153.bat",
+      "bytes": 2072,
+      "sha256": "f521e7d918cb66e1649214f412b3cd94ba44defb8b4410072ba5dbfae5770d66"
+    },
+    {
+      "member": "win/bin/curl_safari155.bat",
+      "bytes": 1903,
+      "sha256": "663b1d42a635ef302f8e9a0990bf84f444d9643a3feed543437f6531f9cbfd75"
+    },
+    {
+      "member": "win/bin/curl_safari170.bat",
+      "bytes": 1999,
+      "sha256": "63e4619518470c5f3b7c16552de9da95f168ebbb1dce86d8c5e51a39d664f426"
+    },
+    {
+      "member": "win/bin/curl_safari172_ios.bat",
+      "bytes": 2017,
+      "sha256": "79c689786bad6ffe50381ce42cb6358d40a5ae80b3073ff75956d565b880ac92"
+    },
+    {
+      "member": "win/bin/curl_safari180.bat",
+      "bytes": 2024,
+      "sha256": "0a429ea9fc11502b6337b4d8099d39357688a41254e29912e79e4a73c91a08af"
+    },
+    {
+      "member": "win/bin/curl_safari180_ios.bat",
+      "bytes": 2042,
+      "sha256": "98f7a2a2ffaf8c125fd3d5dc0fe49b447731dd044b1374cdcdd655a65f5f22e3"
+    },
+    {
+      "member": "win/bin/curl_safari184.bat",
+      "bytes": 2020,
+      "sha256": "d25c9164731f3e4f35f1208a13fce14756660fe6eda4ce485ca73574ede9a448"
+    },
+    {
+      "member": "win/bin/curl_safari184_ios.bat",
+      "bytes": 2039,
+      "sha256": "0d8e60863a7aafa1427c6a1ede7b302adef3ca578dc682334c6b77ce23718c74"
+    },
+    {
+      "member": "win/bin/curl_safari260.bat",
+      "bytes": 1978,
+      "sha256": "aacd5835a7d2ca7373b5c2704281be6ef0ed752796d4d955ae42facb31b24a05"
+    },
+    {
+      "member": "win/bin/curl_safari260_ios.bat",
+      "bytes": 1981,
+      "sha256": "19d2a5e1fe345e1b25ba48efc027027691f69f5eeb114f6c61de8be6a8af6f52"
+    },
+    {
+      "member": "win/bin/curl_tor145.bat",
+      "bytes": 2154,
+      "sha256": "b5d9a102bf1b3e02ef2954f80486ec451534909b550361cc15e3a697976a7a5c"
+    },
+    {
+      "member": "win/build.bat",
+      "bytes": 1193,
+      "sha256": "4d4099222008813f54a45af1c4dee9d94e90f76a2e9eeab765ba08a6b75a4b18"
+    }
+  ],
+  "buildRecipe": {
+    "workflow": ".github/workflows/build-win.yaml",
+    "runner": "windows-2022",
+    "entry": "win/build.bat vcvars64",
+    "configuration": "Release; Ninja; clang-cl.exe C/C++; link.exe; VS2022 vcvars; MultiThreaded CRT; USE_LIBIDN2=OFF",
+    "steps": [
+      "cmake configure with exact retained flags",
+      "cmake --build build --config Release --target install-all",
+      "tar packages/lib and packages/include into Windows library asset"
+    ],
+    "sourcePinnedHashes": true,
+    "libidn2Included": false
+  },
+  "notices": [
+    {
+      "archive": "historical-curl-native-boringssl-156c7b75ae9b8c3b3f847acf264f17594c3859fb.zip",
+      "member": "boringssl-156c7b75ae9b8c3b3f847acf264f17594c3859fb/LICENSE",
+      "file": "historical-curl-native-boringssl-156c7b75ae9b8c3b3f847acf264f17594c3859fb.zip--LICENSE",
+      "sha256": "827c8d8fc207c2392794eef9e00fe246f9f61fdcc132556c275be3dd8c3cd97f",
+      "bytes": 13115,
+      "exactNormalizedTextPresentInCurrentInstallerAggregate": true
+    },
+    {
+      "archive": "historical-curl-native-brotli-v1.2.0.tar.gz",
+      "member": "brotli-1.2.0/LICENSE",
+      "file": "historical-curl-native-brotli-v1.2.0.tar.gz--LICENSE",
+      "sha256": "3d180008e36922a4e8daec11c34c7af264fed5962d07924aea928c38e8663c94",
+      "bytes": 1084,
+      "exactNormalizedTextPresentInCurrentInstallerAggregate": true
+    },
+    {
+      "archive": "historical-curl-native-curl-curl-8_21_0.tar.gz",
+      "member": "curl-curl-8_21_0/COPYING",
+      "file": "historical-curl-native-curl-curl-8_21_0.tar.gz--COPYING",
+      "sha256": "82f2f4427d6545ee5aaac4f0b80428da6cc8ba41c2cf5da3a03680ec327b9681",
+      "bytes": 1088,
+      "exactNormalizedTextPresentInCurrentInstallerAggregate": false
+    },
+    {
+      "archive": "historical-curl-native-nghttp2-nghttp2-1.63.0.tar.bz2",
+      "member": "nghttp2-1.63.0/COPYING",
+      "file": "historical-curl-native-nghttp2-nghttp2-1.63.0.tar.bz2--COPYING",
+      "sha256": "6b94f3abc1aabd0c72a7c7d92a77f79dda7c8a0cb3df839a97890b4116a2de2a",
+      "bytes": 1156,
+      "exactNormalizedTextPresentInCurrentInstallerAggregate": true
+    },
+    {
+      "archive": "historical-curl-native-nghttp3-nghttp3-1.15.0.tar.bz2",
+      "member": "nghttp3-1.15.0/COPYING",
+      "file": "historical-curl-native-nghttp3-nghttp3-1.15.0.tar.bz2--COPYING",
+      "sha256": "58cc3fc8c6d6cb2485ab35eb5918e849b5bf1e56522974e106d7a39a88d61dcd",
+      "bytes": 1081,
+      "exactNormalizedTextPresentInCurrentInstallerAggregate": true
+    },
+    {
+      "archive": "historical-curl-native-ngtcp2-ngtcp2-1.20.0.tar.bz2",
+      "member": "ngtcp2-1.20.0/COPYING",
+      "file": "historical-curl-native-ngtcp2-ngtcp2-1.20.0.tar.bz2--COPYING",
+      "sha256": "542dd526d2ea23565f0571cc68df6f05ed11248a90ff0f32de19d8ba589db513",
+      "bytes": 1080,
+      "exactNormalizedTextPresentInCurrentInstallerAggregate": true
+    },
+    {
+      "archive": "historical-curl-native-zlib-zlib-1.3.1.tar.gz",
+      "member": "zlib-1.3.1/LICENSE",
+      "file": "historical-curl-native-zlib-zlib-1.3.1.tar.gz--LICENSE",
+      "sha256": "845efc77857d485d91fb3e0b884aaa929368c717ae8186b66fe1ed2495753243",
+      "bytes": 1002,
+      "exactNormalizedTextPresentInCurrentInstallerAggregate": false
+    },
+    {
+      "archive": "historical-curl-native-zstd-zstd-1.5.7.tar.gz",
+      "member": "zstd-1.5.7/COPYING",
+      "file": "historical-curl-native-zstd-zstd-1.5.7.tar.gz--COPYING",
+      "sha256": "f9c375a1be4a41f7b70301dd83c91cb89e41567478859b77eef375a52d782505",
+      "bytes": 18091,
+      "exactNormalizedTextPresentInCurrentInstallerAggregate": true
+    },
+    {
+      "archive": "historical-curl-native-zstd-zstd-1.5.7.tar.gz",
+      "member": "zstd-1.5.7/LICENSE",
+      "file": "historical-curl-native-zstd-zstd-1.5.7.tar.gz--LICENSE",
+      "sha256": "7055266497633c9025b777c78eb7235af13922117480ed5c674677adc381c9d8",
+      "bytes": 1549,
+      "exactNormalizedTextPresentInCurrentInstallerAggregate": true
+    }
+  ],
+  "limits": [
+    "No source was executed. Published artifact identity and upstream source/build recipe mapped, not an independent rebuild.",
+    "Original hosted runner image patch level, compiler package versions and source-to-binary reproducibility unproven.",
+    "Retained release metadata is HTTPS GitHub provenance, not independent Sigstore/GPG verification."
+  ]
+}

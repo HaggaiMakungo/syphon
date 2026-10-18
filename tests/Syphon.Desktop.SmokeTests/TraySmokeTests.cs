@@ -15,7 +15,11 @@ internal static class TraySmokeTests
         var preferences=typeof(MainWindow).Assembly.GetType("Syphon.Desktop.DownloadPreferences")!;
         var load=preferences.GetMethod("Load")!;
         var defaults=load.Invoke(null,[Path.Combine(root,"missing.json")])!;
-        if((bool)preferences.GetProperty("CloseToTray")!.GetValue(defaults)! || (bool)preferences.GetProperty("MinimizeToTray")!.GetValue(defaults)!) throw new Exception("Tray hide preferences must default off.");
+        if(!(bool)preferences.GetProperty("CloseToTray")!.GetValue(defaults)! || (bool)preferences.GetProperty("MinimizeToTray")!.GetValue(defaults)!) throw new Exception("Close must default to tray; minimize must keep its ordinary default.");
+        var legacyPath=Path.Combine(root,"legacy.json"); File.WriteAllText(legacyPath,"{}");
+        if(!(bool)preferences.GetProperty("CloseToTray")!.GetValue(load.Invoke(null,[legacyPath]))!) throw new Exception("Preferences without a tray choice must use the new close default.");
+        File.WriteAllText(legacyPath,"{\"CloseToTray\":false}");
+        if((bool)preferences.GetProperty("CloseToTray")!.GetValue(load.Invoke(null,[legacyPath]))!) throw new Exception("An explicit saved close preference must be respected.");
         File.WriteAllText(Path.Combine(root, "download-preferences.json"), "{\"CloseToTray\":true,\"MinimizeToTray\":true}");
         var persisted=load.Invoke(null,[Path.Combine(root,"download-preferences.json")])!;
         if(!(bool)preferences.GetProperty("CloseToTray")!.GetValue(persisted)! || !(bool)preferences.GetProperty("MinimizeToTray")!.GetValue(persisted)!) throw new Exception("Tray preferences did not persist.");

@@ -1,0 +1,1413 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-18",
+  "scope": "Current Beta16 locked CPython embed input; engineering source collection, not reproducibility or legal certification",
+  "status": "source-archives-verified-build-provenance-qualified",
+  "input": {
+    "path": "baseline/inputs/python-3.13.16-embed-amd64.zip",
+    "sha256": "97dae5274cc54867065e8d5a3226e48c35017ed332a0fdb0e27d5b5821961297"
+  },
+  "officialEmbedSbom": {
+    "url": "https://www.python.org/ftp/python/3.13.16/python-3.13.16-embed-amd64.zip.spdx.json",
+    "path": "closure/python\\official-embed.spdx.json",
+    "sha256": "acbd1648d27c7bc5f7e48160c8e2ad9d0b8e153ba474f03a784d71562d35eeff",
+    "identicalToPreviousMaterials": true
+  },
+  "cpythonSource": {
+    "url": "https://www.python.org/ftp/python/3.13.16/Python-3.13.16.tgz",
+    "archive": "closure/python\\Python-3.13.16.tgz",
+    "sha256": "cfac63bddf956deafb1172ca131ae5dcaafd6f95056086e233fca205593ed427",
+    "officialSourceSbom": "closure/python\\official-source.spdx.json",
+    "officialSourceSbomSha256": "258bc0a3b1f72f1d65f4003ac27d856f7db7b9e514f6b75b0cbeb32c7ce61025",
+    "sourceFilesVerifiedAgainstOfficialSbom": 4863
+  },
+  "components": [
+    {
+      "spdxId": "SPDXRef-PACKAGE-bzip2",
+      "name": "bzip2",
+      "version": "1.0.8",
+      "sourceUrl": "https://github.com/python/cpython-source-deps/archive/refs/tags/bzip2-1.0.8.tar.gz",
+      "archive": "closure/python\\cpython-sbom-bzip2-1.0.8.tar.gz",
+      "sha256": "ab8d1b0cc087c20d4c32c0e4fcf7d0c733a95da12cedc6d63b3f0a9af07427e2",
+      "matchesOfficialEmbedSbom": true,
+      "runtimeMapping": "_bz2.pyd",
+      "recipe": "PCbuild/_bz2.vcxproj",
+      "licenseDeclared": null,
+      "licenseMembers": [
+        "cpython-source-deps-bzip2-1.0.8/LICENSE"
+      ]
+    },
+    {
+      "spdxId": "SPDXRef-PACKAGE-expat-2.8.5",
+      "name": "expat",
+      "version": "2.8.5",
+      "sourceUrl": "https://github.com/libexpat/libexpat/releases/download/R_2_8_5/expat-2.8.5.tar.gz",
+      "archive": "closure/python\\cpython-sbom-expat-2.8.5.tar.gz",
+      "sha256": "920dde485e15eda0cce8d2310b41d492c534e5e3d89ad407a0b4176dd2ff88fe",
+      "matchesOfficialEmbedSbom": true,
+      "runtimeMapping": "pyexpat.pyd; _elementtree.pyd",
+      "recipe": "PCbuild/pyexpat.vcxproj; Modules/expat",
+      "licenseDeclared": null,
+      "licenseMembers": [
+        "expat-2.8.5/COPYING"
+      ]
+    },
+    {
+      "spdxId": "SPDXRef-PACKAGE-hacl-star-bb3d0dc8d9d15a5cd51094d5b69e70aa09005ff0",
+      "name": "hacl-star",
+      "version": "bb3d0dc8d9d15a5cd51094d5b69e70aa09005ff0",
+      "sourceUrl": "https://github.com/hacl-star/hacl-star/archive/bb3d0dc8d9d15a5cd51094d5b69e70aa09005ff0.zip",
+      "archive": "closure/python\\hacl-star-bb3d0dc8d9d15a5cd51094d5b69e70aa09005ff0.zip",
+      "sha256": "e31e4ca10da91c585793c0eaf1b98aee3cb43e3a58d3d8d478593e5a6bd82927",
+      "matchesOfficialEmbedSbom": true,
+      "runtimeMapping": "python313.dll",
+      "recipe": "PCbuild/pythoncore.vcxproj; Modules/_hacl/refresh.sh",
+      "licenseDeclared": null,
+      "licenseMembers": [
+        "hacl-star-bb3d0dc8d9d15a5cd51094d5b69e70aa09005ff0/LICENSE",
+        "hacl-star-bb3d0dc8d9d15a5cd51094d5b69e70aa09005ff0/dist/LICENSE.txt",
+        "hacl-star-bb3d0dc8d9d15a5cd51094d5b69e70aa09005ff0/vale/LICENSE"
+      ]
+    },
+    {
+      "spdxId": "SPDXRef-PACKAGE-libb2-0.98.1",
+      "name": "libb2",
+      "version": "0.98.1",
+      "sourceUrl": "https://github.com/BLAKE2/libb2/releases/download/v0.98.1/libb2-0.98.1.tar.gz",
+      "archive": "closure/python\\cpython-sbom-libb2-0.98.1.tar.gz",
+      "sha256": "53626fddce753c454a3fea581cbbc7fe9bbcf0bc70416d48fdbbf5d87ef6c72e",
+      "matchesOfficialEmbedSbom": true,
+      "runtimeMapping": "vendored BLAKE2 in python313.dll; upstream context only",
+      "recipe": "Modules/_blake2; PCbuild/pythoncore.vcxproj",
+      "licenseDeclared": null,
+      "licenseMembers": [
+        "libb2-0.98.1/COPYING"
+      ]
+    },
+    {
+      "spdxId": "SPDXRef-PACKAGE-libffi",
+      "name": "libffi",
+      "version": "3.4.4",
+      "sourceUrl": "https://github.com/python/cpython-source-deps/archive/refs/tags/libffi-3.4.4.tar.gz",
+      "archive": "closure/python\\cpython-sbom-libffi-3.4.4.tar.gz",
+      "sha256": "9d802681adfea27d84cae0487a785fb9caa925bdad44c401b364c59ab2b8edda",
+      "matchesOfficialEmbedSbom": true,
+      "runtimeMapping": "libffi-8.dll; _ctypes.pyd",
+      "recipe": "PCbuild/libffi.props; PCbuild/prepare_libffi.bat",
+      "licenseDeclared": null,
+      "licenseMembers": [
+        "cpython-source-deps-libffi-3.4.4/LICENSE",
+        "cpython-source-deps-libffi-3.4.4/LICENSE-BUILDTOOLS"
+      ]
+    },
+    {
+      "spdxId": "SPDXRef-PACKAGE-mpdecimal",
+      "name": "mpdecimal",
+      "version": "4.0.0",
+      "sourceUrl": "https://github.com/python/cpython-source-deps/archive/refs/tags/mpdecimal-4.0.0.tar.gz",
+      "archive": "closure/python\\cpython-sbom-mpdecimal-4.0.0.tar.gz",
+      "sha256": "338fac3fb8cdd60f406b6326431338756f58a8af94229ffd9bf1e7c2b1ad71ca",
+      "matchesOfficialEmbedSbom": true,
+      "runtimeMapping": "_decimal.pyd",
+      "recipe": "PCbuild/_decimal.vcxproj; PCbuild/python.props",
+      "licenseDeclared": null,
+      "licenseMembers": []
+    },
+    {
+      "spdxId": "SPDXRef-PACKAGE-openssl",
+      "name": "openssl",
+      "version": "3.5.9",
+      "sourceUrl": "https://github.com/python/cpython-source-deps/archive/refs/tags/openssl-3.5.9.tar.gz",
+      "archive": "closure/python\\cpython-sbom-openssl-3.5.9.tar.gz",
+      "sha256": "d6cf0d9a651f25fe506f6b3dc133a80b9b79a0bc565f570dcf8fdbd597551485",
+      "matchesOfficialEmbedSbom": true,
+      "runtimeMapping": "libssl-3.dll; libcrypto-3.dll; _ssl.pyd; _hashlib.pyd",
+      "recipe": "PCbuild/openssl.vcxproj; PCbuild/prepare_ssl.bat",
+      "licenseDeclared": null,
+      "licenseMembers": [
+        "cpython-source-deps-openssl-3.5.9/LICENSE.txt",
+        "cpython-source-deps-openssl-3.5.9/crypto/x509/v3_usernotice.c",
+        "cpython-source-deps-openssl-3.5.9/external/perl/Text-Template-1.56/LICENSE",
+        "cpython-source-deps-openssl-3.5.9/test/certs/ext-userNotice.pem"
+      ]
+    },
+    {
+      "spdxId": "SPDXRef-PACKAGE-sqlite",
+      "name": "sqlite",
+      "version": "3.50.4.0",
+      "sourceUrl": "https://github.com/python/cpython-source-deps/archive/refs/tags/sqlite-3.50.4.0.tar.gz",
+      "archive": "closure/python\\cpython-sbom-sqlite-3.50.4.0.tar.gz",
+      "sha256": "fb5ab81f27612b0a7b4861ba655906c76dc85ee969e7a4905d2075aff931e8d0",
+      "matchesOfficialEmbedSbom": true,
+      "runtimeMapping": "sqlite3.dll; _sqlite3.pyd",
+      "recipe": "PCbuild/sqlite3.vcxproj",
+      "licenseDeclared": null,
+      "licenseMembers": []
+    },
+    {
+      "spdxId": "SPDXRef-PACKAGE-xz",
+      "name": "xz",
+      "version": "5.2.5",
+      "sourceUrl": "https://github.com/python/cpython-source-deps/archive/refs/tags/xz-5.2.5.tar.gz",
+      "archive": "closure/python\\cpython-sbom-xz-5.2.5.tar.gz",
+      "sha256": "a15c168e39e87d750c3dc766edc7f19bdda57dacf01e509678467eace91ad282",
+      "matchesOfficialEmbedSbom": true,
+      "runtimeMapping": "_lzma.pyd",
+      "recipe": "PCbuild/_lzma.vcxproj",
+      "licenseDeclared": null,
+      "licenseMembers": [
+        "cpython-source-deps-xz-5.2.5/COPYING",
+        "cpython-source-deps-xz-5.2.5/COPYING.GPLv2",
+        "cpython-source-deps-xz-5.2.5/COPYING.GPLv3",
+        "cpython-source-deps-xz-5.2.5/COPYING.LGPLv2.1"
+      ]
+    },
+    {
+      "spdxId": "SPDXRef-PACKAGE-zlib",
+      "name": "zlib",
+      "version": "1.3.1",
+      "sourceUrl": "https://github.com/python/cpython-source-deps/archive/refs/tags/zlib-1.3.1.tar.gz",
+      "archive": "closure/python\\cpython-sbom-zlib-1.3.1.tar.gz",
+      "sha256": "e3f3fb32564952006eb18b091ca8464740e5eca29d328cfb0b2da22768e0b638",
+      "matchesOfficialEmbedSbom": true,
+      "runtimeMapping": "python313.dll",
+      "recipe": "PCbuild/pythoncore.vcxproj",
+      "licenseDeclared": null,
+      "licenseMembers": [
+        "cpython-source-deps-zlib-1.3.1/LICENSE",
+        "cpython-source-deps-zlib-1.3.1/contrib/dotzlib/LICENSE_1_0.txt"
+      ]
+    }
+  ],
+  "excludedPackages": [
+    {
+      "name": "mpdecimal 2.5.1",
+      "reason": "vendored cross-platform source context; Windows recipe selects external 4.0.0"
+    },
+    {
+      "name": "macholib 1.0",
+      "reason": "Python macOS ctypes utility, not Windows native runtime"
+    },
+    {
+      "name": "tcl-core 8.6.15.0 / tk 8.6.15.0",
+      "reason": "No _tkinter.pyd or Tcl/Tk payload in exact embed zip"
+    }
+  ],
+  "relationships": "All 14 packages have CPython DEPENDS_ON edges. Relationships establish candidates, not platform inclusion; exact zip membership and verified Windows PCbuild recipes refine relevance.",
+  "nativeMembers": [
+    {
+      "member": "python.exe",
+      "sha256": "31fe10b4ed82a2f960af0ef9931f46a4b84ff286f8b6ffd9dee098cf4f10f17f"
+    },
+    {
+      "member": "pythonw.exe",
+      "sha256": "435e222945e1a110559fb71b5ebff8c3d698689b5e5eee0371815c1141d72738"
+    },
+    {
+      "member": "python313.dll",
+      "sha256": "3b29bf9ff39bed8f660f5b935f19657f7ce7f145009851741b11364f6ebcb862"
+    },
+    {
+      "member": "python3.dll",
+      "sha256": "a1a32b2475675e784d9b34d33d3a8f3e4afaa563da1feb784b0dd69fc4d8f9dc"
+    },
+    {
+      "member": "vcruntime140.dll",
+      "sha256": "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7"
+    },
+    {
+      "member": "vcruntime140_1.dll",
+      "sha256": "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e"
+    },
+    {
+      "member": "pyexpat.pyd",
+      "sha256": "3865fae84ff0f274c049e737731cd8aa184fae208af5b4c0d0cfc42a38f79cea"
+    },
+    {
+      "member": "select.pyd",
+      "sha256": "17df388a7aa42e7f066b80aa4f77cbbba9286495e6f3508425806be6766d122b"
+    },
+    {
+      "member": "unicodedata.pyd",
+      "sha256": "d113047658f92d893bf4ee2da81ffbd624ec5c485733c02e116fac1b9a1b964c"
+    },
+    {
+      "member": "winsound.pyd",
+      "sha256": "8450de54438b1698556b794400c3114b78ede8c10b13dcf263d646ef639ae7d1"
+    },
+    {
+      "member": "_asyncio.pyd",
+      "sha256": "6654dfbf4cc92609801f35022acaddd3fc19e6c777b7771b0f0a68f5813889a8"
+    },
+    {
+      "member": "_bz2.pyd",
+      "sha256": "6da4d453852346299e983b458f3ec2f0db3b5f765998ba3f45c91b4a1549037b"
+    },
+    {
+      "member": "_ctypes.pyd",
+      "sha256": "5bcddf4c374c4d247e1e4a61f3347159c36c5785fe43bdae11a4e6c9ea2c0166"
+    },
+    {
+      "member": "_decimal.pyd",
+      "sha256": "eeb278dfbdb305bb5af916ed79e878943e25dc4bd6e99ec17abb7b3fd9f935d5"
+    },
+    {
+      "member": "_elementtree.pyd",
+      "sha256": "34968e3aebdb3e89cb1472b75b04986ce1bbf27d290f4154d77649cc17c41fab"
+    },
+    {
+      "member": "_hashlib.pyd",
+      "sha256": "4d3eb9d9492d626c7bb10cfe5ab233a9195ec7b27e92b465b287e7a24fc8266c"
+    },
+    {
+      "member": "_lzma.pyd",
+      "sha256": "2b4dcb12c0420ffced4b91968ae4eff6cb585f0f07490160c6da47da63064a99"
+    },
+    {
+      "member": "_multiprocessing.pyd",
+      "sha256": "5017bb9dd0d5ab6d7c0f007763d7906d33464f0b436ac6577f1f4fffd5c98986"
+    },
+    {
+      "member": "_overlapped.pyd",
+      "sha256": "3f393b2ce1fe5973fc45e49dffcf51405fa875cdb284cf96b2f0d4b93b08765c"
+    },
+    {
+      "member": "_queue.pyd",
+      "sha256": "79c196a0804b152fc48b4055387f4352838e41c28863a0c946e7a98137e681e1"
+    },
+    {
+      "member": "_socket.pyd",
+      "sha256": "c5936292083189e0675a96ddd0e38235726f1c58195cec64eb0085b9c479ddce"
+    },
+    {
+      "member": "_sqlite3.pyd",
+      "sha256": "95d5b99f696cb33550534e8be80d31003db8b8a27062dfd6b09fdba4bb92f812"
+    },
+    {
+      "member": "_ssl.pyd",
+      "sha256": "30ff82a3ea0c675ddc99e6b14f71ca750f06e77d6653e2da3d7d35b7ef0fc2ed"
+    },
+    {
+      "member": "_uuid.pyd",
+      "sha256": "0d6fcf704721d4bae58cc754b15a3f8c36907b718874f6d7cbbaa363a14618b1"
+    },
+    {
+      "member": "_wmi.pyd",
+      "sha256": "f88c322f871aef92de562278bd25c34c6e758642669d5512a22ed972840317b1"
+    },
+    {
+      "member": "_zoneinfo.pyd",
+      "sha256": "b687deba154399bf6e44963e46abff518c3f987ae4fde087a3c891a1a1f08fdd"
+    },
+    {
+      "member": "libcrypto-3.dll",
+      "sha256": "75495fe0e079ab00d49be740d3c710a0b94e3f74f9648cb7cc9f768fc7f52319"
+    },
+    {
+      "member": "libffi-8.dll",
+      "sha256": "eff52743773eb550fcc6ce3efc37c85724502233b6b002a35496d828bd7b280a"
+    },
+    {
+      "member": "libssl-3.dll",
+      "sha256": "8957182a9c385bfd9f3f790921de2ddc614cf91f99edbed4e9e5446a46504e32"
+    },
+    {
+      "member": "sqlite3.dll",
+      "sha256": "2e3cf1b96e8afc679ee8bd69d6bde3aeb797b48b297b9cafd0eb9fd578eaafb5"
+    }
+  ],
+  "buildRecipeHashes": [
+    {
+      "path": "Python-3.13.16/LICENSE",
+      "sha256": "78b12c3a81360b357002334f0e70ea0e92eebf7a9b358805c03c48484945f3bb"
+    },
+    {
+      "path": "Python-3.13.16/Modules/_hacl/README.md",
+      "sha256": "ff4b18ba17546558b51aced06b4a36d99abbf35831c24d3be14925f319cb4cb4"
+    },
+    {
+      "path": "Python-3.13.16/Modules/_hacl/refresh.sh",
+      "sha256": "d8b79058056e8ed823d3191ab98a45196379989c51aafa918d4005f4bfeec7ab"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/Directory.Build.props",
+      "sha256": "e4e78eef6515c8e590bf6637fdbdfa2f860f9b37055b978bc3296d7ef68cb842"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/Directory.Build.targets",
+      "sha256": "c7e506c008fcc1e30bf360659a10000affcd6624f50565a85abb3b41cc246ef5"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_asyncio.vcxproj",
+      "sha256": "ef163b9b02c7d36eed79c5cf587624063dafe989344edf4df5e698c811ca01f0"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_asyncio.vcxproj.filters",
+      "sha256": "5931c2dd18d13e4a312546a0b07e818054870b29ec658ee6add7174364e82ec7"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_bz2.vcxproj",
+      "sha256": "1b094190bf482fcb706a5541839ba549d7d3b72cfd27dfd17e38d1e46dd6a695"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_bz2.vcxproj.filters",
+      "sha256": "74ff0cc77f13bfcd7aa5f3eb8585627b6a689945abca6f1a68f42b4696182747"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_ctypes.vcxproj",
+      "sha256": "2a987758adf42ba13202cfdcb7f05d14f50e73f83ef3e3fdb8e3e231933f79c1"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_ctypes.vcxproj.filters",
+      "sha256": "e48eddcc841a2a1f9e1741bf8342b72a1fea5f6e9dcbd5574ff78f96615384c9"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_ctypes_test.vcxproj",
+      "sha256": "9f6bfd6b7134b18e338a9c4d29a692c153317e7b2bb52408a9447a166b0ecdb0"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_ctypes_test.vcxproj.filters",
+      "sha256": "c36b67f6caeb719ef5f5d52043bfd4e6dc5fd40bb25275bb5585e01f78f7e22a"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_decimal.vcxproj",
+      "sha256": "98a96e657aa0b8b28d57cf241ab8f99e8c347b60fbb86bee32aee7d4a0488a8b"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_decimal.vcxproj.filters",
+      "sha256": "183fd97f1b0391a8ac485cceecc55255fb8dde409370444dcde25084dd3dda49"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_elementtree.vcxproj",
+      "sha256": "b204e1d0d355f588163ab610c11af3415fc628f77878e518701892c9420e29e0"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_elementtree.vcxproj.filters",
+      "sha256": "13f39d94fb9201d65ef5f8f0dd7ecf9ee23101637ba68ca02604385565af17d1"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_freeze_module.vcxproj",
+      "sha256": "ebd11ea3554c93e347544c1739a2aecd493d2f1356ab2194dabec0d6a8732ebf"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_freeze_module.vcxproj.filters",
+      "sha256": "be8d83ae2fd804ae4dbd0da133029dc84eeed62f4f984abe738029f4ffe63e36"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_hashlib.vcxproj",
+      "sha256": "e20d7596c982823580ba4b6e2bac81a359f8638982d91eb49fc03ae53bc5261e"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_hashlib.vcxproj.filters",
+      "sha256": "020c7c9d3da8a634af198455c581a3acd0d4ac8b122a086e2e34e8c6f21a7580"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_lzma.vcxproj",
+      "sha256": "64461af3ea0d9005ab580138dd6183b8a78af6b732f5fd5447645f0209ba7649"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_lzma.vcxproj.filters",
+      "sha256": "ba26cd4cfc1bca77efd3a5d100dc4ad174b40c18bf31ca6ef08ad54476d8bd0e"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_multiprocessing.vcxproj",
+      "sha256": "76455406ca80f926268313d46c7d356b8aa011baf17402f71abb357d140c8c09"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_multiprocessing.vcxproj.filters",
+      "sha256": "8a6385cc53532d07f7068c86d9eeece1d24b4d9a9d8e50c93d7143ad819f37f0"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_overlapped.vcxproj",
+      "sha256": "feaa38c8ea15767c49a60a3cb56b3aca9746399a46056be90423ead077b03945"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_overlapped.vcxproj.filters",
+      "sha256": "eb2c7da9d4f1c82c8eaa4e784196cdad3d2fb56a2adc66911d32934a14972140"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_queue.vcxproj",
+      "sha256": "06524439ab63213ea547689cdf5f64f00e92f3dc0051973c2c9785b87eaae4df"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_queue.vcxproj.filters",
+      "sha256": "617c25e8bf1dcc77410475097f86aa77e618b7f94cbc01841e118c54a59eac63"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_socket.vcxproj",
+      "sha256": "f923d71fe5f7682d68368654c2e9851404cf35e839dc705399604df85bb0ee28"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_socket.vcxproj.filters",
+      "sha256": "18844ef9248ab085502d6a5b59ed04b265ac15e21e1244bf266ed95846f90397"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_sqlite3.vcxproj",
+      "sha256": "1e88f4e7a26d06f044ae10828868cd782122539f61af81b2b114a09fdd6bfe10"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_sqlite3.vcxproj.filters",
+      "sha256": "9ab0b397f0e0e11e29ed60b8d33705e0940da4e61df1bcff25c3cecce006d095"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_ssl.vcxproj",
+      "sha256": "8dd91c097f2d51572b46f451b9e72a394be8493a042b3c91f2d8b13486cd2765"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_ssl.vcxproj.filters",
+      "sha256": "89412694bc2137356687b7e1ff34fcffbef23feebaafd080f6a67d361881ad50"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testbuffer.vcxproj",
+      "sha256": "47827ca2aa6ce764ba51b39c038f2bcab29b5ed79375c80c4c4c6403608773d4"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testbuffer.vcxproj.filters",
+      "sha256": "3833389d7607370ece464560467d7b705ac2da7a745a27496c04da965cd9b93d"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testcapi.vcxproj",
+      "sha256": "8f5deccb37feab0f692bae8a2374076a02f88c98356ee88d44ebd47c0b035815"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testcapi.vcxproj.filters",
+      "sha256": "3734d062cbf218b17ef6b4f6e2fdb0706bf1641a7a7830f5022f3ad7cfb69820"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testclinic.vcxproj",
+      "sha256": "6615548959551b518eac27b694af29d16292a4e4f7e676e96a97b928bf29440a"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testclinic.vcxproj.filters",
+      "sha256": "65499c924a568d8eb8d63d7c4528f8336975e3620b15cd2c2c20eedf25d74497"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testclinic_limited.vcxproj",
+      "sha256": "210eb5c7871e92f4db4165513c6a1db2ee0a32261ab90ff80f7c316b20f8cd34"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testclinic_limited.vcxproj.filters",
+      "sha256": "04c47a2123041056e9da38df8234964f001bba916f5e47b4d7dcd8d734060662"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testconsole.vcxproj",
+      "sha256": "624bdb6f1ff0f8e7b88678ada21207f2229b7c32b257f31c033e373715af3dd8"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testconsole.vcxproj.filters",
+      "sha256": "cb703553602fd5ab0438fc09f724c907200d6903ab2d8ec14a95713e8b31fa88"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testembed.vcxproj",
+      "sha256": "93522d72760c2a8e705cc568a232f92575e3fbaa9a52e04474e3219ff3cbfb8b"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testembed.vcxproj.filters",
+      "sha256": "81ef0b560d5f51e3264622c00ab3b634f4c4e64f30bcc91cbf0b85acda006fbc"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testimportmultiple.vcxproj",
+      "sha256": "9ea370efcdecb811a992dccd182b2e5d8e4188f22888c9485c9840975ba6e6cf"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testimportmultiple.vcxproj.filters",
+      "sha256": "a578aa9022550319131b50fa99237e8effbc6adb04a30ccdb30437d10e3b341a"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testinternalcapi.vcxproj",
+      "sha256": "391481a85e67bcc13bc2caf02b7bf288eb9c6635dc7e945ed9f872f37f7c8b1e"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testinternalcapi.vcxproj.filters",
+      "sha256": "5adb589b2f5dc16bbb2147644e183a0e79609357d95db7034aeef4131341f46a"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testlimitedcapi.vcxproj",
+      "sha256": "e594e71c112e0b3922451b4564c079a60a0e0754dd3da3753029ce342857f03b"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testlimitedcapi.vcxproj.filters",
+      "sha256": "82ad44b57f444d491f6b0699384bc2a537ccab68f9f743423ee7754e65f91612"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testmultiphase.vcxproj",
+      "sha256": "596335f9f18338ba40d6d9b74afa3e0a42da5d049f5f510bf12cedd858c679d3"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testmultiphase.vcxproj.filters",
+      "sha256": "b1d136180a372129fc379e992bb456fb760fad2fd285194a0c527bcee99ed65c"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testsinglephase.vcxproj",
+      "sha256": "e10f1497aafa0e74963318d253828407225182a6dc842f915194a3939f2e13ad"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_testsinglephase.vcxproj.filters",
+      "sha256": "af2fa12e6fb835f6d6fd2a382fb75bab587d99c7778b77ba1f68d85ada05ca3f"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_tkinter.vcxproj",
+      "sha256": "1251281043aa35f0007c89cbb171826126189921f0d7cef4f25bd526dffd0ebf"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_tkinter.vcxproj.filters",
+      "sha256": "5b1b086035559f32f1f5fe30e4056e2e671e8ec8e51c627961302d00e40ea578"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_uuid.vcxproj",
+      "sha256": "eb0fe319e630faf3e3a7c13cc2a3cf51a57b5421566bfcc7b6bdf1d2b7edceb7"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_uuid.vcxproj.filters",
+      "sha256": "7ede2b07e47d143b00a40aa052489108ffced5094eb5f2edcbf5eb61e7f46f85"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_wmi.vcxproj",
+      "sha256": "6db3e19e12f20692c3b04275990355bf6588e65ceaeb3e12ccb24f85c90a855d"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_wmi.vcxproj.filters",
+      "sha256": "21c452037732749d0cfea8e15ad7041561ec9d6619612727bdcca06c793602a1"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_zoneinfo.vcxproj",
+      "sha256": "0760506e9e292150cab5a6e26f4a8336026d7a55fcd5c0048e1979366965564e"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/_zoneinfo.vcxproj.filters",
+      "sha256": "17f35479f508d3a2d80b6b880b2f2ff511bd66d2a2b7ab49d3750dc4b26a20fd"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/blurb.bat",
+      "sha256": "41d4ebffb6a0805f89d7910a91180578f9624cadb3a17ff6facc5cc3bf8d531b"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/build.bat",
+      "sha256": "4d0b37c531a9643a91ff3c8fb1fb7c232c347e4b9cd2807e8e6b023a51dbf112"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/build_env.bat",
+      "sha256": "5a4573969b11acebd0ce59165dffc1cdc66fdb89398fd45bf7fe6df8a73cd2eb"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/clean.bat",
+      "sha256": "ec1fee5f615eed638c806bed3e176207d042343534fe6eefbac552539aa96f59"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/env.bat",
+      "sha256": "eab30c6be3d477b202f7d2c6f9622d9aa25232572e3c90d3127f9efa4063affe"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/env.ps1",
+      "sha256": "ddae8554584df3ee5a4311ce9164627bc350dac48c02aa9fd14f9b52e974c3ab"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/field3.py",
+      "sha256": "aca5200a8bba2344a539ada006a47bf1bde0a3b491f62739f4c484900cfa233a"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/find_msbuild.bat",
+      "sha256": "4980b49c20b4851763220090475575c79d877a3daba3d400bc3213a9a18a9c30"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/find_python.bat",
+      "sha256": "33ba6d5de71f7d42bb5e7a2a780b3bd841f4d071cae8f16b739c194a4b085203"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/fix_encoding.py",
+      "sha256": "368656df0d39944ea2815033e81b2ca70134f06c399c612c9b5760dc83a7f9f9"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/get_external.py",
+      "sha256": "4387f99e1e3de7b183f2c893ba0a2c7ea406da028c6a7a4b5284f47cd1f0c26d"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/get_externals.bat",
+      "sha256": "4b32c5a58daac7323abf1576459b8d9a1d12cf784f775796cc8f14951344483c"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/idle.bat",
+      "sha256": "df0de322bd27ccf9c5c66d01db2fe72551f4375d9ee7ef91a7c279c722229b03"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/libffi.props",
+      "sha256": "9f455f82acc22e0026f54d8af20213d880009b3e6206f699753eaa483d398fea"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/liblzma.vcxproj",
+      "sha256": "ab6962d94994a9617fb7afb0ed23597f69721f87f9563a1e7a555f720c4e9d83"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/liblzma.vcxproj.filters",
+      "sha256": "e47da2c5976b4274ee773faa541c03009ef250f91d6b8b13ce731dbda0a22f5a"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/openssl.props",
+      "sha256": "02c2037ca9a4e89fa2ccfb557f51b4a71672bbbacd2bbd3851026f2e7f8dea0e"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/openssl.vcxproj",
+      "sha256": "704e76f4b00900ab40123a00d3f329c5bbdaaf20bd27817324cd0d10d7eef9de"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/pcbuild.proj",
+      "sha256": "4356a524c9a81804fbb31fdf5ec5237d86b689c24b02a56204afe27a318d4530"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/pcbuild.sln",
+      "sha256": "bf7e31c305fa3e04222f168f73988dfa7857ead435ac47ed0d6f1607b6dfb0e7"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/prepare_libffi.bat",
+      "sha256": "617b434a4f79bef8934a0d5613c88ff859a2f95dba13b4521d3ba317cbdbeb19"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/prepare_ssl.bat",
+      "sha256": "bc033317ee210d8e9c4fe60fcbf41fe20dbe601c229a68eb431af545edfbce32"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/prepare_ssl.py",
+      "sha256": "520dfd1eda8917d81c1c7ad9015503df80e4f35ce83a69a3b4ff38f1460c5114"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/prepare_tcltk.bat",
+      "sha256": "237c5bc373a7c1ae1221fd3f76c968b38ba02ae71d4c3a53a53e0a46d0e2d21e"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/pyexpat.vcxproj",
+      "sha256": "09108fdff3c953c70448980a76332e58357493a549073d72a83974f0c822a492"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/pyexpat.vcxproj.filters",
+      "sha256": "68637b6695241e8421303f073434e82d8389f8882442ed202e950b44b5013574"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/pylauncher.vcxproj",
+      "sha256": "06fb244ce06166884543fdcdf180dfeae053325d0b81706d7f93f602c8f197ee"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/pylauncher.vcxproj.filters",
+      "sha256": "1c6c7a3618045ece9c7c9d48b38f7d5ba77a32417a9180b6f3db82187e4b71fe"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/pyproject.props",
+      "sha256": "3ecd18a1526d2337f9100119b1efc50cb5b36c33cdea1cc7ec73b0d627add914"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/pyshellext.vcxproj",
+      "sha256": "40542d1ae70e297d59a63fdd1cfad190f94ae773616045eac8b93a70e63f68c6"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/pyshellext.vcxproj.filters",
+      "sha256": "2ba7d9dcb58c588106d175fbec87aa53418f67b06c646af17c107de729151bd9"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/python.props",
+      "sha256": "9fd0d0d7869c1096a6b1a95a3173f478c1e74235d383d79c45191fe8d286ff1a"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/python.vcxproj",
+      "sha256": "0a1abd022e6e947833931344e944e1fa567e8a12c2ce652ba88145bbc122a8b3"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/python.vcxproj.filters",
+      "sha256": "80090675a7d4781ffe90fce94c040abfc6093374dd5e2e8f558c22c3b9cda2eb"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/python3dll.vcxproj",
+      "sha256": "eea4ef4720d3ef7946b523083a325c9047837a92ad7612961788e266a1bc4c4d"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/python3dll.vcxproj.filters",
+      "sha256": "a9d2b61a96f1b4ab9661eab8b0e85f4b92eaaa1a59f16684c4e5c1104ee8accf"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/python_uwp.vcxproj",
+      "sha256": "33ee058f49eb42773a3d8e904eb4796532911de76cd99edec37c454ee51baab1"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/python_uwp.vcxproj.filters",
+      "sha256": "8255be5eeb9d71bf083a8773726cf961ce1f8915aade6cd533156310a62f0624"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/pythoncore.vcxproj",
+      "sha256": "def5be1ad80c0b20c22fc2ad05cd299113d71adc09faf7a58d652a11b08204f1"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/pythoncore.vcxproj.filters",
+      "sha256": "7fdf058ce7039e5ce74b0a10a6216c4f903a85bec44c7f3f78613a571ff68d55"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/pythonw.vcxproj",
+      "sha256": "38efacbbe460965a0a34eae512d0c0aadc8d8003ce95e396d2a79a6f1ab7c216"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/pythonw.vcxproj.filters",
+      "sha256": "37e86590e610d6a240fe8b7319449f8efa6dedfe1224786c3cb2c87b2cfe312c"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/pythonw_uwp.vcxproj",
+      "sha256": "fbabb739ec8d9d97a2b9c6aa4cdb31ab67f5ddd663c7ce8bff72b67dea12e655"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/pythonw_uwp.vcxproj.filters",
+      "sha256": "5994921ffc76b52dcfa10b6933a6d82946918dca42b238078d2defd6701522be"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/pywlauncher.vcxproj",
+      "sha256": "e33a4c25439e0e1c4f7052da1f6c7562fe92dbdf9ea87f696c30ce9f55935eaa"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/pywlauncher.vcxproj.filters",
+      "sha256": "1c6c7a3618045ece9c7c9d48b38f7d5ba77a32417a9180b6f3db82187e4b71fe"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/readme.txt",
+      "sha256": "4dd911304ff680e5e79462aeb17be213ca03ec400243090424daaf6e3923c734"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/regen.targets",
+      "sha256": "36b31667dfdc1279c71a372ce26a387d262161e9989ab032dcef80b25e256ec5"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/rmpyc.py",
+      "sha256": "7b2fc68e0355cfd8c2cd57dabdf1dda022b78a6116cf18f0bf70954184222354"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/rt.bat",
+      "sha256": "7f7780d9417de170cbc68369970d55dcdbdc8dcc7add245f35d9a77cf27e340d"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/select.vcxproj",
+      "sha256": "9ff231ccebd01871038bfe50890a88d6b557a9d91caaf976a3a7cbf6753c0c01"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/select.vcxproj.filters",
+      "sha256": "45cc1408aaa6e73469df08b04403dfff74bea81110a2990790beabf3214fe0d2"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/sqlite3.vcxproj",
+      "sha256": "2aca4da6b1c43bcd24f6aa22fd9121dba6307a20b7802ab1d33fb2b7a62386ce"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/sqlite3.vcxproj.filters",
+      "sha256": "cda75713684ffae7580f7e7a9d4fbf19b30e45779acca61262efd7f22e65982d"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/tcl.vcxproj",
+      "sha256": "2fbf103ba468e2c660af2d192cf11d9cc110218f6e330d6b401b34a69b6a0a11"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/tcltk.props",
+      "sha256": "1cb39d198d11c7034d7e31d3b357826cb6554e6deafcd8dc9e19139420040ff0"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/tk.vcxproj",
+      "sha256": "8879464d1cf394c5e651bd8c4cec70d377ad76181a3e5131984e8a1e70e60127"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/unicodedata.vcxproj",
+      "sha256": "876763670cc1f920964c96daa266be3d8e3d68fca1f28a840cff5d8ffcdf1fc3"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/unicodedata.vcxproj.filters",
+      "sha256": "c2028fb18ecc2192dae32d2870de530fc4bef36739624e63750ab5abb5c4bd87"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/urlretrieve.py",
+      "sha256": "0e1e32fb05e2642e752a88b43912b9b028eb844bb15ef82202df305e4f410b4b"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/venvlauncher.vcxproj",
+      "sha256": "e5e7550a5afd7145ce2ca38babe97c7bc0d279645f61828a689a324da6a289ed"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/venvlauncher.vcxproj.filters",
+      "sha256": "a1c42fc61ddea03a690af8391347f005b5cf4a730b0481c1c3ebe68591f6349e"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/venvwlauncher.vcxproj",
+      "sha256": "6d5e344700f027816dbbe06dd2587d70dfbe339b0c326be861757c92284fac1f"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/venvwlauncher.vcxproj.filters",
+      "sha256": "463f72cb61504c961f82f5ee5e578d5c6e656f0536c1bd1034507f943ac07360"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/winsound.vcxproj",
+      "sha256": "008019ada06e8b742dc70e8bc76055cf3dad80603acb38c7e4c438ee711379ce"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/winsound.vcxproj.filters",
+      "sha256": "939371e07322ee8c7367c7ddd0edf7c829ede5bbb4ce6359b4b9174299c778b0"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/xxlimited.vcxproj",
+      "sha256": "c69feb4e94f236f9ab3b3404e259aeffe61d4dc399f09f9464c26858e3bf2677"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/xxlimited.vcxproj.filters",
+      "sha256": "f6dfb4ecb15700170decac5a5ed99c96fbc117ad7560d2ea9623212f4ff2c6b5"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/xxlimited_35.vcxproj",
+      "sha256": "cdcecd7ca2f2a0718a5731660ac2f1368705b726aae40ac4437b95a94acb203e"
+    },
+    {
+      "path": "Python-3.13.16/PCbuild/xxlimited_35.vcxproj.filters",
+      "sha256": "4c0dbe68c1f71e788cbbc798d9f379ce7943b1c11ea27bb0f5b7ca4445ce63a1"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/README.txt",
+      "sha256": "66231d521b1bc7cb94ee91d167bf7f598c4503a08727b1d4c437945e18bb59aa"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/appendpath/appendpath.wixproj",
+      "sha256": "4dee85139c3823c36cb9f123c3778593591848a8eb0516104e1d867bc680d9e8"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/appendpath/appendpath.wxs",
+      "sha256": "d152895e4604eba39757f2b0f9734ffc979c9fcd7ca1c6bc848bbcaff4792ca4"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/appendpath/appendpath_en-US.wxl",
+      "sha256": "f7605f8a1a46a4491c43c7e6b982ea15782984106af722279c347179a759ee06"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/build.bat",
+      "sha256": "e132dd2f11ac69591b2be7bd6917262425ad29b8d485bcb104b5cf23b9aee3b9"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/buildrelease.bat",
+      "sha256": "3767ba0b9d99753a15aab79fe1fc1940e7ff153ce5716d35aa85abb7903e3a6b"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/Default.ARM64.xsl",
+      "sha256": "fe8e9e5bfa2281e40a4b4fec9c374bfea23104e4d56e6f6ce6c1b8e4b900bf06"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/Default.thm",
+      "sha256": "07ddf9253203080a557771dfb2d3eeb6676bb528b14cd16e3126578f0b894dd6"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/Default.wxl",
+      "sha256": "06b1d0c6764d76e89ab876873b3ed2262d38acd811d96fc8f5077deb7124bdc7"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/SideBar.png",
+      "sha256": "79434bd1368f47f08acf6db66638531d386bf15166d78d9bfea4da164c079067"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/bootstrap/LICENSE.txt",
+      "sha256": "cb95daf98edda8e08a242e1060691b6941f0911692bf468a3f9c5e4b58c09b8f"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/bootstrap/PythonBootstrapperApplication.cpp",
+      "sha256": "de908353e86fe2384998bba96f5d89770dd846ee06e1fd17cf39f0ba8ab9033d"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/bootstrap/pch.cpp",
+      "sha256": "b7cb2190d8f04fa432c3b0af4288f41d8f20a178325887619ebf61d2961228e7"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/bootstrap/pch.h",
+      "sha256": "57621fb9b42ff7fcd23ab165706ee9eceaab48da312a1b6bb7e46dd804caaad3"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/bootstrap/pythonba.cpp",
+      "sha256": "462ebd5aece64ed0d798ab1378f01666e7171deabee312aef233e46bf1799a6a"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/bootstrap/pythonba.def",
+      "sha256": "637c7e61ff8b259e6e4d994bccef59338c1d2e5ffed6263a5adbf167a88d13e4"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/bootstrap/pythonba.sln",
+      "sha256": "a212c9ae9c01ffdf01532ecb3bc967560a24e461f753146754071bb57e731da4"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/bootstrap/pythonba.vcxproj",
+      "sha256": "27f01c9dabc18a915f65f44252f8afb4e7ce077220b293d03a304b61e83407da"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/bootstrap/resource.h",
+      "sha256": "e38f2c3bd446b4c347ba7c922aec3fdf1dd933636f3c573083743d42b385c4a9"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/bundle.targets",
+      "sha256": "ebbff050bfd63bc3b1da37bb7c93afd43ee4ef353bdd69d3db62552eca923c2b"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/bundle.wxl",
+      "sha256": "7b4a552c1cf6f20d08850fa28fc3f348f6e06bbb5767b6e85828015ee2099309"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/bundle.wxs",
+      "sha256": "d1a8190b7bfc0abb1da80a2735c6134f1f3a7ab525a9655dc984c84aabdb80c1"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/full.wixproj",
+      "sha256": "e26cd475f5eff12a7c6da058ed67ca089010a1c08f938589883b77025929b9f6"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/packagegroups/core.wxs",
+      "sha256": "2cce8371410f6735950996ac2081e0aba5b84f01ca3c5f6caf0360e5b4167c8a"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/packagegroups/crt.wxs",
+      "sha256": "c6f691a90e7e46b3f0f7e8b30deeeeb4172fa90b94cbffcb5db209a21a88bb22"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/packagegroups/dev.wxs",
+      "sha256": "cd10684f33fe1e5b7d61e64d33ba4b391e645782af54a48d6c62e59bfad44576"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/packagegroups/doc.wxs",
+      "sha256": "5cb2641871b42c05116f4d0259d733d14eaf85128c1dc002d3db05cd885c76e1"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/packagegroups/exe.wxs",
+      "sha256": "533bba52d0ab231d73a16278a426617418843539266aa5a6e3159acc37709cec"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/packagegroups/freethreaded.wxs",
+      "sha256": "e2da436c2d49268e2aa07c14c8afc0cb7c0aa6812767e45e5986840ab483853c"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/packagegroups/launcher.wxs",
+      "sha256": "de4a245dc6f0b0566946ec7d91cff19415e6858600f50d223a7ef73307cf7984"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/packagegroups/lib.wxs",
+      "sha256": "0f75ac838137234bee48fe11c2040c94b8eeb5fcf52ca9b206e4a3e3f7ea67ac"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/packagegroups/packageinstall.wxs",
+      "sha256": "89a8d617a7e6660031efbdd067c6c0e4b318cfaf5e94027e636f26bd42c72d8a"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/packagegroups/pip.wxs",
+      "sha256": "2f634332701fbab74fe53488a15ca3a30deac07c7fd5f0e10888d7d65d772050"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/packagegroups/postinstall.wxs",
+      "sha256": "8263bef490c4700d2dd3b05fe1a203dd1f58cbe20293c4e6353770d23929773a"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/packagegroups/tcltk.wxs",
+      "sha256": "78111dc1362064f88696a0cfdc02350585b6155df807580c695cb8e64617c5d0"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/packagegroups/test.wxs",
+      "sha256": "d0c4a6c54a688ed1c6018b00abb23c9de7f22de54e51881fd97d086a061373c5"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/releaselocal.wixproj",
+      "sha256": "323966fb68a376649465573562443cb915b1a871565d743a8b2fe3490422bc17"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/releaseweb.wixproj",
+      "sha256": "65cf32c00a59f1eaceb96e28a2705fdcfcde6c0a433f435b1ab5e7b451919062"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/bundle/snapshot.wixproj",
+      "sha256": "43a9253a8226c5ff5c6fda20772d18f1bfd25275b5a21a3b4907260d8318b5b0"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/common.wxs",
+      "sha256": "207375c29ded8c3717f906776c3b84734a87736a7524672a4e40a4c6bc956521"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/common_en-US.wxl_template",
+      "sha256": "991cde2d01f0488fb2caf424a93b0cd1b04bacc1945a8599aa3c56e0cba93760"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/core/core.wixproj",
+      "sha256": "3c64b772064588ee9b3acda840369ccbebb65c0269c60e9b3df21dcb51a47233"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/core/core.wxs",
+      "sha256": "b91132c415dfde231e8bbb2a43d7c2a23f969070fbfd9b5e0f65972dc10cebd7"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/core/core_d.wixproj",
+      "sha256": "8fe3ddf6ef481e35d5f90206a972ba5015e07b3adeeef239da2d157ad6ea203f"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/core/core_d.wxs",
+      "sha256": "33ab4830caa596f5d8a423011c3a85ac21720a2d6c7cd46e2e4681f20af2221d"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/core/core_en-US.wxl",
+      "sha256": "559eff9e3850c4eef1963928799b7a0ad08f83a917e22f044871e618701b448e"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/core/core_files.wxs",
+      "sha256": "8812f64c41da7fb44d57f9995ff1ad808d179cbda7eac64b66337722df1c1357"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/core/core_pdb.wixproj",
+      "sha256": "db7ba912d53ed93caca7df229ad75fefd00e75677018d784ab6c727e2ecfc6c0"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/core/core_pdb.wxs",
+      "sha256": "9f39ea3e25aa177c3135b33aca162b307f1ca90e22ca095af4c770ac549e11b3"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/csv_to_wxs.py",
+      "sha256": "e0d5acf8ccc1315fdbdaf623c1e669a2a2fbbd04c71ad6c7af3ca74257d1a058"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/dev/dev.wixproj",
+      "sha256": "b0b771b8e71f7a790b2ab15475bf5aa5a660ba56e9848eb6501705294d836b08"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/dev/dev.wxs",
+      "sha256": "226c9dcdf07b49584903f03c5b3ff63feb199f9dfc96def6388c6ed1ef4bfd74"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/dev/dev_d.wixproj",
+      "sha256": "7bb3f96c2548e55358a804d3a85ebcaba5ebcdb08e5a323c0afa103a1249c990"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/dev/dev_d.wxs",
+      "sha256": "4cc01c234fb8498683cbb007ce29ed5be59820d4e4a8f30dca52db2216d25f28"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/dev/dev_en-US.wxl",
+      "sha256": "0698086c0da8cd098d32cd17ba4f1e1ca6b7358464db2a87f0addabc9dbcc4f6"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/dev/dev_files.wxs",
+      "sha256": "1ae312d47b1816e5704dd7bec440c21b3e20c59ba5da8406599ea163bd886902"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/doc/doc.wixproj",
+      "sha256": "24b2b52e43724bb93a84c37941f037eb2a08b87efd1b076bb94b024406159f79"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/doc/doc.wxs",
+      "sha256": "b6185772337027b9497d0b9cc4fcc1c5897b3822dbd31421c96cf1be4191137f"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/doc/doc_en-US.wxl_template",
+      "sha256": "140a8180c3dd9576d273d32ab30e85b41e9cef7563c594c4a3b8251769f1f91f"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/exe/exe.wixproj",
+      "sha256": "f839c68af518fab80373505db02c551d8368361a74531c47947a805b1f9a5d04"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/exe/exe.wxs",
+      "sha256": "bb2cdcbe11bfd7558d82594ac1f8b02260d7de7568b1173183c74bfd4bae50af"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/exe/exe_d.wixproj",
+      "sha256": "2150aa0a1af0f0e5c8ac3521cc4acecba65eaea5120a5a8c9b6dae28c41391b5"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/exe/exe_d.wxs",
+      "sha256": "0dde09a6a388f0cd0ac8b01e42c949ed5d81732f7277ddf9af568b8ba91c7ac3"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/exe/exe_en-US.wxl_template",
+      "sha256": "d31405fb01e1d4bf4b5cc1a80d50220be4b17c99e1b30b067c48b963439e5279"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/exe/exe_files.wxs",
+      "sha256": "2c456f4d9b0a76c14c0e518bb131f8d6f7e5da861ebce56ac20fb84599df75e7"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/exe/exe_pdb.wixproj",
+      "sha256": "e0cfc4b50b6f4f9bb1b66a2cc80ab2d17723ecaba89b309a5a198a8cff973441"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/exe/exe_pdb.wxs",
+      "sha256": "43a8366bee1057a2ac2104d4fb53740ee312e00594b5def1d30e60cda175ba1e"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/exe/exe_reg.wxs",
+      "sha256": "870032a8261f5f30b5500d7d3427d7c89060c307cf67d2fcdba18baf19031e90"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/freethreaded/freethreaded.wixproj",
+      "sha256": "4cdbbb50f8d8e1a30cd5ffd0b86f2ef5ed51d2873312398856addc4e9f5bc3a1"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/freethreaded/freethreaded.wxs",
+      "sha256": "7b8139d05eda52d11c4270c871797e83ee0d9a052a3b1074b0542b9b472be746"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/freethreaded/freethreaded_d.wixproj",
+      "sha256": "fe9e63bd3cbbb55731dfde04e7e1304eefc404075cedf722366670dd26015aa4"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/freethreaded/freethreaded_d.wxs",
+      "sha256": "57a7bcb362ce6919d987aaeb612470c48382cf5ff28480716a3ae28463624488"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/freethreaded/freethreaded_en-US.wxl_template",
+      "sha256": "a7c830ffb72fb335e0577bd5bc623b636a18e8c47d37af043c2483b00edf0c71"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/freethreaded/freethreaded_files.wxs",
+      "sha256": "793fdc38e8440f895d50a5f4e3baf49417bda676ededb7d52edae9963e623e98"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/freethreaded/freethreaded_pdb.wixproj",
+      "sha256": "e3e8ea7d8547b325725d1ffa1477dbd399acb1a9040675abe4acf82e8bc50e57"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/freethreaded/freethreaded_pdb.wxs",
+      "sha256": "af3bee44591a94ebb4c06edc406a922c57330084104f280769baf2a47186fdca"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/generate_md5.py",
+      "sha256": "657066af2bfea6102f52289218c493f09f04734e09bf3a06aab3469ba9b46d1c"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/get_externals.bat",
+      "sha256": "c8615e78cc641d8c33f87614a8f19d7c58b2bdb6322258a2a8f47456a72f169b"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/launcher/launcher.wixproj",
+      "sha256": "d4c96451288acc60c99bc37cf8722aaa5a5f9427cf6b4185acad0b6e03842784"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/launcher/launcher.wxs",
+      "sha256": "22d055901a3aa1d56aa9876572445295a8b92f7be10ecf5d420d8b986e2941ea"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/launcher/launcher_en-US.wxl",
+      "sha256": "562e820df0b5db1977dac06c88892e4df3417bce85a11f740edacdb44c028edc"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/launcher/launcher_files.wxs",
+      "sha256": "8879371424423255da67240e4f07eda6de7bf09f018154523e248f02ba77e646"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/launcher/launcher_reg.wxs",
+      "sha256": "9c71b456fe7858f3e8037aa1b6ec50014c537765837e3b9eb5a8406585d75b31"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/lib/lib.wixproj",
+      "sha256": "8f4d0d95044c2155b17e1242ce572c626c498f82b8a3204bb2bd6966caf4f426"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/lib/lib.wxs",
+      "sha256": "6f36b5e79ffcb85bca3b32a65dd1525165f1077f999a865aea323ea2106daa76"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/lib/lib_d.wixproj",
+      "sha256": "4beadb75f4e9af42a6f1914534203fa27e17ad168c02daa94dc7a2b3efcd7533"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/lib/lib_d.wxs",
+      "sha256": "ebdc216a010d406d94f7401950c8e4d883bf1e6487ccc6b799325d79d4b7ba0b"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/lib/lib_en-US.wxl",
+      "sha256": "2c8b271b2c2c81298d13dd3b841e30b102e9b11a90351a9cf30969cf84365507"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/lib/lib_files.wxs",
+      "sha256": "b7c90aa80ce491953e8976c3be47c9090ee7c56c6f70ef6a6bd0d0ebc76124d3"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/lib/lib_pdb.wixproj",
+      "sha256": "d38862ff71f84a237f7c52cd44ca8cccdb8ca90903111a756d6dafe097e62ed7"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/lib/lib_pdb.wxs",
+      "sha256": "ce32af79efb88e36663d29a9bb0b49ed1e935eb09af00191456779a7d4001fbc"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/make_appx.ps1",
+      "sha256": "4dc32977106fd6d39ec6d01368e5bba4243ae3524adad326e8b6d7764dec3fb6"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/make_cat.ps1",
+      "sha256": "9db7a894ecac78fe93e0a3f0b20647149f7ffe9261e2e5c960435fe4e462e898"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/make_zip.proj",
+      "sha256": "2eb914e28ca61ed2d4fd047bddb4770d7197ccb6fa11ebc7fe48fdc36b5471d5"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/msi.props",
+      "sha256": "29cedca2f1011c7df280a6ee04a8aa22ee8fa71c5115270391c44d12b24e9848"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/msi.targets",
+      "sha256": "aadb90207b3fe960049f72c7efd3f1b1a56b2c5adbfa36bdf177a348a21596a4"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/path/path.wixproj",
+      "sha256": "7e64778e4e1d4475800f44b76a34c4f1b6d818bbe4f9db786a51973dc43b4d46"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/path/path.wxs",
+      "sha256": "c7ebdfb9052d966814ed6259787670320cd7e253657ff6a1400b6c5d695ca9b2"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/path/path_en-US.wxl",
+      "sha256": "4bcc6e93c797d1af4a64b9a7b51da4f3f6b28ed6fc75c9fb2f9e08e5250c5dbb"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/pip/pip.wixproj",
+      "sha256": "7a471dd0c2da7774a21faa3b25683e8fc532a0a3dd8aef03620d884ca2df8257"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/pip/pip.wxs",
+      "sha256": "d5dfac2680d8bd378ad058a094dff3c1747dbaa02c19544abe44b4751aa74fd4"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/pip/pip_en-US.wxl",
+      "sha256": "40eff7d5ce98a6cbc01490a680f5c208e75ba308bd7dddfb901c2462d38666cd"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/purge.py",
+      "sha256": "6aa7aa82e3d2631c6d4cd9ab50b316fbac49b98f05f051af1d155c95c3e0142d"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/sdktools.psm1",
+      "sha256": "ce168a62a56acdd86282aa6f38d0d47ba89e2539879a84d64e400eb68e52a5ff"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/sign_build.ps1",
+      "sha256": "94a8bd6159f9dacad56bdd22c0589cd8e5e07219e83bb13ac60dc97fe3684fea"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/tcltk/tcltk.wixproj",
+      "sha256": "a5e241017ef176a55b30e751b02d608560220d38c98297e998385fbc62e8518e"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/tcltk/tcltk.wxs",
+      "sha256": "830e457619487e7592994299adc0b711a57e5ad3980d7eb4e78534139c3edb38"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/tcltk/tcltk_d.wixproj",
+      "sha256": "2b8873c8e6edc94c2d4b6aaf1ceccf101fe8767c20f3d2ac548edff91d23c10c"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/tcltk/tcltk_d.wxs",
+      "sha256": "aeebe0365cfee4c9c06bf161a260c2b82321b5e5c8248150ebcfc402a589de89"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/tcltk/tcltk_en-US.wxl_template",
+      "sha256": "f240da4a378b50df919c87be475738b2431633a65752fed896e3745f99485435"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/tcltk/tcltk_files.wxs",
+      "sha256": "01713894b9c20ab877753f0e2f6567ef74c16200f5377a7533b6c96829912a92"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/tcltk/tcltk_pdb.wixproj",
+      "sha256": "377f81099e73f108e0bb53a439a935d288010021d35fe169935e71c92d1e8946"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/tcltk/tcltk_pdb.wxs",
+      "sha256": "116945571c2bebeea77606e5c287c6d8dca7c15d65b84374efe3177bcf15dc7f"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/tcltk/tcltk_reg.wxs",
+      "sha256": "856c75b80114df605f15fcae554f2a8e330d9b7bc04929017531f1efee2b93d2"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/test/test.wixproj",
+      "sha256": "04e3f802364fa2b3361cc10315132422b2c8f58af81647982752c5e65c95ef0e"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/test/test.wxs",
+      "sha256": "a13b2029f0058506ba2b19cb36b028b720b701fccfe5b8103354a75b319655d1"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/test/test_d.wixproj",
+      "sha256": "2c18519e8079be6d1b9ee72d445929d5b991aefd0e2005f8bc4aae70e87fc019"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/test/test_d.wxs",
+      "sha256": "2940ca811414e49e5f6bf76c87b9af966939d2ad73f1d0598ffc79359f81cf64"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/test/test_en-US.wxl",
+      "sha256": "ff53f1097f64330329b80658b594780a9da72aae76bb53c4b4a6a8e6d33e3fa3"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/test/test_files.wxs",
+      "sha256": "5dcb7adfd9972266924bb19d062a496658765d6f9a9ef6182b3835b66e7bfdf8"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/test/test_pdb.wixproj",
+      "sha256": "3cee96ec4d8f1ef56787351e23ed92ba9f907d99a5b2a6a7c46ee324db6ae304"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/test/test_pdb.wxs",
+      "sha256": "906eb2914bd5d2da79a3c98d667a50a4cfa42d578bb09fc6d3a20e88b8160bb2"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/testrelease.bat",
+      "sha256": "70461832efbee537c581dcdc42e7aea4885d25bfcdbb232b4f7a4558a74d6727"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/ucrt/ucrt.wixproj",
+      "sha256": "2e04af2ef03c7bdca201351dde0b257d7fc611d39258f9e715228e3d120a022f"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/ucrt/ucrt.wxs",
+      "sha256": "c37c2689300124f0bdf841a81f1c0d54b26a4e667befe1728e89f04d5b7f0d5e"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/ucrt/ucrt_en-US.wxl",
+      "sha256": "85d478b6ad31de498190f12afd526c2329d94a789c22a3bf917f76872910f729"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/uploadrelease.bat",
+      "sha256": "126058b502c05d52dadef67f34fc41caf2b1e6011f4c8a8beed4f83c991b6240"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/uploadrelease.proj",
+      "sha256": "f142ae03e460f989d9c2ac76adeabf8e01b519f5b08817905fb4fb728010c1d8"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/uploadrelease.ps1",
+      "sha256": "75ca813fa1d756a9a6ce15a31da223c83860875f1df55a353753071074915f9f"
+    },
+    {
+      "path": "Python-3.13.16/Tools/msi/wix.props",
+      "sha256": "42020d1aa0bb1b222db081d5a3edf61094d44273d8d8ca2e227e2dc48947d359"
+    }
+  ],
+  "remainingLimitations": [
+    "Official embed SPDX maps exact release input to dependency sources but does not record a complete per-library compilation command/log or exact compiler/SDK patch versions. PCbuild declarations and preparation scripts are retained.",
+    "Microsoft vcruntime140.dll and vcruntime140_1.dll are proprietary redistributable toolchain runtimes, recorded by exact member hashes; no Microsoft runtime source claim is made.",
+    "No bit-for-bit rebuild, execution of downloaded source, or GPL distribution/legal approval is claimed.",
+    "Permissive component licenses and their archive texts do not independently approve GPL combination or Microsoft runtime redistribution."
+  ],
+  "prebuiltDependencyIdentity": {
+    "libffi": {
+      "repository": "https://github.com/python/cpython-bin-deps",
+      "commit": "94cb9a1c7feb608adf2b9f8fe2dbd6925ffbf90d",
+      "archive": "closure/python\\libffi-3.4.4-94cb9a1c7feb608adf2b9f8fe2dbd6925ffbf90d.tar.gz",
+      "archiveSha256": "6c0dc13052ff3f2e6738adf50ec429984427592e9a4d9fb03041d958abc62ddf",
+      "member": "python-cpython-bin-deps-94cb9a1/amd64/libffi-8.dll",
+      "memberSha256": "eff52743773eb550fcc6ce3efc37c85724502233b6b002a35496d828bd7b280a",
+      "matchesEmbedMember": true
+    },
+    "openssl": [
+      {
+        "url": "https://raw.githubusercontent.com/python/cpython-bin-deps/ddb46a415b4995440723183e644f8d2c346567a2/amd64/libcrypto-3.dll",
+        "sha256": "75495fe0e079ab00d49be740d3c710a0b94e3f74f9648cb7cc9f768fc7f52319",
+        "matchesEmbedMember": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/python/cpython-bin-deps/ddb46a415b4995440723183e644f8d2c346567a2/amd64/libssl-3.dll",
+        "sha256": "8957182a9c385bfd9f3f790921de2ddc614cf91f99edbed4e9e5446a46504e32",
+        "matchesEmbedMember": true
+      }
+    ],
+    "opensslCommit": "ddb46a415b4995440723183e644f8d2c346567a2",
+    "qualification": "Exact byte identity to immutable upstream binary-deps members; release source/build mapping comes from official embed SPDX plus verified CPython recipes, not a bit-for-bit rebuild.",
+    "downloadNote": "The optional full OpenSSL multi-platform binary archive timed out. Both relevant amd64 DLLs were independently collected via immutable raw commit URLs and matched exactly."
+  }
+}

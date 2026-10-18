@@ -16,11 +16,13 @@ The FFmpeg source-build engineering review is complete; its separate source/buil
 
 An incomplete initial Node source archive failed its publisher hash comparison and was quarantined without execution. A fresh download now matches the publisher SHA-256. The pinned Node executable was not changed.
 
-## Remaining public distribution gate
+## Native source-material gate closed
 
-Exact native provenance still needs mapping for curl_cffi/curl-impersonate/BoringSSL and other native wheels, the custom PyInstaller bootloader build, and CPython embeddable native dependencies. The available Python installer SBOM is not an exact embeddable ZIP SBOM. Historical source candidates and matching source-release version labels cannot establish missing patches, linked components or build commands.
+The prior archive/recipe mapping gaps are closed for the isolated replacement downloader. The exact Python embed SPDX matches its input ZIP; its source and 4,863 source-file checksums match official metadata. The curl DLL byte-matches its publisher asset and all eight linked source archives match the pinned CMake recipe. The custom PyInstaller release is matched to its actual source and successful workflow revisions. All 47 shipped native files from the other wheel distributions match pinned wheel members and retained author sources/recipes.
 
-These gaps are explicitly open in dependency-review.win-x64.json. Do not label the combined downloader source-complete or publish its binary as cleared on the strength of this collection. Syphon's MIT license does not override third-party licenses. No public binary release was performed.
+See [NATIVE-SOURCE-CLOSURE.md](NATIVE-SOURCE-CLOSURE.md) and its four component reviews. The new companion includes baseline inputs/materials, exact native sources/patches/build scripts, notices, review records and an independently runnable integrity verifier. Old baseline manifests remain historical and are superseded only for the scope stated by the new closure record.
+
+Exact original compiler/runner patch versions and byte-identical cross-machine builds remain unproven. Those limits are distinguished from missing source. The collection is engineering evidence, not legal certification or permission to publish. The accepted Beta16 installer is retained unchanged. Beta17 packages the isolated replacement; no public binary release was performed.
 
 ## Developer reproduction
 

@@ -18,8 +18,8 @@
       "buildRecord": "ffmpeg-build-record.win-x64.json"
     },
     "yt-dlp.exe": {
-      "sha256": "6f0c88b8ca7a832ea8540b5a077fed750165f724ef00ea6b46b238701d2c7355",
-      "bytes": 21977475,
+      "sha256": "d7a74ab51f7d599c7de22678cb7cb327e21b00e7d9a5453e15828269fde7059b",
+      "bytes": 20944536,
       "version": "2026.08.19",
       "source": "https://github.com/HaggaiMakungo/syphon/blob/main/packaging/MEDIA-RUNTIME.md",
       "buildVariant": "syphon_win_x64_py313",

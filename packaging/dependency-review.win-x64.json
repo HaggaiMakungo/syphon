@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "date": "2026-10-18",
-  "scope": "Beta16 dependency checks completed; complete corresponding-source/public distribution approval remains open.",
+  "scope": "Current isolated replacement runtime: identified native source-material gaps closed by exact input/source/recipe mapping.",
   "runtime": {
     "python": "3.13.16",
     "openssl": "3.5.9",
@@ -127,17 +127,24 @@
   "sourceCoverage": {
     "ffmpeg": "Replacement source-build engineering review completed separately; see ffmpeg-source-review.win-x64.json.",
     "ytDlp": "Exact source tag, version identity patch, builder, all22 hash-pinned inputs and42 retained notices.",
-    "wheels": "All20 source-release archives retained and verified against HTTPS PyPI metadata.19 exact wheel hashes match PyPI; custom yt-dlp PyInstaller wheel explicitly differs.",
-    "python": "Exact embeddable input pinned; matching CPython source retained. Installer SBOM is contextual, not exact embeddable-archive provenance.",
+    "wheels": "All20 source releases retained;47 shipped native wheel files match exact pinned inputs and are mapped to author/native sources. Setuptools launchers are build-only.",
+    "python": "Exact embed SPDX checksum matches pinned ZIP; CPython source and4863 official file hashes verified; native source and platform recipes retained; OpenSSL/libffi DLLs match immutable upstream binary-deps commits.",
     "node": "Matching v24.21.0 source retrieved afresh and checked against publisher SHASUMS. Incomplete earlier archive quarantined, not executed.",
     "dotnet": "Self-contained published runtime and package licenses; SDK/RID lock identifies dependency versions.",
-    "webview2": "Microsoft-signed Evergreen bootstrapper; runtime installer remains Microsoft-managed."
+    "webview2": "Microsoft-signed Evergreen bootstrapper; runtime installer remains Microsoft-managed.",
+    "pyinstaller": "Custom release wheel/source digests and actual successful workflow/source commits mapped;157 bootloader/build files and558 normalized Python files match.",
+    "curl": "Wheel DLL byte-matches publisher release; all8 native source archives match immutable source recipe SHA256; all patches and Windows build flags retained."
   },
-  "publicSourceGateComplete": false,
-  "remainingGaps": [
-    "Native linked build inputs/patches/toolchains for curl_cffi (curl-impersonate/BoringSSL and linked libraries) and other native wheels require exact provenance mapping; historical candidates cannot be relabelled current proof.",
-    "Custom yt-dlp PyInstaller wheel needs exact bootloader/build provenance mapping; same-named PyPI source alone is insufficient.",
-    "CPython embeddable native components must be matched to the exact binary build rather than assumed from installer SBOM.",
-    "Whole combined downloader corresponding-source completeness and redistribution review remain open; permissive Syphon MIT license does not replace third-party terms."
-  ]
+  "publicSourceGateComplete": true,
+  "remainingGaps": [],
+  "engineeringSourceClosureComplete": true,
+  "sourceGateScope": "Identified native source/archive/recipe mapping for the current isolated replacement binary; historical Beta16 receipts remain unchanged. Not legal/reproducibility certification or publication.",
+  "sourceClosureRecord": "native-source-closure.win-x64.json",
+  "sourceCompanionReceipt": "native-source-bundle.win-x64.json",
+  "reproducibilityLimits": [
+    "Exact original hosted runner/compiler package patch versions and release logs are not fully recovered.",
+    "Unknown original Cython version does not remove retained author source/build recipe; no bit-identical rebuild claimed.",
+    "Proprietary Microsoft runtime source is not claimed; original runtime notices and redistribution terms remain applicable."
+  ],
+  "buildEnvironmentFix": "43 unpinned host runtime DLLs excluded. Private PATH/cache and rejection of external native inputs; all75 current native files match pinned inputs."
 }

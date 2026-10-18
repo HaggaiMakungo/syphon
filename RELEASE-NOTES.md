@@ -1,3 +1,15 @@
+# Syphon 0.1.0-beta.17 - the build machine has lost casting privileges
+
+Prepared 2026-10-18. Windows x64. Local candidate, not publicly released.
+
+Close now sends Syphon to the tray by default, so your downloads carry on. Use **Exit** in the tray menu to quit. Minimize-to-tray remains optional, and existing explicit preferences are respected.
+
+The downloader build no longer collects DLLs from whichever unrelated tool happens to be on the build machine's PATH. Forty-three unnecessary Windows runtime passengers have been removed. All75 remaining native files match pinned inputs. The build machine has been relieved of its unsolicited casting-director position.
+
+The remaining native source/material gaps are closed: exact Python, custom bootloader, curl-linked sources, other native wheel sources, patches and platform recipes are verified. A matching source companion and verifier accompany this candidate; the separate FFmpeg source companion remains included. MP3 artwork and video behavior are tested against the isolated replacement. See packaging/NATIVE-SOURCE-CLOSURE.md for evidence and reproducibility limits. No public binary release was performed.
+
+---
+
 # Syphon 0.1.0-beta.16 - small icon, unreasonable responsibility
 
 Prepared 2026-10-18. Windows x64. Local self-signed candidate, not published.

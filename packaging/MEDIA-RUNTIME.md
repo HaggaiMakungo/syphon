@@ -8,7 +8,7 @@ Beta 10 replaces the upstream Windows x64 executable with a clearly identified *
 
 Local modifications are confined to version.py: VARIANT is syphon_win_x64_py313, ORIGIN is HaggaiMakungo/syphon, and UPDATE_HINT directs users to Syphon setup. CHANNEL remains stable to avoid an invalid-channel startup error. This does not create an upstream release or enable tool self-update. All other source files come from the retained tag; lazy extractors and the executable are generated with the upstream scripts. The builder uses direct script entry because the isolated interpreter does not add the current directory to sys.path.
 
-The reviewed output is 21,977,475 bytes, SHA-256 6f0c88b8ca7a832ea8540b5a077fed750165f724ef00ea6b46b238701d2c7355. The dependency lock now names that exact local binary and build variant. Old beta 9 lock/source manifests remain historical snapshots; the 44-archive baseline must not be relabelled as proof of this new binary's complete source set.
+The reviewed output is 20,944,536 bytes, SHA-256 d7a74ab51f7d599c7de22678cb7cb327e21b00e7d9a5453e15828269fde7059b. The dependency lock now names that exact local binary and build variant. Old beta 9 lock/source manifests remain historical snapshots; the 44-archive baseline must not be relabelled as proof of this new binary's complete source set.
 
 ## Offline build
 
@@ -31,10 +31,12 @@ The local runtime includes websockets 17.0.1 rather than the old Python <3.11 br
 
 ## Release limits
 
-This runtime is used in the locally self-signed evaluation installer. The replacement FFmpeg source build has a separate completed engineering review (see FFMPEG.md). New Python/native component source coverage and redistribution review remain incomplete. Source collection and runtime support are separate release gates. No public binary release, system Python installation, app installation, registry or user download/history modification is part of this change.
+This runtime is used in the locally self-signed evaluation installer. The replacement FFmpeg source build has a separate completed engineering review (see FFMPEG.md). The identified Python/native source-material mapping gaps are closed in NATIVE-SOURCE-CLOSURE.md; reproducibility and legal certification are not claimed. Source collection and runtime support are separate release gates. No public binary release, system Python installation, app installation, registry or user download/history modification is part of this change.
 
 References: [upstream stable release](https://github.com/yt-dlp/yt-dlp/releases/tag/2026.08.19), [Python 3.13.16](https://www.python.org/downloads/release/python-31316/), [upstream build recipe](https://github.com/yt-dlp/yt-dlp/blob/3a08beaf031ab68f966401ead017ac81fe8486cf/.github/workflows/build.yml).
 
 ## Beta 16 networking update
 
 urllib3 2.7.0 is replaced by 2.8.0 to address GHSA-8988-9cw3-xx77, GHSA-gh4c-6fx4-qh6g and GHSA-vxq7-64xx-v4gw. The pinned wheel, retained notice, local build record and runtime gate all identify the replacement. No other build input changed. See [DEPENDENCY-REVIEW.md](DEPENDENCY-REVIEW.md) for the exact scope and remaining native source gaps.
+
+Beta17 isolates build PATH/cache and rejects external native origins. All75 native files now match pinned inputs; the43 host-supplied UCRT/API DLLs in historical Beta16 are absent. Python/wheel source inputs and runtime versions are unchanged.

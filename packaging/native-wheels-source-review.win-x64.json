@@ -1,0 +1,1054 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "scope": "Syphon Beta16 urllib3-fixed yt-dlp build; excludes curl_cffi, CPython and PyInstaller",
+  "status": "engineering-source-mapping-complete-with-reproducibility-limits",
+  "legalApproval": false,
+  "bitIdenticalReproductionVerified": false,
+  "authentication": "Retained HTTPS PyPI metadata digests checked against archives and wheels. No independent signature or compiler provenance attestation.",
+  "runtimeEvidence": {
+    "file": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\source\\build\\yt-dlp\\PKG-00.toc",
+    "sha256": "65c9c70499b0621ac61a53cf974a7f45d470f2ad50b8385692e6b2153358abcc",
+    "method": "Parse literal PKG TOC; map every selected native wheel path to entry; compare wheel-member SHA256 to referenced build input. This proves build graph/input identity, not independent extraction of the final signed installer."
+  },
+  "packages": [
+    {
+      "name": "brotli",
+      "version": "1.2.0",
+      "wheel": "brotli-1.2.0-cp313-cp313-win_amd64.whl",
+      "wheelSha256": "b63daa43d82f0cdabf98dee215b375b4058cce72871fd07934f179885aad16e8",
+      "wheelUrl": "https://files.pythonhosted.org/packages/ff/91/e739587be970a113b37b821eae8097aac5a48e5f0eca438c22e4c7dd8648/brotli-1.2.0-cp313-cp313-win_amd64.whl",
+      "source": {
+        "file": "pypi-brotli-1.2.0.tar.gz",
+        "bytes": 7388632,
+        "sha256": "e310f77e41941c13340a95976fe66a8a95b01e783d430eeaf7a2f87e0a57dd0a",
+        "url": "https://files.pythonhosted.org/packages/f7/16/c92ca344d646e71a43b8bb353f0a6490d7f6e06210f8554c8f874e454285/brotli-1.2.0.tar.gz"
+      },
+      "metadata": {
+        "file": "pypi-brotli-1.2.0.json",
+        "bytes": 92928,
+        "sha256": "fff7b315334c40e145ed39acf6fa025c315f2a18a023e64b39efbd4c5a4efbd8",
+        "url": "https://pypi.org/pypi/brotli/1.2.0/json"
+      },
+      "upstreamProjectUrls": {
+        "Homepage": "https://github.com/google/brotli"
+      },
+      "retainedDirectory": "closure/wheels\\brotli",
+      "nativeWheelMemberCount": 1,
+      "shippedNativeMembers": [
+        {
+          "wheelMember": "_brotli.cp313-win_amd64.pyd",
+          "wheelMemberSha256": "a7f83086a999a01db0ca8cba6d476b4aa74ec2f96292cf4e17446dd30c085c61",
+          "pkgType": "EXTENSION",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\_brotli.cp313-win_amd64.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "brotli-1.2.0/python/_brotli.c",
+            "brotli-1.2.0/c/common/",
+            "brotli-1.2.0/c/dec/",
+            "brotli-1.2.0/c/enc/"
+          ]
+        }
+      ],
+      "wheelNotices": [
+        {
+          "member": "brotli-1.2.0.dist-info/licenses/LICENSE",
+          "sha256": "60ae0f13e76cc2eaaa108677eefa4ce16b647f6bbe8cf0a1ac9429d82eca7248"
+        }
+      ],
+      "sourceEvidence": [
+        {
+          "member": "brotli-1.2.0/LICENSE",
+          "sha256": "3d180008e36922a4e8daec11c34c7af264fed5962d07924aea928c38e8663c94"
+        },
+        {
+          "member": "brotli-1.2.0/pyproject.toml",
+          "sha256": "d400463f93751a981ccf80fad1aa3d2a457fbd156cc695198487a7b64ca5050d"
+        },
+        {
+          "member": "brotli-1.2.0/setup.py",
+          "sha256": "f5fa026f1d722a1d74b9381e2ad218e9b402ef6afd332698191ba5fde0aefee6"
+        }
+      ],
+      "engineeringStatus": "source-and-recipe-retained",
+      "limitations": []
+    },
+    {
+      "name": "cffi",
+      "version": "2.1.1",
+      "wheel": "cffi-2.1.1-cp313-cp313-win_amd64.whl",
+      "wheelSha256": "1aa5645c30469b09530c4ebca77ebf8f17618293c58f8549cb1a543a50236e7d",
+      "wheelUrl": "https://files.pythonhosted.org/packages/60/a6/8b149b2c3f2e11aaa1618ef64500b45f50f22c57a977a4dff1aff1f91042/cffi-2.1.1-cp313-cp313-win_amd64.whl",
+      "source": {
+        "file": "pypi-cffi-2.1.1.tar.gz",
+        "bytes": 530807,
+        "sha256": "dd31f52ea1086513bb9df30f8fcee9b8918323ae067a3d5b78bc826a000712be",
+        "url": "https://files.pythonhosted.org/packages/9e/ef/008a1939e372c06329a3fce4279c02f328488f3526744906eeec3da7ad5f/cffi-2.1.1.tar.gz"
+      },
+      "metadata": {
+        "file": "pypi-cffi-2.1.1.json",
+        "bytes": 89333,
+        "sha256": "2255e530e3f80593a354e3d84a29966924d0e10309d1e3a6d50f845ab7d8df66",
+        "url": "https://pypi.org/pypi/cffi/2.1.1/json"
+      },
+      "upstreamProjectUrls": {
+        "Changelog": "https://cffi.readthedocs.io/en/latest/whatsnew.html",
+        "Contact": "https://groups.google.com/forum/#!forum/python-cffi",
+        "Documentation": "https://cffi.readthedocs.io/",
+        "Download": "https://github.com/python-cffi/cffi/releases",
+        "Issue Tracker": "https://github.com/python-cffi/cffi/issues",
+        "Source Code": "https://github.com/python-cffi/cffi"
+      },
+      "retainedDirectory": "closure/wheels\\cffi",
+      "nativeWheelMemberCount": 1,
+      "shippedNativeMembers": [
+        {
+          "wheelMember": "_cffi_backend.cp313-win_amd64.pyd",
+          "wheelMemberSha256": "21b7160d4a6da9590794fdb38718982060b5c92d56fb0e441fc8b62ee789be8d",
+          "pkgType": "EXTENSION",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\_cffi_backend.cp313-win_amd64.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "cffi-2.1.1/src/c/_cffi_backend.c",
+            "cffi-2.1.1/src/c/libffi_x86_x64/"
+          ]
+        }
+      ],
+      "wheelNotices": [
+        {
+          "member": "cffi-2.1.1.dist-info/licenses/LICENSE",
+          "sha256": "5ba24ddc57067f9249add644c3afc41a5d6dc37e23433ef759d95df370b0af63"
+        }
+      ],
+      "sourceEvidence": [
+        {
+          "member": "cffi-2.1.1/LICENSE",
+          "sha256": "5ba24ddc57067f9249add644c3afc41a5d6dc37e23433ef759d95df370b0af63"
+        },
+        {
+          "member": "cffi-2.1.1/pyproject.toml",
+          "sha256": "5319b77e4b41ab9bab0f352a3e2ef6277b0626c4c239a0736f9e15dbc417d693"
+        },
+        {
+          "member": "cffi-2.1.1/setup.py",
+          "sha256": "f4205f108b2fc7798e854724918a2790951137200980b65b6a5e652d612b07f7"
+        },
+        {
+          "member": "cffi-2.1.1/src/c/libffi_x86_x64/ffi.c",
+          "sha256": "1abda6df884d78f33be1ee8abf99c6dc1c8b60b6f72ac41ac27b42a98329334a"
+        },
+        {
+          "member": "cffi-2.1.1/src/c/libffi_x86_x64/ffi.h",
+          "sha256": "96cc1f0392c280471c86164b31a5d5fbbce3141376c352ddc187d531cc740d0f"
+        },
+        {
+          "member": "cffi-2.1.1/src/c/libffi_x86_x64/ffi_common.h",
+          "sha256": "70fc6e9f815ba8c6320c0b8a00d6c06ed763a58847708eb694123c687ddd5a65"
+        },
+        {
+          "member": "cffi-2.1.1/src/c/libffi_x86_x64/fficonfig.h",
+          "sha256": "742907d362beb3b3308719541c8c94c3b7539a6cb9eb77fe202be45303bae6da"
+        },
+        {
+          "member": "cffi-2.1.1/src/c/libffi_x86_x64/ffitarget.h",
+          "sha256": "f4fb7eaffbe13a11035174284eba68934f3cf41eb16d044f157d8bdd966b14da"
+        },
+        {
+          "member": "cffi-2.1.1/src/c/libffi_x86_x64/prep_cif.c",
+          "sha256": "e04a2106e3f14333d5f79515d65fbb7b177de59b520b6860e95d5869202bf6af"
+        },
+        {
+          "member": "cffi-2.1.1/src/c/libffi_x86_x64/types.c",
+          "sha256": "f398aad1c87cb8168d29f9ad1222e6e250b83847272b3caad21db3319a5ec2a5"
+        },
+        {
+          "member": "cffi-2.1.1/src/c/libffi_x86_x64/win32.c",
+          "sha256": "b893d4254903d843c4fa889640e7124a98d39a3eb65b2b916bad7359e6a193c6"
+        },
+        {
+          "member": "cffi-2.1.1/src/c/libffi_x86_x64/win64.asm",
+          "sha256": "020ed36b231fadd51fcd93c1a92648c1346df9ec6a536ae892b807aed20cc1ad"
+        },
+        {
+          "member": "cffi-2.1.1/src/c/libffi_x86_x64/win64.obj",
+          "sha256": "fa75a54e8ec34f6c4bd67edcfd4d484a75a7c23a0ffc8952ccf9a3fd14d8a3f3"
+        }
+      ],
+      "engineeringStatus": "source-and-recipe-retained",
+      "limitations": [
+        "Windows x64 recipe links bundled win64.obj; matching assembly win64.asm is retained. Regeneration with MASM is possible but was not run or compared. Vendored libffi file identities are established by archive/member hashes; no invented upstream libffi release number. ARM64 ffi.lib is outside this x64 review."
+      ],
+      "assemblerRegenerationRecipe": {
+        "command": "ml64 /nologo /c /Fo win64.obj win64.asm",
+        "workingDirectory": "src/c/libffi_x86_x64",
+        "basis": "Engineering command derived from retained MASM-compatible source and setup.py manual-regeneration instruction; not executed; exact original assembler flags not attested."
+      }
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.5.0",
+      "wheel": "charset_normalizer-3.5.0-cp313-cp313-win_amd64.whl",
+      "wheelSha256": "72982d9958a42f8132bf2d6b90214ed66477295ef1188731f98ae3511c6eeb5a",
+      "wheelUrl": "https://files.pythonhosted.org/packages/fb/88/6018cc8d76ea2b7cb02918f37e23e86c261d1a102713d7e88d2cfb8b211c/charset_normalizer-3.5.0-cp313-cp313-win_amd64.whl",
+      "source": {
+        "file": "pypi-charset_normalizer-3.5.0.tar.gz",
+        "bytes": 169295,
+        "sha256": "49bd5feb59b0bf3cbf6ebcf4352e371c95b9da9bacd4449f8b64d0ad2c10a26e",
+        "url": "https://files.pythonhosted.org/packages/cb/31/4971872b3ed8715346231fb6eb4da8fcba65a4143c189db151ee28a2812b/charset_normalizer-3.5.0.tar.gz"
+      },
+      "metadata": {
+        "file": "pypi-charset-normalizer-3.5.0.json",
+        "bytes": 199999,
+        "sha256": "fd331ab77816ca781a994e7d65cb05b6f0d54f404bce98170f370b027eb844cf",
+        "url": "https://pypi.org/pypi/charset-normalizer/3.5.0/json"
+      },
+      "upstreamProjectUrls": {
+        "Changelog": "https://github.com/jawah/charset_normalizer/blob/master/CHANGELOG.md",
+        "Code": "https://github.com/jawah/charset_normalizer",
+        "Documentation": "https://charset-normalizer.readthedocs.io/",
+        "Issue tracker": "https://github.com/jawah/charset_normalizer/issues"
+      },
+      "retainedDirectory": "closure/wheels\\charset-normalizer",
+      "nativeWheelMemberCount": 2,
+      "shippedNativeMembers": [
+        {
+          "wheelMember": "charset_normalizer/cd.cp313-win_amd64.pyd",
+          "wheelMemberSha256": "df42efcc1617e7ec99044ee54204df84f5cf5e693d29b8310f229b6fce011637",
+          "pkgType": "EXTENSION",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\charset_normalizer\\cd.cp313-win_amd64.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "charset_normalizer-3.5.0/src/charset_normalizer/cd.pyx",
+            "charset_normalizer-3.5.0/src/charset_normalizer/_cython_compat.pxd"
+          ]
+        },
+        {
+          "wheelMember": "charset_normalizer/md.cp313-win_amd64.pyd",
+          "wheelMemberSha256": "5722098c9454ba298240dff5c68b89e537214c1a7e8a9df87a3c1589240d155e",
+          "pkgType": "EXTENSION",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\charset_normalizer\\md.cp313-win_amd64.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "charset_normalizer-3.5.0/src/charset_normalizer/md.pyx",
+            "charset_normalizer-3.5.0/src/charset_normalizer/_cython_compat.pxd"
+          ]
+        }
+      ],
+      "wheelNotices": [
+        {
+          "member": "charset_normalizer-3.5.0.dist-info/licenses/LICENSE",
+          "sha256": "18577485d3704f1a479ded8e573c0976cfed315fd2fd17983fa988da4c2f70d1"
+        }
+      ],
+      "sourceEvidence": [
+        {
+          "member": "charset_normalizer-3.5.0/LICENSE",
+          "sha256": "6d0d41bfe170ac6c7dc248c9a63e254d0fb45a60d50a8257d0af92c6e249b887"
+        },
+        {
+          "member": "charset_normalizer-3.5.0/pyproject.toml",
+          "sha256": "80d0f7cfa70f67409d4b6e460c6ae20a428611d30b7961c6943826cf9f5b8a72"
+        },
+        {
+          "member": "charset_normalizer-3.5.0/setup.py",
+          "sha256": "391250bb9a999121f239a4ddbd8c142f93aa94cff35f4a539f549ff7d3a4bf18"
+        },
+        {
+          "member": "charset_normalizer-3.5.0/src/charset_normalizer/cd.pyx",
+          "sha256": "bb238d2149be5bdb552c2c24294a4626e21101b6870b84106778faded79561f6"
+        },
+        {
+          "member": "charset_normalizer-3.5.0/src/charset_normalizer/md.pyx",
+          "sha256": "a175df94690a61781fb068c2486ffb151ce36118a47d937d4aef7b43f00a5652"
+        }
+      ],
+      "engineeringStatus": "source-and-recipe-retained",
+      "limitations": [
+        "setup.py uses Cython, not mypyc. CHARSET_NORMALIZER_USE_CYTHON=1 enables md.pyx and cd.pyx; exact Cython generator version and generated C translation units are absent from sdist and not established by this review. Generator/toolchain provenance is not a claim of missing package source or a legal conclusion.",
+        "Cython COPYING.txt at the retained reference commit explicitly says compilation output including embedded snippets carries no Cython license restrictions. This current upstream statement is reference evidence, not proof of the wheel generator version. Cython source retention is therefore not identified as a package-source closure blocker by this engineering review."
+      ],
+      "generatorLicenseReference": {
+        "referenceOnly": true,
+        "notClaimedBuildGenerator": true,
+        "commit": "079901549f959f36de2e566e47e5974106d7df19",
+        "files": [
+          {
+            "url": "https://raw.githubusercontent.com/cython/cython/079901549f959f36de2e566e47e5974106d7df19/COPYING.txt",
+            "sha256": "e1eb1c49a8508e8173dac30157e4a6439a44ad8846194746c424fbc3fc2b95d7",
+            "file": "Cython-COPYING.txt"
+          },
+          {
+            "url": "https://raw.githubusercontent.com/cython/cython/079901549f959f36de2e566e47e5974106d7df19/LICENSE.txt",
+            "sha256": "9568a2b155e66ac3e0ba1fd80b52b827b9460e6cf6f233125e7cbca8e206ddc3",
+            "file": "Cython-LICENSE.txt"
+          }
+        ]
+      }
+    },
+    {
+      "name": "pycryptodomex",
+      "version": "3.23.0",
+      "wheel": "pycryptodomex-3.23.0-cp37-abi3-win_amd64.whl",
+      "wheelSha256": "52e5ca58c3a0b0bd5e100a9fbc8015059b05cffc6c66ce9d98b4b45e023443b9",
+      "wheelUrl": "https://files.pythonhosted.org/packages/69/96/11f36f71a865dd6df03716d33bd07a67e9d20f6b8d39820470b766af323c/pycryptodomex-3.23.0-cp37-abi3-win_amd64.whl",
+      "source": {
+        "file": "pypi-pycryptodomex-3.23.0.tar.gz",
+        "bytes": 4922157,
+        "sha256": "71909758f010c82bc99b0abf4ea12012c98962fbf0583c2164f8b84533c2e4da",
+        "url": "https://files.pythonhosted.org/packages/c9/85/e24bf90972a30b0fcd16c73009add1d7d7cd9140c2498a68252028899e41/pycryptodomex-3.23.0.tar.gz"
+      },
+      "metadata": {
+        "file": "pypi-pycryptodomex-3.23.0.json",
+        "bytes": 42265,
+        "sha256": "8e3ec5afbff0d7cbd5e3783520959a65bb7c9a4521e68747e61bfd504b7004e7",
+        "url": "https://pypi.org/pypi/pycryptodomex/3.23.0/json"
+      },
+      "upstreamProjectUrls": {
+        "Changelog": "https://www.pycryptodome.org/src/changelog",
+        "Homepage": "https://www.pycryptodome.org",
+        "Source": "https://github.com/Legrandin/pycryptodome/"
+      },
+      "retainedDirectory": "closure/wheels\\pycryptodomex",
+      "nativeWheelMemberCount": 42,
+      "shippedNativeMembers": [
+        {
+          "wheelMember": "Cryptodome/Cipher/_ARC4.pyd",
+          "wheelMemberSha256": "e37da2a2140eb18fb84065d4138ad1072539c82464475a94f5a87a049e601f7e",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Cipher\\_ARC4.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/ARC4.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Cipher/_Salsa20.pyd",
+          "wheelMemberSha256": "59ee075ecb9877bc24f5c27fa2d590bae0f6aa30a6e02432e1eb25cb459abc0e",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Cipher\\_Salsa20.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/Salsa20.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Cipher/_chacha20.pyd",
+          "wheelMemberSha256": "5736506ad6dc2f3d893b978c8727d74c2f0ae87bbc2fcfcfe8c7e982ea5e86e2",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Cipher\\_chacha20.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/chacha20.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Cipher/_pkcs1_decode.pyd",
+          "wheelMemberSha256": "ed12c3d512e5e0b4245fdc5a83fd46497bb2df31e49199b6265ace5142fe5021",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Cipher\\_pkcs1_decode.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/pkcs1_decode.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Cipher/_raw_aes.pyd",
+          "wheelMemberSha256": "889f9b558a47a4333bfd3e3814eaec2328ac8648722d912c7873fdea62fcf886",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Cipher\\_raw_aes.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/AES.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Cipher/_raw_aesni.pyd",
+          "wheelMemberSha256": "6c9a2bed5c1bd9acd8bcea7f5f20f7fa63e4465b0914ae70250bd59a8028333c",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Cipher\\_raw_aesni.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/AESNI.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Cipher/_raw_arc2.pyd",
+          "wheelMemberSha256": "eda56aa3afb9d6adfd95ba950ad1247b5e2c6aedaa2db86af0c8fa79217359a4",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Cipher\\_raw_arc2.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/ARC2.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Cipher/_raw_blowfish.pyd",
+          "wheelMemberSha256": "eea7e0597216ece6d23b351743fdc08d32a5bcde57b1efa724a3b6138b692ad9",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Cipher\\_raw_blowfish.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/blowfish.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Cipher/_raw_cast.pyd",
+          "wheelMemberSha256": "90442d012d3f918cb0f78035680db6a373148b1de7e84545e5f3596c655cd6ab",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Cipher\\_raw_cast.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/CAST.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Cipher/_raw_cbc.pyd",
+          "wheelMemberSha256": "6c6c5fac1b5933fb857fcc3e5a87765257b5484285de147e9bb5fc854223a707",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Cipher\\_raw_cbc.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/raw_cbc.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Cipher/_raw_cfb.pyd",
+          "wheelMemberSha256": "26e351c4fade35c146d84df0e22c2468e01186d3a8a1e51bb6c8d8ea87f09cd7",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Cipher\\_raw_cfb.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/raw_cfb.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Cipher/_raw_ctr.pyd",
+          "wheelMemberSha256": "229994e4cb838079a5711c8c0ffeb25fb4684a70ecda497ddb49c8a315594a83",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Cipher\\_raw_ctr.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/raw_ctr.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Cipher/_raw_des.pyd",
+          "wheelMemberSha256": "8bd8469ecbf707b90d88fcc32213f1f6877dac36dcf767a0f4c1ce8ba81b5756",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Cipher\\_raw_des.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/DES.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Cipher/_raw_des3.pyd",
+          "wheelMemberSha256": "809390256aae55a1265489283482f2fee34957e4f2b4377d7449602740724ecb",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Cipher\\_raw_des3.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/DES3.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Cipher/_raw_ecb.pyd",
+          "wheelMemberSha256": "da4eacde396e7388ec5da5133762409757dcdaae3022590a73d9ad950844c31f",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Cipher\\_raw_ecb.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/raw_ecb.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Cipher/_raw_eksblowfish.pyd",
+          "wheelMemberSha256": "40e1a78102a078058cb06b4ff41411f89203564915bc0bce04f4c2643deb9b24",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Cipher\\_raw_eksblowfish.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/blowfish_eks.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Cipher/_raw_ocb.pyd",
+          "wheelMemberSha256": "61f8a3ca451db3a07b3815c4d91a37100c416f160e3ccfa6113bef0c80d0c12b",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Cipher\\_raw_ocb.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/raw_ocb.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Cipher/_raw_ofb.pyd",
+          "wheelMemberSha256": "b77a2a9322c28d1dd79dd9176bd6d697f2ee3dd10cb2ce24cdfd9d42b533feff",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Cipher\\_raw_ofb.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/raw_ofb.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Hash/_BLAKE2b.pyd",
+          "wheelMemberSha256": "9a10ace816f610297bcf250c6da85fabbf806dd41a65b8441e135e8390cd6870",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Hash\\_BLAKE2b.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/blake2b.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Hash/_BLAKE2s.pyd",
+          "wheelMemberSha256": "88e734c772909ccc7158f54ce8d488bd0b412ebe2e932c5539e07cb6674243cc",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Hash\\_BLAKE2s.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/blake2s.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Hash/_MD2.pyd",
+          "wheelMemberSha256": "ef0440af79e09ebd665090164bdd170d10eab0e63c1e3e116088bb06b63bfb2b",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Hash\\_MD2.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/MD2.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Hash/_MD4.pyd",
+          "wheelMemberSha256": "04171e099416e1aed2252a50dbfdd4ab03a748d97ee69420b8ff50d5d099de91",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Hash\\_MD4.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/MD4.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Hash/_MD5.pyd",
+          "wheelMemberSha256": "ee1174e8047988975fbf32ef309f959b7d71654e636e5ab1dde1812bd78c8470",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Hash\\_MD5.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/MD5.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Hash/_RIPEMD160.pyd",
+          "wheelMemberSha256": "ce297d6286dc9fcf54459a416fd6df0d5655dcd585c5a34fb90181428ccf6edd",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Hash\\_RIPEMD160.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/RIPEMD160.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Hash/_SHA1.pyd",
+          "wheelMemberSha256": "76dd83ba91ceccd982d4daafcbb3c6950f8812a92b619fa3da24a50e23c43e17",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Hash\\_SHA1.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/SHA1.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Hash/_SHA224.pyd",
+          "wheelMemberSha256": "aaf140f60dba7760d89a4cd3771127db18b5fc577c8aed6596f1e75481572a25",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Hash\\_SHA224.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/SHA224.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Hash/_SHA256.pyd",
+          "wheelMemberSha256": "e3437cff63cc31509050697bec17f29b24a2842aafbba78238281b5cc621773e",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Hash\\_SHA256.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/SHA256.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Hash/_SHA384.pyd",
+          "wheelMemberSha256": "a30d3afce8c4bfe98c494b09d6cea4db642bbf194eceb90875a79434c703db65",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Hash\\_SHA384.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/SHA384.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Hash/_SHA512.pyd",
+          "wheelMemberSha256": "a341b50b34a4a85028ab7a4d1822d04055a65bde4ee8518b5f79cf792957ce4d",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Hash\\_SHA512.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/SHA512.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Hash/_ghash_clmul.pyd",
+          "wheelMemberSha256": "c8cc9583c2d91d8ef25073e01a863a40c09fa0a89007f8bb0442df46ba26f0e3",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Hash\\_ghash_clmul.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/ghash_clmul.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Hash/_ghash_portable.pyd",
+          "wheelMemberSha256": "cd1d79a0d8923c39f7368c92fae0c731ae60ecd34d1c9f387d4824b2af168036",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Hash\\_ghash_portable.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/ghash_portable.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Hash/_keccak.pyd",
+          "wheelMemberSha256": "ca84a6475c144856f5cd72a58b9d319f2086393939f14ba799b7fb65666eec03",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Hash\\_keccak.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/keccak.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Hash/_poly1305.pyd",
+          "wheelMemberSha256": "7f39864610a7e2275d521ee8bed6093b7fefb3256eeec3c1baa3bd800d1bf423",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Hash\\_poly1305.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/poly1305.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Math/_modexp.pyd",
+          "wheelMemberSha256": "4f7650be6725a70a29cc57cdf1d9a2fd886c06cc5dde35c1ccda7dd29dc5fff4",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Math\\_modexp.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/modexp.c",
+            "pycryptodomex-3.23.0/src/mont3.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Protocol/_scrypt.pyd",
+          "wheelMemberSha256": "11cf9155436c23de02abc126ef5abc0c59d0d5b3555fc51f167912af21ad38f6",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Protocol\\_scrypt.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/scrypt.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/PublicKey/_curve25519.pyd",
+          "wheelMemberSha256": "818851a9c2b838d5c9a45aaa01e3e6790f848f3ed4b7c28f2e54dabb0bb8544e",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\PublicKey\\_curve25519.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/curve25519.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/PublicKey/_curve448.pyd",
+          "wheelMemberSha256": "aab7072304ec3274596a49fadaa2bb0467a314875d364182d459bf3921bbe609",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\PublicKey\\_curve448.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/curve448.c",
+            "pycryptodomex-3.23.0/src/mont1.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/PublicKey/_ec_ws.pyd",
+          "wheelMemberSha256": "0720ab37bce7023ea36261c6681154be474673f2aee0f8a2de7434bf1bd60d0c",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\PublicKey\\_ec_ws.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/ec_ws.c",
+            "pycryptodomex-3.23.0/src/mont.c",
+            "pycryptodomex-3.23.0/src/p256_table.c",
+            "pycryptodomex-3.23.0/src/p384_table.c",
+            "pycryptodomex-3.23.0/src/p521_table.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/PublicKey/_ed25519.pyd",
+          "wheelMemberSha256": "a3fb9c22c7c12de043d846cdb0a5e2456db6d626a00258652c74a5e614bd273f",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\PublicKey\\_ed25519.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/ed25519.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/PublicKey/_ed448.pyd",
+          "wheelMemberSha256": "96e2b5db37b8405e1319738637fc066ddb5ad5ec7b971f3af552a623ce6bc4f5",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\PublicKey\\_ed448.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/ed448.c",
+            "pycryptodomex-3.23.0/src/mont2.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Util/_cpuid_c.pyd",
+          "wheelMemberSha256": "e7e6f27d5203768e6454b4066847a3af02548c811146da047c4a53b1edaf32e9",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Util\\_cpuid_c.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/cpuid.c"
+          ]
+        },
+        {
+          "wheelMember": "Cryptodome/Util/_strxor.pyd",
+          "wheelMemberSha256": "c80c1b169b894b141a60f99fd80e0dceb1c9a598748315c26b955831d9df46b5",
+          "pkgType": "BINARY",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\Cryptodome\\Util\\_strxor.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "pycryptodomex-3.23.0/src/strxor.c"
+          ]
+        }
+      ],
+      "wheelNotices": [
+        {
+          "member": "pycryptodomex-3.23.0.dist-info/LICENSE.rst",
+          "sha256": "60b8958a9ef9b7ec512087b725555372175ed2b02b969f8725b8534fde48acdd"
+        }
+      ],
+      "sourceEvidence": [
+        {
+          "member": "pycryptodomex-3.23.0/.github/workflows/codeql-analysis.yml",
+          "sha256": "901b2f87cced310dc590a4caba901712f9923fd3e6b3021a622efd02a4670eb0"
+        },
+        {
+          "member": "pycryptodomex-3.23.0/.github/workflows/integration.yml",
+          "sha256": "29dc0558ad0863f336169ddef324089a4146efe09d72c527dc6bdea183ac360a"
+        },
+        {
+          "member": "pycryptodomex-3.23.0/.github/workflows/wheels.yml",
+          "sha256": "51a2b7e06bd88d02bd543025787853610c02a5a0d74137bcd2653270b5afaf0a"
+        },
+        {
+          "member": "pycryptodomex-3.23.0/Doc/LEGAL/copy/LICENSE.libtom",
+          "sha256": "10c41e1aaf84bd3546d1ff7ef89454817744fd2c18cdd80a137e802095448016"
+        },
+        {
+          "member": "pycryptodomex-3.23.0/Doc/LEGAL/copy/LICENSE.orig",
+          "sha256": "96f9a25274a59843715a26986e4a2427c312a1d86b9207f26fcafcea47a417fe"
+        },
+        {
+          "member": "pycryptodomex-3.23.0/Doc/LEGAL/copy/LICENSE.python-2.2",
+          "sha256": "253a271c681cd4b3f9503659fe754ee305efe68ebb6e8733b7f436d73845a32c"
+        },
+        {
+          "member": "pycryptodomex-3.23.0/Doc/src/license.rst",
+          "sha256": "90f7f2fe5827666516bc10bd27036491290d77662818eace211e007422f59d02"
+        },
+        {
+          "member": "pycryptodomex-3.23.0/LICENSE.rst",
+          "sha256": "4e04660d77c1c64e89d79537919fb8240fa21484a7e3db29f358b2c7f84ea073"
+        },
+        {
+          "member": "pycryptodomex-3.23.0/compiler_opt.py",
+          "sha256": "b94fe8e385eb750bbd72012eb7636b7be3d3d9af922faec4a8bcdebe0f8c723f"
+        },
+        {
+          "member": "pycryptodomex-3.23.0/pyproject.toml",
+          "sha256": "a469ee4abad65a74ca652e97e9d156143d70cfc594eeddde5cc63513598a44e7"
+        },
+        {
+          "member": "pycryptodomex-3.23.0/setup.py",
+          "sha256": "d44b731e871ae69cd564693a44df80d58e4c7425c0fe7ff8f441484fccda4dcc"
+        }
+      ],
+      "engineeringStatus": "source-and-recipe-retained",
+      "limitations": []
+    },
+    {
+      "name": "setuptools",
+      "version": "84.0.0",
+      "wheel": "setuptools-84.0.0-py3-none-any.whl",
+      "wheelSha256": "51a52592b3b99e102b609654876bd65f19f999935166d1352678931132b0c670",
+      "wheelUrl": "https://files.pythonhosted.org/packages/95/9c/c510029fc6ef33a6275cd2c5d3cecd6613dfd6aa401d57c54f1c18852ccf/setuptools-84.0.0-py3-none-any.whl",
+      "source": {
+        "file": "pypi-setuptools-84.0.0.tar.gz",
+        "bytes": 1168449,
+        "sha256": "f4695c21257f0d9b537ec2692c941d02ee143b7cc1276941349a546573b2ef73",
+        "url": "https://files.pythonhosted.org/packages/6d/44/f5da03a8ef95d369145c5bb53050e7877c9f3d312e128605fd9504829143/setuptools-84.0.0.tar.gz"
+      },
+      "metadata": {
+        "file": "pypi-setuptools-84.0.0.json",
+        "bytes": 8162,
+        "sha256": "24d07932459261bbf9e66e5cfdebfeba23a977234ab24bf9c3a1df053c53ba21",
+        "url": "https://pypi.org/pypi/setuptools/84.0.0/json"
+      },
+      "upstreamProjectUrls": {
+        "Changelog": "https://setuptools.pypa.io/en/stable/history.html",
+        "Documentation": "https://setuptools.pypa.io/",
+        "Source": "https://github.com/pypa/setuptools"
+      },
+      "retainedDirectory": "closure/wheels\\setuptools",
+      "nativeWheelMemberCount": 8,
+      "shippedNativeMembers": [],
+      "wheelNotices": [
+        {
+          "member": "setuptools/_vendor/importlib_metadata-8.7.1.dist-info/licenses/LICENSE",
+          "sha256": "458502e12d97bbf64438606a20044aa85eb05fb0a8a807bb35dbec253fd1fc04"
+        },
+        {
+          "member": "setuptools/_vendor/jaraco_context-6.1.0.dist-info/licenses/LICENSE",
+          "sha256": "9755a18519666e5f0f4cae3daad3d7012bcae48a600b31237d75e9fe134e6683"
+        },
+        {
+          "member": "setuptools/_vendor/jaraco_functools-4.4.0.dist-info/licenses/LICENSE",
+          "sha256": "5a57cb4db85e2a2dd88c290628908add57e3451449e0a9a71fdfb38776fd759d"
+        },
+        {
+          "member": "setuptools/_vendor/more_itertools-10.8.0.dist-info/licenses/LICENSE",
+          "sha256": "09f1c8c9e941af3e584d59641ea9b87d83c0cb0fd007eb5ef391a7e2643c1a46"
+        },
+        {
+          "member": "setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE",
+          "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48"
+        },
+        {
+          "member": "setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE.APACHE",
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+        },
+        {
+          "member": "setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE.BSD",
+          "sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5"
+        },
+        {
+          "member": "setuptools/_vendor/platformdirs-4.4.0.dist-info/licenses/LICENSE",
+          "sha256": "29e0fd62e929850e86eb28c3fdccf0cefdf4fa94879011cffb3d0d4bed6d4db6"
+        },
+        {
+          "member": "setuptools/_vendor/tomli-2.4.0.dist-info/licenses/LICENSE",
+          "sha256": "b80816b0d530b8accb4c2211783790984a6e3b61922c2b5ee92f3372ab2742fe"
+        },
+        {
+          "member": "setuptools/_vendor/wheel-0.46.3.dist-info/licenses/LICENSE.txt",
+          "sha256": "30c23618679108f3e8ea1d2a658c7ca417bdfc891c98ef1a89fa4ff0c9828654"
+        },
+        {
+          "member": "setuptools/_vendor/zipp-3.23.0.dist-info/licenses/LICENSE",
+          "sha256": "5a57cb4db85e2a2dd88c290628908add57e3451449e0a9a71fdfb38776fd759d"
+        },
+        {
+          "member": "setuptools/config/NOTICE",
+          "sha256": "2dddf08818297a3b89d43d95ff659d8da85741108c9136dfa3a4d856c0623bd8"
+        },
+        {
+          "member": "setuptools/config/_validate_pyproject/NOTICE",
+          "sha256": "09c9bcea95ca086f8bc5bed174e40bc835b297d40fb5f86bbbb570fe0a5581a7"
+        },
+        {
+          "member": "setuptools-84.0.0.dist-info/licenses/LICENSE",
+          "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741"
+        },
+        {
+          "member": "setuptools/_vendor/autocommand-2.2.2.dist-info/LICENSE",
+          "sha256": "ade78d04982d69972d444a8e14a94f87a2334dd3855cc80348ea8e240aa0df2d"
+        },
+        {
+          "member": "setuptools/_vendor/backports.tarfile-1.2.0.dist-info/LICENSE",
+          "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741"
+        },
+        {
+          "member": "setuptools/_vendor/jaraco.text-4.0.0.dist-info/LICENSE",
+          "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741"
+        }
+      ],
+      "sourceEvidence": [
+        {
+          "member": "setuptools-84.0.0/LICENSE",
+          "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741"
+        },
+        {
+          "member": "setuptools-84.0.0/docs/userguide/license_migration.rst",
+          "sha256": "49e725dd64d57ea335ba61af755273ad03dbe39b8a689882c49e1c820b295944"
+        },
+        {
+          "member": "setuptools-84.0.0/launcher.c",
+          "sha256": "7011ac2cdac2fc40544754b0481ef9c5ebe00fc0c2609a68442999a6f118b98e"
+        },
+        {
+          "member": "setuptools-84.0.0/pyproject.toml",
+          "sha256": "7bb2169a946d4f92e0c425c99eae4402e252de91195c7901e78d9e9b8a6d8d7e"
+        },
+        {
+          "member": "setuptools-84.0.0/setup.py",
+          "sha256": "f70886dffd959c53411444b91e6223617c83f8fb84af5033db3218f1e69a22d7"
+        },
+        {
+          "member": "setuptools-84.0.0/setuptools/_vendor/autocommand-2.2.2.dist-info/LICENSE",
+          "sha256": "ade78d04982d69972d444a8e14a94f87a2334dd3855cc80348ea8e240aa0df2d"
+        },
+        {
+          "member": "setuptools-84.0.0/setuptools/_vendor/backports.tarfile-1.2.0.dist-info/LICENSE",
+          "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741"
+        },
+        {
+          "member": "setuptools-84.0.0/setuptools/_vendor/importlib_metadata-8.7.1.dist-info/licenses/LICENSE",
+          "sha256": "458502e12d97bbf64438606a20044aa85eb05fb0a8a807bb35dbec253fd1fc04"
+        },
+        {
+          "member": "setuptools-84.0.0/setuptools/_vendor/jaraco.text-4.0.0.dist-info/LICENSE",
+          "sha256": "86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741"
+        },
+        {
+          "member": "setuptools-84.0.0/setuptools/_vendor/jaraco_context-6.1.0.dist-info/licenses/LICENSE",
+          "sha256": "9755a18519666e5f0f4cae3daad3d7012bcae48a600b31237d75e9fe134e6683"
+        },
+        {
+          "member": "setuptools-84.0.0/setuptools/_vendor/jaraco_functools-4.4.0.dist-info/licenses/LICENSE",
+          "sha256": "5a57cb4db85e2a2dd88c290628908add57e3451449e0a9a71fdfb38776fd759d"
+        },
+        {
+          "member": "setuptools-84.0.0/setuptools/_vendor/more_itertools-10.8.0.dist-info/licenses/LICENSE",
+          "sha256": "09f1c8c9e941af3e584d59641ea9b87d83c0cb0fd007eb5ef391a7e2643c1a46"
+        },
+        {
+          "member": "setuptools-84.0.0/setuptools/_vendor/packaging/licenses/__init__.py",
+          "sha256": "4f05cb1d9097c1281d17044b3f15bad364fa99289eba74851cce9fa7ca605bbf"
+        },
+        {
+          "member": "setuptools-84.0.0/setuptools/_vendor/packaging/licenses/_spdx.py",
+          "sha256": "596ec35e2ca0ebcba9fd8343ff0a51625af548786257815f24b41f7e08613314"
+        },
+        {
+          "member": "setuptools-84.0.0/setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE",
+          "sha256": "cad1ef5bd340d73e074ba614d26f7deaca5c7940c3d8c34852e65c4909686c48"
+        },
+        {
+          "member": "setuptools-84.0.0/setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE.APACHE",
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+        },
+        {
+          "member": "setuptools-84.0.0/setuptools/_vendor/packaging-26.0.dist-info/licenses/LICENSE.BSD",
+          "sha256": "b70e7e9b742f1cc6f948b34c16aa39ffece94196364bc88ff0d2180f0028fac5"
+        },
+        {
+          "member": "setuptools-84.0.0/setuptools/_vendor/platformdirs-4.4.0.dist-info/licenses/LICENSE",
+          "sha256": "29e0fd62e929850e86eb28c3fdccf0cefdf4fa94879011cffb3d0d4bed6d4db6"
+        },
+        {
+          "member": "setuptools-84.0.0/setuptools/_vendor/tomli-2.4.0.dist-info/licenses/LICENSE",
+          "sha256": "b80816b0d530b8accb4c2211783790984a6e3b61922c2b5ee92f3372ab2742fe"
+        },
+        {
+          "member": "setuptools-84.0.0/setuptools/_vendor/wheel-0.46.3.dist-info/licenses/LICENSE.txt",
+          "sha256": "30c23618679108f3e8ea1d2a658c7ca417bdfc891c98ef1a89fa4ff0c9828654"
+        },
+        {
+          "member": "setuptools-84.0.0/setuptools/_vendor/zipp-3.23.0.dist-info/licenses/LICENSE",
+          "sha256": "5a57cb4db85e2a2dd88c290628908add57e3451449e0a9a71fdfb38776fd759d"
+        }
+      ],
+      "engineeringStatus": "runtime-excluded",
+      "limitations": [
+        "No native wheel member appears in PKG TOC. These launcher executables are build inputs, not established shipped runtime components. launcher.c source retained; launcher reproducibility not assessed."
+      ]
+    },
+    {
+      "name": "websockets",
+      "version": "17.0.1",
+      "wheel": "websockets-17.0.1-cp313-cp313-win_amd64.whl",
+      "wheelSha256": "409d93efcaa14f7a99592c5baaef5ec6ca94fba0f5aec1a86f693977c69c9c1c",
+      "wheelUrl": "https://files.pythonhosted.org/packages/81/2f/ea1380f72bb11b64fc5bc7ae0d42de5bbf3e6dc13b965706b2a1d4e17cdf/websockets-17.0.1-cp313-cp313-win_amd64.whl",
+      "source": {
+        "file": "pypi-websockets-17.0.1.tar.gz",
+        "bytes": 183298,
+        "sha256": "5baa9bc0dfbae8c507e51c8cf1b6d4628086f7a87bbd3a9952bd5f035451f1cc",
+        "url": "https://files.pythonhosted.org/packages/f7/96/e01084f83a64bcb3a27994bd0cb0db68ff29d9c6707fae37ec19b18ba990/websockets-17.0.1.tar.gz"
+      },
+      "metadata": {
+        "file": "pypi-websockets-17.0.1.json",
+        "bytes": 102635,
+        "sha256": "413fce25348251e6273548c0e511db3282b9311dde1803b5c8d67d1f36d14bc7",
+        "url": "https://pypi.org/pypi/websockets/17.0.1/json"
+      },
+      "upstreamProjectUrls": {
+        "Changelog": "https://websockets.readthedocs.io/en/stable/project/changelog.html",
+        "Documentation": "https://websockets.readthedocs.io/",
+        "Funding": "https://tidelift.com/subscription/pkg/pypi-websockets?utm_source=pypi-websockets&utm_medium=referral&utm_campaign=readme",
+        "Homepage": "https://github.com/python-websockets/websockets",
+        "Tracker": "https://github.com/python-websockets/websockets/issues"
+      },
+      "retainedDirectory": "closure/wheels\\websockets",
+      "nativeWheelMemberCount": 1,
+      "shippedNativeMembers": [
+        {
+          "wheelMember": "websockets/speedups.cp313-win_amd64.pyd",
+          "wheelMemberSha256": "09ceabcaeffa53bfadd28c7a858ec1977fa8ae1ab42cd9a7a6b34d853d21550d",
+          "pkgType": "EXTENSION",
+          "buildInput": "D:\\Syphon-Beta16-20261018\\yt-dlp-urllib3-fixed-build\\python\\Lib\\site-packages\\websockets\\speedups.cp313-win_amd64.pyd",
+          "buildInputMatchesWheel": true,
+          "sourceMembers": [
+            "websockets-17.0.1/src/websockets/speedups.c"
+          ]
+        }
+      ],
+      "wheelNotices": [
+        {
+          "member": "websockets-17.0.1.dist-info/licenses/LICENSE",
+          "sha256": "0f44514998aca209d3482d10204a8adf2aa4296ff157a36a5c0922f2280632d3"
+        }
+      ],
+      "sourceEvidence": [
+        {
+          "member": "websockets-17.0.1/LICENSE",
+          "sha256": "3d6a0c050d8bec52fabad502e45fb25bd02bcadbd70dea34d447b6a0ff4e6da8"
+        },
+        {
+          "member": "websockets-17.0.1/pyproject.toml",
+          "sha256": "69f4378d34a4154f255c49e27a3d9b2aec1190e4a5668eff1255e5cc27fc8b37"
+        },
+        {
+          "member": "websockets-17.0.1/setup.py",
+          "sha256": "3a616f8502037be82cf88a2d4f10318424ffc569bdb7342279ff999db292fb27"
+        }
+      ],
+      "engineeringStatus": "source-and-recipe-retained",
+      "limitations": []
+    }
+  ],
+  "currentRuntimeBinding": {
+    "file": "closure/current-binding/native-binary-binding.json",
+    "downloaderSha256": "d7a74ab51f7d599c7de22678cb7cb327e21b00e7d9a5453e15828269fde7059b",
+    "all75NativeFilesMatchPinnedInputs": true,
+    "extraWindowsRuntimeMembers": 0,
+    "note": "All47 reviewed wheel-native file hashes are unchanged. Historical build graph is supplemented by direct CArchive inspection of current executable."
+  }
+}

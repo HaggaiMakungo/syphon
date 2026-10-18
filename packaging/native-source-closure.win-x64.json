@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "status": "identified-native-source-gaps-closed",
+  "scope": "Current isolated downloader build, not the historical Beta16 host-DLL footprint. Engineering source/archive/recipe mapping; no legal or bit-reproducibility certification.",
+  "downloader": {
+    "sha256": "d7a74ab51f7d599c7de22678cb7cb327e21b00e7d9a5453e15828269fde7059b",
+    "bytes": 20944536,
+    "version": "2026.08.19",
+    "source": "https://github.com/HaggaiMakungo/syphon/blob/main/packaging/MEDIA-RUNTIME.md",
+    "buildVariant": "syphon_win_x64_py313",
+    "python": "3.13.16"
+  },
+  "dependencyLockCanonicalSha256": "95012690d97f8fa64ab715c8703db2887d756d49861d6a53d652e36de2c6d0b2",
+  "buildInputLockSha256": "4e4cbedcbcf6c48e879b3c8b8ddabd3d752bfcb3f5ade2ae6d7c1473cf2a1abf",
+  "reviews": {
+    "python-native-source-review.win-x64.json": {
+      "bytes": 56849,
+      "sha256": "2a415ae3f68b4dd3b527bcb16af2639eb3fac741d0ddb71307a95affd95828c3"
+    },
+    "pyinstaller-source-review.win-x64.json": {
+      "bytes": 3574,
+      "sha256": "0ecbd5556dc9e3fc377484b96cb254f3aab449aae8ceef6c8f93ea20235372b3"
+    },
+    "native-wheels-source-review.win-x64.json": {
+      "bytes": 50837,
+      "sha256": "e7552303f2efec6e372d69454142455d80e4ed4adf420056cfe0a0e77c1e7c05"
+    },
+    "curl-native-source-review.win-x64.json": {
+      "bytes": 18063,
+      "sha256": "233b92e4562d8a53ce386393fb7daa5f381469140bbe04917792a764a2e52894"
+    }
+  },
+  "sourceEvidence": {
+    "python": "Exact embed SPDX matches input; CPython source and4863 official file hashes verified; native sources, licenses and Windows recipes retained.",
+    "pyinstaller": "Release wheel/source digests, actual successful workflow/source commits, bootloader source and bundled zlib mapped.",
+    "curl": "Exact publisher DLL match; eight pinned native source archives and all source patches/build scripts retained.",
+    "otherWheels": "Author/native sources and build recipes for47 native wheel files; build-only launchers distinguished."
+  },
+  "nativeBinding": {
+    "file": "closure/current-binding/native-binary-binding.json",
+    "bytes": 31769,
+    "sha256": "389fa31a84ea79620d743f5533c2ca0733da8599c7ca2e1c584fbdd38c228a0d",
+    "exactPinnedNativeMembers": 75,
+    "unclassifiedMembers": 0,
+    "additionalHostRuntimeMembers": 0
+  },
+  "buildHardening": {
+    "privateSearchPath": true,
+    "privateFreshCache": true,
+    "rejectExternalNativeOrigins": true,
+    "oldBuildRejectedByGate": true,
+    "pinnedInputChanges": 0
+  },
+  "historicalWindowsRuntime": {
+    "removedAdditionalDlls": 43,
+    "proprietarySourcesNotClaimed": true,
+    "historicalQualification": "WINDOWS-RUNTIME.md",
+    "currentEffect": "Excluded by isolated build; supported Windows10/11 supplies system UCRT. Original pinned CPython vcruntime140 DLLs remain identified with their original notices."
+  },
+  "supplementalNotices": [
+    "licenses/curl-8.21.0-COPYING.txt",
+    "licenses/curl-zlib-1.3.1-LICENSE.txt"
+  ],
+  "remainingSourceGaps": [],
+  "limits": [
+    "Precise original upstream compiler/runner patch versions and cross-machine byte reproducibility are unproven.",
+    "Source archive collection is engineering evidence, not a legal/patent certificate or public-release authorization.",
+    "Historical source/binary receipts retain their original identities and are not relabelled."
+  ]
+}

@@ -1,0 +1,36 @@
+# Historical Beta16 Windows runtime collection, removed from the current build
+
+The isolated replacement build now contains zero additional host-supplied UCRT/API-set DLLs. All75 native files match pinned Python/wheel inputs. Its private PATH/cache and external-binary rejection gate prevent recurrence. Windows10/11 supplies the system UCRT; users need no additional installation. The following review documents the old43 files as historical evidence, not current source obligations or a remaining blocker.
+
+# Microsoft Windows runtime provenance and redistribution scope
+
+This review distinguishes identified proprietary Microsoft runtime binaries from missing open source dependencies. Their names, hashes, extracted payload identity, and original build-input paths must be read together with the current executable inventory. A Windows system directory path, a Microsoft signature, or PyInstaller's decision to collect a DLL is not itself a redistribution grant.
+
+## SDK UCRT and API-set deployment
+
+The [Microsoft Windows SDK REDIST list](https://learn.microsoft.com/en-us/legal/windows-sdk/redist), updated October 21, 2024, explicitly names 41 x64 DLLs under `Windows Kits/10/Redist/ucrt/DLLs/x64`: `ucrtbase.dll` and the listed `api-ms-win-core-*` / `api-ms-win-crt-*` forwarders. It permits unmodified object-code distribution with Classic Windows applications, subject to a valid SDK license and its terms. This is an actual file-level allowance; it does not extend indiscriminately to similarly named files found in System32.
+
+The actual executable inventory identifies 43 additional Microsoft UCRT/API-set DLLs, with valid Microsoft signatures and recorded versions/copyrights. Build-input records point to the bundled Codex runtime's `dependencies/native/libheif/libheif/bin` directory, rather than the pinned CPython ZIP. These are identified proprietary system/runtime binaries; they are not unidentified open source components.
+
+The installed Windows SDK `10.0.26100.0` has two distinct Redist trees: the unversioned tree has 41 DLLs matching the public REDIST page; the versioned tree has 46 DLLs and includes every one of the 43 shipped filenames. None of the 43 shipped hashes matches the installed SDK Redist copies. Four shipped filenames are absent from the public October 2024 list: `api-ms-win-core-fibers-l1-1-0.dll`, `api-ms-win-core-fibers-l1-1-1.dll`, `api-ms-win-core-kernel32-legacy-l1-1-1.dll`, and `api-ms-win-core-sysinfo-l1-2-0.dll`. The other 39 shipped filenames appear there. Thus the Microsoft documents establish the SDK app-local runtime distribution mechanism, while exact release/package permission for these newer third-party-supplied binary bytes is not proven solely by the currently installed SDK or the older public filename list.
+
+The byte comparisons, original installed `sdk_license.rtf`, `sdk_third_party_notices.rtf`, captured Microsoft REDIST page, signatures, exact executable-member hashes, build-input paths, and copyright metadata are retained under `D:/Syphon-Native-Source-Closure-20261018/windows-runtime`. This is a narrow redistribution evidence qualification, not an open source source-collection gap.
+The [official SDK license text in Microsoft's repository](https://github.com/microsoft/win32metadata/blob/main/licenses/sdk_license.txt) explains the applicable structure: object code designated by REDIST may be distributed under conditions, including substantial application functionality and protection of Microsoft's terms. It does not grant permission to relicense these binaries as open source or redistribute proprietary source under a copyleft license. The original installed SDK license is retained as the local product-specific evidence; the repository copy is explanatory supporting evidence.
+
+[Microsoft's UCRT deployment documentation](https://learn.microsoft.com/en-us/cpp/windows/universal-crt-deployment?view=msvc-170) identifies the SDK Redist directory as the app-local DLL source. On Windows 10/11 the system UCRT is used preferentially. This runtime is an operating-system/toolchain component; public open source release archives are not the proper provenance category. Some SDKs supply source for reference/debugging under their terms; availability of such source does not establish open source redistribution rights.
+
+## MSVC runtime scope
+
+`vcruntime140.dll` and `vcruntime140_1.dll` are separately inventoried in the pinned CPython embed ZIP. Their identity to that input establishes the immediate supplier chain. The [Visual Studio 2022 REDIST list](https://learn.microsoft.com/en-us/visualstudio/releases/2022/redistribution) designates VC143 CRT runtime files/directories for distribution subject to the relevant Visual Studio license. This is distinct from the Windows SDK UCRT list. A complete distribution decision must identify the applicable licensed supplier and unmodified runtime files; embedding them in a Python distribution does not turn them into PSF-licensed source.
+
+## Why PyInstaller collected these DLLs
+
+The pinned [PyInstaller `dylib.py`](https://github.com/pyinstaller/pyinstaller/blob/70fc17210920bce17f4ab09bbf8104b0dbd45338/PyInstaller/depend/dylib.py#L138) explicitly includes `api-ms-win-core.*`, `api-ms-win-crt.*`, `ucrtbase.dll`, `vcruntime140.dll`, and `vcruntime140_1.dll`. Its `include_library` function allows an include pattern to override the usual exclusion logic. Its comments acknowledge that UCRT collection is unnecessary for Windows 10 and later because Windows supplies and prefers the system version. This source explains the packaging behavior; it does not supply a Microsoft license grant.
+
+The pinned [dependency scanner](https://github.com/pyinstaller/pyinstaller/blob/70fc17210920bce17f4ab09bbf8104b0dbd45338/PyInstaller/depend/bindepend.py) recursively resolves imported binaries and records input paths. The retained `PKG-00.toc` and actual executable inventory, rather than the source patterns alone, determine which DLLs this particular build carried.
+
+## GPLv3 source scope
+
+[GPLv3 section 1](https://www.gnu.org/licenses/gpl-3.0.html) excludes qualifying System Libraries from Corresponding Source. It defines them by normal packaging with a major operating-system/compiler component and their interface role. Section 6 also addresses the separable object-code portion corresponding to that exception. The [GNU GPLv3 quick guide](https://www.gnu.org/licenses/quick-guide-gplv3.html) explicitly explains that GPL-incompatible System Libraries may accompany GPLv3 software. The different GPLv2 section 3 “accompanies” qualification must not be imported into GPLv3 as a new prohibition.
+
+These Microsoft standard C/runtime and Windows API forwarder components have the identified operating-system/toolchain role relevant to that exception. Their proprietary source is excluded from this open source collection scope; their presence does not leave an unidentified open source source gap. Microsoft permission to distribute particular binary copies remains separate from GPLv3's Corresponding Source boundary. The concrete qualification here is the newer binary supplier/package and four-name REDIST-list discrepancy described above, not a general assertion that GPLv3 forbids bundling System Libraries. This engineering provenance review is not legal certification.

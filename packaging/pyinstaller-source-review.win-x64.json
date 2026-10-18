@@ -1,0 +1,106 @@
+{
+  "materials": [
+    {
+      "file": "historical-pyinstaller-6.22.0-py3-none-win_amd64.whl",
+      "bytes": 1101025,
+      "sha256": "294099ecb5fdd2a13ae4c29006d4e335b697a63b6a16cf052b90ec2b40bef05a"
+    },
+    {
+      "file": "historical-pyinstaller-6.22.0.tar.gz",
+      "bytes": 3527013,
+      "sha256": "2fadbed5d951d53f003ed899312823a07dbba59990a223cbe538933e1c42a168"
+    },
+    {
+      "file": "historical-pyinstaller-70fc17210920bce17f4ab09bbf8104b0dbd45338.tar.gz",
+      "bytes": 3617860,
+      "sha256": "587eb41e1087aeaf2a879b04db35b68bbe44b85f9227e263c873396806103540"
+    },
+    {
+      "file": "historical-Pyinstaller-Builds-5eb86b862d61adc3df0f44e6e0b815b7d74fa3f5.tar.gz",
+      "bytes": 7782,
+      "sha256": "65fa1589e00923522b289ad4fbde68feca06850acd699e1a4764882b2734c582"
+    },
+    {
+      "file": "pyinstaller-custom-release.json",
+      "bytes": 9039,
+      "sha256": "7739e66fd115ccfdd23fbc1f2d2870ec6caa278286828b7518743ba39886aae0"
+    }
+  ],
+  "sdistVsCommitBuildSource": {
+    "compared": 157,
+    "missing": [],
+    "different": []
+  },
+  "wheelBootloaders": [
+    {
+      "file": "PyInstaller/bootloader/Windows-64bit-intel/run.exe",
+      "bytes": 145408,
+      "sha256": "a2223d702cabacac3eaa07270d16a71a2c73cceac51cfc93ad1bba62348e26c7"
+    },
+    {
+      "file": "PyInstaller/bootloader/Windows-64bit-intel/run_d.exe",
+      "bytes": 166400,
+      "sha256": "9fe4731ebdefb677eb700f456e7ab0bfb8248323fd252cad39a5a8d65c982d15"
+    },
+    {
+      "file": "PyInstaller/bootloader/Windows-64bit-intel/runw.exe",
+      "bytes": 148480,
+      "sha256": "75762908a09d7a3369b345e716a66ef79e825ecdbb1e7918917ec48dc0626506"
+    },
+    {
+      "file": "PyInstaller/bootloader/Windows-64bit-intel/runw_d.exe",
+      "bytes": 168960,
+      "sha256": "11ffc3f8d3e9e82a77b43f2fce1b5bdc2f93e64d4f82240c4ad2b97d3f7d2511"
+    }
+  ],
+  "wheelPythonVsCommit": {
+    "compared": 558,
+    "different": [],
+    "normalization": "CRLF to LF"
+  },
+  "schema": 1,
+  "reviewDate": "2026-10-18",
+  "status": "source-and-build-recipe-mapped",
+  "sourceRevision": "70fc17210920bce17f4ab09bbf8104b0dbd45338",
+  "workflowRevision": "5eb86b862d61adc3df0f44e6e0b815b7d74fa3f5",
+  "release": "https://github.com/yt-dlp/Pyinstaller-Builds/releases/tag/2026.08.19.215425",
+  "run": {
+    "url": "https://github.com/yt-dlp/Pyinstaller-Builds/actions/runs/32306212512",
+    "event": "workflow_dispatch",
+    "conclusion": "success",
+    "x64Job": 96239539520,
+    "runner": "windows-2025"
+  },
+  "recipe": {
+    "msystem": "MINGW64",
+    "compilerFamily": "gcc",
+    "packages": [
+      "base-devel",
+      "mingw-w64-x86_64-toolchain",
+      "mingw-w64-x86_64-python",
+      "mingw-w64-x86_64-python-pip"
+    ],
+    "bootloaderCommand": "python ./waf --target-arch=\"64bit\" --\"gcc\" distclean all",
+    "wheelEnvironment": {
+      "PYI_WHEEL_TAG": "win_amd64",
+      "PYI_PLATFORM": "Windows-64bit-intel"
+    },
+    "wheelCommand": "python -m build --no-isolation --wheel --outdir=dist .",
+    "patches": []
+  },
+  "embeddedThirdParty": [
+    {
+      "name": "zlib",
+      "version": "1.3.2",
+      "source": "bootloader/zlib",
+      "license": "bootloader/zlib/LICENSE",
+      "linkage": "static on Windows"
+    }
+  ],
+  "limitations": [
+    "Run logs API returned HTTP 403; exact MSYS2/GCC/Python package versions and runner image revision were not recovered.",
+    "No source build executed; cross-machine byte-for-byte reproducibility is unproven.",
+    "This is engineering provenance evidence, not legal approval."
+  ],
+  "evidenceDirectory": "closure/pyinstaller"
+}

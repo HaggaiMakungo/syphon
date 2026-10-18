@@ -13,7 +13,7 @@ The installer retains component notices in `licenses/`, and frontend/font notice
 | WebView2 SDK/bootstrapper | Microsoft SDK license/notice and the original bootstrapper remain subject to their own terms. |
 | Frontend libraries, icons and fonts | Existing package/font/icon notices remain with the assets. |
 
-These entries identify retained evidence; they are not an exhaustive application SBOM. Exact bundled binary versions and hashes are recorded in `packaging/dependencies.win-x64.json` and the generated package provenance. Original source materials and unresolved vendor/bundled input gaps are tracked in the source manifests under `packaging/`; coverage remains incomplete.
+These entries identify retained evidence; they are not an exhaustive application SBOM. Exact bundled binary versions and hashes are recorded in `packaging/dependencies.win-x64.json` and the generated package provenance. Original source materials and unresolved vendor/bundled input gaps are tracked in the source manifests under `packaging/`; current native source/recipe mapping is closed in `packaging/NATIVE-SOURCE-CLOSURE.md`; older manifests remain historical.
 
 The reviewed FFmpeg source/build archive is identified in `packaging/ffmpeg-source-evidence.win-x64.json` and retained beside the local Beta 14 installer. It includes exact library sources, patches, compiler/assembler source and build context, configuration, logs and a runnable recipe. See `packaging/FFMPEG.md`. Earlier vendor-build source manifests describe historical binaries and must not be used as the source identity for Beta 14. Engineering source-material review is not legal or patent clearance for this package or other dependencies.
 
@@ -22,3 +22,5 @@ Choosing MIT for Syphon's original code does not close those third-party distrib
 Upstream references: [FFmpeg](https://www.ffmpeg.org/legal.html), [yt-dlp 2026.08.19](https://github.com/yt-dlp/yt-dlp/blob/2026.08.19/README.md#licensing).
 
 Beta 10 uses a Syphon-local yt-dlp build with Python 3.13.16. Exact Python/wheel notices are retained under packaging/licenses/yt-dlp-runtime and included in the installer alongside original upstream notices and build/input records. See packaging/MEDIA-RUNTIME.md for scope and remaining source-material gaps.
+
+The current native source companion supplies exact CPython, custom bootloader, curl-linked and other native-wheel source/recipe evidence. Exact curl8.21.0 and zlib1.3.1 copyright texts supplement the preserved original aggregate under packaging/licenses; copies accompany the unchanged Beta16 candidate. This does not relicense third-party code or claim byte-identical reproduction.

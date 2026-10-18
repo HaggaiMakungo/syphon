@@ -3,16 +3,469 @@
   "variant": "syphon_win_x64_py313",
   "sourceRevision": "3a08beaf031ab68f966401ead017ac81fe8486cf",
   "releaseGitHead": "594bd50c2c78ac432f81600d309fdc4e0a92d82c",
-  "buildLockSha256": "9bd13f453970e94ce501043f9039d90ed61df70412fbfcb171ef9010356aef7b",
+  "buildLockSha256": "4e4cbedcbcf6c48e879b3c8b8ddabd3d752bfcb3f5ade2ae6d7c1473cf2a1abf",
   "runtime": {
     "python": "3.13.16",
     "openssl": "3.5.9",
     "urllib3": "2.8.0"
   },
+  "nativeInputPolicy": "Private pinned runtime only; inherited PATH and shared PyInstaller cache excluded. Any external BINARY/EXTENSION in build graph is rejected.",
+  "nativeInputs": [
+    {
+      "member": "python313.dll",
+      "privateInput": "python313.dll",
+      "bytes": 6142176,
+      "sha256": "3b29bf9ff39bed8f660f5b935f19657f7ce7f145009851741b11364f6ebcb862"
+    },
+    {
+      "member": "Cryptodome/Cipher/_raw_blowfish.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Cipher/_raw_blowfish.pyd",
+      "bytes": 19456,
+      "sha256": "eea7e0597216ece6d23b351743fdc08d32a5bcde57b1efa724a3b6138b692ad9"
+    },
+    {
+      "member": "Cryptodome/Hash/_RIPEMD160.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Hash/_RIPEMD160.pyd",
+      "bytes": 13824,
+      "sha256": "ce297d6286dc9fcf54459a416fd6df0d5655dcd585c5a34fb90181428ccf6edd"
+    },
+    {
+      "member": "Cryptodome/PublicKey/_ed25519.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/PublicKey/_ed25519.pyd",
+      "bytes": 23552,
+      "sha256": "a3fb9c22c7c12de043d846cdb0a5e2456db6d626a00258652c74a5e614bd273f"
+    },
+    {
+      "member": "Cryptodome/Hash/_SHA224.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Hash/_SHA224.pyd",
+      "bytes": 21504,
+      "sha256": "aaf140f60dba7760d89a4cd3771127db18b5fc577c8aed6596f1e75481572a25"
+    },
+    {
+      "member": "Cryptodome/Cipher/_raw_ctr.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Cipher/_raw_ctr.pyd",
+      "bytes": 14848,
+      "sha256": "229994e4cb838079a5711c8c0ffeb25fb4684a70ecda497ddb49c8a315594a83"
+    },
+    {
+      "member": "Cryptodome/PublicKey/_curve448.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/PublicKey/_curve448.pyd",
+      "bytes": 58880,
+      "sha256": "aab7072304ec3274596a49fadaa2bb0467a314875d364182d459bf3921bbe609"
+    },
+    {
+      "member": "Cryptodome/Cipher/_raw_cast.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Cipher/_raw_cast.pyd",
+      "bytes": 24064,
+      "sha256": "90442d012d3f918cb0f78035680db6a373148b1de7e84545e5f3596c655cd6ab"
+    },
+    {
+      "member": "Cryptodome/Cipher/_pkcs1_decode.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Cipher/_pkcs1_decode.pyd",
+      "bytes": 13312,
+      "sha256": "ed12c3d512e5e0b4245fdc5a83fd46497bb2df31e49199b6265ace5142fe5021"
+    },
+    {
+      "member": "Cryptodome/Hash/_ghash_clmul.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Hash/_ghash_clmul.pyd",
+      "bytes": 12800,
+      "sha256": "c8cc9583c2d91d8ef25073e01a863a40c09fa0a89007f8bb0442df46ba26f0e3"
+    },
+    {
+      "member": "Cryptodome/Cipher/_raw_eksblowfish.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Cipher/_raw_eksblowfish.pyd",
+      "bytes": 20480,
+      "sha256": "40e1a78102a078058cb06b4ff41411f89203564915bc0bce04f4c2643deb9b24"
+    },
+    {
+      "member": "Cryptodome/Protocol/_scrypt.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Protocol/_scrypt.pyd",
+      "bytes": 12288,
+      "sha256": "11cf9155436c23de02abc126ef5abc0c59d0d5b3555fc51f167912af21ad38f6"
+    },
+    {
+      "member": "Cryptodome/Hash/_keccak.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Hash/_keccak.pyd",
+      "bytes": 15360,
+      "sha256": "ca84a6475c144856f5cd72a58b9d319f2086393939f14ba799b7fb65666eec03"
+    },
+    {
+      "member": "Cryptodome/Hash/_ghash_portable.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Hash/_ghash_portable.pyd",
+      "bytes": 12288,
+      "sha256": "cd1d79a0d8923c39f7368c92fae0c731ae60ecd34d1c9f387d4824b2af168036"
+    },
+    {
+      "member": "Cryptodome/Cipher/_raw_arc2.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Cipher/_raw_arc2.pyd",
+      "bytes": 14848,
+      "sha256": "eda56aa3afb9d6adfd95ba950ad1247b5e2c6aedaa2db86af0c8fa79217359a4"
+    },
+    {
+      "member": "Cryptodome/Cipher/_raw_des3.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Cipher/_raw_des3.pyd",
+      "bytes": 52736,
+      "sha256": "809390256aae55a1265489283482f2fee34957e4f2b4377d7449602740724ecb"
+    },
+    {
+      "member": "Cryptodome/PublicKey/_ed448.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/PublicKey/_ed448.pyd",
+      "bytes": 74752,
+      "sha256": "96e2b5db37b8405e1319738637fc066ddb5ad5ec7b971f3af552a623ce6bc4f5"
+    },
+    {
+      "member": "Cryptodome/Hash/_MD4.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Hash/_MD4.pyd",
+      "bytes": 13824,
+      "sha256": "04171e099416e1aed2252a50dbfdd4ab03a748d97ee69420b8ff50d5d099de91"
+    },
+    {
+      "member": "Cryptodome/Cipher/_raw_ocb.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Cipher/_raw_ocb.pyd",
+      "bytes": 17920,
+      "sha256": "61f8a3ca451db3a07b3815c4d91a37100c416f160e3ccfa6113bef0c80d0c12b"
+    },
+    {
+      "member": "Cryptodome/Cipher/_raw_cbc.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Cipher/_raw_cbc.pyd",
+      "bytes": 11776,
+      "sha256": "6c6c5fac1b5933fb857fcc3e5a87765257b5484285de147e9bb5fc854223a707"
+    },
+    {
+      "member": "Cryptodome/Hash/_MD5.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Hash/_MD5.pyd",
+      "bytes": 15360,
+      "sha256": "ee1174e8047988975fbf32ef309f959b7d71654e636e5ab1dde1812bd78c8470"
+    },
+    {
+      "member": "Cryptodome/Cipher/_raw_aes.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Cipher/_raw_aes.pyd",
+      "bytes": 35328,
+      "sha256": "889f9b558a47a4333bfd3e3814eaec2328ac8648722d912c7873fdea62fcf886"
+    },
+    {
+      "member": "Cryptodome/Cipher/_raw_cfb.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Cipher/_raw_cfb.pyd",
+      "bytes": 12288,
+      "sha256": "26e351c4fade35c146d84df0e22c2468e01186d3a8a1e51bb6c8d8ea87f09cd7"
+    },
+    {
+      "member": "Cryptodome/Cipher/_ARC4.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Cipher/_ARC4.pyd",
+      "bytes": 10752,
+      "sha256": "e37da2a2140eb18fb84065d4138ad1072539c82464475a94f5a87a049e601f7e"
+    },
+    {
+      "member": "Cryptodome/Util/_cpuid_c.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Util/_cpuid_c.pyd",
+      "bytes": 10240,
+      "sha256": "e7e6f27d5203768e6454b4066847a3af02548c811146da047c4a53b1edaf32e9"
+    },
+    {
+      "member": "Cryptodome/Hash/_SHA256.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Hash/_SHA256.pyd",
+      "bytes": 21504,
+      "sha256": "e3437cff63cc31509050697bec17f29b24a2842aafbba78238281b5cc621773e"
+    },
+    {
+      "member": "Cryptodome/Cipher/_raw_des.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Cipher/_raw_des.pyd",
+      "bytes": 52736,
+      "sha256": "8bd8469ecbf707b90d88fcc32213f1f6877dac36dcf767a0f4c1ce8ba81b5756"
+    },
+    {
+      "member": "Cryptodome/PublicKey/_ec_ws.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/PublicKey/_ec_ws.pyd",
+      "bytes": 755200,
+      "sha256": "0720ab37bce7023ea36261c6681154be474673f2aee0f8a2de7434bf1bd60d0c"
+    },
+    {
+      "member": "Cryptodome/Math/_modexp.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Math/_modexp.pyd",
+      "bytes": 30720,
+      "sha256": "4f7650be6725a70a29cc57cdf1d9a2fd886c06cc5dde35c1ccda7dd29dc5fff4"
+    },
+    {
+      "member": "Cryptodome/Util/_strxor.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Util/_strxor.pyd",
+      "bytes": 10240,
+      "sha256": "c80c1b169b894b141a60f99fd80e0dceb1c9a598748315c26b955831d9df46b5"
+    },
+    {
+      "member": "Cryptodome/Cipher/_raw_ofb.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Cipher/_raw_ofb.pyd",
+      "bytes": 11776,
+      "sha256": "b77a2a9322c28d1dd79dd9176bd6d697f2ee3dd10cb2ce24cdfd9d42b533feff"
+    },
+    {
+      "member": "Cryptodome/Hash/_BLAKE2s.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Hash/_BLAKE2s.pyd",
+      "bytes": 13824,
+      "sha256": "88e734c772909ccc7158f54ce8d488bd0b412ebe2e932c5539e07cb6674243cc"
+    },
+    {
+      "member": "Cryptodome/Hash/_SHA512.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Hash/_SHA512.pyd",
+      "bytes": 26112,
+      "sha256": "a341b50b34a4a85028ab7a4d1822d04055a65bde4ee8518b5f79cf792957ce4d"
+    },
+    {
+      "member": "Cryptodome/Cipher/_raw_aesni.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Cipher/_raw_aesni.pyd",
+      "bytes": 15360,
+      "sha256": "6c9a2bed5c1bd9acd8bcea7f5f20f7fa63e4465b0914ae70250bd59a8028333c"
+    },
+    {
+      "member": "Cryptodome/Hash/_SHA1.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Hash/_SHA1.pyd",
+      "bytes": 17920,
+      "sha256": "76dd83ba91ceccd982d4daafcbb3c6950f8812a92b619fa3da24a50e23c43e17"
+    },
+    {
+      "member": "Cryptodome/Hash/_MD2.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Hash/_MD2.pyd",
+      "bytes": 14336,
+      "sha256": "ef0440af79e09ebd665090164bdd170d10eab0e63c1e3e116088bb06b63bfb2b"
+    },
+    {
+      "member": "Cryptodome/Cipher/_raw_ecb.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Cipher/_raw_ecb.pyd",
+      "bytes": 10240,
+      "sha256": "da4eacde396e7388ec5da5133762409757dcdaae3022590a73d9ad950844c31f"
+    },
+    {
+      "member": "Cryptodome/Cipher/_Salsa20.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Cipher/_Salsa20.pyd",
+      "bytes": 13824,
+      "sha256": "59ee075ecb9877bc24f5c27fa2d590bae0f6aa30a6e02432e1eb25cb459abc0e"
+    },
+    {
+      "member": "Cryptodome/Hash/_poly1305.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Hash/_poly1305.pyd",
+      "bytes": 13824,
+      "sha256": "7f39864610a7e2275d521ee8bed6093b7fefb3256eeec3c1baa3bd800d1bf423"
+    },
+    {
+      "member": "Cryptodome/Hash/_SHA384.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Hash/_SHA384.pyd",
+      "bytes": 26112,
+      "sha256": "a30d3afce8c4bfe98c494b09d6cea4db642bbf194eceb90875a79434c703db65"
+    },
+    {
+      "member": "Cryptodome/PublicKey/_curve25519.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/PublicKey/_curve25519.pyd",
+      "bytes": 19456,
+      "sha256": "818851a9c2b838d5c9a45aaa01e3e6790f848f3ed4b7c28f2e54dabb0bb8544e"
+    },
+    {
+      "member": "Cryptodome/Hash/_BLAKE2b.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Hash/_BLAKE2b.pyd",
+      "bytes": 14336,
+      "sha256": "9a10ace816f610297bcf250c6da85fabbf806dd41a65b8441e135e8390cd6870"
+    },
+    {
+      "member": "Cryptodome/Cipher/_chacha20.pyd",
+      "privateInput": "Lib/site-packages/Cryptodome/Cipher/_chacha20.pyd",
+      "bytes": 13312,
+      "sha256": "5736506ad6dc2f3d893b978c8727d74c2f0ae87bbc2fcfcfe8c7e982ea5e86e2"
+    },
+    {
+      "member": "select.pyd",
+      "privateInput": "select.pyd",
+      "bytes": 32992,
+      "sha256": "17df388a7aa42e7f066b80aa4f77cbbba9286495e6f3508425806be6766d122b"
+    },
+    {
+      "member": "_decimal.pyd",
+      "privateInput": "_decimal.pyd",
+      "bytes": 286944,
+      "sha256": "eeb278dfbdb305bb5af916ed79e878943e25dc4bd6e99ec17abb7b3fd9f935d5"
+    },
+    {
+      "member": "_hashlib.pyd",
+      "privateInput": "_hashlib.pyd",
+      "bytes": 69344,
+      "sha256": "4d3eb9d9492d626c7bb10cfe5ab233a9195ec7b27e92b465b287e7a24fc8266c"
+    },
+    {
+      "member": "_socket.pyd",
+      "privateInput": "_socket.pyd",
+      "bytes": 86752,
+      "sha256": "c5936292083189e0675a96ddd0e38235726f1c58195cec64eb0085b9c479ddce"
+    },
+    {
+      "member": "unicodedata.pyd",
+      "privateInput": "unicodedata.pyd",
+      "bytes": 712416,
+      "sha256": "d113047658f92d893bf4ee2da81ffbd624ec5c485733c02e116fac1b9a1b964c"
+    },
+    {
+      "member": "_lzma.pyd",
+      "privateInput": "_lzma.pyd",
+      "bytes": 159456,
+      "sha256": "2b4dcb12c0420ffced4b91968ae4eff6cb585f0f07490160c6da47da63064a99"
+    },
+    {
+      "member": "_bz2.pyd",
+      "privateInput": "_bz2.pyd",
+      "bytes": 86752,
+      "sha256": "6da4d453852346299e983b458f3ec2f0db3b5f765998ba3f45c91b4a1549037b"
+    },
+    {
+      "member": "_multiprocessing.pyd",
+      "privateInput": "_multiprocessing.pyd",
+      "bytes": 38112,
+      "sha256": "5017bb9dd0d5ab6d7c0f007763d7906d33464f0b436ac6577f1f4fffd5c98986"
+    },
+    {
+      "member": "pyexpat.pyd",
+      "privateInput": "pyexpat.pyd",
+      "bytes": 200416,
+      "sha256": "3865fae84ff0f274c049e737731cd8aa184fae208af5b4c0d0cfc42a38f79cea"
+    },
+    {
+      "member": "_ssl.pyd",
+      "privateInput": "_ssl.pyd",
+      "bytes": 190688,
+      "sha256": "30ff82a3ea0c675ddc99e6b14f71ca750f06e77d6653e2da3d7d35b7ef0fc2ed"
+    },
+    {
+      "member": "_ctypes.pyd",
+      "privateInput": "_ctypes.pyd",
+      "bytes": 134368,
+      "sha256": "5bcddf4c374c4d247e1e4a61f3347159c36c5785fe43bdae11a4e6c9ea2c0166"
+    },
+    {
+      "member": "_queue.pyd",
+      "privateInput": "_queue.pyd",
+      "bytes": 35552,
+      "sha256": "79c196a0804b152fc48b4055387f4352838e41c28863a0c946e7a98137e681e1"
+    },
+    {
+      "member": "_overlapped.pyd",
+      "privateInput": "_overlapped.pyd",
+      "bytes": 57568,
+      "sha256": "3f393b2ce1fe5973fc45e49dffcf51405fa875cdb284cf96b2f0d4b93b08765c"
+    },
+    {
+      "member": "_asyncio.pyd",
+      "privateInput": "_asyncio.pyd",
+      "bytes": 72928,
+      "sha256": "6654dfbf4cc92609801f35022acaddd3fc19e6c777b7771b0f0a68f5813889a8"
+    },
+    {
+      "member": "curl_cffi/_wrapper.pyd",
+      "privateInput": "Lib/site-packages/curl_cffi/_wrapper.pyd",
+      "bytes": 39424,
+      "sha256": "15cd3c31a0a20382fbdc09ff7e97b7aae6cff56a9e63967e28f10b590630e443"
+    },
+    {
+      "member": "_cffi_backend.cp313-win_amd64.pyd",
+      "privateInput": "Lib/site-packages/_cffi_backend.cp313-win_amd64.pyd",
+      "bytes": 180736,
+      "sha256": "21b7160d4a6da9590794fdb38718982060b5c92d56fb0e441fc8b62ee789be8d"
+    },
+    {
+      "member": "_brotli.cp313-win_amd64.pyd",
+      "privateInput": "Lib/site-packages/_brotli.cp313-win_amd64.pyd",
+      "bytes": 856576,
+      "sha256": "a7f83086a999a01db0ca8cba6d476b4aa74ec2f96292cf4e17446dd30c085c61"
+    },
+    {
+      "member": "charset_normalizer/cd.cp313-win_amd64.pyd",
+      "privateInput": "Lib/site-packages/charset_normalizer/cd.cp313-win_amd64.pyd",
+      "bytes": 115712,
+      "sha256": "df42efcc1617e7ec99044ee54204df84f5cf5e693d29b8310f229b6fce011637"
+    },
+    {
+      "member": "charset_normalizer/md.cp313-win_amd64.pyd",
+      "privateInput": "Lib/site-packages/charset_normalizer/md.cp313-win_amd64.pyd",
+      "bytes": 192512,
+      "sha256": "5722098c9454ba298240dff5c68b89e537214c1a7e8a9df87a3c1589240d155e"
+    },
+    {
+      "member": "_wmi.pyd",
+      "privateInput": "_wmi.pyd",
+      "bytes": 39648,
+      "sha256": "f88c322f871aef92de562278bd25c34c6e758642669d5512a22ed972840317b1"
+    },
+    {
+      "member": "_uuid.pyd",
+      "privateInput": "_uuid.pyd",
+      "bytes": 27872,
+      "sha256": "0d6fcf704721d4bae58cc754b15a3f8c36907b718874f6d7cbbaa363a14618b1"
+    },
+    {
+      "member": "websockets/speedups.cp313-win_amd64.pyd",
+      "privateInput": "Lib/site-packages/websockets/speedups.cp313-win_amd64.pyd",
+      "bytes": 11264,
+      "sha256": "09ceabcaeffa53bfadd28c7a858ec1977fa8ae1ab42cd9a7a6b34d853d21550d"
+    },
+    {
+      "member": "_sqlite3.pyd",
+      "privateInput": "_sqlite3.pyd",
+      "bytes": 131296,
+      "sha256": "95d5b99f696cb33550534e8be80d31003db8b8a27062dfd6b09fdba4bb92f812"
+    },
+    {
+      "member": "_elementtree.pyd",
+      "privateInput": "_elementtree.pyd",
+      "bytes": 136416,
+      "sha256": "34968e3aebdb3e89cb1472b75b04986ce1bbf27d290f4154d77649cc17c41fab"
+    },
+    {
+      "member": "VCRUNTIME140.dll",
+      "privateInput": "vcruntime140.dll",
+      "bytes": 178616,
+      "sha256": "d1f4225df2cd877dbf130d5668a021dce3f94118455ff5ec952061c30afc9ce7"
+    },
+    {
+      "member": "libcrypto-3.dll",
+      "privateInput": "libcrypto-3.dll",
+      "bytes": 6021880,
+      "sha256": "75495fe0e079ab00d49be740d3c710a0b94e3f74f9648cb7cc9f768fc7f52319"
+    },
+    {
+      "member": "libssl-3.dll",
+      "privateInput": "libssl-3.dll",
+      "bytes": 1308920,
+      "sha256": "8957182a9c385bfd9f3f790921de2ddc614cf91f99edbed4e9e5446a46504e32"
+    },
+    {
+      "member": "libffi-8.dll",
+      "privateInput": "libffi-8.dll",
+      "bytes": 39696,
+      "sha256": "eff52743773eb550fcc6ce3efc37c85724502233b6b002a35496d828bd7b280a"
+    },
+    {
+      "member": "curl_cffi.libs/libcurl-impersonate-ec8ead0e422fe4ae62a99233a63f6007.dll",
+      "privateInput": "Lib/site-packages/curl_cffi.libs/libcurl-impersonate-ec8ead0e422fe4ae62a99233a63f6007.dll",
+      "bytes": 3881472,
+      "sha256": "ec8ead0e422fe4ae62a99233a63f6007adc727caba97ff1f87385c00cafe200f"
+    },
+    {
+      "member": "python3.dll",
+      "privateInput": "python3.dll",
+      "bytes": 72416,
+      "sha256": "a1a32b2475675e784d9b34d33d3a8f3e4afaa563da1feb784b0dd69fc4d8f9dc"
+    },
+    {
+      "member": "VCRUNTIME140_1.dll",
+      "privateInput": "vcruntime140_1.dll",
+      "bytes": 50112,
+      "sha256": "a7146c08f89fe5b04541ab507cdb59ff7b44534d4ba3c668a426c6450a03434e"
+    },
+    {
+      "member": "sqlite3.dll",
+      "privateInput": "sqlite3.dll",
+      "bytes": 1584864,
+      "sha256": "2e3cf1b96e8afc679ee8bd69d6bde3aeb797b48b297b9cafd0eb9fd578eaafb5"
+    }
+  ],
   "output": {
     "file": "yt-dlp.exe",
-    "bytes": 21977475,
-    "sha256": "6f0c88b8ca7a832ea8540b5a077fed750165f724ef00ea6b46b238701d2c7355"
+    "bytes": 20944536,
+    "sha256": "d7a74ab51f7d599c7de22678cb7cb327e21b00e7d9a5453e15828269fde7059b"
   },
   "inputs": [
     {
@@ -170,5 +623,5 @@
       "source": "https://files.pythonhosted.org/packages/e3/bd/520769863744b669440a924271a6159ddd82ad5ae26b4ac4d4b69e9f8d44/yt_dlp_ejs-0.8.0-py3-none-any.whl"
     }
   ],
-  "limits": "Syphon-local build; not an official upstream EXE. Hash-locked inputs do not imply cross-machine bit reproducibility or complete corresponding-source distribution."
+  "limits": "Syphon-local build; not an official upstream EXE. Hash-locked inputs do not imply cross-machine bit reproducibility or legal certification."
 }

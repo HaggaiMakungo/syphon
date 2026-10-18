@@ -1,0 +1,14 @@
+{
+  "schema": 1,
+  "date": "2026-10-18",
+  "file": "Syphon-native-source-and-build-materials.zip",
+  "bytes": 554904430,
+  "sha256": "86e3a2e4835c215b8bffe5cf9f291a63b7adb9c9e65b55458e5f6ba84ab77415",
+  "sourceGapScope": "Identified native source/archive/build-recipe mapping",
+  "engineeringSourceClosureComplete": true,
+  "legalCertification": false,
+  "crossMachineBitReproducibilityClaimed": false,
+  "verifiedMembers": 6805,
+  "closureRecord": "native-source-closure.win-x64.json",
+  "dependencyLockCanonicalSha256": "95012690d97f8fa64ab715c8703db2887d756d49861d6a53d652e36de2c6d0b2"
+}

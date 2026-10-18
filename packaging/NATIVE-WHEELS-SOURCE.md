@@ -1,0 +1,22 @@
+# Native Python wheel source review — Beta 16
+
+Engineering source mapping is complete for the six distributions below, using the retained urllib3-fixed yt-dlp build graph. This is a source/material review, not legal approval or a bit-identical rebuild claim. CPython, curl_cffi and PyInstaller are reviewed separately.
+
+The machine-readable companion `native-wheels-source-review.win-x64.json` records exact wheel/archive URLs and hashes, member-level source evidence and notices, and SHA256 comparisons of every selected runtime native file against its pinned wheel member. Materials are retained at `closure/wheels`, including wheels, complete sdists, PyPI release metadata, source recipes and selected notice/source extracts.
+
+| Distribution | Native members in wheel / PKG | Source and build mapping |
+| --- | --- | --- |
+| Brotli 1.2.0 | 1 / 1 | `_brotli` wrapper plus bundled `c/common`, `c/dec`, `c/enc` sources; `setup.py` enumerates sources/headers. MIT notice retained. System-library mode also exists; exact original wheel compiler environment is not attested. |
+| cffi 2.1.1 | 1 / 1 | `_cffi_backend.c` plus vendored `src/c/libffi_x86_x64` C, headers and assembly. Windows MSVC x64 recipe compiles bundled C and links `win64.obj`. cffi MIT and embedded libffi copyright/permission headers retained. No unsupported libffi release number inferred. |
+| charset-normalizer 3.5.0 | 2 / 2 | `md.pyx`, `cd.pyx`, compatibility declarations and `setup.py` retained. This version uses **Cython**, enabled by `CHARSET_NORMALIZER_USE_CYTHON=1`; it is not a mypyc build. MIT notice retained. |
+| PyCryptodomex 3.23.0 | 42 / 42 | Each shipped extension mapped to its `Extension(..., sources=...)` entry; `src`, `compiler_opt.py`, setup/build definitions and upstream wheel workflow retained in full sdist. Public-domain/BSD terms and included historical legal files retained. |
+| websockets 17.0.1 | 1 / 1 | `src/websockets/speedups.c` and `setup.py` optional-extension recipe (`BUILD_EXTENSION=yes` forces build); pyproject wheel configuration retained. BSD notice retained. |
+| setuptools 84.0.0 | 8 / 0 | Native launcher EXEs are absent from the final PKG TOC. They are build inputs outside the shipped native-runtime footprint; `launcher.c`, source archive and notices nevertheless retained. |
+
+For cffi, the retained recipe explicitly says an outdated `win64.obj` must be regenerated manually from `win64.asm`. A concrete MASM x64 regeneration command is `ml64 /nologo /c /Fo win64.obj win64.asm`, run in `src/c/libffi_x86_x64`. This is an engineering recipe derived from the source, not a claim of the publisher's exact assembler invocation; it was not executed or compared.
+
+The charset-normalizer sdist retains its author source and extension recipe, but does not include generated C translation units or establish the exact Cython version used for the wheel. That limits generator provenance and reproducibility. Retained Cython `COPYING.txt` and Apache license reference files are pinned to upstream commit `079901549f959f36de2e566e47e5974106d7df19`; this reference is not claimed to be the wheel's generator. Cython's statement explicitly exempts compilation output, including embedded snippets, from Cython license restrictions. Consequently this engineering review does not identify retention of an unknown Cython compiler release as a missing package-source blocker. The review does not turn that observation into legal approval.
+
+Runtime evidence is the literal `PKG-00.toc` from `D:/Syphon-Beta16-20261018/yt-dlp-urllib3-fixed-build/source/build/yt-dlp`. All 47 selected native runtime inputs match the pinned wheel bytes. This establishes build-graph/input identity; it is not independent extraction of the final signed installer. Archive and wheel provenance is retained HTTPS PyPI metadata digest matching, without independent signature verification. Exact compiler versions, flags and binary reproducibility remain unverified and are not asserted as blanket license obligations. Final notice placement, distribution packaging and legal signoff remain separate release checks.
+
+The isolated rebuild uses the same wheel inputs. Direct inspection of its hash-verified executable (SHA-256 d7a74ab51f7d599c7de22678cb7cb327e21b00e7d9a5453e15828269fde7059b) independently matches all75 native files to pinned inputs, including these47 wheel members. It contains none of the43 host-search-path runtime DLLs. The current companion binding supplements the historical TOC.
