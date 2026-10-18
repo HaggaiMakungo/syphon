@@ -9,5 +9,6 @@
 /packaging/licenses/yt-dlp-runtime/** -text
 /packaging/licenses/ffmpeg-source-build/** -text
 /packaging/licenses/FFmpeg-source-build.txt -text
+/ui/desktop/theme-tokens.css text eol=lf
 /tests/media_runtime_test.py text eol=lf
 /tests/yt_dlp_build_test.py text eol=lf
