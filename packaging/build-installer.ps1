@@ -54,7 +54,17 @@ try {
     if ($LASTEXITCODE -ne 0) { throw 'Production installer diagnostic isolation checks failed.' }
     $taskRevision=(& git rev-parse HEAD).Trim()
     if ($LASTEXITCODE -ne 0) { throw 'Cannot identify the source revision.' }
-    $taskDirty=[bool](& git status --porcelain | Select-Object -First 1)
+    # Compare actual content. A freshly regenerated but byte-identical frontend
+    # can leave a stale Windows index stat and appear modified in porcelain.
+    & git diff --quiet
+    if ($LASTEXITCODE -gt 1) { throw 'Cannot compare working source content.' }
+    $taskWorkingDirty=$LASTEXITCODE -eq 1
+    & git diff --cached --quiet
+    if ($LASTEXITCODE -gt 1) { throw 'Cannot compare staged source content.' }
+    $taskStagedDirty=$LASTEXITCODE -eq 1
+    $taskUntracked=@(& git ls-files --others --exclude-standard)
+    if ($LASTEXITCODE -ne 0) { throw 'Cannot inspect untracked source files.' }
+    $taskDirty=$taskWorkingDirty -or $taskStagedDirty -or $taskUntracked.Count -gt 0
     $taskBuildInputs=[ordered]@{
         version=$Version; architecture='win-x64'; sourceRevision=$taskRevision; sourceDirty=$taskDirty
         dotnetSdk=(& $taskDotnet --version).Trim(); nodeVersion=(& $taskNode --version).Trim()
