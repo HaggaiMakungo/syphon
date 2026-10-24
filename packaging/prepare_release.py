@@ -42,7 +42,7 @@ def prepare(installer, record_path, extracted, manifest_path, output, release_da
     require_file(extracted / 'build-inputs.json', manifest['Files']['build-inputs.json'])
     build = read_json(extracted / 'build-inputs.json')
     version = build['version']
-    if version != '0.1.0-beta.17' or manifest['Version'] != version:
+    if not re.fullmatch(r'0\.1\.0-beta\.\d+', version) or manifest['Version'] != version:
         raise ValueError('Release versions do not match.')
     if build['sourceDirty'] is not False or build['architecture'] != 'win-x64' or not re.fullmatch(r'[0-9a-f]{40}', build['sourceRevision']):
         raise ValueError('Expected clean Windows x64 build provenance.')
@@ -96,7 +96,7 @@ def prepare(installer, record_path, extracted, manifest_path, output, release_da
                     'certificateThumbprint': record['certificateThumbprint'], 'timestamped': False},
         'acceptance': {'ownerReportedFunctionalAndInstallerPassOnThisPC': False, 'cleanMachineTested': False},
         'sources': [{key: item[key] for key in ('file', 'bytes', 'sha256')} for item in sources],
-        'pending': ['Owner Beta17 upgrade acceptance', 'Public release authorization',
+        'pending': [f'Owner Beta{beta} upgrade acceptance', 'Public release authorization',
                     'Browser store accounts, submission and store-installed acceptance'],
     }
     values = {
