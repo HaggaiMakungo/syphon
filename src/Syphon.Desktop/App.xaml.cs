@@ -20,6 +20,20 @@ public partial class App : Application
                 Shutdown(0); return;
             }
             MainWindow = new MainWindow();
+            if (e.Args.Contains("--startup", StringComparer.Ordinal)) {
+                var manager = (MainWindow)MainWindow;
+                // Loaded must run to start the coordinator/WebView, but no visible
+                // frame, activation or taskbar button should appear at sign-in.
+                manager.ShowActivated = false; manager.ShowInTaskbar = false; manager.Opacity = 0;
+                EventHandler? rendered = null;
+                rendered = (_, _) => {
+                    manager.ContentRendered -= rendered;
+                    if (manager.CanHideAtStartup) manager.Hide();
+                    manager.Opacity = 1; manager.ShowInTaskbar = true; manager.ShowActivated = true;
+                    if (!manager.CanHideAtStartup) manager.RestoreFromTray();
+                };
+                manager.ContentRendered += rendered;
+            }
             ((MainWindow)MainWindow).EnableTray();
             MainWindow.Show();
         }

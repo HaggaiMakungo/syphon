@@ -1,3 +1,4 @@
+import { LINKS_MENU, AUDIO_MENU, openPageLinks, audioRequest } from './page-actions.js';
 import { handleConnectionInstall } from './connection.js';
 import { createPlayerMetadata } from './player-metadata.js';
 import { HOST, MENU, downloadRequest, handoff, supportedLink, validReply } from "./handoff.js";
@@ -69,20 +70,27 @@ restoreFeatures().catch(() => {});
 
 async function installMenu() {
   await chrome.contextMenus.removeAll();
+  chrome.contextMenus.create({ id: LINKS_MENU, title: "Download all links on this page with Syphon", contexts: ["page", "link"], documentUrlPatterns: ["http://*/*", "https://*/*"] });
+  chrome.contextMenus.create({ id: AUDIO_MENU, title: "Download audio only", contexts: ["page", "link", "video", "audio"], documentUrlPatterns: ["http://*/*", "https://*/*"] });
   chrome.contextMenus.create({ id: MENU, title: "Syphon this", contexts: ["link", "video", "audio"],
     targetUrlPatterns: ["http://*/*", "https://*/*"] });
 }
 chrome.runtime.onInstalled.addListener(installMenu);
 chrome.runtime.onStartup.addListener(installMenu);
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
-  if (info.menuItemId !== MENU) return;
+  if (![MENU, LINKS_MENU, AUDIO_MENU].includes(info.menuItemId)) return;
   if (tab?.incognito) return;
   try {
+    if (info.menuItemId === LINKS_MENU) { await openPageLinks(chrome, tab); return; }
+    if (info.menuItemId === AUDIO_MENU) {
+      const response = await handoff(chrome, audioRequest(info));
+      await chrome.notifications.create({ type: "basic", iconUrl: "icon.png", title: "Download audio only", message: response.message }); return;
+    }
     const url = ["video", "audio"].includes(info.mediaType) ? info.srcUrl : info.linkUrl;
     const response = await handoff(chrome, downloadRequest(url, undefined, { showOptions: true, sourcePage: info.frameUrl || info.pageUrl, ...(/\.(m3u8|mpd)(?:$|[?#])/i.test(url ?? "") ? { format: "mp4" } : {}) }));
     await chrome.notifications.create({ type: "basic", iconUrl: "icon.png", title: "Syphon this", message: response.message });
-  } catch {
+  } catch (error) {
     await chrome.action.setBadgeText({ text: "!" });
-    await chrome.notifications.create({ type: "basic", iconUrl: "icon.png", title: "Syphon this", message: "This link could not be handed off. Use a direct HTTP or HTTPS download link." });
+    await chrome.notifications.create({ type: "basic", iconUrl: "icon.png", title: "Syphon this", message: info.menuItemId === LINKS_MENU ? error.message : info.menuItemId === AUDIO_MENU ? "Choose a supported YouTube page or direct media link. DRM and browser-private streams are unsupported." : "This link could not be handed off. Use a direct HTTP or HTTPS download link." });
   }
 });

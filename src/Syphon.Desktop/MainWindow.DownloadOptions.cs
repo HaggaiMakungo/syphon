@@ -45,8 +45,14 @@ public partial class MainWindow
             if (token.IsCancellationRequested || !IsReady) { dialog.Close(); return; }
             try {
                 DownloadCoordinator.ValidateBrowserFilename(dialog.Filename, format);
+                if (TryExistingDownload(request.Url!, dialog.Folder, dialog.Filename, dialog.StartImmediately, out var existing, format)) {
+                    var reused = coordinator.UseExistingBrowserDownload(request.RequestId, existing!.TaskId, url, request.Format, request.VideoStream, request.AudioStream, request.YoutubeFormat, request.QualityHeight);
+                    completion.TrySetResult(new(1, request.RequestId, "accepted", reused.TaskId, "Using the existing download.", reused.Task!.State.ToString()));
+                    dialog.Close(); return;
+                }
                 var accepted = coordinator.AcceptBrowserDownload(request.RequestId, url, dialog.Folder, request.Format, request.VideoStream, request.AudioStream, request.YoutubeFormat, request.Title,
-                    dialog.Filename, dialog.StartImmediately, dialog.SingleConnection, dialog.Priority, request.Context, request.QualityHeight, categorize: UsesCategoryFolders(dialog.Folder));
+                    dialog.Filename, dialog.StartImmediately && !HasPendingDuplicateReplacement, dialog.SingleConnection, dialog.Priority, request.Context, request.QualityHeight, categorize: UsesCategoryFolders(dialog.Folder));
+                RegisterDuplicateReplacement(accepted.Task!, dialog.StartImmediately);
                 var message = dialog.StartImmediately ? "Added to Syphon. Your download is starting." : "Added to queue. Select Resume in Syphon when ready.";
                 try { (DownloadPreferences.Load(preferencesPath) with { Folder = dialog.RememberFolder ? dialog.Folder : null }).Save(preferencesPath); }
                 catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { message += " The folder preference could not be saved."; }
@@ -54,6 +60,7 @@ public partial class MainWindow
                 completion.TrySetResult(new(1, request.RequestId, "accepted", accepted.TaskId, message, accepted.Task!.State.ToString()));
                 dialog.Close();
             }
+            catch (OperationCanceledException) { dialog.Close(); }
             catch (Exception ex) { dialog.ShowError(ex.Message); }
         };
         dialog.Closed += (_, _) => {

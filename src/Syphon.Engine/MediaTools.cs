@@ -11,7 +11,7 @@ namespace Syphon.Engine;
 
 public sealed record MediaChoice(int VideoStream, int? AudioStream, int Width, int Height, string Codec, long? Bitrate, string? YoutubeFormat = null, int? QualityHeight = null, long? EstimatedBytes = null, bool ResolveAtDownload = false);
 public sealed record MediaCaption(string Label, string Note);
-public sealed record MediaInfo(MediaChoice[] Qualities, bool HasAudio, double? Duration, string Message, string? Title = null, MediaCaption[]? Captions = null);
+public sealed record MediaInfo(MediaChoice[] Qualities, bool HasAudio, double? Duration, string Message, string? Title = null, MediaCaption[]? Captions = null, IReadOnlyDictionary<string, string>? Tags = null);
 
 /// <summary>Unprotected VOD inspection/conversion. No cookies, keys, local input protocols or arbitrary CLI arguments.</summary>
 public static partial class MediaTools
@@ -83,7 +83,7 @@ public static partial class MediaTools
                 "Detected streams. Login sessions and protected playback are not transferred.", Captions: streams.Where(s => Type(s) == "subtitle").Take(32).Select(s => {
                     var language = s.TryGetProperty("tags", out var tags) && tags.TryGetProperty("language", out var lang) ? lang.GetString() : null;
                     return new MediaCaption(language ?? "Closed captions", "Embedded subtitle track — separate saving is not available yet");
-                }).ToArray());
+                }).ToArray(), Tags: root.TryGetProperty("format", out var tagFormat) && tagFormat.TryGetProperty("tags", out var formatTags) ? MediaTags.FromJson(formatTags) : null);
         }
         catch (OperationCanceledException) when (!token.IsCancellationRequested)
         { throw new IOException("Media inspection timed out. Try a fresh direct media link."); }

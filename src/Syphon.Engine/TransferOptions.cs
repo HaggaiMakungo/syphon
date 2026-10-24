@@ -2,6 +2,10 @@ namespace Syphon.Engine;
 
 public sealed record TransferOptions
 {
+    public bool MarkOfTheWebEnabled { get; init; } = true;
+    public bool MediaMetadataEnabled { get; init; } = true;
+    public bool AdaptiveConnectionsEnabled { get; init; } = true;
+    public bool DiskSpaceProtectionEnabled { get; init; } = true;
     public TimeSpan ConnectTimeout { get; init; } = TimeSpan.FromSeconds(10);
     public TimeSpan HeaderTimeout { get; init; } = TimeSpan.FromSeconds(20);
     public TimeSpan BodyIdleTimeout { get; init; } = TimeSpan.FromSeconds(30);

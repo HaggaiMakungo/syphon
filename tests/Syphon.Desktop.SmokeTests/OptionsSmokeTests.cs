@@ -17,6 +17,7 @@ internal static class OptionsSmokeTests
     {
         var output = Path.GetFullPath(args.FirstOrDefault() ?? "artifacts/download-options"); Directory.CreateDirectory(output);
         var root = Path.Combine(Path.GetTempPath(), "Syphon.Options.Tests", Guid.NewGuid().ToString("N")); Directory.CreateDirectory(root);
+        File.WriteAllText(Path.Combine(root, "download-preferences.json"), "{\"DuplicateChoice\":\"numbered\",\"StartWithWindows\":false,\"CheckForUpdates\":false,\"CloseToTray\":false}");
         var app = new App(); app.InitializeComponent(); app.ShutdownMode = ShutdownMode.OnExplicitShutdown;
         var pipe = "Syphon.Options." + Guid.NewGuid().ToString("N");
         var window = new MainWindow(root, pipe, htmlUi: false) { Left = -10000, Top = -10000, ShowInTaskbar = false };

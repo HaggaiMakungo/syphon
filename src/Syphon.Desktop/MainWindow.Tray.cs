@@ -4,6 +4,7 @@ public partial class MainWindow
 {
     private SystemTray? tray;
     private bool explicitExit;
+    internal bool CanHideAtStartup => tray?.IsRegistered == true;
     internal void EnableTray()
     {
         if(tray is not null)return;

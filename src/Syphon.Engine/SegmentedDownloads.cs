@@ -82,7 +82,20 @@ public sealed partial class DownloadCoordinator
         var errors = new object();
         Exception? failure = null;
         int connections = 0;
-        using var perFile = new SemaphoreSlim(options.MaximumConnectionsPerFile);
+        var maximum = Math.Max(1, options.MaximumConnectionsPerFile >> Math.Min(task.RetryCount, 3));
+        var allocation = new AdaptiveConnections(maximum);
+        using var perFile = new SemaphoreSlim(options.AdaptiveConnectionsEnabled ? 1 : maximum, options.MaximumConnectionsPerFile);
+        async Task GrowConnections()
+        {
+            if (!options.AdaptiveConnectionsEnabled) return;
+            long previousBytes = live.Values.Sum(); int permitted = 1;
+            using var timer = new PeriodicTimer(TimeSpan.FromSeconds(2));
+            try { while (await timer.WaitForNextTickAsync(siblings.Token).ConfigureAwait(false)) {
+                var bytes = live.Values.Sum(); var desired = allocation.Sample((bytes - previousBytes) / 2d); previousBytes = bytes;
+                if (desired > permitted) { perFile.Release(desired - permitted); permitted = desired; }
+            } } catch (OperationCanceledException) when (siblings.IsCancellationRequested) { }
+        }
+        var growth = GrowConnections();
         Update(id, t => t with { State = DownloadState.Downloading, Message = $"Downloading with up to {task.Segments.Length} connections…", Connections = 0 });
 
         async Task DownloadPart(DownloadSegment segment)
@@ -184,6 +197,7 @@ public sealed partial class DownloadCoordinator
             if (failure is not null) ExceptionDispatchInfo.Capture(failure).Throw();
             throw;
         }
+        finally { siblings.Cancel(); await growth.ConfigureAwait(false); }
         token.ThrowIfCancellationRequested();
         Update(id, t => t with { Received = t.Committed, Connections = 0 });
     }
@@ -192,6 +206,7 @@ public sealed partial class DownloadCoordinator
     {
         var task = Get(id);
         ValidateCoverage(task);
+        if (options.DiskSpaceProtectionEnabled) DownloadSafety.EnsureSpace(task.PartPath, task.Total!.Value);
         if (task.Segments.Any(s => s.Committed != s.Length)) throw new RestartException("Download coverage is incomplete. Restart required.");
         // Reverify every committed digest before assembling; length alone is insufficient.
         var checkedTask = await RecoverSegmentsAsync(task).ConfigureAwait(false);

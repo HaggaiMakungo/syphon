@@ -116,6 +116,12 @@ internal sealed class DownloadStore : IDisposable
     internal static string BrowserUrlHash(string url) => Convert.ToHexStringLower(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(url)));
     internal static string BrowserIdentityHash(string url, string? format, int? video, int? audio, string? youtubeFormat = null, int? qualityHeight = null) =>
         BrowserUrlHash((format is null ? url : $"{url}\nmedia:{format}:{video}:{audio}") + (youtubeFormat is null ? "" : "\nyoutube:" + youtubeFormat) + (qualityHeight is null ? "" : "\nheight:" + qualityHeight));
+    internal void RegisterExistingReceipt(Guid requestId, Guid taskId, string hash)
+    {
+        using var command = connection.CreateCommand();
+        command.CommandText = "INSERT INTO browser_receipts(request_id,url_hash,task_id) VALUES($id,$hash,$task) ON CONFLICT(request_id) DO NOTHING";
+        command.Parameters.AddWithValue("$id", requestId.ToString());command.Parameters.AddWithValue("$hash", hash);command.Parameters.AddWithValue("$task", taskId.ToString());command.ExecuteNonQuery();
+    }
     public (Guid TaskId, string UrlHash)? FindBrowserRequest(Guid requestId)
     {
         using var command = connection.CreateCommand();

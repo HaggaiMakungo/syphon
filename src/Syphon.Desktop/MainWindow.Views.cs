@@ -114,7 +114,8 @@ public partial class MainWindow
                 var accepted = CreateManualDownload(requestId, dialog.SourceUrl, dialog.Folder, dialog.Filename, dialog.StartImmediately, dialog.SingleConnection, dialog.Priority);
                 try { (DownloadPreferences.Load(preferencesPath) with { Folder = dialog.RememberFolder ? dialog.Folder : null }).Save(preferencesPath); } catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
                 RevealDownload(accepted.TaskId); dialog.Close();
-            } catch (Exception ex) { dialog.ShowError(ex.Message); }
+            } catch (OperationCanceledException) { dialog.Close(); }
+            catch (Exception ex) { dialog.ShowError(ex.Message); }
         };
         dialog.Closed += (_, _) => manualDialog = null; dialog.Show();
     }
@@ -125,13 +126,20 @@ public partial class MainWindow
         var format = YoutubeTools.IsYoutubeVideoTarget(url) ? "mp4" : null;
         filename ??= DownloadCoordinator.SuggestedBrowserFilename(url, format);
         DownloadCoordinator.ValidateBrowserFilename(filename, format);
-        return coordinator!.AcceptBrowserDownload(requestId, url, folder, filename: filename, startImmediately: immediately, singleConnection: single, priority: priority, categorize: UsesCategoryFolders(folder));
+        if (coordinator!.BrowserStatus(requestId) is { } priorAcceptance)
+            return coordinator.UseExistingBrowserDownload(requestId, priorAcceptance.TaskId, url, format);
+        if (TryExistingDownload(source, folder, filename, immediately, out var existingAcceptance))
+            return coordinator.UseExistingBrowserDownload(requestId, existingAcceptance!.TaskId, url, format);
+        var accepted = coordinator!.AcceptBrowserDownload(requestId, url, folder, filename: filename, startImmediately: immediately && !HasPendingDuplicateReplacement, singleConnection: single, priority: priority, categorize: UsesCategoryFolders(folder));
+        RegisterDuplicateReplacement(accepted.Task!, immediately);
+        return accepted;
     }
     private bool UsesCategoryFolders(string folder)
     {
         var root = DownloadPreferences.Load(preferencesPath).Folder ?? browserDownloads;
         return string.Equals(Path.TrimEndingDirectorySeparator(Path.GetFullPath(folder)), Path.TrimEndingDirectorySeparator(Path.GetFullPath(root)), StringComparison.OrdinalIgnoreCase);
     }
+    internal void ShowCompletion(StoredDownload task) { var dialog = new CompletionWindow(task); if (IsVisible) dialog.Owner = this; dialog.Show(); }
     private void Floating_Click(object sender, RoutedEventArgs e) => UpdateFloating(true);
     private void RevealDownload(Guid id)
     {
@@ -144,16 +152,16 @@ public partial class MainWindow
         var preferences = DownloadPreferences.Load(preferencesPath);
         var tasks = snapshot ?? coordinator.GetTasks();
         if (requested) requestedFloatingTask = selectedId;
-        var task = tasks.FirstOrDefault(t => t.Id == requestedFloatingTask)
-            ?? tasks.FirstOrDefault(t => t.State is DownloadState.Downloading or DownloadState.Starting or DownloadState.RetryWaiting or DownloadState.Publishing or DownloadState.Assembling)
+        var task = tasks.FirstOrDefault(t => t.Id == requestedFloatingTask && (requested || t.State != DownloadState.Completed))
+            ?? tasks.FirstOrDefault(t => (requested || !dismissedFloating.Contains(t.Id)) && t.State is DownloadState.Downloading or DownloadState.Starting or DownloadState.RetryWaiting or DownloadState.Publishing or DownloadState.Assembling)
             ?? tasks.FirstOrDefault(t => t.Id == floatingWindow?.TaskId && t.State == DownloadState.Paused && floatingWindow.IsVisible)
             ?? (requested ? tasks.FirstOrDefault(t => t.Id == selectedId) ?? tasks.LastOrDefault() : null);
         if (task is null) { floatingWindow?.Hide(); return; }
         if (!requested && ((!preferences.ShowFloatingWindow && floatingWindow?.IsVisible != true) || dismissedFloating.Contains(task.Id))) return;
-        if (requested) dismissedFloating.Remove(task.Id);
+        if (requested) dismissedFloating.Clear();
         if (floatingWindow is null) {
             floatingWindow = new FloatingDownloadWindow(async id => { await coordinator.PauseAsync(id); RefreshTasks(); }, id => { coordinator.Resume(id); RefreshTasks(); }, async id => { await coordinator.PauseAsync(id, true); RefreshTasks(); },
-                () => { if (WindowState == WindowState.Minimized) WindowState = WindowState.Normal; Show(); Activate(); }, id => { dismissedFloating.Add(id); requestedFloatingTask = null; }, useHtml);
+                () => { if (WindowState == WindowState.Minimized) WindowState = WindowState.Normal; Show(); Activate(); }, id => { dismissedFloating.Add(id); requestedFloatingTask = null; }, useHtml, Path.Combine(Path.GetDirectoryName(preferencesPath)!, "floating-window.json"));
             floatingWindow.Closed += (_, _) => { floatingWindow = null; requestedFloatingTask = null; };
             if (!ShowInTaskbar) { floatingWindow.Left = Left; floatingWindow.Top = Top; }
         }

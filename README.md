@@ -18,6 +18,8 @@ It is also very purple. Someone was allowed to discover gradients without a resp
 
 **Current public beta: 0.1.0-beta.17 · Windows x64.**
 
+The source now includes the **0.1.0-beta.18 local update candidate**: shared per-download floating rows, completion-file dragging, startup/update controls and additional transfer protections. It has not replaced the public download below. See the [candidate notes](RELEASE-NOTES.md) and [validation record](FIRST-UPDATE-VALIDATION.md) for the checks and remaining owner acceptance.
+
 **[Download Syphon](https://haggaimakungo.github.io/syphon/)** · [GitHub beta release](https://github.com/HaggaiMakungo/syphon/releases/tag/v0.1.0-beta.17)
 
 You only need the **332.4 MB installer**. The app runtime and media tools are bundled; source archives are separate, optional downloads. Browser-store listings are not available yet, so Chrome/Edge setup uses the included unpacked extension.

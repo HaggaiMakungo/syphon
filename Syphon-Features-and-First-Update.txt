@@ -1,0 +1,204 @@
+SYPHON - EXISTING FEATURES AND FIRST UPDATE
+Prepared: 24 October 2026
+Current documented release: 0.1.0-beta.17, Windows x64
+
+STATUS KEY
+Existing = supported by the current repository documentation or implementation.
+Update = agreed addition or improvement; not implemented by this document.
+This is a product inventory, not a fresh test report of every feature.
+
+============================================================
+1. EXISTING FEATURES
+============================================================
+
+DOWNLOADS AND QUEUE
+- Download ordinary files from HTTP/HTTPS links.
+- Start immediately or save a task for later.
+- Choose filenames and destination folders; remember a destination.
+- Add links from the dashboard, download dialog, or dropped URLs.
+- Batch-download preparation and submission.
+- Persistent queue and local download history.
+- Multiple simultaneous downloads; default two, configurable from one to eight.
+- High, Normal and Low priorities, with queue reordering.
+- Individual pause, resume, cancel, removal and explicit Restart fresh actions.
+- Pause all and Resume all.
+- Restore unfinished downloads after reopening, normally paused; an enabled
+  daily schedule can start eligible work within its scheduled window.
+
+TRANSFER ENGINE AND RECOVERY
+- Resume eligible ordinary-file downloads using verified saved progress.
+- Multiple connections for eligible large files, up to four per file.
+- Configurable connection limits and segmentation threshold.
+- Automatic retries for eligible temporary network and HTTP failures.
+- Retry delays, configurable retry budgets and server Retry-After support.
+- Validate file identity and range responses before continuing a transfer.
+- Verify saved checkpoint blocks when reopening partial downloads.
+- Require explicit restart when continuation is unsafe.
+- Link replacement controls for eligible downloads, with validation safeguards.
+  Syphon does not automatically obtain a fresh expired link from a website.
+- Collision protection: existing destination files are preserved; ordinary
+  filename collisions use numbered alternatives.
+- Duplicate browser-request protection to avoid repeating the same handoff.
+- SHA-256 recording and guarded final-file publication.
+- Unknown-size downloads, background size discovery and labelled media estimates.
+
+SPEED AND SCHEDULING
+- Global ordinary-file speed limit, including Unlimited and presets.
+- Individual ordinary-file speed limits.
+- Saved limits that can change while transfers run.
+- Optional daily start/stop schedule, including overnight windows.
+- Scheduled queue admission and pause/resume while Syphon remains running.
+
+BROWSER INTEGRATION
+- Chrome and Edge companion extension, currently installed unpacked.
+- Manual "Syphon this" handoff for supported links.
+- Optional browser download capture and video detection.
+- Quality and caption choices where the source supports them.
+- Confirm desktop task acceptance before cancelling an eligible browser transfer.
+- Optional scoped browser sign-in sharing for supported direct-file downloads.
+- Native browser host and desktop connection checks.
+
+VIDEO AND AUDIO
+- Supported YouTube video downloads to MP4.
+- Supported YouTube audio downloads/conversion to MP3.
+- Preserve selected media quality where supported.
+- Embed available artwork or thumbnails in MP3 output.
+- Finish audio downloads even if artwork is unavailable.
+- Supported unprotected, on-demand HLS/DASH media.
+- Bundled media tools; users do not need separate Python, Node or FFmpeg installs.
+
+ORGANISATION AND HISTORY
+- Automatic Videos, Music, Documents, Programs and Misc folders.
+- Custom destination folders.
+- History search, filters and explicit success/failure outcomes.
+- File details, saved location, dates, active duration and average speed.
+- Open file, Open folder and Copy original URL actions.
+- Recorded checksum display/copy and optional publisher SHA-256 comparison.
+- Check the current saved file against its recorded or supplied checksum.
+- Task removal separated from unfinished-file deletion; completed files preserved.
+
+DESKTOP AND TRAY
+- Main download dashboard with individual task progress and actions.
+- Floating transfer window with compact/expanded presentation and activity charts.
+- Transfer details and connection/segment information.
+- Appearance settings, including list density and window preferences.
+- Close to system tray enabled by default in Beta17.
+- Optional minimize to tray while transfers continue.
+- Tray menu: Open Syphon, Pause all, Resume all and Exit.
+- Launching Syphon again restores the existing application window.
+
+INSTALLATION
+- Windows x64 installer with bundled application and media runtimes.
+- Browser integration setup flow.
+- Upgrade, repair and uninstall support.
+- Downloads and local history preserved by default during maintenance/removal.
+
+============================================================
+2. AGREED FIRST-UPDATE ADDITIONS AND IMPROVEMENTS
+============================================================
+
+A. SHARED MULTI-DOWNLOAD FLOATING WINDOW
+- New downloads join the same floating window.
+- Each download retains its own percentage, speed and controls instead of
+  presenting combined progress as the main transfer view.
+- Compact view shows up to four downloads at once; scroll for additional jobs.
+- Expanded view provides a scrollable Explorer-style list with richer details:
+  filename, progress, speed, ETA, downloaded size and connection activity.
+- Independent pause, resume and cancel controls for each download.
+- Shared Pause all and Resume all controls.
+- Window title shows the active download count.
+- Keep existing dashboard capabilities; this change targets the floating window.
+
+B. COMPLETION DIALOG AND FILE DRAG HANDLE
+- Provide clear Open, Open with, Open folder and Close actions.
+- Add a bottom-right drag handle inspired by IDM's completion dialog.
+- Drag the actual completed local file into folders or compatible app drop fields.
+- Use native Windows file drag-and-drop, not a URL or filename text substitute.
+- Move/copy behaviour follows Windows and the receiving application.
+- Provide a Copy file path action.
+
+C. START WITH WINDOWS
+- Enable Start with Windows by default.
+- Automatic startup opens quietly in the system tray, without the main window.
+- Opening Syphon manually shows the main window.
+- Add a Settings toggle to disable startup.
+- Reuse the existing tray menu and controls.
+- Startup does not itself imply automatically resuming every saved download;
+  queue/schedule policy remains a separate behaviour.
+
+D. IDM-STYLE DUPLICATE DOWNLOAD CHOICES
+- Detect a link/file already present in the download list or destination.
+- Offer three choices:
+  1. Download another copy with a numbered filename.
+  2. Replace the existing file with a fresh download.
+  3. Use the existing download: show its completion dialog if finished,
+     otherwise resume it when eligible.
+- Make option 3 the proposed default.
+- Cancel skips the duplicate request.
+- Include "Remember my choice", resettable in Settings.
+- If the completed file was moved or deleted, explain the situation and offer
+  Locate file or Download again.
+- Replacement must be an explicit choice; automatic filename protection remains
+  the baseline for other creation paths.
+
+E. RESUME AND AUTOMATIC RECOVERY IMPROVEMENTS
+- Prioritise dependable pause/resume and recovery after closing the app.
+- Build on existing checkpointing, range validation and retry support.
+- Make resume capability, retry countdowns and recovery problems clear.
+- Preserve valid partial data and explain when a fresh restart is required.
+- Improve recovery from lost connections and expired/replaced source links.
+- Validate replacement content before reusing saved progress.
+- Assess media resume separately: current media jobs restart processing.
+- Do not copy IDM's observed 64-byte overlap without establishing its purpose;
+  Syphon already has its own integrity checks.
+
+F. DISK-SPACE PROTECTION
+- Check available destination/working space before starting when size is known.
+- Account for temporary files and assembly/conversion space where applicable.
+- Give actionable low-space errors and preserve valid partial data on failure.
+- Handle unknown-size downloads without claiming a guaranteed space estimate.
+
+G. COMPLETION NOTIFICATIONS
+- Notify when a download finishes, especially while Syphon is in the tray.
+- Clicking a notification opens the relevant completed-download view.
+
+H. OPTIONAL SLEEP PROTECTION
+- Optionally keep Windows awake while downloads are active.
+- Release the sleep-prevention request when work stops or finishes.
+- Restore normal sleep behaviour afterwards.
+
+I. REFINE EXISTING EVERYDAY CONTROLS
+- Retain and polish queues, priorities and simultaneous-download limits.
+- Retain and polish global/per-file speed controls and easy Unlimited selection.
+- Retain and improve download/history search and Open folder access.
+- These are improvements to existing features, not new engine capabilities.
+
+============================================================
+3. IMPORTANT CURRENT LIMITS AND OPEN VALIDATION
+============================================================
+
+- Ordinary-file resume requires suitable server validators and range support.
+- Media jobs currently restart processing on Resume.
+- Existing speed caps apply to ordinary-file transfers, not all media-tool traffic.
+- Scheduling requires Syphon to remain open and the computer awake; it does not
+  currently wake Windows or run while Syphon is closed.
+- Website compatibility varies; DRM bypass is unsupported.
+- New notification, startup, sleep-protection, disk-space and drag/drop behaviours
+  still require implementation and validation.
+- IDM inspection confirmed partial-range downloading, pause/resume and reuse of
+  saved progress after restart for the observed download.
+- The brief network interruption did not establish IDM's retry algorithm:
+  the existing connections survived in the observed snapshots.
+- IDM's temporary download folder was removed after completion; its exact media
+  assembly sequence and the purpose of its 64-byte resume overlap remain unknown.
+
+============================================================
+4. INVENTORY SOURCES
+============================================================
+
+README.md; RELEASE-NOTES.md; docs/download-options.md;
+docs/queue-and-compatibility.md; docs/durable-tasks.md;
+docs/speed-and-schedule.md; docs/download-categories.md;
+desktop batch-download implementation; this conversation and IDM observations.
+
+No application code was changed when preparing this inventory.

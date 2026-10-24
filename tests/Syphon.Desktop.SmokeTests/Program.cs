@@ -20,6 +20,9 @@ internal static class Program
     [STAThread]
     public static int Main(string[] args)
     {
+        if (args.FirstOrDefault() == "--duplicates") return DuplicateSmokeTests.Run();
+        if (args.FirstOrDefault() == "--first-update") return FirstUpdateTests.Run();
+        if (args.FirstOrDefault() == "--shared-floating") return SharedFloatingSmokeTests.Run();
         if (args.FirstOrDefault() == "--tray") return TraySmokeTests.Run();
         if (args.FirstOrDefault() == "--typography") return TypographySmokeTests.Run(args.Skip(1).ToArray());
         if (args.FirstOrDefault() == "--history-audit") {

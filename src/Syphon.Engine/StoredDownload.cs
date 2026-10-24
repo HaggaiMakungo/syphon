@@ -45,6 +45,10 @@ public sealed record StoredDownload
     public bool PreserveFilename { get; init; }
     public string? Sha256 { get; init; }
     public bool PublicationPending { get; init; }
+    public string? ReplacementTarget { get; init; }
+    public string? ReplacementBackup { get; init; }
+    public string? ReplacementExpectedSha256 { get; init; }
+    public Guid? ReplacementOldTaskId { get; init; }
     public string Message { get; init; } = "Ready to download.";
     public bool RestartRequired { get; init; }
     public double BytesPerSecond { get; init; }

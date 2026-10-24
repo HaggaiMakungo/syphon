@@ -34,3 +34,12 @@
 @media(max-width:760px){.dashboard-summary{grid-template-columns:repeat(3,minmax(0,1fr));row-gap:14px}.summary-secondary{grid-column:1/-1;padding-left:0;border-top:1px solid #ffffff10;padding-top:12px}.summary-metric:nth-child(3){border-right:0}}
 
 .download-empty>.empty-add{margin-top:22px;min-width:150px}.download-empty>p{max-width:340px}
+
+/* Let native resizing change the layout instead of clipping the web surface. */
+#app[data-kind=dialog]>.app-frame{max-width:none!important;width:100%!important;min-width:0}
+#app[data-kind=dialog]>.app-frame>div:nth-child(2){min-width:0;overflow-y:auto}
+#app[data-kind=dialog] input,#app[data-kind=dialog] select{min-width:0;max-width:100%}
+#app[data-kind=dialog]>.app-frame>div:nth-child(2)>div:last-child{flex-wrap:wrap;gap:8px}
+.queue-toolbar,.queue-actions{flex-wrap:wrap}
+@media(max-width:850px){.transfer-file-info{min-width:0}.transfer-metadata{flex-wrap:wrap;gap:6px}.settings-card{min-width:0}.queue-limit{border-left:0;padding-left:0}}
+@media(prefers-reduced-motion:no-preference){button,input,select{transition:background-color 120ms ease,border-color 120ms ease}}

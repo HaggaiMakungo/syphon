@@ -6,6 +6,7 @@
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
     <AssemblyName>Syphon</AssemblyName>
+    <Version>0.1.0-beta.18</Version>
     <ApplicationIcon>Assets\Brand\syphon_windows.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup><ProjectReference Include="../Syphon.Engine/Syphon.Engine.csproj" /></ItemGroup>

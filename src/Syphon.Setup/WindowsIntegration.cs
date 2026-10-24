@@ -58,6 +58,10 @@ internal static class WindowsIntegration
   finally{if(link is not null)Marshal.FinalReleaseComObject(link);Marshal.FinalReleaseComObject(shell);}
  }
  internal static void Remove(InstallReceipt receipt) {
+  using(var startup=Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Run",true)) {
+   var expected="\""+Path.Combine(receipt.Root,"app","Syphon.exe")+"\" --startup";
+   if(string.Equals(startup?.GetValue("Syphon") as string,expected,StringComparison.OrdinalIgnoreCase))startup!.DeleteValue("Syphon",false);
+  }
   var registry=receipt.MachineWide?Registry.LocalMachine:Registry.CurrentUser;
   var manifest=Path.Combine(receipt.Root,"host","com.syphon.downloads.json");
   if(receipt.MachineWide)foreach(var path in HostKeys){using var user=Registry.CurrentUser.OpenSubKey(path);if(string.Equals(user?.GetValue("") as string,manifest,StringComparison.OrdinalIgnoreCase))Registry.CurrentUser.DeleteSubKeyTree(path,false);}

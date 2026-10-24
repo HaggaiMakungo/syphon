@@ -30,7 +30,8 @@ public sealed partial class DownloadOptionsDialog
     private void InstallHtml(string title, string? quality, long? estimatedBytes, bool editable)
     {
         Width = 2 + 500 * LocalHtmlSurface.InterfaceScale; Height = Math.Min(720, SystemParameters.WorkArea.Height - 60); SizeToContent = SizeToContent.Manual;
-        CustomWindowFrame.Install(this, resizable: false);
+        CustomWindowFrame.Install(this, resizable: true);
+        var initialLayoutApplied = false;
         HtmlSurface = new LocalHtmlSurface(this, (FrameworkElement)Content, () => new {
             kind = "dialog", pasteVersion, error = error.Text, folder = htmlFolder, previewUrl, previewDetails,
             form = new { url = source.Text, filename = filename.Text, folder = folder.Text, single = single.IsChecked == true,
@@ -38,7 +39,7 @@ public sealed partial class DownloadOptionsDialog
         }, async message => {
             var action = message.GetProperty("action").GetString();
             if (CustomWindowFrame.Handle(this, action)) return;
-            if (action == "layout") { var height = message.GetProperty("height").GetDouble(); if (double.IsFinite(height) && height is >= 200 and <= 1600) Height = Math.Min(SystemParameters.WorkArea.Height - 40, height * LocalHtmlSurface.InterfaceScale + 2); return; }
+            if (action == "layout") { var height = message.GetProperty("height").GetDouble(); if (!initialLayoutApplied && double.IsFinite(height) && height is >= 200 and <= 1600) { Height = Math.Min(SystemParameters.WorkArea.Height - 40, height * LocalHtmlSurface.InterfaceScale + 2); initialLayoutApplied = true; } return; }
             if (action == "close") { Close(); return; }
             if (action == "drag") { if (Mouse.LeftButton == MouseButtonState.Pressed) DragMove(); return; }
             if (action == "preview-dialog") { if (editable) _ = PreviewSourceAsync(message.GetProperty("url").GetString() ?? ""); return; }
