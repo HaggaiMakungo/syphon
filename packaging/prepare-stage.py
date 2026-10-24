@@ -65,3 +65,9 @@ notes=stage/'RELEASE-NOTES.txt';notes.write_text(notes.read_text(encoding='utf-8
 (stage/'extensions'/'README.txt').write_text((stage/'BROWSER-SETUP.txt').read_text(encoding='utf-8'),encoding='utf-8')
 
 notes=stage/'RELEASE-NOTES.txt';notes.write_text(notes.read_text(encoding='utf-8')+"\nThis all-user edition installs inside Program Files and requests administrator approval. Launch Syphon normally from the Start menu after setup. Download data stays per user. Older per-user native-host overrides are repaired for the account running setup; other Windows accounts with older beta registrations may need to remove their own override.\n",encoding='utf-8')
+
+# Include the reviewed public voice for this release rather than an old beta's
+# generic summary. Keep installation/licensing facts above as a separate footer.
+public_notes=(root/'RELEASE-NOTES.md').read_text(encoding='utf-8')
+if public_notes.startswith('# Syphon '+args.version+' '):
+ notes.write_text(public_notes.split('\n---\n',1)[0].strip()+'\n\n'+notes.read_text(encoding='utf-8'),encoding='utf-8')

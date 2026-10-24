@@ -34,7 +34,7 @@ public sealed class CompletionWindow : Window
         System.Windows.Automation.AutomationProperties.SetName(drag,"Drag completed file");
         Point? start=null;drag.MouseLeftButtonDown+=(_,e)=>start=e.GetPosition(drag);
         drag.MouseMove+=(_,e)=>{if(e.LeftButton!=MouseButtonState.Pressed){start=null;return;}if(start is not {} origin)return;var now=e.GetPosition(drag);if(Math.Abs(now.X-origin.X)<SystemParameters.MinimumHorizontalDragDistance&&Math.Abs(now.Y-origin.Y)<SystemParameters.MinimumVerticalDragDistance)return;start=null;try{var data=CreateFileDrop(path);DragDrop.DoDragDrop(drag,data,DragDropEffects.Copy|DragDropEffects.Move|DragDropEffects.Link);}catch(Exception ex){error.Text=ex.Message;}};
-        body.Children.Add(drag);Content=CustomWindowFrame.WrapNativeDialog(this,body);
+        body.Children.Add(drag);DialogAppearance.Apply(this,body);
         if(!File.Exists(path))error.Text="This file was moved or deleted. Locate it or download it again from the download list.";
     }
     private void RequireFile(){if(!File.Exists(path))throw new FileNotFoundException("This file was moved or deleted. Locate it or download it again from the download list.",path);}

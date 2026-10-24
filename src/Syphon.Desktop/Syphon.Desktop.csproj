@@ -15,4 +15,5 @@
   <ItemGroup><Content Include="ChartAssets\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" /></ItemGroup>
   <ItemGroup><Content Include="DesktopAssets\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" /></ItemGroup>
   <ItemGroup><Resource Include="Assets\Brand\syphon_windows.ico" /><Resource Include="Assets\Brand\syphon_window_icon.png" /><Resource Include="Assets\Brand\syphon_emblem_transparent.png" /></ItemGroup>
+  <ItemGroup><Resource Include="Assets\Fonts\*.ttf" /></ItemGroup>
 </Project>

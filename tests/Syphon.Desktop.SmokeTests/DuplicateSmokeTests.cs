@@ -14,7 +14,7 @@ internal static class DuplicateSmokeTests
    if(DuplicateDownloadDialog.FindCandidate([task],task.Url,task.Destination,"mp3")!=task)throw new Exception("Matching output was not found.");
    var dialog=new DuplicateDownloadDialog(task.Filename,true);
    if(dialog.FindName("DuplicateNumbered") is not RadioButton || dialog.FindName("DuplicateReplace") is not RadioButton || dialog.FindName("DuplicateExisting") is not RadioButton || dialog.FindName("RememberDuplicateChoice") is not CheckBox)throw new Exception("Duplicate choices missing.");
-   if(dialog.Choice!="numbered")throw new Exception("Safe default missing.");dialog.Close();
+   if(dialog.Choice!="existing")throw new Exception("Existing-download default missing.");dialog.Close();
    EngineChecks().GetAwaiter().GetResult();
    Console.WriteLine("PASS duplicate choices, media identity, receipt replay, safe replacement and recovery.");return 0;
   } finally {app.Shutdown();}

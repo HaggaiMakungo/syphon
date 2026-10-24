@@ -10,7 +10,7 @@ internal sealed class UpdateSettingsWindow : Window
         Title = "Startup, completion and updates"; Width = 570; Height = 690; MinWidth = 390; MinHeight = 360;
         var preferences = DownloadPreferences.Load(path);
         var body = new StackPanel { Margin = new Thickness(24) };
-        Content = new ScrollViewer { Content = body, VerticalScrollBarVisibility = ScrollBarVisibility.Auto };
+        DialogAppearance.Apply(this, new ScrollViewer { Content = body, VerticalScrollBarVisibility = ScrollBarVisibility.Auto, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled }, true);
         void Heading(string text) => body.Children.Add(new TextBlock { Text = text, FontSize = 18, Margin = new Thickness(0, 18, 0, 10) });
         CheckBox Toggle(string label, bool value) { var box = new CheckBox { Content = label, IsChecked = value, Margin = new Thickness(0, 5, 0, 5) }; body.Children.Add(box); return box; }
         Button Button(string label, Action click) { var button = new Button { Content = label, Margin = new Thickness(0, 8, 0, 0), Padding = new Thickness(12, 8, 12, 8) }; button.Click += (_, _) => click(); body.Children.Add(button); return button; }
@@ -38,7 +38,7 @@ internal sealed class UpdateSettingsWindow : Window
         Button("Check for updates now", checkUpdates);
         Button("Copy diagnostics (private data redacted)", () => diagnostics(true));
         Button("Export diagnostics…", () => diagnostics(false));
-        Button("Reset remembered duplicate choice", () => { (DownloadPreferences.Load(path) with { DuplicateChoice = "ask" }).Save(path); MessageBox.Show(this, "Syphon will ask about duplicate downloads again.", "Duplicates"); });
+        Button("Reset remembered duplicate choice", () => { (DownloadPreferences.Load(path) with { DuplicateChoice = "ask" }).Save(path); DialogAppearance.Notice(this, "Duplicates", "Syphon will ask about duplicate downloads again."); });
         var error = new TextBlock { TextWrapping = TextWrapping.Wrap, Margin = new Thickness(0, 10, 0, 0) }; body.Children.Add(error);
         Button("Save", () => {
             try {

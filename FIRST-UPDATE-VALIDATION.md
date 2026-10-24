@@ -32,9 +32,13 @@ Candidate: **0.1.0-beta.18**, branch `codex/first-update`. Local evaluation only
 - Packaging regression: **18 tests, OK, one skipped**.
 - Final solution build: zero warnings/errors. Feature/duplicate checks passed again after integration.
 
-## Installer blocker
+## Visual consistency follow-up
 
-The local installer build stopped at its initial dependency check: the cached `ffmpeg.exe` is 226,639,360 bytes, while the reviewed lock requires the 35,277,312-byte Syphon source build with SHA-256 `3acb0d04648d7a1031086eb31d20ba176e6fe535e447489acc30d5aa13a7d7ee`. The cached FFprobe is also the older large build. No hash check or dependency lock was bypassed. A Beta18 installer has **not** been produced. Restore the exact pinned runtime inputs before packaging.
+The new settings, duplicate, completion, update and countdown windows share the existing palette, native control recipes and custom frame. Native dialog body text uses embedded Inter converted from the already-bundled licensed WOFF assets. Floating HTML reads the canonical theme tokens rather than its previous separate purple palette. Update/reset notices are themed; Windows file pickers remain standard system dialogs. Screenshots of all five windows plus the bottom of scrollable settings were reviewed for clipping, contrast and reachable actions. This is consistency with the existing design system, not a claim that different native and HTML renderers produce pixel-identical output.
+
+## Installer runtime inputs
+
+The original cache contained older FFmpeg, FFprobe, yt-dlp and notice inputs. The installed Beta17 package contained the exact reviewed versions. All seven inputs were checked against the unchanged dependency lock, then copied to a separate cache in this worktree; the installed application was not changed. The reviewed FFmpeg is 35,277,312 bytes, SHA-256 `3acb0d04648d7a1031086eb31d20ba176e6fe535e447489acc30d5aa13a7d7ee`. Final installer results are recorded after assembly below.
 
 ## Remaining owner acceptance
 

@@ -23,6 +23,7 @@ internal static class Program
         if (args.FirstOrDefault() == "--duplicates") return DuplicateSmokeTests.Run();
         if (args.FirstOrDefault() == "--first-update") return FirstUpdateTests.Run();
         if (args.FirstOrDefault() == "--shared-floating") return SharedFloatingSmokeTests.Run();
+        if (args.FirstOrDefault() == "--dialog-visuals") return DialogVisualTests.Run(args.Skip(1).ToArray());
         if (args.FirstOrDefault() == "--tray") return TraySmokeTests.Run();
         if (args.FirstOrDefault() == "--typography") return TypographySmokeTests.Run(args.Skip(1).ToArray());
         if (args.FirstOrDefault() == "--history-audit") {
@@ -266,3 +267,4 @@ internal static class Program
         encoder.Save(stream);
     }
 }
+

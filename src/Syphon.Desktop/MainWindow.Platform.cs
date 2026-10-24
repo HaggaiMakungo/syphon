@@ -90,11 +90,9 @@ public partial class MainWindow
     }
     private void ShowCountdown()
     {
-        countdownText = new TextBlock { TextWrapping = TextWrapping.Wrap, Margin = new Thickness(20) };
-        var cancel = new Button { Content = "Cancel action", Margin = new Thickness(20), Padding = new Thickness(16, 8, 16, 8) };
-        var panel = new StackPanel(); panel.Children.Add(countdownText); panel.Children.Add(cancel);
-        countdownWindow = new Window { Title = "Queue completion action", Owner = this, Width = 390, SizeToContent = SizeToContent.Height, Content = panel, Topmost = true };
-        cancel.Click += (_, _) => CancelIdleAction();
+        countdownWindow = DialogAppearance.Countdown(out var text);
+        countdownText = text;
+        countdownWindow.Owner = this;
         countdownWindow.Closed += (_, _) => { countdownWindow = null; idleAction.Cancel(); };
         countdownWindow.Show();
     }
@@ -112,24 +110,21 @@ public partial class MainWindow
             if (availableUpdate is not null) {
                 if (manual) ShowUpdate();
                 else tray?.Notify("Syphon update available", availableUpdate.Tag + " is ready. Click to review.", ShowUpdate);
-            } else if (manual) MessageBox.Show(this, "No newer compatible release was found.", "Syphon updates");
+            } else if (manual) DialogAppearance.Notice(this, "Syphon updates", "No newer compatible release was found.");
         } catch (Exception ex) when (ex is System.Net.Http.HttpRequestException or TaskCanceledException or System.Text.Json.JsonException or InvalidOperationException) {
             RecordPlatformError("Update check failed: " + ex.Message);
-            if (manual) MessageBox.Show(this, "Syphon could not check for updates. Try again later.", "Syphon updates");
+            if (manual) DialogAppearance.Notice(this, "Syphon updates", "Syphon could not check for updates. Try again later.");
         } finally { checkingUpdate = false; HtmlSurface?.Publish(); }
     }
     private void ShowUpdate()
     {
         if (availableUpdate is not { } release) return;
         RestoreFromTray();
-        var body = new StackPanel { Margin = new Thickness(22) };
-        body.Children.Add(new TextBlock { Text = "Syphon " + release.Tag + " is available", FontSize = 19, Margin = new Thickness(0, 0, 0, 14) });
-        body.Children.Add(new TextBox { Text = release.Notes, IsReadOnly = true, TextWrapping = TextWrapping.Wrap, MaxHeight = 320, VerticalScrollBarVisibility = ScrollBarVisibility.Auto });
-        var window = new Window { Title = "Syphon update", Owner = this, Width = 570, MinWidth = 380, Height = 470, Content = new ScrollViewer { Content = body } };
-        void Add(string text, Action action) { var button = new Button { Content = text, Margin = new Thickness(0, 10, 0, 0), Padding = new Thickness(12, 7, 12, 7) }; button.Click += (_, _) => { action(); window.Close(); }; body.Children.Add(button); }
-        Add("Download update (opens release page)", () => Process.Start(new ProcessStartInfo(release.Url) { UseShellExecute = true }));
-        Add("Remind me later", () => nextUpdateCheck = DateTimeOffset.UtcNow.AddHours(24));
-        Add("Skip this version", () => (DownloadPreferences.Load(preferencesPath) with { SkippedRelease = release.Tag }).Save(preferencesPath));
+        var window = DialogAppearance.Update(release.Tag, release.Notes,
+            () => Process.Start(new ProcessStartInfo(release.Url) { UseShellExecute = true }),
+            () => nextUpdateCheck = DateTimeOffset.UtcNow.AddHours(24),
+            () => (DownloadPreferences.Load(preferencesPath) with { SkippedRelease = release.Tag }).Save(preferencesPath));
+        window.Owner = this;
         window.Show();
     }
     private async void ExportDiagnostics(bool copy)

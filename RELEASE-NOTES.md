@@ -6,6 +6,8 @@ You start another download. It joins the same floating window, with its own prog
 
 The floating window and download options can resize, and the manager and floating window remember their size and position. We have loosened the furniture bolts. You should be able to arrange a desktop without first obtaining planning permission from a 320-pixel rectangle.
 
+The new settings, duplicate, completion, update and countdown dialogs now share Syphon's dark surfaces, violet controls, Inter body text and custom window frame. The floating window also uses the existing palette. The application has stopped dressing five new windows as distant relatives who arrived at the wedding through entirely different doors.
+
 ## Finished files have somewhere to go
 
 The completion dialog offers Open, Open with, Open folder, Copy file path and a drag handle. Drag the actual file into a folder or an accepting app. Windows and the destination decide whether the drop copies, moves or uses the file. The tiny handle has been given a job. Unlike the narrator, it has qualifications.
