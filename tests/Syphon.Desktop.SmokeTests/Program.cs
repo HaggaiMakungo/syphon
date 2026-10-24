@@ -267,4 +267,3 @@ internal static class Program
         encoder.Save(stream);
     }
 }
-

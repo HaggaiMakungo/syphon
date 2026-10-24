@@ -38,7 +38,19 @@ The new settings, duplicate, completion, update and countdown windows share the 
 
 ## Installer runtime inputs
 
-The original cache contained older FFmpeg, FFprobe, yt-dlp and notice inputs. The installed Beta17 package contained the exact reviewed versions. All seven inputs were checked against the unchanged dependency lock, then copied to a separate cache in this worktree; the installed application was not changed. The reviewed FFmpeg is 35,277,312 bytes, SHA-256 `3acb0d04648d7a1031086eb31d20ba176e6fe535e447489acc30d5aa13a7d7ee`. Final installer results are recorded after assembly below.
+The original cache contained older FFmpeg, FFprobe, yt-dlp and notice inputs. The installed Beta17 package contained the exact reviewed versions. All seven inputs were checked against the unchanged dependency lock, then copied to a separate cache in this worktree; the installed application was not changed. The reviewed FFmpeg is 35,277,312 bytes, SHA-256 `3acb0d04648d7a1031086eb31d20ba176e6fe535e447489acc30d5aa13a7d7ee`.
+
+## Final candidate package
+
+- Source revision: `78dfc9e51dab602c0c6715b34cf6874f54049cd5`; clean at package time.
+- Final visual build: zero warnings/errors. Dialog visuals, duplicate and floating input checks passed again. Six screenshots cover five dialogs and the bottom of settings.
+- Runtime regression checks: 6 media-runtime and 7 downloader-build tests passed; packaging 18 tests passed with one skipped.
+- Installer diagnostics, production diagnostic exclusion, extraction, payload hashes and all four bundled-tool executions passed for the unsigned package.
+- Unsigned installer: 332,509,583 bytes; SHA-256 `431447c06a97ab6977993aa9917b421f606b0afabe56419f985b2d3e3c49164a`.
+- Locally signed installer: `artifacts/installer-0.1.0-beta.18-signed/Syphon-Setup-0.1.0-beta.18-win-x64.exe`, 332,511,408 bytes; SHA-256 `0dd7067e4d4ccbb303588bf5468bf21350faf9ebe35be9ac15be04d9018e797c`.
+- Existing Syphon Local Development certificate reused; cryptographic signature and file digest verified. Not publicly trusted or timestamped; Windows trust warnings remain possible. No certificates were imported into trust stores.
+- Signed installer was separately extracted and verified, including all payload hashes and four bundled tools. The first verification invocation used a relative target and was rejected; rerun with a dedicated absolute target passed.
+- Nothing was installed over the owner's app, merged, pushed or published. Upgrade and physical interaction acceptance remain listed above.
 
 ## Remaining owner acceptance
 
