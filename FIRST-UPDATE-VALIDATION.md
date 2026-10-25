@@ -1,6 +1,6 @@
-# First update candidate — 24 October 2026
+# First update — released 25 October 2026
 
-Candidate: **0.1.0-beta.18**, branch `codex/first-update`. Local evaluation only; not published or installed over the owner's application.
+Released **0.1.0-beta.18** from clean source `3a7f84bd67e8d7c252ca6d609d34f199c2110dc0`. The owner's installed application was not replaced during verification.
 
 ## Implemented
 
@@ -80,3 +80,12 @@ The package identities in this section describe the earlier Beta18 candidate bef
 Media processing still restarts on Resume. File speed caps do not control FFmpeg/yt-dlp traffic. Resume remains dependent on trusted identity and valid range responses. Disk preflight is advisory and cannot reserve space against other programs. A brief network outage may be handled by surviving TCP connections; the IDM experiment did not prove its retry algorithm. Four connections remain the maximum. Paid signing, store distribution and the document's Tier 2/3 features are not included.
 
 The source feature inventory remains the planning snapshot; this record describes the implemented candidate and its validation limits.
+
+## Published automatic-update package
+
+- Public release: https://github.com/HaggaiMakungo/syphon/releases/tag/v0.1.0-beta.18
+- Signed installer: 332,543,912 bytes; SHA-256 `f90e8d3d6ad98a772d5143d3a3c44f78edf155eb97c4991784b146f7762423f9`.
+- Clean source revision and public tag match; exact source ZIP verified against all 517 tracked source blobs. All 29 uploaded assets matched local byte sizes and GitHub SHA-256 digests before publication.
+- Final regression checks: 145 engine tests, category and first-update checks, automatic-updater and setup contract tests, duplicate/shared-window checks, desktop/native-host handoff, floating and HTML workflows, 19 browser/native checks and 40 extension tests passed. Shared SDK path resolution fixed the test-only native handoff identity mismatch.
+- Signed package extraction and the updater’s real publisher/version/tamper checks passed. Existing self-signed publisher remains untrusted by the public Windows trust store.
+- Actual UAC upgrade/restart and the owner acceptance items above remain unverified.

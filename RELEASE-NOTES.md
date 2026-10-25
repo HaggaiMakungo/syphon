@@ -1,6 +1,6 @@
 # Syphon 0.1.0-beta.18 — everyone gets their own bloody progress bar
 
-Prepared 2026-10-25 · Windows x64 · Local update candidate; not published.
+Prepared 2026-10-25 · Windows x64 · Public beta prerelease.
 
 You start another download. It joins the same floating window, with its own progress, speed and controls. Compact view fits four downloads; expanded view gives each one more detail, and the rest live in a scrollable list. Your files have stopped pooling their percentages like six children handing in one suspiciously damp group assignment. Everyone can now explain where their own megabytes went.
 
