@@ -18,7 +18,7 @@ It is also very purple. Someone was allowed to discover gradients without a resp
 
 **Current public beta: 0.1.0-beta.17 · Windows x64.**
 
-The source now includes the **0.1.0-beta.18 local update candidate**: shared per-download floating rows, completion-file dragging, startup/update controls and additional transfer protections. It has not replaced the public download below. See the [candidate notes](RELEASE-NOTES.md) and [validation record](FIRST-UPDATE-VALIDATION.md) for the checks and remaining owner acceptance.
+The source now includes the **0.1.0-beta.18 local update candidate**: shared per-download floating rows, completion-file dragging, startup/update controls, background download/install/restart updates and additional transfer protections. It has not replaced the public download below. See the [candidate notes](RELEASE-NOTES.md) and [validation record](FIRST-UPDATE-VALIDATION.md) for the checks and remaining owner acceptance.
 
 **[Download Syphon](https://haggaimakungo.github.io/syphon/)** · [GitHub beta release](https://github.com/HaggaiMakungo/syphon/releases/tag/v0.1.0-beta.17)
 

@@ -8,7 +8,7 @@
   <PublishSingleFile>true</PublishSingleFile><IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract><EnableCompressionInSingleFile>true</EnableCompressionInSingleFile><PublishTrimmed>false</PublishTrimmed>
   <NoWarn>$(NoWarn);IL3000</NoWarn>
  </PropertyGroup>
- <ItemGroup Condition="'$(EnableSetupDiagnostics)' != 'true'"><Compile Remove="SetupTests.cs;SetupMaintenanceTests.cs;SetupProductionTests.cs"/></ItemGroup>
+ <ItemGroup Condition="'$(EnableSetupDiagnostics)' != 'true'"><Compile Remove="SetupTests.cs;SetupMaintenanceTests.cs;SetupProductionTests.cs;SetupUpdateTests.cs"/></ItemGroup>
  <ItemGroup><Resource Include="../Syphon.Desktop/Assets/Brand/syphon_emblem_transparent.png" Link="Brand/emblem.png"/><Resource Include="../../design/brand/syphon_wordmark_clean.png" Link="Brand/wordmark.png"/></ItemGroup>
  <ItemGroup Condition="'$(PayloadPath)' != ''"><EmbeddedResource Include="$(PayloadPath)" LogicalName="Syphon.Payload.zip"/></ItemGroup>
 </Project>

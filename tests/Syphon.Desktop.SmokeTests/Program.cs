@@ -20,6 +20,8 @@ internal static class Program
     [STAThread]
     public static int Main(string[] args)
     {
+        if (args.FirstOrDefault() == "--automatic-update") return AutomaticUpdateTests.Run().GetAwaiter().GetResult();
+        if (args.FirstOrDefault() == "--update-signature") return AutomaticUpdateTests.Signature(args[1]);
         if (args.FirstOrDefault() == "--duplicates") return DuplicateSmokeTests.Run();
         if (args.FirstOrDefault() == "--first-update") return FirstUpdateTests.Run();
         if (args.FirstOrDefault() == "--shared-floating") return SharedFloatingSmokeTests.Run();

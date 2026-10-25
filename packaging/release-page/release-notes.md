@@ -18,7 +18,9 @@ Duplicate downloads now offer a numbered copy, a fresh replacement, or the exist
 
 Start with Windows defaults on and automatic startup hides in the tray. Manual launch opens the manager. Completion notifications, optional sleep protection, and optional queue-finished Sleep, Hibernate, Shut down or a configured command live under **Settings → Startup, completion, protection and updates**. Power actions and commands default off; a cancelable countdown appears before execution. New work cancels the countdown, and interrupted work in that queue run prevents the action.
 
-Update checks use GitHub releases at startup and every twelve hours when enabled. Review the notes, open the release page, postpone, or skip that version. Installation remains your decision. Beta17 needs one manual upgrade before it can tell you about later releases; we have not invented a way to post new code backwards through time. The router is already under enough pressure.
+Update checks use GitHub releases at startup and every twelve hours when enabled. Click **Update now** to fetch the installer in the background, verify its digest and Syphon publisher signature, save progress, install and restart. Windows may ask for administrator approval. Eligible previously active downloads resume after the new version opens, subject to the existing schedule and sign-in requirements. Cancel the download or retry a failed attempt without replacing the current installation. The update has finally agreed to do its own paperwork instead of pointing at a website and wandering off for lunch.
+
+Beta17 still needs one manual upgrade to gain this updater. We have not invented a way to post new code backwards through time. The router is already under enough pressure.
 
 ## Under the lid
 
@@ -34,4 +36,3 @@ Update checks use GitHub releases at startup and every twelve hours when enabled
 This is a public beta prerelease. Release-build, transfer, browser, duplicate and desktop verification results are recorded in the first-update validation report. Actual sign-in startup, notification delivery under Windows notification settings, external file-drop targets, power transitions and custom commands need owner acceptance. Tests do not shut down your computer or execute a personal command.
 
 Media jobs still restart processing on Resume, and ordinary-file speed limits do not cover media-tool traffic. The short IDM outage observation did not establish its retry algorithm. No public signing certificate, public release, browser-store submission, Tier 2 or Tier 3 feature is included here.
-

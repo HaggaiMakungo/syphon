@@ -5,7 +5,8 @@ using System.Reflection;
 
 namespace Syphon.Desktop;
 
-public sealed record ReleaseNotice(string Tag, string Url, string Notes);
+public sealed record UpdatePackage(string Name, string Url, long Size, string Sha256);
+public sealed record ReleaseNotice(string Tag, string Url, string Notes, UpdatePackage? Installer = null);
 
 public static class ReleaseUpdates
 {
@@ -35,7 +36,22 @@ public static class ReleaseUpdates
             if (!Uri.TryCreate(address, UriKind.Absolute, out var url) || url.Scheme != "https" || url.Host != "github.com" ||
                 !string.IsNullOrEmpty(url.UserInfo) || url.Port != 443 || !url.AbsolutePath.StartsWith("/HaggaiMakungo/syphon/releases/", StringComparison.OrdinalIgnoreCase)) continue;
             var notes = release.TryGetProperty("body", out var body) && body.ValueKind == JsonValueKind.String ? body.GetString() ?? "" : "";
-            eligible.Add((new(tag!, url.AbsoluteUri, notes[..Math.Min(notes.Length, 24000)]), candidate));
+            UpdatePackage? installer = null;
+            var expectedName = $"Syphon-Setup-{tag!.TrimStart('v')}-win-x64.exe";
+            var expectedUrl = $"https://github.com/HaggaiMakungo/syphon/releases/download/{tag}/{expectedName}";
+            if (release.TryGetProperty("assets", out var assets) && assets.ValueKind == JsonValueKind.Array) {
+                foreach (var asset in assets.EnumerateArray()) {
+                    if (!asset.TryGetProperty("name", out var name) || name.GetString() != expectedName ||
+                        !asset.TryGetProperty("browser_download_url", out var downloadUrl) || downloadUrl.GetString() != expectedUrl ||
+                        !asset.TryGetProperty("size", out var size) || !size.TryGetInt64(out var bytes) || bytes is <= 0 or > 2_000_000_000 ||
+                        !asset.TryGetProperty("digest", out var digest) || digest.ValueKind != JsonValueKind.String) continue;
+                    var hash = digest.GetString()!;
+                    if (hash.Length != 71 || !hash.StartsWith("sha256:", StringComparison.Ordinal) || !hash[7..].All(Uri.IsHexDigit)) continue;
+                    if (installer is not null) { installer = null; break; } // Ambiguous asset sets are not executable updates.
+                    installer = new(expectedName, expectedUrl, bytes, hash[7..].ToLowerInvariant());
+                }
+            }
+            eligible.Add((new(tag!, url.AbsoluteUri, notes[..Math.Min(notes.Length, 24000)], installer), candidate));
         }
         return eligible.OrderByDescending(x => x.Version.Core).ThenByDescending(x => x.Version.Beta).Select(x => x.Notice).FirstOrDefault();
     }

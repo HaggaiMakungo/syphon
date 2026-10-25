@@ -25,7 +25,7 @@ internal static class SetupProductionTests
   var scratch=Path.Combine(Path.GetTempPath(),"Syphon.Setup.Production.Tests",Guid.NewGuid().ToString("N"));Directory.CreateDirectory(scratch);
   try {
    string[][] rejected=[
-    ["--self-test"], ["--verify-package",Path.Combine(scratch,"verify"),Path.Combine(scratch,"payload")],
+    ["--self-test"], ["--update-self-test",Path.Combine(scratch,"update-test.txt")], ["--update"], ["--update",scratch,"--parent-process","0","--parent-start","1","--restart"], ["--verify-package",Path.Combine(scratch,"verify"),Path.Combine(scratch,"payload")],
     ["--verify-package"], ["--verify-desktop-launch",Path.Combine(scratch,"desktop")],
     ["--render",Path.Combine(scratch,"render")], ["--render"],
     ["--render-browser",scratch,Path.Combine(scratch,"browser.png")], ["--render-maintenance",scratch],

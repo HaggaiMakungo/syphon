@@ -42,6 +42,8 @@ The original cache contained older FFmpeg, FFprobe, yt-dlp and notice inputs. Th
 
 ## Final candidate package
 
+The package identities in this section describe the earlier Beta18 candidate before the automatic updater was added. That artifact is superseded for publication; it must not be published as the automatic-updater build. The release remains an unpublished draft while the replacement candidate is prepared.
+
 - Source revision: `78dfc9e51dab602c0c6715b34cf6874f54049cd5`; clean at package time.
 - Final visual build: zero warnings/errors. Dialog visuals, duplicate and floating input checks passed again. Six screenshots cover five dialogs and the bottom of settings.
 - Runtime regression checks: 6 media-runtime and 7 downloader-build tests passed; packaging 18 tests passed with one skipped.
@@ -51,6 +53,19 @@ The original cache contained older FFmpeg, FFprobe, yt-dlp and notice inputs. Th
 - Existing Syphon Local Development certificate reused; cryptographic signature and file digest verified. Not publicly trusted or timestamped; Windows trust warnings remain possible. No certificates were imported into trust stores.
 - Signed installer was separately extracted and verified, including all payload hashes and four bundled tools. The first verification invocation used a relative target and was rejected; rerun with a dedicated absolute target passed.
 - Nothing was installed over the owner's app, merged, pushed or published. Upgrade and physical interaction acceptance remain listed above.
+
+## Automatic updater follow-up
+
+- Update now downloads the matching GitHub release asset in the background with progress, cancellation and retry. It requires exact filename/origin, announced size and SHA-256, followed by cryptographic Authenticode verification against the existing pinned Syphon publisher and a matching signed product version. No trust-store modifications are made.
+- Only GitHub release-service HTTPS redirects are followed. Headers/body have bounded waits. Failed, truncated, changed, wrong-publisher and cancelled downloads never become an executable update.
+- The current installed app is required; development and unowned/linked installations are rejected. An elevated, verified installer confirms the exact requesting process over a process-checked pipe before Syphon pauses/checkpoints/disposes workers and exits.
+- The installer requires a final COMMIT after worker disposal; a disconnected or failed-saving parent cannot trigger installation. A disposed coordinator is reopened before retry commands are enabled.
+- Installer mode preserves existing integration options, waits for the exact process without killing it, uses existing rollback-capable installation and reopens Syphon through the unelevated desktop launcher. Failures remain visible with retry/repair instructions.
+- A one-time, version-bound restart record restores eligible previously active transfers. Existing schedule rules and browser sign-in limitations remain in force. Failed-upgrade/expired restart records do not automatically resume tasks.
+- Release build: zero warnings/errors. Download metadata/origin/digest, exact bytes, cancellation, cleanup, truncation/hash/publisher rejection, external redirects and restart-record checks passed. A real signed installer passed the pinned-publisher/version check; tampering and the wrong signed version were rejected.
+- Installer contract/process-wait tests and existing isolated setup/rollback tests passed. Updated dialog screenshots and UI cancellation/retry checks passed without invoking a real installer or Windows power/UAC actions.
+- Final follow-up: all 145 engine tests and updater/duplicate/shared-window checks passed. Desktop native-host handoff passed using the real SDK path; the build runner now resolves the shared SDK junction so pipe identity checks compare the same executable path.
+- Actual Program Files UAC upgrade, Windows Explorer restart handoff and recovery under environmental failures still require owner acceptance. No claim of end-to-end upgrade certification is made by the isolated checks.
 
 ## Remaining owner acceptance
 

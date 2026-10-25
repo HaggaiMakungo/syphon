@@ -1,6 +1,6 @@
 # Syphon 0.1.0-beta.18 — everyone gets their own bloody progress bar
 
-Prepared 2026-10-24 · Windows x64 · Local update candidate; not published.
+Prepared 2026-10-25 · Windows x64 · Local update candidate; not published.
 
 You start another download. It joins the same floating window, with its own progress, speed and controls. Compact view fits four downloads; expanded view gives each one more detail, and the rest live in a scrollable list. Your files have stopped pooling their percentages like six children handing in one suspiciously damp group assignment. Everyone can now explain where their own megabytes went.
 
@@ -18,7 +18,9 @@ Duplicate downloads now offer a numbered copy, a fresh replacement, or the exist
 
 Start with Windows defaults on and automatic startup hides in the tray. Manual launch opens the manager. Completion notifications, optional sleep protection, and optional queue-finished Sleep, Hibernate, Shut down or a configured command live under **Settings → Startup, completion, protection and updates**. Power actions and commands default off; a cancelable countdown appears before execution. New work cancels the countdown, and interrupted work in that queue run prevents the action.
 
-Update checks use GitHub releases at startup and every twelve hours when enabled. Review the notes, open the release page, postpone, or skip that version. Installation remains your decision. Beta17 needs one manual upgrade before it can tell you about later releases; we have not invented a way to post new code backwards through time. The router is already under enough pressure.
+Update checks use GitHub releases at startup and every twelve hours when enabled. Click **Update now** to fetch the installer in the background, verify its digest and Syphon publisher signature, save progress, install and restart. Windows may ask for administrator approval. Eligible previously active downloads resume after the new version opens, subject to the existing schedule and sign-in requirements. Cancel the download or retry a failed attempt without replacing the current installation. The update has finally agreed to do its own paperwork instead of pointing at a website and wandering off for lunch.
+
+Beta17 still needs one manual upgrade to gain this updater. We have not invented a way to post new code backwards through time. The router is already under enough pressure.
 
 ## Under the lid
 

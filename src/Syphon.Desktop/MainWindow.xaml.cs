@@ -30,7 +30,7 @@ public partial class MainWindow : Window
     internal Action<ProcessStartInfo> FolderProcessStarter { get; set; } = start => Process.Start(start);
     private string? initializationError;
     private readonly ObservableCollection<DownloadRow> rows = [];
-    public bool IsReady => coordinator is not null && !closing;
+    public bool IsReady => coordinator is not null && !closing && !updateFinalizing;
 
     public MainWindow() : this(null) { }
     public MainWindow(string? dataDirectory, string? bridgePipeName = null, bool htmlUi = true)
@@ -64,6 +64,7 @@ public partial class MainWindow : Window
                 refresh.Start();
                 RefreshTasks();
                 InitializePlatform();
+                ResumeAfterUpdate();
                 if (browserPipeName is not null) browserServer = new BrowserPipeServer(browserPipeName, HandleBrowserRequestAsync);
             }
             catch (Exception ex)
@@ -152,7 +153,7 @@ public partial class MainWindow : Window
 
     private void RefreshTasks()
     {
-        if (coordinator is null || closing) return;
+        if (coordinator is null || closing || updateFinalizing) return;
         var tasks = coordinator.GetTasks();
         displayTasks = tasks;
         var previousSelection = TaskList.SelectedItem;
@@ -262,6 +263,7 @@ public partial class MainWindow : Window
 
     private async void Window_Closing(object? sender, CancelEventArgs e)
     {
+        if (updateFinalizing && !updateExit) { e.Cancel = true; return; }
         if (allowClose) return;
         if (!explicitExit && !closing && tray?.IsRegistered == true && DownloadPreferences.Load(preferencesPath).CloseToTray) { e.Cancel = true; Hide(); return; }
         e.Cancel = true;
@@ -287,7 +289,7 @@ public partial class MainWindow : Window
             }
             if (batchPreviewWork is not null) { try { await batchPreviewWork; } catch (OperationCanceledException) { } }
             if (browserServer is not null) await browserServer.DisposeAsync();
-            await (await initialization).DisposeAsync();
+            if (!updateExit && coordinator is not null) await coordinator.DisposeAsync();
         }
         catch (Exception ex) { StatusText.Text = $"Some progress could not be saved: {ex.Message}"; }
         allowClose = true;

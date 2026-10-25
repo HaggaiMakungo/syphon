@@ -20,6 +20,7 @@ public partial class MainWindow
     private TextBlock? countdownText;
     private DateTimeOffset nextUpdateCheck;
     private ReleaseNotice? availableUpdate;
+    private UpdateDownloadWindow? updateWindow;
     private bool checkingUpdate;
     private readonly HashSet<Guid> finishingDownloads = new();
     private bool completedSinceRefresh;
@@ -57,7 +58,7 @@ public partial class MainWindow
         var awake = preferences.PreventSleep && busy;
         if (awake != wakeRequested) { WindowsIntegration.KeepAwake(awake); wakeRequested = awake; }
         var blocked = tasks.Any(t => cycleDownloads.Contains(t.Id) && (t.State is DownloadState.Paused or DownloadState.Failed or DownloadState.Cancelled || t.RestartRequired));
-        if (preferences.CompletionAction == "None") { CancelIdleAction(); }
+        if (preferences.CompletionAction == "None" || updateInProgress) { CancelIdleAction(); }
         else {
             var due = idleAction.Observe(busy, blocked, completed, DateTimeOffset.UtcNow, preferences.CompletionCountdownSeconds);
             if (!busy && blocked) cycleDownloads.Clear();
@@ -120,11 +121,14 @@ public partial class MainWindow
     {
         if (availableUpdate is not { } release) return;
         RestoreFromTray();
-        var window = DialogAppearance.Update(release.Tag, release.Notes,
+        if (updateWindow is { IsVisible: true }) { updateWindow.Activate(); return; }
+        var window = new UpdateDownloadWindow(release.Tag, release.Notes, release.Installer is not null,
+            token => BeginUpdateAsync(release, token),
             () => Process.Start(new ProcessStartInfo(release.Url) { UseShellExecute = true }),
             () => nextUpdateCheck = DateTimeOffset.UtcNow.AddHours(24),
             () => (DownloadPreferences.Load(preferencesPath) with { SkippedRelease = release.Tag }).Save(preferencesPath));
-        window.Owner = this;
+        updateWindow = window; window.Owner = this;
+        window.Closed += (_, _) => { if (updateWindow == window) updateWindow = null; };
         window.Show();
     }
     private async void ExportDiagnostics(bool copy)
