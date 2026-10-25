@@ -1,22 +1,22 @@
 {
-  "version": "0.1.0-beta.17",
-  "date": "2026-10-18",
+  "version": "0.1.0-beta.18",
+  "date": "2026-10-25",
   "architecture": "win-x64",
-  "sourceRevision": "d3eb55b930f7465d39a10ba72efbe0a0cfef05a4",
+  "sourceRevision": "3a7f84bd67e8d7c252ca6d609d34f199c2110dc0",
   "status": "public-beta",
   "publiclyPublished": true,
   "installer": {
-    "file": "Syphon-Setup-0.1.0-beta.17-win-x64.exe",
-    "bytes": 332415312,
-    "sha256": "52615b3fe7765e241ad6a7cb6699e431ea8ed2bc3c43ec260747a749b6f2a1c3",
-    "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-Setup-0.1.0-beta.17-win-x64.exe"
+    "file": "Syphon-Setup-0.1.0-beta.18-win-x64.exe",
+    "bytes": 332543912,
+    "sha256": "f90e8d3d6ad98a772d5143d3a3c44f78edf155eb97c4991784b146f7762423f9",
+    "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.18/Syphon-Setup-0.1.0-beta.18-win-x64.exe"
   },
   "extension": {
-    "file": "Syphon-Extension-0.7.4-beta17.zip",
+    "file": "Syphon-Extension-0.7.4-beta18.zip",
     "version": "0.7.4",
-    "bytes": 171301,
-    "sha256": "08bf5fd8c4fb89c186e65fd8b1d14cc0036a6d13b579a3d62c44f652b859a39a",
-    "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-Extension-0.7.4-beta17.zip"
+    "bytes": 175313,
+    "sha256": "a7cf484dd083b3b6522440a2fdd6350cce0bad655a5b9ad3d24ee4f1804a581a",
+    "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.18/Syphon-Extension-0.7.4-beta18.zip"
   },
   "signing": {
     "type": "local self-signed Authenticode",
@@ -33,24 +33,24 @@
       "file": "Syphon-native-source-and-build-materials.zip",
       "bytes": 554904430,
       "sha256": "86e3a2e4835c215b8bffe5cf9f291a63b7adb9c9e65b55458e5f6ba84ab77415",
-      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-native-source-and-build-materials.zip"
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.18/Syphon-native-source-and-build-materials.zip"
     },
     {
       "file": "Syphon-FFmpeg-9.0.2-clean-source-and-build-materials.zip",
       "bytes": 329880819,
       "sha256": "7fd6e215e2374c0089c905f0ff189149fbdda0bcf4fc91ecc60c46178c44fcf4",
-      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-FFmpeg-9.0.2-clean-source-and-build-materials.zip"
+      "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.18/Syphon-FFmpeg-9.0.2-clean-source-and-build-materials.zip"
     }
   ],
   "pending": [
-    "Owner Beta17 upgrade acceptance",
+    "Owner Beta18 upgrade acceptance",
     "Browser store accounts, submission and store-installed acceptance"
   ],
   "applicationSource": {
-    "file": "Syphon-0.1.0-beta.17-source.zip",
-    "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-0.1.0-beta.17-source.zip",
-    "sha256": "deaec5afb76c4053c0ba26fe7cd7bfe74c8f8c1e30d678e1e6b784088988fc3b",
-    "bytes": 14602135
-  },
-  "releaseUrl": "https://github.com/HaggaiMakungo/syphon/releases/tag/v0.1.0-beta.17"
+    "file": "Syphon-0.1.0-beta.18-source.zip",
+    "bytes": 14723480,
+    "sha256": "70f4972f401f9c32fe2f61e072fb3ef9d0fbf5393daa32138008ac36ba6c5dea",
+    "revision": "3a7f84bd67e8d7c252ca6d609d34f199c2110dc0",
+    "url": "https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.18/Syphon-0.1.0-beta.18-source.zip"
+  }
 }
