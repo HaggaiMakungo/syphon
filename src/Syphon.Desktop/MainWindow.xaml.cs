@@ -28,7 +28,7 @@ public partial class MainWindow : Window
     private DownloadActivityIcon? activityIcon;
     private Guid? selectedId;
     private string? commandError;
-    internal Action<ProcessStartInfo> FolderProcessStarter { get; set; } = start => Process.Start(start);
+    internal Action<ProcessStartInfo> FolderProcessStarter { get; set; } = DownloadLocation.Launch;
     private string? initializationError;
     private readonly ObservableCollection<DownloadRow> rows = [];
     public bool IsReady => coordinator is not null && !closing && !updateFinalizing;

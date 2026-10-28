@@ -208,7 +208,7 @@ public sealed partial class FloatingDownloadWindow
             case "folder":
                 var folderId=msg.GetProperty("id").GetGuid();var folderTask=_htmlTasks.FirstOrDefault(t=>t.Id==folderId);
                 if(folderTask is null)throw new InvalidOperationException("This download is no longer available.");
-                System.Diagnostics.Process.Start(DownloadLocation.OpenFolder(folderTask.Destination));
+                DownloadLocation.Launch(DownloadLocation.OpenFolder(folderTask.Destination));
                 break;
             case "pin":
                 Topmost=!Topmost;PinnedOverride=Topmost;PublishHtml();

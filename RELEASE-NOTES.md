@@ -19,7 +19,7 @@ Videos, music, images, software, whole archives. Whatever you need for what come
 
 ## Fixes
 
-The tray popup could lose focus while already closing and call Close a second time, terminating the app. The close transition is now guarded and covered by a regression test. Window border handling, page alignment, transfer-card overflow and icon animation refreshes were also revised.
+The tray popup could lose focus while already closing and call Close a second time, terminating the app. The close transition is now guarded and covered by a regression test. Open folder now uses the Windows shell selection API for completed files. Window border handling, page alignment, transfer-card overflow and icon animation refreshes were also revised.
 
 ## Install and browser setup
 

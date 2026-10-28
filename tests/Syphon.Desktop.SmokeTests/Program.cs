@@ -20,6 +20,15 @@ internal static class Program
     [STAThread]
     public static int Main(string[] args)
     {
+        if (args.FirstOrDefault() == "--folder-shell") {
+            var folder=Path.GetFullPath("artifacts/folder-shell-check");Directory.CreateDirectory(folder);
+            var file=Path.Combine(folder,"Syphon folder selection, check.bin");File.WriteAllText(file,"Selection fixture");
+            var location=typeof(MainWindow).Assembly.GetType("Syphon.Desktop.DownloadLocation")!;
+            var flags=System.Reflection.BindingFlags.Static|System.Reflection.BindingFlags.NonPublic;
+            var launch=(ProcessStartInfo)location.GetMethod("OpenFolder",flags)!.Invoke(null,[file])!;
+            location.GetMethod("Launch",flags)!.Invoke(null,[launch]);
+            Console.WriteLine("PASS Windows shell accepted the folder-and-file selection request.");return 0;
+        }
         if (args.FirstOrDefault() == "--frame") return FrameSmokeTests.Run(args.Skip(1).ToArray());
         if (args.FirstOrDefault() == "--native-redraw-probe") return NativeRedrawProbe.Run(args.Skip(1).ToArray());
         if (args.FirstOrDefault() == "--frame-surfaces") return FrameSurfaceSmokeTests.Run(args.Skip(1).ToArray());

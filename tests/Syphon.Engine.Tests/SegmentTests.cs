@@ -98,13 +98,15 @@ internal static class SegmentTests
 
         await run("Segment requests and checkpoints retain offsets beyond 4 GiB", async () =>
         {
-            var folder = Folder(); await using var owner = await DownloadCoordinator.OpenAsync(folder, Options);
+            var folder = Folder(); await using var owner = await DownloadCoordinator.OpenAsync(folder, Options with { AdaptiveConnectionsEnabled = false });
             var task = owner.Add(Url(size: 8L * 1024 * 1024 * 1024 - 123), Path.Combine(folder, "large.bin"));
+            // This fixture tests 64-bit offsets, not adaptive ramp-up; bound its traffic.
+            owner.SetSpeedLimit(task.Id, 4 * 1024 * 1024);
             owner.Resume(task.Id);
             await Until(() => owner.Get(task.Id).Segments.Length == 4 && owner.Get(task.Id).Segments.All(s => s.Committed > 65536));
             await owner.PauseAsync(task.Id);
             var saved = owner.Get(task.Id);
-            Check(saved.Segments.Last().Start > uint.MaxValue && saved.Committed < 134217728 && !File.Exists(task.Destination), "Large offset test lost bounds or downloaded excessive data.");
+            Check(saved.Segments.Last().Start > uint.MaxValue && saved.Committed < 134217728 && !File.Exists(task.Destination), $"Large offset test lost bounds or downloaded excessive data: last={saved.Segments.Last().Start}, committed={saved.Committed}, state={saved.State}.");
             foreach (var segment in saved.Segments)
             {
                 using var file = File.OpenRead(DownloadCoordinator.SegmentPath(saved, segment.Index));

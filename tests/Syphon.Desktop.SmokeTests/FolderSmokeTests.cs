@@ -27,6 +27,8 @@ internal static class FolderSmokeTests
                     var task = owner.Add(new Uri(server.BaseAddress, "file?size=100003"), destination); id = task.Id;
                     owner.Resume(id); await owner.WaitForIdleAsync(id);
                     if (owner.Get(id).State != DownloadState.Completed) throw new Exception(owner.Get(id).Message);
+                    var other=owner.Add(new Uri(server.BaseAddress, "file?size=100003"), Path.Combine(root,"other.mp4"));
+                    owner.Resume(other.Id); await owner.WaitForIdleAsync(other.Id);
                 }
                 var launches = new List<ProcessStartInfo>();
                 window = new MainWindow(Path.Combine(root, "store"),"Syphon.Folder."+Guid.NewGuid().ToString("N")) { Left = -10000, Top = -10000, ShowInTaskbar = false };
@@ -54,8 +56,13 @@ internal static class FolderSmokeTests
                     } else if(launch.FileName!=Path.GetDirectoryName(destination)||launch.Arguments.Length!=0||!launch.UseShellExecute)
                         throw new Exception("Missing file must fall back to opening its containing folder.");
                 }
-                await ui.EvaluateAsync("document.querySelector('.record-folder').click()");await Launched(1);
-                await ui.EvaluateAsync("document.querySelector('.record-select').click()");
+                // A different native selection can be excluded by the hidden legacy view filter.
+                var nativeList=(System.Windows.Controls.DataGrid)window.FindName("TaskList");
+                var nativeView=System.Windows.Data.CollectionViewSource.GetDefaultView(nativeList.ItemsSource);
+                nativeView.Filter=item=>item is DownloadRow row&&row.Snapshot.Id!=id;
+                nativeList.SelectedIndex=0;
+                await ui.EvaluateAsync("[...document.querySelectorAll('.record-folder')].find(b=>b.getAttribute('aria-label')==="+System.Text.Json.JsonSerializer.Serialize("Open folder for "+Path.GetFileName(destination))+").click()");await Launched(1);
+                await ui.EvaluateAsync("[...document.querySelectorAll('.record-select')].find(b=>b.getAttribute('aria-label')==="+System.Text.Json.JsonSerializer.Serialize("Details for "+Path.GetFileName(destination))+").click()");
                 await Until("!!document.querySelector('.detail-window')");
                 const string open="[...document.querySelectorAll('.detail-window .dialog-actions button')].find(b=>b.textContent.includes('Open folder')).click()";
                 await ui.EvaluateAsync(open);await Launched(2);
