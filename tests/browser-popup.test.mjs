@@ -3,9 +3,11 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 import { createRequire } from "node:module";
-import { handoff, downloadRequest } from "../extensions/syphon/handoff.js";
+import { openPageLinks } from "../extensions/syphon/page-actions.js";
+import { handoff, downloadRequest, supportedLink } from "../extensions/syphon/handoff.js";
 import { VIDEO_PERMISSION } from "../extensions/syphon/detection.js";
 import { SIGNIN_PERMISSION } from "../extensions/syphon/request-context.js";
+import { orbitalIcons } from "../extensions/syphon/orbital-icons.js";
 const { JSDOM } = createRequire(new URL("../.tools/extension-test/package.json", import.meta.url))("jsdom");
 const code = name => fs.readFile(new URL(`../extensions/syphon/${name}`, import.meta.url), "utf8");
 const tick = () => new Promise(resolve => setTimeout(resolve, 10));
@@ -26,11 +28,19 @@ async function popup(initial = {}, nativeReply, options = {}) {
     permissions: { contains: async () => !options.revoked, request: async value => { permissions.push(value); return !options.declined; } },
     action: { setBadgeText: async v => badges.push(v.text), setBadgeBackgroundColor: async () => {}, setTitle: async () => {} }
   };
-  Object.assign(window, { chrome: api, handoff, probeDesktop, VIDEO_PERMISSION, SIGNIN_PERMISSION });
+  Object.assign(window, { chrome: api, handoff, probeDesktop, VIDEO_PERMISSION, SIGNIN_PERMISSION, orbitalIcons, openPageLinks, supportedLink });
   await window.eval(`(async () => { ${(await code("popup.js")).replace(/^import .*;\r?\n/gm, "")} })()`);
   return { dom, window, state, native, permissions, badges, $: id => window.document.getElementById(id) };
 }
 const saved = (status = "accepted", message = "Added to Syphon.") => ({ request: { version: 1, action: "status", requestId: "saved-id" }, response: { status, message } });
+
+test('protected download status uses the requested browser message without labelling network errors encrypted',async()=>{
+ for(const message of ['Encrypted or protected HLS is not supported.','HTTP 403: access refused.']){
+  const p=await popup({lastHandoff:saved('rejected',message)});
+  try{assert.equal(p.$('status').textContent,message.startsWith('Encrypted')?"Yeah... I can't download this! Must be encrypted.":message);}
+  finally{p.window.close();}
+ }
+});
 
 test("browser-wide status has explicit scope and old records do not invent a source", async () => {
   const p = await popup({ lastHandoff: saved() });

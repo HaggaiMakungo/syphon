@@ -48,6 +48,72 @@ class ReleasePreviewTests(unittest.TestCase):
     def build(self):
         return prepare(self.installer, self.record, self.extracted, self.manifest, self.output, '2026-10-18', self.sources)
 
+    def set_build_version(self, version):
+        build_path = self.extracted / 'build-inputs.json'
+        build = json.loads(build_path.read_text())
+        build['version'] = version
+        build_path.write_text(json.dumps(build))
+        manifest = json.loads(self.manifest.read_text())
+        manifest['Version'] = version
+        manifest['Files']['build-inputs.json'] = {'Length': build_path.stat().st_size,
+            'Sha256': hashlib.sha256(build_path.read_bytes()).hexdigest()}
+        self.manifest.write_text(json.dumps(manifest))
+        renamed = self.root / f'Syphon-Setup-{version}-win-x64.exe'
+        self.installer.rename(renamed)
+        self.installer = renamed
+
+    def test_beta20_requested_version_matches_verified_inputs(self):
+        self.set_build_version('0.1.0-beta.20')
+        result = prepare(self.installer, self.record, self.extracted, self.manifest,
+            self.output, '2026-10-27', self.sources, expected_version='0.1.0-beta.20')
+        self.assertEqual(result['version'], '0.1.0-beta.20')
+        self.assertIn('Owner 0.1.0-beta.20 upgrade acceptance', result['pending'])
+        self.assertNotIn('Owner Beta17 upgrade acceptance', result['pending'])
+        self.assertTrue(result['extension']['file'].endswith('-beta20.zip'))
+        verify(self.output)
+
+    def test_requested_version_mismatch_refused_before_output(self):
+        with self.assertRaisesRegex(ValueError, 'Requested release version'):
+            prepare(self.installer, self.record, self.extracted, self.manifest,
+                self.output, '2026-10-27', self.sources, expected_version='0.1.0-beta.20')
+        self.assertFalse(self.output.exists())
+
+    def test_invalid_build_version_refused_before_output(self):
+        self.set_build_version('not-a-version')
+        with self.assertRaisesRegex(ValueError, 'Release versions'):
+            self.build()
+        self.assertFalse(self.output.exists())
+
+    def test_non_beta_versions_are_not_labelled_as_beta_releases(self):
+        for version in ('1.2.3', '1.2.3-rc.1'):
+            with self.subTest(version=version):
+                self.set_build_version(version)
+                with self.assertRaisesRegex(ValueError, 'Release versions'):
+                    self.build()
+                self.assertFalse(self.output.exists())
+
+    def test_signing_receipt_version_mismatch_refused_before_output(self):
+        receipt = json.loads(self.record.read_text())
+        receipt['version'] = '0.1.0-beta.20'
+        self.record.write_text(json.dumps(receipt))
+        with self.assertRaisesRegex(ValueError, 'Signing receipt version'):
+            self.build()
+        self.assertFalse(self.output.exists())
+
+    def test_dirty_source_is_still_refused_for_beta20(self):
+        self.set_build_version('0.1.0-beta.20')
+        path = self.extracted / 'build-inputs.json'
+        build = json.loads(path.read_text())
+        build['sourceDirty'] = True
+        path.write_text(json.dumps(build))
+        manifest = json.loads(self.manifest.read_text())
+        manifest['Files']['build-inputs.json'] = {'Length': path.stat().st_size,
+            'Sha256': hashlib.sha256(path.read_bytes()).hexdigest()}
+        self.manifest.write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(ValueError, 'clean Windows x64'):
+            self.build()
+        self.assertFalse(self.output.exists())
+
     def test_exact_installer_extension_and_complete_local_links(self):
         result = self.build()
         self.assertFalse(result['publiclyPublished'])

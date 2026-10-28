@@ -35,3 +35,11 @@ research/**/*.json
 /design/brand/README.md
 /design/brand/README.txt
 /design/brand/hybrid-v3/README.md
+
+# Local UI trials, screenshots and imported third-party references.
+/--beta20-live/
+/.playwright-cli/
+/design/beta20/vlc-reference/
+/design/beta20/html/*.png
+/design/beta20/html/*.jpg
+

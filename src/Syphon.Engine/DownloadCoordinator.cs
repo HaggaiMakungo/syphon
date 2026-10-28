@@ -95,7 +95,7 @@ public sealed partial class DownloadCoordinator : IAsyncDisposable
     public StoredDownload Add(Uri url, string destination, bool singleConnection = false)
     {
         HttpDownloadEngine.ValidateUrl(url);
-        if (YoutubeTools.IsYoutubeVideoTarget(url)) { url = YoutubeTools.CanonicalUrl(url); destination = Path.ChangeExtension(destination, ".mp4"); }
+        if (PageVideoTools.IsKnownVideoPage(url)) { url = PageVideoTools.CanonicalUrl(url); destination = Path.ChangeExtension(destination, ".mp4"); }
         destination = Path.GetFullPath(destination);
         var folder = Path.GetDirectoryName(destination);
         if (string.IsNullOrWhiteSpace(folder) || string.IsNullOrWhiteSpace(Path.GetFileName(destination)))
@@ -110,7 +110,7 @@ public sealed partial class DownloadCoordinator : IAsyncDisposable
             var task = new StoredDownload
             {
                 Id = id, Url = url.AbsoluteUri, Destination = destination, SingleConnection = singleConnection,
-                MediaFormat = YoutubeTools.IsYoutubeVideoTarget(url) ? "mp4" : null,
+                MediaFormat = PageVideoTools.IsKnownVideoPage(url) ? "mp4" : null,
                 PartPath = Path.Combine(folder, $".{Path.GetFileName(destination)}.{id:N}.syphon-part")
             };
             Set(task);
@@ -586,7 +586,7 @@ public sealed partial class DownloadCoordinator : IAsyncDisposable
                 return task with { State = DownloadState.Completed, PublicationPending = false, Connections = 0, Received = task.Committed, Message = "Download complete." };
             }
             if (task.Segments.Length > 0) return await RecoverSegmentsAsync(task).ConfigureAwait(false);
-            if (task.MediaFormat is not null && YoutubeTools.IsYoutubeVideoTarget(new(task.Url))) YoutubeTools.Cleanup(task);
+            if (PageVideoTools.RequiresExtractor(task)) YoutubeTools.Cleanup(task);
             if (!File.Exists(task.PartPath))
             {
                 if (task.Committed > 0 || task.Sha256 is not null) throw new InvalidDataException("The partial file is missing. Restart required.");

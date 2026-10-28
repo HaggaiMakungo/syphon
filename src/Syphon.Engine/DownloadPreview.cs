@@ -9,7 +9,7 @@ public static class DownloadPreviewReader
     {
         HttpDownloadEngine.ValidateUrl(url);
         var name = DownloadCoordinator.SuggestedBrowserFilename(url, MediaTools.IsManifestUrl(url.AbsoluteUri) ? "mp4" : null);
-        if (YoutubeTools.IsYoutubeVideoTarget(url) || MediaTools.IsManifestUrl(url.AbsoluteUri))
+        if (PageVideoTools.IsKnownVideoPage(url) || MediaTools.IsManifestUrl(url.AbsoluteUri))
             return new(name, null, "Media details will be resolved when downloading.");
         using var budget = CancellationTokenSource.CreateLinkedTokenSource(token); budget.CancelAfter(TimeSpan.FromSeconds(3));
         try {

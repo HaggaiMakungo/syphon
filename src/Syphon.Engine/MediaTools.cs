@@ -32,7 +32,11 @@ public static partial class MediaTools
 
     public static async Task<MediaInfo> InspectAsync(Uri url, CancellationToken token = default, bool boundedProbe = false, bool fast = true)
     {
-        if (YoutubeTools.IsYoutubeVideoTarget(url)) return await YoutubeTools.InspectAsync(url, token).ConfigureAwait(false);
+        IOException? pageError=null;
+        if(PageVideoTools.IsKnownVideoPage(url)||PageVideoTools.IsPageCandidate(url)){
+            try{return await YoutubeTools.InspectAsync(url,token).ConfigureAwait(false);}
+            catch(IOException ex) when(!PageVideoTools.IsKnownVideoPage(url)){pageError=ex;}
+        }
         if (fast && IsManifestUrl(url.AbsoluteUri)) {
             try { var advertised = await InspectManifestMetadataAsync(url, token).ConfigureAwait(false); if (advertised is not null) return advertised; }
             catch (OperationCanceledException) when (!token.IsCancellationRequested) { }
@@ -85,6 +89,7 @@ public static partial class MediaTools
                     return new MediaCaption(language ?? "Closed captions", "Embedded subtitle track — separate saving is not available yet");
                 }).ToArray());
         }
+        catch(IOException) when(pageError is not null){throw pageError;}
         catch (OperationCanceledException) when (!token.IsCancellationRequested)
         { throw new IOException("Media inspection timed out. Try a fresh direct media link."); }
     }
@@ -134,6 +139,12 @@ public static partial class MediaTools
     {
         var start = new ProcessStartInfo(FindTool(tool)) { UseShellExecute = false, CreateNoWindow = true,
             RedirectStandardOutput = true, RedirectStandardError = true, RedirectStandardInput = true };
+        if(tool=="yt-dlp"&&MediaToolResolver.IsPackagedBuild){
+            // Built-in site extractors may invoke companion tools; keep those
+            // lookups inside the shipped media directory and Windows system directory.
+            start.Environment["PATH"]=Path.GetDirectoryName(start.FileName)+Path.PathSeparator+Environment.GetFolderPath(Environment.SpecialFolder.System);
+            foreach(var key in new[]{"NODE_OPTIONS","NODE_PATH","PYTHONPATH","PYTHONHOME"})start.Environment.Remove(key);
+        }
         foreach (var argument in arguments) start.ArgumentList.Add(argument);
         using var process = new Process { StartInfo = start };
         if (!process.Start()) throw new IOException("Media tool could not be started.");

@@ -58,9 +58,9 @@ The picture lives inside the MP3, so it can travel with the file. You get the ar
 
 Unprotected on-demand HLS/DASH media is supported too. Website compatibility varies; media jobs restart from the beginning on Resume.
 
-### Five folders and a small containment problem
+### Seven folders and a small containment problem
 
-Default category folders are **Videos, Music, Documents, Programs and Misc**. You can still choose a custom destination. History provides search, filters, explicit outcomes, file details and checksum tools.
+Default category folders are **Videos, Music, Images, Documents, Programs, Compressed and Misc**. You can still choose a custom destination. History provides search, filters, explicit outcomes, file details and checksum tools.
 
 Misc is for the files that arrive wearing a false moustache and refuse to state their business. We considered calling it “Evidence”, but that gives a completely unreasonable impression of the project and would require me to explain several USB sticks.
 

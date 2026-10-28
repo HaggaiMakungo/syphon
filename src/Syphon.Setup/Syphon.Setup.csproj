@@ -4,7 +4,7 @@
   <EnableSetupDiagnostics Condition="'$(EnableSetupDiagnostics)' == ''">false</EnableSetupDiagnostics>
   <DefineConstants Condition="'$(EnableSetupDiagnostics)' == 'true'">$(DefineConstants);SETUP_DIAGNOSTICS</DefineConstants>
   <ApplicationManifest>app.manifest</ApplicationManifest>
-  <AssemblyName>Syphon.Setup</AssemblyName><Version>0.1.0-beta.10</Version><ApplicationIcon>../Syphon.Desktop/Assets/Brand/syphon_windows.ico</ApplicationIcon>
+  <AssemblyName>Syphon.Setup</AssemblyName><Version>0.1.0-beta.20</Version><ApplicationIcon>../Syphon.Desktop/Assets/Brand/syphon_windows.ico</ApplicationIcon>
   <PublishSingleFile>true</PublishSingleFile><IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract><EnableCompressionInSingleFile>true</EnableCompressionInSingleFile><PublishTrimmed>false</PublishTrimmed>
   <NoWarn>$(NoWarn);IL3000</NoWarn>
  </PropertyGroup>

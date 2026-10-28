@@ -1,11 +1,12 @@
 {
   "manifest_version": 3,
   "name": "Syphon this",
-  "version": "0.7.4",
+  "version": "0.8.5",
   "description": "Hand a download link to the Syphon desktop app.",
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3IwZ0OiddBnCVI+71eNkYF0xwQS0LMNeMWXgB3fn53PbsdCsC/R8ViKDqzW9aGCrdf+gqt7c/z7lE8ZbMS4RgZ7ik/dM7KKsHP+3EOjyMmMDvWPpVrs2JdjxhglhG6OA3ZWHnPSMxfghpmX5ZWbeBrQ192GcXVVxAQdDn9zhe2DDmLf1M1KdXdeCdCH6EddpP08yLTu+F7ocM57WmPOPLtgEfUfIjkuas3r+vQ7v7FHdoomyRaMYkiQvJ8XAqL9A7pu1lkd91O3jHZ/WIkir3G4R5rrb+vOfGby7CHLXajByIb+6DEX8gB3CQvW1VcxXjzThDxwNUuiUvi/fRkDvTQIDAQAB",
   "permissions": [
     "contextMenus",
+    "activeTab",
     "nativeMessaging",
     "storage",
     "notifications"

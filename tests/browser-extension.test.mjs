@@ -76,7 +76,7 @@ test("removed task receipt reports removal without creating a new request", asyn
 test("manifest has bounded explicit capabilities and no interception permissions", async () => {
   const manifest = JSON.parse(await fs.readFile(new URL("../extensions/syphon/manifest.json", import.meta.url), "utf8"));
   assert.equal(manifest.manifest_version, 3); assert.equal(manifest.name, "Syphon this"); assert.ok(manifest.key);
-  assert.deepEqual(manifest.permissions.toSorted(), ["contextMenus", "nativeMessaging", "storage", "notifications"].toSorted());
+  assert.deepEqual(manifest.permissions.toSorted(), ["activeTab", "contextMenus", "nativeMessaging", "storage", "notifications"].toSorted());
   assert.equal(manifest.host_permissions, undefined); assert.equal(manifest.content_scripts, undefined);
   assert.deepEqual(manifest.optional_permissions, ["cookies", "downloads", "scripting", "webRequest"]);
   assert.deepEqual(manifest.optional_host_permissions, ["http://*/*", "https://*/*"]);

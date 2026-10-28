@@ -1,0 +1,346 @@
+{
+  "name": "Syphon Ribbon Orbit",
+  "version": 1,
+  "palette": {
+    "ink": "#100b16",
+    "deep": "#6a3b94",
+    "violet": "#b887f4",
+    "lilac": "#d5a8ff",
+    "highlight": "#efdfff",
+    "muted": "#887994"
+  },
+  "sizes": [
+    16,
+    20,
+    24,
+    32,
+    40,
+    48,
+    64,
+    96,
+    128,
+    256,
+    512,
+    1024
+  ],
+  "files": [
+    {
+      "path": "png/transparent/ribbon-orbit-16.png",
+      "size": 16,
+      "bytes": 657,
+      "sha256": "337b906d04201210064fa432f7258b131f321aede517b033eef91c50062155dd"
+    },
+    {
+      "path": "png/tile/ribbon-orbit-16.png",
+      "size": 16,
+      "bytes": 706,
+      "sha256": "2d6105e9d369015cda6c7a2568e273caca136c8590a5bf242a985ad000bc801d"
+    },
+    {
+      "path": "png/white/ribbon-orbit-16.png",
+      "size": 16,
+      "bytes": 574,
+      "sha256": "84f1b55c018f09f05621a44e47a282f3c393501a70553df9ccd5888ac57daa43"
+    },
+    {
+      "path": "png/muted/ribbon-orbit-16.png",
+      "size": 16,
+      "bytes": 619,
+      "sha256": "ed2db85363e89815dc9a201242ab3e1ea31d5d511ac23ae916a06ad33c1bf08b"
+    },
+    {
+      "path": "png/transparent/ribbon-orbit-20.png",
+      "size": 20,
+      "bytes": 858,
+      "sha256": "900fd07932c922b51c84ba87bd4a56747547c6fec3c78d159f73625f48c73b04"
+    },
+    {
+      "path": "png/tile/ribbon-orbit-20.png",
+      "size": 20,
+      "bytes": 891,
+      "sha256": "7c6749124243ae23f488d03204cd9cc01cf75009ab33eccd8b874a7f5904085c"
+    },
+    {
+      "path": "png/white/ribbon-orbit-20.png",
+      "size": 20,
+      "bytes": 747,
+      "sha256": "b5de79edc8dd6ff2f8f2d4d9670985198e991b213299595af984d69eec9a3f32"
+    },
+    {
+      "path": "png/muted/ribbon-orbit-20.png",
+      "size": 20,
+      "bytes": 810,
+      "sha256": "ede929b7c1836c365028ba858b962eb29de52b06e7d6d420a21fddc43650f371"
+    },
+    {
+      "path": "png/transparent/ribbon-orbit-24.png",
+      "size": 24,
+      "bytes": 1064,
+      "sha256": "d255e91e9bbde7132db5193107987815e12401f8beecd28476a69a30380d5464"
+    },
+    {
+      "path": "png/tile/ribbon-orbit-24.png",
+      "size": 24,
+      "bytes": 1089,
+      "sha256": "7c3ea29d432d151e70abeedaefd91e7a967ece3a8b3d3dab0f8814ecbe7c90e2"
+    },
+    {
+      "path": "png/white/ribbon-orbit-24.png",
+      "size": 24,
+      "bytes": 928,
+      "sha256": "af0e0a51127b0e2bbeb8f092c13dfcf2c49cb9b3b50c5c3f9daeb85d422ab5aa"
+    },
+    {
+      "path": "png/muted/ribbon-orbit-24.png",
+      "size": 24,
+      "bytes": 1029,
+      "sha256": "c67e2fd38b10511fc6e72a42e40cdad131e850841c41a0523024db9c7bfed814"
+    },
+    {
+      "path": "png/transparent/ribbon-orbit-32.png",
+      "size": 32,
+      "bytes": 1222,
+      "sha256": "124d68b97a740d6a82eab1c870004c9ab329897e0b36e338a4f507655ea5ab58"
+    },
+    {
+      "path": "png/tile/ribbon-orbit-32.png",
+      "size": 32,
+      "bytes": 1388,
+      "sha256": "b3a98d0be0f36920061454805fe2376765f489d915fe3915e9d824d7478d6734"
+    },
+    {
+      "path": "png/white/ribbon-orbit-32.png",
+      "size": 32,
+      "bytes": 740,
+      "sha256": "442e708301f23f4248da538650b3ba1dc0c54b75502d0b1b70622f869ac3b1cf"
+    },
+    {
+      "path": "png/muted/ribbon-orbit-32.png",
+      "size": 32,
+      "bytes": 874,
+      "sha256": "31147ddbc5e4d343f5c5925e9ce841e47fe2a292f7e30bddfb0309ad099751db"
+    },
+    {
+      "path": "png/transparent/ribbon-orbit-40.png",
+      "size": 40,
+      "bytes": 1591,
+      "sha256": "67a2d795eb006a5e80345b6b4ece71c29d3f4d55f10c379425a2d5f900a78619"
+    },
+    {
+      "path": "png/tile/ribbon-orbit-40.png",
+      "size": 40,
+      "bytes": 1807,
+      "sha256": "71d45947afe8e71f9ae5740d7f55b2b78acb6d8a5d7a48cb5fa2dff983d20228"
+    },
+    {
+      "path": "png/white/ribbon-orbit-40.png",
+      "size": 40,
+      "bytes": 920,
+      "sha256": "e7014ea5462e71372c80a0803f4ee6ec89478b05f410bfb8733dcc7e015f86e7"
+    },
+    {
+      "path": "png/muted/ribbon-orbit-40.png",
+      "size": 40,
+      "bytes": 1058,
+      "sha256": "7fac4c88ecfa11490da0c61b6ae3e5a7ace7a4325fe10efecaa9527dba990014"
+    },
+    {
+      "path": "png/transparent/ribbon-orbit-48.png",
+      "size": 48,
+      "bytes": 1983,
+      "sha256": "09b428879c01f789d6012eaae2674f770cd5b9dadee352d5bbeb1b8341adde41"
+    },
+    {
+      "path": "png/tile/ribbon-orbit-48.png",
+      "size": 48,
+      "bytes": 2198,
+      "sha256": "32ef0f966d3779db02809afee03a1bb04cc558328df7e8587fd20b7d53341546"
+    },
+    {
+      "path": "png/white/ribbon-orbit-48.png",
+      "size": 48,
+      "bytes": 1084,
+      "sha256": "61f31b291885d9fcc144de061e71dbfd283a69aed2c16a437b3ea343ddccc24c"
+    },
+    {
+      "path": "png/muted/ribbon-orbit-48.png",
+      "size": 48,
+      "bytes": 1266,
+      "sha256": "8ed69ae744b55dbab9207b1abe3d6870902c0c5f9c32ce07483d65347b95e94b"
+    },
+    {
+      "path": "png/transparent/ribbon-orbit-64.png",
+      "size": 64,
+      "bytes": 2865,
+      "sha256": "274e3af7a492f3fd637f4b82758aef779b7fa5a7ac4041675a65e51a35dc0b10"
+    },
+    {
+      "path": "png/tile/ribbon-orbit-64.png",
+      "size": 64,
+      "bytes": 3127,
+      "sha256": "726be3e738e6aaf8a929f9dc6ff3c0b5eedb25abccee94b61ad8c3cdaaa8ed25"
+    },
+    {
+      "path": "png/white/ribbon-orbit-64.png",
+      "size": 64,
+      "bytes": 1423,
+      "sha256": "6038b0d519e79365f6faf8ca04fefbea18c4c77ea6cc51f62df6b5529da9c2d9"
+    },
+    {
+      "path": "png/muted/ribbon-orbit-64.png",
+      "size": 64,
+      "bytes": 1614,
+      "sha256": "1d106fecec4524182b3b4ced3a20381844999acbea4981e5f8d1e3a5bf8ca875"
+    },
+    {
+      "path": "png/transparent/ribbon-orbit-96.png",
+      "size": 96,
+      "bytes": 4655,
+      "sha256": "adc2957c9707e57434d28f1745b4ff78f4c195d5d8fed8b6eff3658087aa0300"
+    },
+    {
+      "path": "png/tile/ribbon-orbit-96.png",
+      "size": 96,
+      "bytes": 5011,
+      "sha256": "33fc8ba9704764069d343b5b7f6805224ab92d6201cc3e3e5571320fe0f4142e"
+    },
+    {
+      "path": "png/white/ribbon-orbit-96.png",
+      "size": 96,
+      "bytes": 2131,
+      "sha256": "450853be4ceac835624a722fe2c9d30f1d64fef440da6909e512799b6fcdb334"
+    },
+    {
+      "path": "png/muted/ribbon-orbit-96.png",
+      "size": 96,
+      "bytes": 2352,
+      "sha256": "25ef88f488647c515273ff09cb6e18574a61d05530cf6face3a8d26038a4c4a8"
+    },
+    {
+      "path": "png/transparent/ribbon-orbit-128.png",
+      "size": 128,
+      "bytes": 6892,
+      "sha256": "5962aaa31225d711599a842a2bc00df396e86d916c47a98eff2744089f1336c9"
+    },
+    {
+      "path": "png/tile/ribbon-orbit-128.png",
+      "size": 128,
+      "bytes": 7171,
+      "sha256": "78d3bb1d813eb241c15a1e6177a8cb13af6d2b21cc1fafb006257fd2eec0987b"
+    },
+    {
+      "path": "png/white/ribbon-orbit-128.png",
+      "size": 128,
+      "bytes": 2777,
+      "sha256": "28be643b2ad0b86fab7667055ab583a817aa561fc123acd0f3d8f8643132fb3c"
+    },
+    {
+      "path": "png/muted/ribbon-orbit-128.png",
+      "size": 128,
+      "bytes": 3026,
+      "sha256": "49c2df473e8413ba40042efd2abc5fec697cae3ef70a0119a2d38251cff1dae6"
+    },
+    {
+      "path": "png/transparent/ribbon-orbit-256.png",
+      "size": 256,
+      "bytes": 17566,
+      "sha256": "8d22e121bd8388ddb1421499f1f7b3370bcbf3d0ceadb1a4e879d35bcbc96f29"
+    },
+    {
+      "path": "png/tile/ribbon-orbit-256.png",
+      "size": 256,
+      "bytes": 16640,
+      "sha256": "8a524b06bdabb2b23db73001830e9093bd1be988104a868c64d117df6a6b6fdf"
+    },
+    {
+      "path": "png/white/ribbon-orbit-256.png",
+      "size": 256,
+      "bytes": 5752,
+      "sha256": "ddc8a8c0bbbab6240606d681d579dfad5bb7ac299f1b65e6b6c07c265d55afb0"
+    },
+    {
+      "path": "png/muted/ribbon-orbit-256.png",
+      "size": 256,
+      "bytes": 6052,
+      "sha256": "bed261c4b73f8fea695b4c8b0a55530971f90ad303a44a465c8f287c2d834936"
+    },
+    {
+      "path": "png/transparent/ribbon-orbit-512.png",
+      "size": 512,
+      "bytes": 46061,
+      "sha256": "e40f179448d161fd33a0e5e724915f5eada86a83dcc794558fc41d05125d0d0c"
+    },
+    {
+      "path": "png/tile/ribbon-orbit-512.png",
+      "size": 512,
+      "bytes": 41842,
+      "sha256": "94b4a5f3adcce2d503cee07dbc75d56272681fe37209ca09c44d86cca78467ca"
+    },
+    {
+      "path": "png/white/ribbon-orbit-512.png",
+      "size": 512,
+      "bytes": 12268,
+      "sha256": "d3f086b114353e28b69b974794e1d7472746309169ed66d94220628242af141b"
+    },
+    {
+      "path": "png/muted/ribbon-orbit-512.png",
+      "size": 512,
+      "bytes": 12277,
+      "sha256": "33a21c7683be5bf613d0fa4a1904d1a2567bd4930df51d9b74e960adf07449df"
+    },
+    {
+      "path": "png/transparent/ribbon-orbit-1024.png",
+      "size": 1024,
+      "bytes": 116352,
+      "sha256": "1703af2cc0db92692694684e7d3eeec806cec4d4ec87ce576319e813d023afc2"
+    },
+    {
+      "path": "png/tile/ribbon-orbit-1024.png",
+      "size": 1024,
+      "bytes": 99998,
+      "sha256": "3d3e868322c33b109152c9003068c2997b5551ac2b9411112787122bd5c79373"
+    },
+    {
+      "path": "png/white/ribbon-orbit-1024.png",
+      "size": 1024,
+      "bytes": 26907,
+      "sha256": "6d712149b6a0757a26408fae77e4ae63d63dc577d306c370522808f1493211b5"
+    },
+    {
+      "path": "png/muted/ribbon-orbit-1024.png",
+      "size": 1024,
+      "bytes": 27068,
+      "sha256": "b6266d2060099f9d7d05d47f7a5db1d19cb377c2698527abc0d0421e6cf08288"
+    },
+    {
+      "path": "png/states/ribbon-orbit-progress-0.png",
+      "size": 256,
+      "bytes": 6052,
+      "sha256": "bed261c4b73f8fea695b4c8b0a55530971f90ad303a44a465c8f287c2d834936"
+    },
+    {
+      "path": "png/states/ribbon-orbit-progress-25.png",
+      "size": 256,
+      "bytes": 7421,
+      "sha256": "97d7f6b108a5504cb23f49e262f85674f88345cff09f2c8df5c9ee5de52fa39d"
+    },
+    {
+      "path": "png/states/ribbon-orbit-progress-50.png",
+      "size": 256,
+      "bytes": 12166,
+      "sha256": "86df1f6e4d0942b57167f93e7dbf515510f10c6e029a7a68b8f267d4be9cb343"
+    },
+    {
+      "path": "png/states/ribbon-orbit-progress-75.png",
+      "size": 256,
+      "bytes": 17088,
+      "sha256": "64d4b37a0cc4d86c1ae12c56f6cb80b4a653fa66b617961baef981b993b8af13"
+    },
+    {
+      "path": "png/states/ribbon-orbit-progress-100.png",
+      "size": 256,
+      "bytes": 18664,
+      "sha256": "52e116e1cdffe1d1f0cc51d50f2b944bbebc1632103909f8aa9f0f496e353cbe"
+    }
+  ]
+}

@@ -53,13 +53,13 @@ internal static class HtmlSmokeTests
                 } finally { lockedWindow.Close(); await Until(() => !lockedWindow.IsVisible); }
                 await CheckNeuro(ui);
                 await JsUntil(ui, "!!document.querySelector('#window-chrome')");
-                Check(await ui.EvaluateAsync("getComputedStyle(document.querySelector('#app>.app-frame>div')).width") == "\"56px\"", "Reference sidebar width changed.");
-                Check(await ui.EvaluateAsync("getComputedStyle(document.querySelector('#window-chrome')).height") == "\"54px\"", "Neuro header proportions changed.");
-                Check(await ui.EvaluateAsync("getComputedStyle(document.querySelector('#app>.app-frame')).backgroundColor") == "\"rgb(7, 7, 9)\"", "New background palette is missing.");
-                Check(await ui.EvaluateAsync("[['--bg','#070709'],['--accent','#a791ff'],['--surface','#08080b'],['--raised','#14111d'],['--inset','#08080b']].every(([key,value])=>getComputedStyle(document.documentElement).getPropertyValue(key).trim().toLowerCase()===value)") == "true", "An exact palette token was changed.");
+                Check(await ui.EvaluateAsync("getComputedStyle(document.querySelector('#app>.app-frame>div')).width") == "\"60px\"", "Reference sidebar width changed.");
+                Check(await ui.EvaluateAsync("getComputedStyle(document.querySelector('#window-chrome')).height") == "\"49px\"", "Neuro header proportions changed.");
+                Check(await ui.EvaluateAsync("getComputedStyle(document.querySelector('#app>.app-frame')).backgroundColor") == "\"rgba(0, 0, 0, 0)\"", "New background palette is missing.");
+                Check(await ui.EvaluateAsync("[['--bg','#121214'],['--accent','#be76e5'],['--surface','#171719'],['--raised','#29252e'],['--inset','#101012']].every(([key,value])=>getComputedStyle(document.documentElement).getPropertyValue(key).trim().toLowerCase()===value)") == "true", "An exact palette token was changed.");
                 Check(LocalHtmlSurface.InterfaceScale == 1.25, "Interface scale did not increase.");
                 await JsUntil(ui, "document.fonts.status==='loaded'");
-                Check(await ui.EvaluateAsync("getComputedStyle(document.querySelector('#app>.app-frame')).backgroundImage") == "\"none\"", "Texture is still present.");
+                Check(await ui.EvaluateAsync("getComputedStyle(document.querySelector('#app>.app-frame')).backgroundImage") != "\"none\"", "Beta 20 surface gradient is missing.");
                 Check(ui.UsesDirectRendering, "Main window still uses capture-based rendering.");
                 Check(window.WindowStyle == WindowStyle.None && System.Windows.Shell.WindowChrome.GetWindowChrome(window)?.ResizeBorderThickness.Left == 6, "Custom resize frame is missing.");
                 Check(await ui.EvaluateAsync("getComputedStyle(document.querySelector('#window-chrome')).getPropertyValue('app-region')") == "\"drag\"", "Native title-bar drag region is missing.");
@@ -167,6 +167,7 @@ internal static class HtmlSmokeTests
                 await JsUntil(ui, $"!!document.querySelector('#tasks [data-id=\"{competingReply.TaskId}\"] [aria-label=Cancel]')");
                 await ui.EvaluateAsync($"document.querySelector('#tasks [data-id=\"{competingReply.TaskId}\"] [aria-label=Cancel]').click()");
                 await Until(() => rows.Items.Cast<DownloadRow>().Any(r => r.Snapshot.Id == competingReply.TaskId && r.State == DownloadState.Cancelled));
+                if(floating.Width!=480){await floatUi.EvaluateAsync("document.querySelector('#minBtn').click()");await Until(()=>floating.Width==480);}
                 Check(floating.Width==480&&await floatUi.EvaluateAsync("document.documentElement.scrollWidth<=innerWidth") == "true", "Floating controller overflows its expanded width.");
                 Check(await floatUi.EvaluateAsync("document.querySelectorAll('.stats .stat').length===2&&document.querySelectorAll('[role=progressbar]').length===1&&!document.querySelector('#segStrip')&&!document.querySelector('#statSpeed')") == "true", "Floating controller duplicates speed or completion information.");
                 await floatUi.EvaluateAsync("window.chrome.webview.postMessage({action:'toggle',id:'00000000-0000-0000-0000-000000000000'})");
@@ -542,7 +543,7 @@ internal static class HtmlSmokeTests
     private static async Task CheckNeuro(LocalHtmlSurface ui)
     {
         Check(await ui.EvaluateAsync("(()=>{const css=getComputedStyle(document.documentElement);const l=key=>{const hex=css.getPropertyValue(key).trim().slice(1);return [.2126,.7152,.0722].reduce((sum,w,i)=>{const s=parseInt(hex.slice(i*2,i*2+2),16)/255;return sum+w*(s<=.04045?s/12.92:((s+.055)/1.055)**2.4);},0);};return ['--sub','--muted'].every(fg=>['--bg','--surface','--raised','--inset'].every(bg=>(l(fg)+.05)/(l(bg)+.05)>=4.5));})()") == "true", "Secondary text contrast falls below 4.5:1.");
-        Check(await ui.EvaluateAsync("[['--bg','#070709'],['--surface','#08080b'],['--raised','#14111d'],['--inset','#08080b'],['--accent','#a791ff'],['--accent-dim','#7250ba'],['--bright','#eeeef4'],['--sub','#b2afbf'],['--muted','#9c95ad'],['--text','#eeeef4'],['--accent-text','#baa2f0'],['--emphasis','#f0eaf8'],['--ls','rgba(255,255,255,0.0225)'],['--ds','rgba(0,0,0,0.65)'],['--success','#4a9e6a'],['--warning','#b87a2a'],['--danger','#9e4a4a']].every(([key,value])=>getComputedStyle(document.documentElement).getPropertyValue(key).trim().toLowerCase()===value)") == "true", "Neuro palette differs between pages.");
+        Check(await ui.EvaluateAsync("[['--bg','#121214'],['--surface','#171719'],['--raised','#29252e'],['--inset','#101012'],['--accent','#be76e5'],['--accent-dim','#8b38b9'],['--bright','#f1eaf5'],['--sub','#b6a8c0'],['--muted','#9b8aa8'],['--text','#f1eaf5'],['--accent-text','#d99bf4'],['--emphasis','#f0eaf8'],['--ls','rgba(255,255,255,0.0225)'],['--ds','rgba(0,0,0,0.65)'],['--success','#9bbca6'],['--warning','#b99bc8'],['--danger','#d891a0']].every(([key,value])=>getComputedStyle(document.documentElement).getPropertyValue(key).trim().toLowerCase()===value)") == "true", "Neuro palette differs between pages.");
         Check(await ui.EvaluateAsync("!document.querySelector('[class*=tex-],[class*=sh-]')&&!document.querySelector('#reference-style').textContent.includes('--tex:')") == "true", "Legacy texture or shadow classes remain.");
     }
     private static async Task JsUntil(FloatingProbe ui, string predicate) { var end = DateTime.UtcNow.AddSeconds(30); while (await ui.EvaluateAsync(predicate) != "true") { if (DateTime.UtcNow > end) throw new TimeoutException("Floating UI condition: " + predicate); await Task.Delay(50); } }

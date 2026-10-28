@@ -15,6 +15,7 @@ public partial class MainWindow
     private bool expandedTask;
     private object? historyClearResult;
     private string? htmlError;
+    private string htmlSettingsSection="Downloads";
     private Guid? htmlLinkTask;
     private CancellationTokenSource? htmlLinkCancellation;
     private object? htmlLinkResult;
@@ -25,16 +26,16 @@ public partial class MainWindow
     private Dictionary<string, string>? htmlTools;
     private void InstallHtml()
     {
-        MinWidth = 760; MinHeight = 540;
-        Width = Math.Min(980, SystemParameters.WorkArea.Width);
-        Height = Math.Min(680, SystemParameters.WorkArea.Height);
+        MinWidth = 660; MinHeight = 500;
+        Width = Math.Min(760, SystemParameters.WorkArea.Width);
+        Height = Math.Min(580, SystemParameters.WorkArea.Height);
         CustomWindowFrame.Install(this, resizable: true);
         HtmlSurface = new LocalHtmlSurface(this, (FrameworkElement)Content, HtmlModel, HtmlAction);
         StateChanged += (_, _) => HtmlSurface?.Publish();
     }
     internal static object TaskModel(StoredDownload t) {
         var row = new DownloadRow(t);
-        return new { id = t.Id, filename = t.Filename, host = row.Host, sourceUrl = t.Url, fileAvailable = t.State == DownloadState.Completed && File.Exists(t.Destination), state = t.State.ToString(), status = row.StatusText, message = t.Message,
+        return new { id = t.Id, filename = t.Filename, host = row.Host, sourceUrl = t.Url, fileAvailable = t.State == DownloadState.Completed && File.Exists(t.Destination), state = t.State.ToString(), hasTiming = t.HasTiming, status = row.StatusText, message = t.Message,
             diagnostic = t.Diagnostic, mediaFormat = t.MediaFormat, mediaDuration = DownloadDisplay.MediaDuration(t), mediaDurationSeconds = t.MediaDurationSeconds, attemptIdentity = DownloadStoreIdentity(t), missingTools = MissingMediaTools(t),
             total = t.Total, estimatedTotal = DownloadDisplay.Estimate(t), expectedSize = DownloadDisplay.ExpectedSize(t), estimateSource = t.SizeEstimateSource, received = t.Received, rate = Math.Max(0, t.BytesPerSecond), speed = row.SpeedText, remaining = row.RemainingText.Replace("About ", ""),
             percent = row.ProgressPercent, progress = row.ProgressText.Replace(" / ", " of "), connections = t.Connections,
@@ -45,13 +46,13 @@ public partial class MainWindow
     }
     internal static string[] MissingMediaTools(StoredDownload task) {
         if (task.MediaFormat is null) return [];
-        var required = YoutubeTools.IsYoutubeVideoTarget(new(task.Url)) ? new[] { "yt-dlp", "node", "ffmpeg" } : new[] { "ffmpeg", "ffprobe" };
+        var required = PageVideoTools.RequiresExtractor(task) ? new[] { "yt-dlp", "node", "ffmpeg" } : new[] { "ffmpeg", "ffprobe" };
         return required.Where(name => { try { MediaTools.FindTool(name); return false; } catch (IOException) { return true; } }).ToArray();
     }
     private static string DownloadStoreIdentity(StoredDownload t) {
         var url = new Uri(t.Url);
         var source = url.AbsoluteUri;
-        try { if (YoutubeTools.IsYoutubeVideoTarget(url)) source = YoutubeTools.CanonicalUrl(url).AbsoluteUri; } catch (ArgumentException) { }
+        try { if (PageVideoTools.IsKnownVideoPage(url)) source = PageVideoTools.CanonicalUrl(url).AbsoluteUri; } catch (ArgumentException) { }
         var identity = JsonSerializer.Serialize(new { source, t.MediaFormat, t.VideoStream, t.AudioStream, t.YoutubeFormat, t.QualityHeight });
         return Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(identity)));
     }
@@ -62,7 +63,7 @@ public partial class MainWindow
         var currentRate = tasks.Where(t => t.State == DownloadState.Downloading).Sum(t => Math.Max(0, t.BytesPerSecond));
         var sampledAt = DateTimeOffset.UtcNow;
         return new { kind = "main", isMaximized = WindowState == WindowState.Maximized, page = currentPage == "History" ? "history" : currentPage == "Settings" ? "settings" : "dashboard",
-            tasks = tasks.Select(TaskModel).ToArray(), selectedId, expanded = expandedTask, currentRate, sampledAt,
+            tasks = tasks.Select(TaskModel).ToArray(), settingsSection = htmlSettingsSection, selectedId, expanded = expandedTask, currentRate, sampledAt,
             samples = managerSamples.Append(currentRate).ToArray(),
             sampleTimes = managerSampleTimes.Append(sampledAt).ToArray(),
             ready = IsReady, initializationError,
@@ -73,7 +74,7 @@ public partial class MainWindow
             schedule = new { enabled = limits.Schedule?.Enabled ?? false, start = ScheduleTime(limits.Schedule?.StartMinute ?? 0), stop = ScheduleTime(limits.Schedule?.StopMinute ?? 360), status = coordinator?.ScheduleStatus ?? "Schedule off" },
             settingsPending = coordinator?.SettingsPending ?? false,
             maxConnections = limits.MaximumConnectionsPerFile * limits.MaximumConcurrentDownloads,
-            tools = htmlTools ??= new Dictionary<string, string> { ["FFmpeg"] = ToolStatus("ffmpeg"), ["FFprobe"] = ToolStatus("ffprobe"), ["YouTube extractor"] = ToolStatus("yt-dlp"), ["JavaScript runtime"] = ToolStatus("node") },
+            tools = htmlTools ??= new Dictionary<string, string> { ["FFmpeg"] = ToolStatus("ffmpeg"), ["FFprobe"] = ToolStatus("ffprobe"), ["Video extractor"] = ToolStatus("yt-dlp"), ["JavaScript runtime"] = ToolStatus("node") },
             verifyingFile = htmlVerificationTask, verificationResult = htmlVerificationResult, updatingLink = htmlLinkTask, linkResult = htmlLinkResult, error = htmlError ?? commandError };
     }
     private object? htmlQuickDownload;
@@ -87,8 +88,9 @@ public partial class MainWindow
         try {
             htmlError = null;
             if (CustomWindowFrame.Handle(this, action)) return;
-            if (action == "navigate") { Navigate(message.GetProperty("page").GetString() switch { "history" => "History", "settings" => "Settings", _ => "Downloads" }); HtmlSurface?.Publish(); return; }
+            if (action == "navigate") { if(message.TryGetProperty("section",out var setting)&&setting.GetString()=="Network")htmlSettingsSection="Network"; Navigate(message.GetProperty("page").GetString() switch { "history" => "History", "settings" => "Settings", _ => "Downloads" }); HtmlSurface?.Publish(); return; }
             if (!IsReady || coordinator is null) return;
+            if(action=="browser-setup"){new BrowserConnectionDialog(this).Show();return;}
             if (action?.StartsWith("batch-", StringComparison.Ordinal) == true) { await HandleBatchAsync(action, message); return; }
             if (action == "new") { UrlBox.Text = message.TryGetProperty("url", out var url) ? url.GetString() ?? "" : ""; NewDownload_Click(this, new()); return; }
             if (action == "quick-download") {
@@ -230,8 +232,8 @@ public partial class MainWindow
                     Clipboard.SetText(coordinator.Get(id).Url); break;
                 case "copy-path":
                     Clipboard.SetText(coordinator.Get(id).Destination); break;
-                case "restart": Restart_Click(this, new()); break;
-                case "remove": Remove_Click(this, new()); break;
+                case "restart": _ = Dispatcher.BeginInvoke(new Action(()=>{selectedId=id;Restart_Click(this,new());})); return;
+                case "remove": _ = Dispatcher.BeginInvoke(new Action(()=>{selectedId=id;Remove_Click(this,new());})); return;
             }
             RefreshTasks();
         } catch (Exception ex) { htmlError = ex.Message; HtmlSurface?.Publish(); }

@@ -4,7 +4,7 @@ export const SIGNIN_PERMISSION = { permissions: ["cookies"], origins: ["http://*
 // The result must never be written to extension storage.
 export async function withBrowserContext(api, request) {
   const clean = { ...request }; delete clean.context;
-  if (clean.action !== "download" || clean.format || /(^|\.)youtube\.com$|(^|\.)youtu\.be$/i.test(new URL(clean.url).hostname)) return clean;
+  if (clean.action !== "download" || clean.format || (!/\.(mp4|webm|mkv|mov|m4v|mp3|m4a|wav|ogg|flac|pdf|zip|7z|rar|jpg|jpeg|png|gif|webp|exe|msi|docx|xlsx|pptx)$/i.test(new URL(clean.url).pathname) && /(^|\.)(facebook\.com|fb\.watch|vimeo\.com|instagram\.com|tiktok\.com|twitter\.com|x\.com|dailymotion\.com|reddit\.com|twitch\.tv)$/i.test(new URL(clean.url).hostname)) || /(^|\.)youtube\.com$|(^|\.)youtu\.be$/i.test(new URL(clean.url).hostname)) return clean;
   const { useBrowserSignin } = await api.storage.local.get("useBrowserSignin");
   if (!useBrowserSignin) return clean;
   if (!await api.permissions.contains(SIGNIN_PERMISSION)) throw new Error("Enable browser sign-in permission in the extension.");

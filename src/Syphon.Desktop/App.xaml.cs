@@ -16,12 +16,16 @@ public partial class App : Application
             try { owned = ownership.WaitOne(0); } catch (AbandonedMutexException) { owned = true; }
             if (!owned) {
                 ownership.Dispose(); ownership = null;
-                try { await BrowserPipeClient.SendAsync(BrowserProtocol.PipeName, new BrowserRequest(1, "activate", Guid.NewGuid()), TimeSpan.FromSeconds(3), expectedServerExecutable: Environment.ProcessPath); } catch (Exception) { /* Existing instance may still be starting or shutting down. */ }
+                if(!e.Args.Contains("--background",StringComparer.Ordinal))
+                    try { await BrowserPipeClient.SendAsync(BrowserProtocol.PipeName, new BrowserRequest(1, "activate", Guid.NewGuid()), TimeSpan.FromSeconds(3), expectedServerExecutable: Environment.ProcessPath); } catch (Exception) { /* Existing instance may still be starting or shutting down. */ }
                 Shutdown(0); return;
             }
             MainWindow = new MainWindow();
+            ShutdownMode=ShutdownMode.OnExplicitShutdown;
+            MainWindow.Closed+=(_,_)=>Shutdown();
             ((MainWindow)MainWindow).EnableTray();
-            MainWindow.Show();
+            await ((MainWindow)MainWindow).StartAsync();
+            if(e.Args.Contains("--open",StringComparer.Ordinal)&&!e.Args.Contains("--background",StringComparer.Ordinal))((MainWindow)MainWindow).RestoreFromTray();
         }
     }
     protected override void OnExit(ExitEventArgs e)

@@ -22,14 +22,14 @@ public sealed partial class DownloadCoordinator
         string? filename = null, bool startImmediately = true, bool singleConnection = false, int priority = 0, DownloadRequestContext? context = null, int? qualityHeight = null, bool categorize = false)
     {
         context?.Validate(url.AbsoluteUri);
-        if (qualityHeight is not null && (mediaFormat != "mp4" || YoutubeTools.IsYoutubeVideoTarget(url) || videoStream is not null || youtubeFormat is not null || qualityHeight is not (144 or 240 or 360 or 480 or 720 or 1080 or 1440 or 2160 or 4320))) throw new ArgumentException("Invalid advertised video quality.");
-        if (context is not null && (mediaFormat is not null || YoutubeTools.IsYoutubeVideoTarget(url))) throw new ArgumentException("Browser sign-in sharing currently supports direct files.");
+        if (qualityHeight is not null && (mediaFormat != "mp4" || PageVideoTools.IsKnownVideoPage(url) || videoStream is not null || youtubeFormat is not null || qualityHeight is not (144 or 240 or 360 or 480 or 720 or 1080 or 1440 or 2160 or 4320))) throw new ArgumentException("Invalid advertised video quality.");
+        if (context is not null && (mediaFormat is not null || PageVideoTools.IsKnownVideoPage(url))) throw new ArgumentException("Browser sign-in sharing currently supports direct files.");
         if (priority is < -1 or > 1) throw new ArgumentOutOfRangeException(nameof(priority));
         if (requestId == Guid.Empty || url.AbsoluteUri.Length > 8192) throw new ArgumentException("Invalid browser request.");
         HttpDownloadEngine.ValidateUrl(url);
         if (title?.Length > 512) throw new ArgumentException("Invalid video title.");
-        if (YoutubeTools.IsYoutubeVideoTarget(url)) { url = YoutubeTools.CanonicalUrl(url); mediaFormat ??= "mp4"; }
-        if (youtubeFormat is not null && (!YoutubeTools.IsYoutubeVideoTarget(url) || !YoutubeTools.ValidFormat(youtubeFormat))) throw new ArgumentException("Invalid YouTube format.");
+        if (PageVideoTools.IsKnownVideoPage(url)) { url = PageVideoTools.CanonicalUrl(url); mediaFormat ??= "mp4"; }
+        if (youtubeFormat is not null && (!PageVideoTools.IsPageCandidate(url) || !YoutubeTools.ValidFormat(youtubeFormat))) throw new ArgumentException("Invalid video format.");
         if (mediaFormat is not (null or "mp3" or "mp4") || videoStream is < 0 or > 255 || audioStream is < 0 or > 255 ||
             mediaFormat is null && (videoStream is not null || audioStream is not null)) throw new ArgumentException("Invalid media selection.");
         // Plain download requests preserve their legacy receipt identity. Explicit media requests include all options.
@@ -88,9 +88,9 @@ public sealed partial class DownloadCoordinator
     public static string SuggestedBrowserFilename(Uri url, string? mediaFormat = null, string? title = null, int? videoStream = null, string? youtubeFormat = null)
     {
         if (YoutubeTools.IsCaptionUrl(url)) return SafeFilename("captions-" + (Uri.UnescapeDataString(url.Query.TrimStart('?').Split('&').FirstOrDefault(q => q.StartsWith("lang="))?[5..] ?? "subtitles"))) + ".vtt";
-        var youtube = YoutubeTools.IsYoutubeVideoTarget(url);
+        var youtube = PageVideoTools.IsKnownVideoPage(url)||mediaFormat is not null&&videoStream is null&&PageVideoTools.IsPageCandidate(url);
         if (youtube) mediaFormat ??= "mp4";
-        var name = youtube ? "youtube-" + YoutubeTools.VideoId(url) + (youtubeFormat is null ? "" : "-" + youtubeFormat) + ".mp4" : SafeBrowserFilename(url);
+        var name = youtube ? PageVideoTools.PlaceholderStem(url) + (youtubeFormat is null ? "" : "-" + youtubeFormat) + ".mp4" : SafeBrowserFilename(url);
         if (mediaFormat is not null) name = Path.GetFileNameWithoutExtension(name) + (videoStream is int index ? $"-stream{index}" : "") + "." + mediaFormat;
         if (!string.IsNullOrWhiteSpace(title)) {
             var stem = SafeFilename(title);

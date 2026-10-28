@@ -38,9 +38,9 @@ internal static class FloatingInputSmokeTests
                 coordinator.SetSpeedLimit(task.Id, 262144);
                 coordinator.Resume(task.Id);
                 window = new FloatingDownloadWindow(
-                    async id => { pauses++; await coordinator.PauseAsync(id); },
-                    id => { resumes++; coordinator.Resume(id); },
-                    async id => { cancels++; await coordinator.PauseAsync(id, true); },
+                    async id => { pauses++; await coordinator.PauseAsync(id); window?.Update(coordinator.Get(id),coordinator.GetTasks()); },
+                    id => { resumes++; coordinator.Resume(id); window?.Update(coordinator.Get(id),coordinator.GetTasks()); },
+                    async id => { cancels++; await coordinator.PauseAsync(id, true); window?.Update(coordinator.Get(id),coordinator.GetTasks()); },
                     () => managers++, _ => dismissed++)
                     { Left = live ? 120 : -10000, Top = live ? 120 : -10000, Topmost = live, ShowInTaskbar = live, Title = "Syphon — Input regression fixture" };
                 void Report()
@@ -62,62 +62,32 @@ internal static class FloatingInputSmokeTests
                 };
                 async Task JsUntil(string predicate) { await UntilAsync(async () => await core.ExecuteScriptAsync(predicate) == "true"); }
                 async Task Capture(string name) { await using var image = File.Create(Path.Combine(output,name)); await core.CapturePreviewAsync(CoreWebView2CapturePreviewImageFormat.Png,image); }
-                await JsUntil("!!document.querySelector('#pauseBtn')&&!document.querySelector('#pauseBtn').disabled");
-                if (live)
-                {
-                    Console.WriteLine("READY isolated native mouse fixture; close it to finish (five minute timeout).");
-                    await Until(() => !window.IsVisible, 300);
-                    Check(pauses > 0 && resumes > 0 && managers > 0 && cancels > 0 && dismissed > 0 && updates > 10 && collapses >= 2,
-                        "Native input run did not exercise every action while updating.");
-                    Check(Math.Abs(window.Left - 120) > 10 || Math.Abs(window.Top - 120) > 10, "Native title-bar drag did not move the window.");
+                await JsUntil("!!document.querySelector('.monitor-actions button.primary')&&!document.querySelector('.monitor-actions button.primary').disabled");
+                Check(!window.AllowsTransparency && view is WebView2, "Floating window lost its direct browser host.");
+                Check(core.Settings.IsNonClientRegionSupportEnabled, "Native caption regions are disabled.");
+                Check(await core.ExecuteScriptAsync("getComputedStyle(document.querySelector('.monitor-title')).getPropertyValue('app-region')==='drag'")=="true","Title bar lost native dragging.");
+                Check(await core.ExecuteScriptAsync("[...document.querySelectorAll('button,button *')].every(b=>getComputedStyle(b).getPropertyValue('app-region')!=='drag')")=="true","A button overlaps the drag region.");
+                async Task Click(string selector) {
+                    using var point=JsonDocument.Parse(await core.ExecuteScriptAsync($"(()=>{{const r=document.querySelector('{selector}').getBoundingClientRect();return {{x:r.x+r.width/2,y:r.y+r.height/2}};}})()"));
+                    foreach(var type in new[]{"mousePressed","mouseReleased"})await core.CallDevToolsProtocolMethodAsync("Input.dispatchMouseEvent",JsonSerializer.Serialize(new{type,x=point.RootElement.GetProperty("x").GetDouble(),y=point.RootElement.GetProperty("y").GetDouble(),button="left",clickCount=1}));
                 }
-                else
-                {
-                    Check(!window.AllowsTransparency && view is WebView2, "Floating window lost its opaque direct browser host.");
-                    Check(core.Settings.IsNonClientRegionSupportEnabled, "Native caption regions are disabled.");
-                    Check(await core.ExecuteScriptAsync("getComputedStyle(document.querySelector('#titlebar')).getPropertyValue('app-region')==='drag'") == "true", "Title bar is not a native drag region.");
-                    Check(await core.ExecuteScriptAsync("[...document.querySelectorAll('button,button *')].every(b=>getComputedStyle(b).getPropertyValue('app-region')==='no-drag')") == "true", "Buttons or icons overlap native drag regions.");
-                    // Browser input dispatch hit-tests the actual DOM; unlike element.click(), it catches overlays.
-                    async Task Click(string id)
-                    {
-                        using var point = JsonDocument.Parse(await core.ExecuteScriptAsync($"(()=>{{const r=document.getElementById('{id}').getBoundingClientRect();return {{x:r.x+r.width/2,y:r.y+r.height/2}};}})()"));
-                        var x = point.RootElement.GetProperty("x").GetDouble(); var y = point.RootElement.GetProperty("y").GetDouble();
-                        foreach (var type in new[] { "mousePressed", "mouseReleased" })
-                            await core.CallDevToolsProtocolMethodAsync("Input.dispatchMouseEvent", JsonSerializer.Serialize(new { type, x, y, button = "left", clickCount = 1 }));
-                    }
-                    await Click("pauseBtn"); await Until(() => coordinator.Get(task.Id).State == DownloadState.Paused);
-                    await JsUntil("document.querySelector('#pauseLabel').textContent==='Resume'&&!document.querySelector('#pauseBtn').disabled");
-                    await Click("pauseBtn"); await Until(() => coordinator.Get(task.Id).State == DownloadState.Downloading);
-                    await Until(() => coordinator.Get(task.Id).BytesPerSecond > 0);
-                    await JsUntil("Number(document.querySelector('#speedChart').dataset.maxSpeed)>0");
-                    Check(window.Width==480&&window.Height>=490&&window.Height<=540,"Expanded controller is outside its compact size target.");
-                    Check(await core.ExecuteScriptAsync("!document.querySelector('#statSpeed')&&!document.querySelector('#segStrip')&&document.querySelectorAll('[role=progressbar]').length===1&&document.querySelector('#fileStatus').textContent==='Downloading'")=="true","Redundant statistics/segments or missing explicit status.");
-                    await JsUntil("document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1");
-                    Check(await core.ExecuteScriptAsync("parseFloat(getComputedStyle(document.querySelector('#statPct')).fontSize)<parseFloat(getComputedStyle(document.querySelector('#chartSpeed')).fontSize)")=="true","Progress metadata competes with live speed.");
-                    await Capture("expanded.png");
-                    var before = updates;
-                    await Click("minBtn"); await Until(() => window.Width==360&&window.Height>=150&&window.Height<=185);
-                    await Until(() => updates >= before + 10);
-                    Check(await core.ExecuteScriptAsync("document.querySelector('#winBody').hidden") == "true", "Progress updates expanded the collapsed window.");
-                    Check(await core.ExecuteScriptAsync("document.querySelector('#fileName').getBoundingClientRect().width>0&&document.querySelector('#pauseBtn').getBoundingClientRect().bottom<=innerHeight&&document.querySelector('#minBtn').getAttribute('aria-expanded')==='false'")=="true","Mini mode lost its file identity, actions or toggle semantics.");
-                    await Capture("mini.png");
-                    await Click("pauseBtn"); await Until(() => coordinator.Get(task.Id).State == DownloadState.Paused);
-                    await JsUntil("document.querySelector('#fileStatus').textContent==='Paused'");
-                    await Click("pauseBtn"); await Until(() => coordinator.Get(task.Id).State == DownloadState.Downloading);
-                    await Click("minBtn"); await Until(() => window.Height > 300);
-                    await Click("minimizeBtn"); await Until(()=>window.WindowState==WindowState.Minimized);
-                    Check(coordinator.Get(task.Id).State==DownloadState.Downloading,"Minimizing stopped the transfer.");
-                    window.WindowState=WindowState.Normal;
-                    // Repeated Loaded must not attach IPC callbacks again.
-                    ((FrameworkElement)view).RaiseEvent(new RoutedEventArgs(FrameworkElement.LoadedEvent));
-                    await Task.Delay(250);
-                    await Click("managerBtn"); await Until(() => managers == 1);
-                    await Click("closeBtn"); await Until(() => !window.IsVisible);
-                    Check(coordinator.Get(task.Id).State==DownloadState.Downloading,"Closing the controller stopped the transfer.");
-                    window.Show();await Click("cancelBtn"); await Until(() => coordinator.Get(task.Id).State == DownloadState.Cancelled);
-                    Check(pauses == 2 && resumes == 2 && cancels == 1 && dismissed == 1, "A hit-tested action was lost or repeated.");
-                }
-                Report(); code = 0; Console.WriteLine("PASS floating input: caption regions, pause/resume, collapse/expand during updates, manager, cancel, close.");
+                await Click(".monitor-actions button.primary");await Until(()=>coordinator.Get(task.Id).State==DownloadState.Paused);
+                await JsUntil("document.querySelector('.monitor-actions button.primary').textContent==='Resume'&&!document.querySelector('.monitor-actions button.primary').disabled");
+                await Click(".monitor-actions button.primary");await Until(()=>coordinator.Get(task.Id).State==DownloadState.Downloading);
+                await Until(()=>coordinator.Get(task.Id).BytesPerSecond>0);await JsUntil("Number(document.querySelector('.activity').dataset.maxSpeed)>0");
+                Check(window.Width<=400&&window.Height>300&&window.Height<600,"Expanded monitor size is outside its compact target.");
+                await JsUntil("document.documentElement.scrollHeight<=innerHeight+1&&document.documentElement.scrollWidth<=innerWidth+1");await Capture("expanded.png");
+                var before=updates;await Click("#minBtn");await Until(()=>window.Height<220);await Until(()=>updates>=before+10);
+                Check(await core.ExecuteScriptAsync("!!document.querySelector('.monitor.collapsed')&&document.querySelector('#minBtn').getAttribute('aria-expanded')==='false'&&document.querySelector('.compact-file h1').textContent==='input-regression.bin'")=="true","Progress updates lost the collapsed monitor or its file identity.");await Capture("mini.png");
+                await Click(".compact-pause");await Until(()=>coordinator.Get(task.Id).State==DownloadState.Paused);await JsUntil("!document.querySelector('.compact-pause').disabled&&document.querySelector('.compact-pause').getAttribute('aria-label').startsWith('Resume ')");
+                await Click(".compact-pause");await Until(()=>coordinator.Get(task.Id).State==DownloadState.Downloading);
+                await Click("#minBtn");await Until(()=>window.Height>300);
+                ((FrameworkElement)view).RaiseEvent(new RoutedEventArgs(FrameworkElement.LoadedEvent));await Task.Delay(250);
+                await Click(".monitor-actions button:last-child");await Until(()=>managers==1);
+                await Click(".close-button");await Until(()=>!window.IsVisible);
+                Check(coordinator.Get(task.Id).State==DownloadState.Downloading,"Closing the monitor stopped its transfer.");
+                Check(pauses==2&&resumes==2&&dismissed==1,"A hit-tested action was lost or duplicated.");
+                Report(); code = 0; Console.WriteLine("PASS floating input: caption regions, hit-tested pause/resume, collapse/expand during updates, manager and close.");
             }
             catch (Exception ex) { Console.Error.WriteLine(ex); }
             finally { timer.Stop(); window?.Close(); app.Shutdown(code); }

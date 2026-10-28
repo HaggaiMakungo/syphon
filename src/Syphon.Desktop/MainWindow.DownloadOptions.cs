@@ -31,12 +31,12 @@ public partial class MainWindow
         }
         if (pendingOptions.Count >= 1 || manualDialog?.IsVisible == true) return Task.FromResult(Reply("rejected", "Finish the open download options window, then try this download again."));
         var url = new Uri(request.Url!);
-        var format = request.Format ?? (YoutubeTools.IsYoutubeVideoTarget(url) ? "mp4" : null);
+        var format = request.Format ?? (PageVideoTools.IsKnownVideoPage(url) ? "mp4" : null);
         var preferences = DownloadPreferences.Load(preferencesPath);
         var folder = preferences.Folder;
         if (string.IsNullOrWhiteSpace(folder) || !Path.IsPathFullyQualified(folder)) folder = browserDownloads;
         var name = DownloadCoordinator.SuggestedBrowserFilename(url, format, request.Title, request.VideoStream, request.YoutubeFormat);
-        var dialog = new DownloadOptionsDialog(request.Title ?? name, name, folder, request.Quality ?? (format == "mp3" ? "MP3 audio" : null), request.EstimatedBytes, preferences.Folder is not null, request.Url, singleConnection: preferences.DefaultSingleConnection, htmlUi: useHtml) { Owner = this };
+        var dialog = new DownloadOptionsDialog(request.Title ?? name, name, folder, request.Quality ?? (format == "mp3" ? "MP3 audio" : null), request.EstimatedBytes, preferences.Folder is not null, request.Url, singleConnection: preferences.DefaultSingleConnection, htmlUi: useHtml) { Owner = IsVisible ? this : null };
         if (!ShowInTaskbar) { dialog.ShowInTaskbar = false; dialog.WindowStartupLocation = WindowStartupLocation.Manual; dialog.Left = Left; dialog.Top = Top; }
         var completion = new TaskCompletionSource<BrowserReply>(TaskCreationOptions.RunContinuationsAsynchronously);
         pendingOptions.Add(request.RequestId, new(request, dialog, completion));
@@ -60,7 +60,6 @@ public partial class MainWindow
             pendingOptions.Remove(request.RequestId); cancellation.Dispose();
             completion.TrySetResult(Reply("cancelled", "Download cancelled. Nothing was added to Syphon."));
         };
-        if (ShowInTaskbar) { if (WindowState == WindowState.Minimized) WindowState = WindowState.Normal; Activate(); }
         dialog.Show();
         return completion.Task;
     }

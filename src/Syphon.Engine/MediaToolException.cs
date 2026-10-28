@@ -31,10 +31,12 @@ internal sealed class MediaErrorClassifier
                     403 => "The media server returned HTTP 403 and refused access. Refresh the source link; if it persists, check access on the original site.",
                     404 or 410 => $"The media server returned HTTP {code}. This resource is no longer available at that link.",
                     _ => "The media server returned HTTP 429 (too many requests). Wait before trying again." }, 5);
+        if(Has("unsupported url","no suitable extractor","unable to extract"))
+            Set("unsupported-page","This page could not be resolved to a downloadable video. Use an individual video link or update the video extractor.",6);
         if (Has("requested format is not available", "no video formats found", "no formats found"))
             Set("format-unavailable", "The requested media quality is unavailable. Open New download, refresh the video menu and choose an available quality.", 6);
         if (Has("signature solving failed", "challenge solving failed", "n challenge", "no supported javascript runtime", "javascript runtime could not", "ejs challenge", "ejs scripts"))
-            Set("extractor-runtime", "YouTube's player challenge could not be processed. Update yt-dlp and check the JavaScript runtime in Settings.", 7);
+            Set("extractor-runtime", "The video's player challenge could not be processed. Update yt-dlp and check the JavaScript runtime in Settings.", 7);
         if (Has("video unavailable", "video has been removed", "not available in your country", "copyright"))
             Set("unavailable", "This video is unavailable or restricted at the source. Check its availability on the original site.", 8);
         if (Has("sign in", "sign-in", "login required", "private video", "members-only", "premium-only", "confirm your age", "not a bot"))

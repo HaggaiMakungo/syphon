@@ -54,7 +54,7 @@ internal static class WindowsIntegration
   Directory.CreateDirectory(Path.GetDirectoryName(path)!);
   var shellType=Type.GetTypeFromProgID("WScript.Shell")??throw new IOException("Windows shortcuts are unavailable.");
   dynamic shell=Activator.CreateInstance(shellType)!;object? link=null;
-  try {dynamic shortcut=shell.CreateShortcut(path);link=shortcut;shortcut.TargetPath=target;shortcut.WorkingDirectory=Path.GetDirectoryName(target);shortcut.Description="Syphon download manager";shortcut.Save();}
+  try {dynamic shortcut=shell.CreateShortcut(path);link=shortcut;shortcut.TargetPath=target;shortcut.Arguments="--open";shortcut.WorkingDirectory=Path.GetDirectoryName(target);shortcut.Description="Syphon download manager";shortcut.Save();}
   finally{if(link is not null)Marshal.FinalReleaseComObject(link);Marshal.FinalReleaseComObject(shell);}
  }
  internal static void Remove(InstallReceipt receipt) {

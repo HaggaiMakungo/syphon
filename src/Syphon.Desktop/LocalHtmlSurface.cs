@@ -10,7 +10,8 @@ namespace Syphon.Desktop;
 /// <summary>A local-only presentation surface; the native coordinator remains the authority.</summary>
 public sealed class LocalHtmlSurface : Grid, IDisposable
 {
-    public const double InterfaceScale = 1.25;
+    public const double MainInterfaceScale = 1.0;
+    public const double InterfaceScale = 1.0;
     private const string Origin = "https://syphon-ui.invalid";
     private readonly IWebView2 browser;
     public bool UsesDirectRendering { get; }
@@ -31,13 +32,13 @@ public sealed class LocalHtmlSurface : Grid, IDisposable
         // directly, avoiding the GraphicsCaptureSession/Image round trip.
         UsesDirectRendering = !owner.AllowsTransparency;
         browser = UsesDirectRendering ? new WebView2() : new WebView2CompositionControl();
-        browser.DefaultBackgroundColor = owner.AllowsTransparency ? System.Drawing.Color.Transparent : System.Drawing.Color.Black;
+        browser.DefaultBackgroundColor = System.Drawing.Color.Transparent;
         Children.Add((UIElement)browser); Loaded += async (_, _) => await Initialize();
         owner.Content = null;
         var host = new Grid(); fallback.Visibility = Visibility.Collapsed;
         host.Children.Add(fallback); host.Children.Add(this); owner.Content = host;
         if (!owner.AllowsTransparency) {
-            void UpdateFrameMargin() => Margin = new Thickness(owner.WindowState == WindowState.Maximized ? 0 : owner.ResizeMode == ResizeMode.CanResize ? 6 : 1);
+            void UpdateFrameMargin() => Margin = new Thickness(owner is MainWindow && !OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000) && owner.WindowState!=WindowState.Maximized ? 6 : 0);
             UpdateFrameMargin(); owner.StateChanged += (_, _) => UpdateFrameMargin();
         }
         owner.Closed += (_, _) => Dispose();
@@ -56,12 +57,15 @@ public sealed class LocalHtmlSurface : Grid, IDisposable
             if (disposed) return;
             await browser.EnsureCoreWebView2Async(environment);
             if (disposed) return;
+            if(browser is System.Windows.Interop.HwndHost directHost)CustomWindowFrame.RegisterContent(owner,directHost);
             var core = browser.CoreWebView2;
             core.Settings.AreDevToolsEnabled = false; core.Settings.AreDefaultContextMenusEnabled = false;
             core.Settings.IsStatusBarEnabled = false; core.Settings.IsZoomControlEnabled = false;
             core.Settings.AreHostObjectsAllowed = false; core.Settings.AreBrowserAcceleratorKeysEnabled = false;
             core.Settings.IsNonClientRegionSupportEnabled = UsesDirectRendering;
-            browser.ZoomFactor = InterfaceScale;
+            browser.ZoomFactor = owner is MainWindow ? MainInterfaceScale : InterfaceScale;
+            if (owner is MainWindow && OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000))
+                await core.AddScriptToExecuteOnDocumentCreatedAsync("document.addEventListener('DOMContentLoaded',()=>{document.body.dataset.smoothFrame='true'});");
             core.SetVirtualHostNameToFolderMapping("syphon-ui.invalid", folder, CoreWebView2HostResourceAccessKind.Deny);
             core.NavigationStarting += (_, e) => e.Cancel = e.Uri != Origin + "/index.html";
             core.NewWindowRequested += (_, e) => e.Handled = true;
@@ -69,7 +73,7 @@ public sealed class LocalHtmlSurface : Grid, IDisposable
             core.PermissionRequested += (_, e) => e.State = CoreWebView2PermissionState.Deny;
             core.AddWebResourceRequestedFilter("*", CoreWebView2WebResourceContext.All);
             core.WebResourceRequested += (_, e) => {
-                if (e.Request.Uri is not (Origin + "/index.html" or Origin + "/app.js" or Origin + "/typography.css" or Origin + "/brand/emblem.png" or Origin + "/brand/wordmark.png" or Origin + "/brand/icon-64.png") && !TypographyComparison.IsFontAsset(e.Request.Uri.StartsWith(Origin + "/", StringComparison.Ordinal) ? e.Request.Uri[(Origin.Length + 1)..] : ""))
+                if (e.Request.Uri is not (Origin + "/index.html" or Origin + "/app.js" or Origin + "/interface.css" or Origin + "/brand/emblem.png" or Origin + "/brand/wordmark.png" or Origin + "/brand/icon-64.png") && !TypographyComparison.IsFontAsset(e.Request.Uri.StartsWith(Origin + "/", StringComparison.Ordinal) ? e.Request.Uri[(Origin.Length + 1)..] : ""))
                     e.Response = environment.CreateWebResourceResponse(null, 403, "Blocked", "");
             };
             core.WebMessageReceived += async (_, e) => {
@@ -89,6 +93,7 @@ public sealed class LocalHtmlSurface : Grid, IDisposable
             await Task.WhenAny(ready.Task, Task.Delay(TimeSpan.FromSeconds(10)));
             if (!disposed && !IsReady) throw new IOException("The desktop interface did not load. Native controls are available.");
         } catch (Exception ex) {
+            if(disposed||owner.Dispatcher.HasShutdownStarted)return;
             InitializationError = ex.Message; Visibility = Visibility.Collapsed; fallback.Visibility = Visibility.Visible;
             if (!owner.AllowsTransparency) CustomWindowFrame.RestoreSystemFrame(owner);
         }

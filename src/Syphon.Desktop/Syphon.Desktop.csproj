@@ -13,5 +13,5 @@
   <ItemGroup><PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4258.31" /></ItemGroup>
   <ItemGroup><Content Include="ChartAssets\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" /></ItemGroup>
   <ItemGroup><Content Include="DesktopAssets\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" /></ItemGroup>
-  <ItemGroup><Resource Include="Assets\Brand\syphon_windows.ico" /><Resource Include="Assets\Brand\syphon_window_icon.png" /><Resource Include="Assets\Brand\syphon_emblem_transparent.png" /></ItemGroup>
+  <ItemGroup><Resource Include="Assets\Brand\syphon_windows.ico" /><Resource Include="Assets\Brand\syphon_window_icon.png" /><Resource Include="Assets\Brand\syphon_emblem_transparent.png" /><Resource Include="Assets\Brand\orbital-geometry.json" /></ItemGroup>
 </Project>

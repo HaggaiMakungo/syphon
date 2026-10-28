@@ -38,7 +38,7 @@ internal static class MediaToolResolver
                 if (File.Exists(file)) return Path.GetFullPath(file);
             }
         throw new IOException(name switch {
-            "yt-dlp" => "YouTube support needs yt-dlp. Run install-youtube.ps1 in the Syphon folder.",
+            "yt-dlp" => "Video page support needs yt-dlp. Run install-youtube.ps1 in the Syphon folder.",
             "node" => "YouTube support needs Node.js 22 or later. Install it or place node.exe on PATH.",
             _ => $"{name} is required for media processing. Install FFmpeg and FFprobe, or set SYPHON_MEDIA_DIRECTORY to their folder." });
     }

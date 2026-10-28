@@ -11,11 +11,8 @@ public sealed class DownloadRow(StoredDownload snapshot) : INotifyPropertyChange
     public string Host => Uri.TryCreate(Snapshot.Url, UriKind.Absolute, out var url) ? url.Host : "";
     public string SizeText => Snapshot.State == DownloadState.Completed ? DownloadDisplay.Bytes(Snapshot.Received) : DownloadDisplay.ExpectedSize(Snapshot);
     public string DigestText => Snapshot.Sha256 is null ? "—" : "Recorded";
-    public string FileType => System.IO.Path.GetExtension(Filename).ToLowerInvariant() switch {
-        ".mp4" or ".webm" or ".mkv" or ".mov" or ".ts" or ".m2ts" => "Video",
-        ".mp3" or ".m4a" or ".wav" or ".flac" or ".ogg" => "Audio",
-        ".pdf" or ".txt" or ".docx" or ".epub" or ".vtt" or ".srt" => "Documents",
-        ".zip" or ".7z" or ".rar" or ".gz" or ".iso" or ".xip" => "Archives", _ => "Other" };
+    public string FileType => DownloadCategories.Category(Filename,Snapshot.MediaFormat) switch {
+        "Videos"=>"Video", "Music"=>"Audio", "Compressed"=>"Archives", "Misc"=>System.IO.Path.GetExtension(Filename).ToLowerInvariant() is ".iso" or ".xip"?"Archives":"Other", var category=>category };
     public DownloadState State => Snapshot.State;
     public string ProgressText => DownloadDisplay.Progress(Snapshot);
     public string StatusText => DownloadDisplay.Status(Snapshot);

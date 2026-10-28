@@ -45,6 +45,7 @@ internal static class MediaTests
         }
         var builder = WebApplication.CreateSlimBuilder(); builder.Logging.ClearProviders(); builder.WebHost.UseUrls("http://127.0.0.1:0");
         await using var app = builder.Build();
+        app.MapGet("/video-page",async context=>{context.Response.ContentType="text/html";await context.Response.WriteAsync("<html><head><title>Generic fixture video</title></head><body><video controls src='"+context.Request.Scheme+"://"+context.Request.Host+"/high.mp4'></video></body></html>");});
         app.MapGet("/{**file}", async context =>
         {
             var route = context.Request.RouteValues["file"]?.ToString() ?? "";
@@ -84,6 +85,10 @@ internal static class MediaTests
             Uri Url(string name) => new(address + "/" + name);
             string Store() => Path.Combine(folder, Guid.NewGuid().ToString("N"));
             var downloads = Path.Combine(folder, "downloads");
+            await Run("Generic HTML video pages resolve and publish through the page extractor",async()=>{
+                var media=await MediaTools.InspectAsync(Url("video-page"));Check(media.Title?.Contains("Generic fixture video")==true,"Page title missing");
+                foreach(var output in new[]{"mp4","mp3"}){await using var owner=await DownloadCoordinator.OpenAsync(Store());owner.Configure(new TransferOptions{MaximumRetries=0});var id=owner.AcceptBrowserDownload(Guid.NewGuid(),Url("video-page"),downloads,output).TaskId;await owner.WaitForIdleAsync(id).WaitAsync(TimeSpan.FromSeconds(45));var task=owner.Get(id);Check(task.State==DownloadState.Completed,task.Message??"Generic page failed");using var probe=await Probe(task.Destination);Check(probe.RootElement.GetProperty("streams").GetArrayLength()>=(output=="mp4"?2:1),"Generic page output lost media");Check(task.Sha256 is not null&&task.Total>0,"Generic video was not verified");}
+            });
             await Run("Media: incomplete and inconsistent duration metadata remains unknown", async () => {
                 await File.WriteAllTextAsync(Path.Combine(assets, "invalid-duration.m3u8"), "#EXTM3U\n#EXTINF:NaN,\nlow_0.ts\n#EXT-X-ENDLIST\n");
                 await File.WriteAllTextAsync(Path.Combine(assets, "different-duration.m3u8"), "#EXTM3U\n#EXTINF:40,\nlow_0.ts\n#EXT-X-ENDLIST\n");

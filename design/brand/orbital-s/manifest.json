@@ -1,0 +1,347 @@
+{
+  "name": "Syphon Orbital S",
+  "version": 2,
+  "palette": {
+    "globe": "#08090b",
+    "deep": "#7437a3",
+    "violet": "#a34dff",
+    "lilac": "#d694ff",
+    "highlight": "#efbdff",
+    "white": "#f2edf6",
+    "muted": "#77717f"
+  },
+  "sizes": [
+    16,
+    20,
+    24,
+    32,
+    40,
+    48,
+    64,
+    96,
+    128,
+    256,
+    512,
+    1024
+  ],
+  "files": [
+    {
+      "path": "png/transparent/orbital-s-16.png",
+      "size": 16,
+      "bytes": 323,
+      "sha256": "bef7b14e7a5a37c42ff9126f6e6787c144560ba9a402258751aef03044d5b8f3"
+    },
+    {
+      "path": "png/tile/orbital-s-16.png",
+      "size": 16,
+      "bytes": 519,
+      "sha256": "cf7d5dc25f2131d6eda734e39aef647e74e8be7fea7a3b10952b6c5df0ece557"
+    },
+    {
+      "path": "png/white/orbital-s-16.png",
+      "size": 16,
+      "bytes": 219,
+      "sha256": "582e322b92cef36c22b4f17e980eef65f8be97857e30fc11b0e825d46abf09e7"
+    },
+    {
+      "path": "png/muted/orbital-s-16.png",
+      "size": 16,
+      "bytes": 218,
+      "sha256": "7d21e95dca09d18912fd0a226225d096d1d4fe622f1703295fbeb99f99d6f576"
+    },
+    {
+      "path": "png/transparent/orbital-s-20.png",
+      "size": 20,
+      "bytes": 378,
+      "sha256": "48bdbe93dc058f900305c058b7c4269f8ad02bfd788a851c89b8ce5be1534958"
+    },
+    {
+      "path": "png/tile/orbital-s-20.png",
+      "size": 20,
+      "bytes": 615,
+      "sha256": "f3bd41b04ff7c78fcaa12480a28f6a304879b912e6df191c64c064655fa48cc4"
+    },
+    {
+      "path": "png/white/orbital-s-20.png",
+      "size": 20,
+      "bytes": 261,
+      "sha256": "ae284ae28340707ab3f6f32da49c6be92f4d7f2d7f8b23726836bbfe314d3489"
+    },
+    {
+      "path": "png/muted/orbital-s-20.png",
+      "size": 20,
+      "bytes": 260,
+      "sha256": "1f2c31a0926614bb0e4eda68e3d2845e706a63ad72d252255007c6d685912c2f"
+    },
+    {
+      "path": "png/transparent/orbital-s-24.png",
+      "size": 24,
+      "bytes": 420,
+      "sha256": "789bd2a370c17339a0e40adbbaf22ce91747303cae1058bf152cd1d2bb3ca76c"
+    },
+    {
+      "path": "png/tile/orbital-s-24.png",
+      "size": 24,
+      "bytes": 712,
+      "sha256": "1b2b9fad46c8e95eab0c61a1dcfc8593864f77929641e1e5199d055ece3c36e7"
+    },
+    {
+      "path": "png/white/orbital-s-24.png",
+      "size": 24,
+      "bytes": 307,
+      "sha256": "85ef4e9eaf786fa627b51890fb9030507efaf4aa5c8b51c4d9a599f3491e31e2"
+    },
+    {
+      "path": "png/muted/orbital-s-24.png",
+      "size": 24,
+      "bytes": 306,
+      "sha256": "12e522c9254d7b3e68d755238da30ed19a9efbbdce08d1987b4499da181c79bb"
+    },
+    {
+      "path": "png/transparent/orbital-s-32.png",
+      "size": 32,
+      "bytes": 509,
+      "sha256": "51acd1f2e79d4538e7b5468155c3826cc5433480c5c4d13b770a1d6bf18ace70"
+    },
+    {
+      "path": "png/tile/orbital-s-32.png",
+      "size": 32,
+      "bytes": 897,
+      "sha256": "492a9f510df54da94357270b448a1ca7f8979490003ccb9638ce6be844d618b2"
+    },
+    {
+      "path": "png/white/orbital-s-32.png",
+      "size": 32,
+      "bytes": 405,
+      "sha256": "30330038090d2c14b8f5f721def0c65bca5ea9608bb1ef3e1e00c739acf05b24"
+    },
+    {
+      "path": "png/muted/orbital-s-32.png",
+      "size": 32,
+      "bytes": 404,
+      "sha256": "ac1d943a2c9d0a41e86c885692176603f61eea32dc11fb72683c73c29f913344"
+    },
+    {
+      "path": "png/transparent/orbital-s-40.png",
+      "size": 40,
+      "bytes": 554,
+      "sha256": "359936b3d6d1451052a7f6924a5fd0ee805290ba709d6405cc5c9a1806336577"
+    },
+    {
+      "path": "png/tile/orbital-s-40.png",
+      "size": 40,
+      "bytes": 1048,
+      "sha256": "902ad38535180e59c794cc08326ef1ac00a7b6e9a13b9cf88fc3c99e2601a04c"
+    },
+    {
+      "path": "png/white/orbital-s-40.png",
+      "size": 40,
+      "bytes": 494,
+      "sha256": "f198ef09b08b2f4900056f26cf44a7d9abbdfcbae60dbb6192168653cdfccf68"
+    },
+    {
+      "path": "png/muted/orbital-s-40.png",
+      "size": 40,
+      "bytes": 493,
+      "sha256": "1f7d81583055a1ec6c8232ba2db95010e3d744ccb8f7311363bf01ccfd410386"
+    },
+    {
+      "path": "png/transparent/orbital-s-48.png",
+      "size": 48,
+      "bytes": 579,
+      "sha256": "165133f85ec41fed6259390ab773b7a2795680d6b358a7f31d57d1639d9420ab"
+    },
+    {
+      "path": "png/tile/orbital-s-48.png",
+      "size": 48,
+      "bytes": 1116,
+      "sha256": "1541fb0de1209d7017c5d3ccd292da2ea52a736204aace360d0f9ad5f1b68c5e"
+    },
+    {
+      "path": "png/white/orbital-s-48.png",
+      "size": 48,
+      "bytes": 588,
+      "sha256": "e20fcd2e1841a95d12e4f834354ad6fc354e2cc772a7be530ce580015e4b6d6c"
+    },
+    {
+      "path": "png/muted/orbital-s-48.png",
+      "size": 48,
+      "bytes": 587,
+      "sha256": "d4bb3eaaa57752c32f1d36ea65019bb7deaff148f84a1eb1891a509815cff9f3"
+    },
+    {
+      "path": "png/transparent/orbital-s-64.png",
+      "size": 64,
+      "bytes": 626,
+      "sha256": "9c1d3bd5de09dbeaa12b50c1647913e0cdf3706be71e595df3de6f8920f7ad4c"
+    },
+    {
+      "path": "png/tile/orbital-s-64.png",
+      "size": 64,
+      "bytes": 1350,
+      "sha256": "2e9ce2d84bc0d3edc92ac1ac6c6cbdd0f86af0e4d399362e8a4183a7674fb215"
+    },
+    {
+      "path": "png/white/orbital-s-64.png",
+      "size": 64,
+      "bytes": 732,
+      "sha256": "e62a795d636dd953a64bfc98b52803e5ea6c685c41432243768a4ed752cc89e2"
+    },
+    {
+      "path": "png/muted/orbital-s-64.png",
+      "size": 64,
+      "bytes": 731,
+      "sha256": "a937bae0e3bacfbb2cabb01896595fb3fd26200f1a3ee7f9b08090b2c1b45660"
+    },
+    {
+      "path": "png/transparent/orbital-s-96.png",
+      "size": 96,
+      "bytes": 803,
+      "sha256": "7ec81144d036cf824bc78281dd4b1c1280e1ec6c2694124ef8188f15ef54e198"
+    },
+    {
+      "path": "png/tile/orbital-s-96.png",
+      "size": 96,
+      "bytes": 1958,
+      "sha256": "f49ca69fc00b70a7b593c46b3b08f9d596de079445d5146d2481982a2e2c21a6"
+    },
+    {
+      "path": "png/white/orbital-s-96.png",
+      "size": 96,
+      "bytes": 1127,
+      "sha256": "098a04152821f9109c8690119f34f103afcbd1c680fc2957d68ff431a00d2940"
+    },
+    {
+      "path": "png/muted/orbital-s-96.png",
+      "size": 96,
+      "bytes": 1126,
+      "sha256": "30562e748fb1b078df9e7b03594102923f020b4b00f229a70789126f5bbfd4f9"
+    },
+    {
+      "path": "png/transparent/orbital-s-128.png",
+      "size": 128,
+      "bytes": 1012,
+      "sha256": "eb836e6c09a5ceb7be57fa32b53ea87f98a5aed63a77eb4f916c471a4f9e7be0"
+    },
+    {
+      "path": "png/tile/orbital-s-128.png",
+      "size": 128,
+      "bytes": 2836,
+      "sha256": "17d52830edfa80ffc2abc39724174d1cde8108a1834e8ec8c204e881fc00b2ce"
+    },
+    {
+      "path": "png/white/orbital-s-128.png",
+      "size": 128,
+      "bytes": 1529,
+      "sha256": "fd26f1814dcd6869faeb3f6e021f0ffeb880eab137252726a5c0305db3462cc3"
+    },
+    {
+      "path": "png/muted/orbital-s-128.png",
+      "size": 128,
+      "bytes": 1528,
+      "sha256": "41734bad528908c465486ad87bc649400e642fc7fb8f2f52e8317398a68d7335"
+    },
+    {
+      "path": "png/transparent/orbital-s-256.png",
+      "size": 256,
+      "bytes": 2103,
+      "sha256": "b0b6cff1ea4192b872bcc092b0732fbd55d308dff121ba5182c64d8da1221fa6"
+    },
+    {
+      "path": "png/tile/orbital-s-256.png",
+      "size": 256,
+      "bytes": 5278,
+      "sha256": "33fc5a84e8fc8d47ff0ab335f0157e431e1d1628d3f7ec884f54f9761a4a6635"
+    },
+    {
+      "path": "png/white/orbital-s-256.png",
+      "size": 256,
+      "bytes": 3300,
+      "sha256": "666b8f087fddeb22b8429aaa1b66b26d99a428fb15356b5b72f194be71442685"
+    },
+    {
+      "path": "png/muted/orbital-s-256.png",
+      "size": 256,
+      "bytes": 3299,
+      "sha256": "3857acf46280c408f2c1ef85417bf20340b76a115c339844872a80a5979e7d0d"
+    },
+    {
+      "path": "png/transparent/orbital-s-512.png",
+      "size": 512,
+      "bytes": 5602,
+      "sha256": "ca7d24019f30480ea85d067c32a7d34c66ccc7500cd63cb4619b1893ea1c3bfc"
+    },
+    {
+      "path": "png/tile/orbital-s-512.png",
+      "size": 512,
+      "bytes": 12210,
+      "sha256": "2fbaf302db9a748a861af6aee8a9cde88ae676ebe3dcb0e74857e3de8c3ea7c7"
+    },
+    {
+      "path": "png/white/orbital-s-512.png",
+      "size": 512,
+      "bytes": 7134,
+      "sha256": "41fd6cbb84243220f9c29da589880286a347daf9177fc8a5296c8e9b3e4e530e"
+    },
+    {
+      "path": "png/muted/orbital-s-512.png",
+      "size": 512,
+      "bytes": 7133,
+      "sha256": "c3fdad802a0b1dfd867377aac4ede6b62abcdf5e1d86b9b926daf639c616dcfe"
+    },
+    {
+      "path": "png/transparent/orbital-s-1024.png",
+      "size": 1024,
+      "bytes": 14972,
+      "sha256": "7afc7a0250b9e352dce8ce05c65ee0bd3c9fffc255e70b600179329025aa5801"
+    },
+    {
+      "path": "png/tile/orbital-s-1024.png",
+      "size": 1024,
+      "bytes": 29335,
+      "sha256": "950d6422cd7ca711350eb30963e22b6e8ab671f8b83228edb17abe6287e4d528"
+    },
+    {
+      "path": "png/white/orbital-s-1024.png",
+      "size": 1024,
+      "bytes": 15692,
+      "sha256": "c5cae6589d27ac4942624d83cb7a99366391bfd77eed2924c0d5f738a6ccf433"
+    },
+    {
+      "path": "png/muted/orbital-s-1024.png",
+      "size": 1024,
+      "bytes": 15691,
+      "sha256": "8ecb99f772147a28430f57457280689a911f9cf48836e3d1ac01348cce906d87"
+    },
+    {
+      "path": "png/states/orbital-s-progress-0.png",
+      "size": 256,
+      "bytes": 1822,
+      "sha256": "12ebb05290f60f10aa3f3e8e4c6a28a8c8070d0d4feec90e37c8bea00ef62981"
+    },
+    {
+      "path": "png/states/orbital-s-progress-25.png",
+      "size": 256,
+      "bytes": 1925,
+      "sha256": "80d80e5fe246f320540f9832ba69a7ef74974c4447227fe7caf1cd47c943de9f"
+    },
+    {
+      "path": "png/states/orbital-s-progress-50.png",
+      "size": 256,
+      "bytes": 2025,
+      "sha256": "9af4e18017f3c2c85b5f2636a8d45cb4ec9fccd7691ab28253e43ecfcaa77a90"
+    },
+    {
+      "path": "png/states/orbital-s-progress-75.png",
+      "size": 256,
+      "bytes": 2110,
+      "sha256": "e2f6c755818fb6712fb753192c5180169adaa1cb6ebc6d6d3849267d5d836e9e"
+    },
+    {
+      "path": "png/states/orbital-s-progress-100.png",
+      "size": 256,
+      "bytes": 2103,
+      "sha256": "b0b6cff1ea4192b872bcc092b0732fbd55d308dff121ba5182c64d8da1221fa6"
+    }
+  ]
+}

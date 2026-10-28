@@ -13,6 +13,8 @@ public sealed partial class DownloadOptionsDialog : Window
     private readonly TextBox filename, folder, source;
     private readonly CheckBox remember, single;
     private readonly TextBlock error;
+    public string? MediaFormat {get;private set;}
+    public bool FilenameEdited {get;private set;}
     public string Filename => filename.Text.Trim();
     public string Folder => Path.GetFullPath(folder.Text.Trim());
     public bool RememberFolder => remember.IsChecked == true;

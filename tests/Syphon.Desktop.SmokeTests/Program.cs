@@ -20,6 +20,12 @@ internal static class Program
     [STAThread]
     public static int Main(string[] args)
     {
+        if (args.FirstOrDefault() == "--frame") return FrameSmokeTests.Run(args.Skip(1).ToArray());
+        if (args.FirstOrDefault() == "--native-redraw-probe") return NativeRedrawProbe.Run(args.Skip(1).ToArray());
+        if (args.FirstOrDefault() == "--frame-surfaces") return FrameSurfaceSmokeTests.Run(args.Skip(1).ToArray());
+        if (args.FirstOrDefault() == "--tray-startup") return TrayStartupSmokeTests.Run();
+        if (args.FirstOrDefault() == "--tray-close") return TrayCloseRegressionTests.Run();
+        if (args.FirstOrDefault() == "--beta20-activity") return Beta20ActivitySmokeTests.Run();
         if (args.FirstOrDefault() == "--tray") return TraySmokeTests.Run();
         if (args.FirstOrDefault() == "--typography") return TypographySmokeTests.Run(args.Skip(1).ToArray());
         if (args.FirstOrDefault() == "--history-audit") {
@@ -31,11 +37,11 @@ internal static class Program
         }
         if (args.FirstOrDefault() == "--floating-input") return FloatingInputSmokeTests.Run(args.Skip(1).ToArray());
         if (args.FirstOrDefault() == "--folder") return FolderSmokeTests.Run();
-        if (args.FirstOrDefault() == "--details") return DetailsSmokeTests.Run(args.Skip(1).ToArray());
+        if (args.FirstOrDefault() == "--details") return Beta20LayoutRegressionTests.Run("details");
         if (args.FirstOrDefault() == "--size-display") return SizeDisplaySmokeTests.Run();
-        if (args.FirstOrDefault() == "--history-layout") return HistoryLayoutSmokeTests.Run(args.Skip(1).ToArray());
-        if (args.FirstOrDefault() == "--dashboard-load") return DashboardLoadSmokeTests.Run(args.Skip(1).ToArray());
-        if (args.FirstOrDefault() == "--html") return HtmlSmokeTests.Run(args.Skip(1).ToArray());
+        if (args.FirstOrDefault() == "--history-layout") return Beta20LayoutRegressionTests.Run("history");
+        if (args.FirstOrDefault() == "--dashboard-load") return Beta20LayoutRegressionTests.Run("dashboard");
+        if (args.FirstOrDefault() == "--html") return Beta20LiveSmokeTests.Run(args.Skip(1).ToArray());
         if (args.FirstOrDefault() == "--options") return OptionsSmokeTests.Run(args.Skip(1).ToArray());
         if (args.FirstOrDefault() == "--redesign") return RedesignSmokeTests.Run(args.Skip(1).ToArray());
         if (args.FirstOrDefault() == "--obsidian") return ObsidianVisualTests.Run(args.Skip(1).ToArray());

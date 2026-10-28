@@ -105,27 +105,27 @@ public partial class MainWindow
         if (manualDialog?.IsVisible == true) { manualDialog.Activate(); return; }
         var preferences = DownloadPreferences.Load(preferencesPath);
         var dialog = new DownloadOptionsDialog("Add a link to start a new download", "download.bin", preferences.Folder ?? browserDownloads, "Automatic", null, preferences.Folder is not null,
-            UrlBox.Text.Trim(), true, preferences.DefaultSingleConnection, useHtml) { Owner = this };
+            UrlBox.Text.Trim(), true, preferences.DefaultSingleConnection, useHtml) { Owner = IsVisible ? this : null };
         manualDialog = dialog;
         if (!ShowInTaskbar) { dialog.ShowInTaskbar = false; dialog.WindowStartupLocation = WindowStartupLocation.Manual; dialog.Left = Left; dialog.Top = Top; }
         var requestId = Guid.NewGuid();
         dialog.Confirmed += () => {
             try {
-                var accepted = CreateManualDownload(requestId, dialog.SourceUrl, dialog.Folder, dialog.Filename, dialog.StartImmediately, dialog.SingleConnection, dialog.Priority);
+                var accepted = CreateManualDownload(requestId, dialog.SourceUrl, dialog.Folder, dialog.Filename, dialog.StartImmediately, dialog.SingleConnection, dialog.Priority,dialog.MediaFormat,dialog.FilenameEdited);
                 try { (DownloadPreferences.Load(preferencesPath) with { Folder = dialog.RememberFolder ? dialog.Folder : null }).Save(preferencesPath); } catch (Exception ex) when (ex is IOException or UnauthorizedAccessException) { }
                 RevealDownload(accepted.TaskId); dialog.Close();
             } catch (Exception ex) { dialog.ShowError(ex.Message); }
         };
         dialog.Closed += (_, _) => manualDialog = null; dialog.Show();
     }
-    private BrowserAcceptance CreateManualDownload(Guid requestId, string source, string folder, string? filename = null, bool immediately = true, bool single = false, int priority = 0)
+    private BrowserAcceptance CreateManualDownload(Guid requestId, string source, string folder, string? filename = null, bool immediately = true, bool single = false, int priority = 0,string? selectedFormat=null,bool preserveFilename=true)
     {
         if (!Uri.TryCreate(source.Trim(), UriKind.Absolute, out var url) || url.Scheme is not ("http" or "https")) throw new ArgumentException("Enter an HTTP or HTTPS download link.");
         if (!Path.IsPathFullyQualified(folder) || File.Exists(folder)) throw new ArgumentException("Choose a full download folder path.");
-        var format = YoutubeTools.IsYoutubeVideoTarget(url) ? "mp4" : null;
+        var format = selectedFormat??(PageVideoTools.IsKnownVideoPage(url) ? "mp4" : null);
         filename ??= DownloadCoordinator.SuggestedBrowserFilename(url, format);
         DownloadCoordinator.ValidateBrowserFilename(filename, format);
-        return coordinator!.AcceptBrowserDownload(requestId, url, folder, filename: filename, startImmediately: immediately, singleConnection: single, priority: priority, categorize: UsesCategoryFolders(folder));
+        return coordinator!.AcceptBrowserDownload(requestId, url, folder, mediaFormat:format,filename: format is not null&&(!preserveFilename||filename==DownloadCoordinator.SuggestedBrowserFilename(url,format))?null:filename, startImmediately: immediately, singleConnection: single, priority: priority, categorize: UsesCategoryFolders(folder));
     }
     private bool UsesCategoryFolders(string folder)
     {
@@ -144,7 +144,7 @@ public partial class MainWindow
         var preferences = DownloadPreferences.Load(preferencesPath);
         var tasks = snapshot ?? coordinator.GetTasks();
         if (requested) requestedFloatingTask = selectedId;
-        var task = tasks.FirstOrDefault(t => t.Id == requestedFloatingTask)
+        var task = (requested?null:tasks.FirstOrDefault(t=>t.Id==floatingWindow?.SelectedTaskId)) ?? tasks.FirstOrDefault(t => t.Id == requestedFloatingTask)
             ?? tasks.FirstOrDefault(t => t.State is DownloadState.Downloading or DownloadState.Starting or DownloadState.RetryWaiting or DownloadState.Publishing or DownloadState.Assembling)
             ?? tasks.FirstOrDefault(t => t.Id == floatingWindow?.TaskId && t.State == DownloadState.Paused && floatingWindow.IsVisible)
             ?? (requested ? tasks.FirstOrDefault(t => t.Id == selectedId) ?? tasks.LastOrDefault() : null);
@@ -157,7 +157,7 @@ public partial class MainWindow
             floatingWindow.Closed += (_, _) => { floatingWindow = null; requestedFloatingTask = null; };
             if (!ShowInTaskbar) { floatingWindow.Left = Left; floatingWindow.Top = Top; }
         }
-        floatingWindow.Topmost = preferences.FloatingOnTop;
+        floatingWindow.Topmost = floatingWindow.PinnedOverride ?? preferences.FloatingOnTop;
         floatingWindow.Update(task, tasks);
         if (!floatingWindow.IsVisible) floatingWindow.Show();
         if (requested && floatingWindow.WindowState == WindowState.Minimized) floatingWindow.WindowState = WindowState.Normal;

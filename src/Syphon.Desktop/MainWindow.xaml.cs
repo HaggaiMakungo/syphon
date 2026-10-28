@@ -25,6 +25,7 @@ public partial class MainWindow : Window
     private bool closing;
     private bool allowClose;
     private bool refreshing;
+    private DownloadActivityIcon? activityIcon;
     private Guid? selectedId;
     private string? commandError;
     internal Action<ProcessStartInfo> FolderProcessStarter { get; set; } = start => Process.Start(start);
@@ -36,13 +37,15 @@ public partial class MainWindow : Window
     public MainWindow(string? dataDirectory, string? bridgePipeName = null, bool htmlUi = true)
     {
         InitializeComponent();
+        activityIcon = new DownloadActivityIcon(this, frame => tray?.UpdateIcon(frame));
+        Closed += (_, _) => activityIcon.Dispose();
         useHtml = htmlUi;
         browserPipeName = bridgePipeName ?? (dataDirectory is null ? BrowserProtocol.PipeName : null);
         browserDownloads = dataDirectory is null ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads") : Path.Combine(dataDirectory, "BrowserDownloads");
         TaskList.ItemsSource = rows;
         PreviewKeyDown += (_, e) =>
         {
-            if (useHtml && e.Key == Key.L && Keyboard.Modifiers == ModifierKeys.Control) { if (HtmlSurface?.IsReady == true) _ = HtmlSurface.EvaluateAsync("document.querySelector('[aria-label=\"New download\"]')?.click()"); e.Handled = true; }
+            if (useHtml && e.Key == Key.L && Keyboard.Modifiers == ModifierKeys.Control) { if(IsReady)NewDownload_Click(this,new()); e.Handled=true; }
             else if (e.Key == Key.L && Keyboard.Modifiers == ModifierKeys.Control) { UrlBox.Focus(); UrlBox.SelectAll(); e.Handled = true; }
             else if (e.Key == Key.F6 && Keyboard.Modifiers == ModifierKeys.None) { TaskList.Focus(); e.Handled = true; }
         };
@@ -52,7 +55,12 @@ public partial class MainWindow : Window
         TypographyComparison.Apply(DownloadPreferences.Load(preferencesPath).TypographyPreset);
         ApplyPreferences();
         initialization = Task.Run(() => DownloadCoordinator.OpenAsync(directory, DownloadPreferences.Load(preferencesPath).Transfer));
-        Loaded += async (_, _) =>
+        Loaded += async (_, _) => await StartAsync();
+        if (useHtml) InstallHtml();
+    }
+    private Task? startup;
+    internal Task StartAsync()=>startup??=InitializeCoordinatorAsync();
+    private async Task InitializeCoordinatorAsync()
         {
             try
             {
@@ -71,8 +79,6 @@ public partial class MainWindow : Window
                 initializationError = ex is InvalidDataException ? StatusText.Text : StatusText.Text + " If the problem persists, check access to Syphon’s saved download data and restart Syphon.";
                 HtmlSurface?.Publish();
             }
-        };
-        if (useHtml) InstallHtml();
     }
 
     private async Task<BrowserReply> HandleBrowserRequestAsync(BrowserRequest request, CancellationToken token)
@@ -103,7 +109,6 @@ public partial class MainWindow : Window
                 if (accepted.Removed) return new BrowserReply(1, request.RequestId, "removed", accepted.TaskId, "This request was already handled and removed. Choose Syphon this again for a new download.");
                 if (!accepted.Duplicate) RevealDownload(accepted.TaskId);
                 else { selectedId = accepted.TaskId; commandError = null; RefreshTasks(); }
-                if (!accepted.Duplicate && ShowInTaskbar) { if (WindowState == WindowState.Minimized) WindowState = WindowState.Normal; Activate(); }
                 return new BrowserReply(1, request.RequestId, "accepted", accepted.TaskId,
                     accepted.Duplicate ? "Already in Syphon. Check the task in the app." : "Added to Syphon. Progress and errors appear in the desktop app.", accepted.Task!.State.ToString());
             }
@@ -142,6 +147,7 @@ public partial class MainWindow : Window
         if (coordinator is null || closing) return;
         var tasks = coordinator.GetTasks();
         displayTasks = tasks;
+        activityIcon?.Update(tasks);
         var previousSelection = TaskList.SelectedItem;
         refreshing = true;
         foreach (var stale in rows.Where(r => tasks.All(t => t.Id != r.Snapshot.Id)).ToArray()) rows.Remove(stale);
@@ -160,6 +166,7 @@ public partial class MainWindow : Window
         UpdateSummary();
         UpdateFloating(snapshot: tasks);
         UpdateManagerChart(tasks);
+        tray?.Refresh();
         HtmlSurface?.Publish();
     }
 
@@ -213,8 +220,7 @@ public partial class MainWindow : Window
     private void Restart_Click(object sender, RoutedEventArgs e)
     {
         if (selectedId is not Guid id || coordinator is null) return;
-        if (MessageBox.Show(this, "Discard this download’s unfinished data and start again? Existing completed files will be preserved.",
-            "Restart download", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) return;
+        if (new RestartDownloadDialog(this,coordinator.Get(id).Filename).ShowDialog() != true) return;
         try { commandError = null; coordinator.Restart(id, SingleConnectionChoice.IsChecked == true); RefreshTasks(); }
         catch (Exception ex) { commandError = ex.Message; StatusText.Text = ex.Message; }
     }
@@ -223,9 +229,7 @@ public partial class MainWindow : Window
         if (selectedId is not Guid id || coordinator is null) return;
         try {
             commandError = null;
-            var destination = coordinator.Get(id).Destination; var folder = Path.GetDirectoryName(destination);
-            if (!Directory.Exists(folder)) throw new IOException("The download folder is no longer available at its saved location.");
-            FolderProcessStarter(new ProcessStartInfo(folder) { UseShellExecute = true, Verb = "open" });
+            FolderProcessStarter(DownloadLocation.OpenFolder(coordinator.Get(id).Destination));
         }
         catch (Exception ex) when (ex is Win32Exception or IOException or UnauthorizedAccessException) { commandError = ex is Win32Exception ? "The folder could not be opened." : ex.Message; StatusText.Text = commandError; HtmlSurface?.Publish(); }
     }

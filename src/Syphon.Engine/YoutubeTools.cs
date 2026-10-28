@@ -45,24 +45,33 @@ public static partial class YoutubeTools
         "--no-js-runtimes", "--js-runtimes", "node:" + MediaTools.FindTool("node"), "--no-cache-dir", "--no-playlist", "--use-extractors", "youtube",
         "--socket-timeout", "10", "--retries", "1", "--extractor-retries", "1", "--fragment-retries", "1", "--no-warnings", "--color", "never"];
 
+    private static string[] ArgumentsFor(Uri url){
+        var args=CommonArguments().ToList();
+        if(!IsYoutubeVideoTarget(url)){var index=args.IndexOf("--use-extractors");args.RemoveRange(index,2);}
+        return args.ToArray();
+    }
+
     public static async Task<MediaInfo> InspectAsync(Uri url, CancellationToken token = default)
     {
-        var canonical = CanonicalUrl(url);
+        var canonical = PageVideoTools.CanonicalUrl(url);
         if (TestRunner is null) { MediaTools.FindTool("yt-dlp"); MediaTools.FindTool("node"); }
         using var timeout = CancellationTokenSource.CreateLinkedTokenSource(token); timeout.CancelAfter(TimeSpan.FromSeconds(35));
         string json;
         try
         {
-            var args = CommonArguments().Concat(new[] { "--skip-download", "--print", "%(.{id,title,live_status,duration,availability,formats})j", "--", canonical.AbsoluteUri });
+            var args = ArgumentsFor(canonical).Concat(new[] { "--skip-download", "--print", "%(.{id,title,live_status,is_live,duration,availability,has_drm,formats})j", "--", canonical.AbsoluteUri });
             json = await RunAsync(args, null, timeout.Token).ConfigureAwait(false);
         }
-        catch (OperationCanceledException) when (!token.IsCancellationRequested) { throw new IOException("YouTube inspection timed out. Try again later or update the YouTube extractor."); }
-        return ParseInfo(json);
+        catch (OperationCanceledException) when (!token.IsCancellationRequested) { throw new IOException("Video inspection timed out. Try again later or update the video extractor."); }
+        try{return ParseInfo(json,IsYoutubeVideoTarget(canonical));}
+        catch(JsonException ex){throw new IOException("This page did not resolve to a single video. Use an individual video link.",ex);}
     }
 
-    internal static MediaInfo ParseInfo(string json)
+    internal static MediaInfo ParseInfo(string json,bool youtube=true)
     {
         using var document = JsonDocument.Parse(json); var root = document.RootElement;
+        var site=youtube?"YouTube":"Video page";
+        if(root.TryGetProperty("has_drm",out var protectedMedia)&&protectedMedia.ValueKind==JsonValueKind.True)throw new IOException("This video is encrypted or protected and cannot be downloaded.");
         string Text(JsonElement e, string key) => e.TryGetProperty(key, out var value) && value.ValueKind == JsonValueKind.String ? value.GetString() ?? "" : "";
         int Number(JsonElement e, string key) => e.TryGetProperty(key, out var value) && value.ValueKind == JsonValueKind.Number && value.TryGetInt32(out var n) ? n : 0;
         double? duration = root.TryGetProperty("duration", out var d) && d.ValueKind == JsonValueKind.Number && d.TryGetDouble(out var seconds) && double.IsFinite(seconds) && seconds > 0 ? seconds : null;
@@ -72,9 +81,9 @@ public static partial class YoutubeTools
             return format.TryGetProperty("tbr", out var rate) && rate.ValueKind == JsonValueKind.Number && rate.TryGetDouble(out var kbps)
                 ? MediaTools.EstimateBytes(duration, kbps * 1000) : null;
         }
-        if (Text(root, "live_status") is "is_live" or "is_upcoming" or "post_live") throw new IOException("YouTube live/upcoming videos are not supported. Choose an available on-demand video.");
-        if (Text(root, "availability") is "private" or "premium_only" or "subscriber_only" or "needs_auth") throw new IOException("This YouTube video requires an account or subscription. Syphon does not import browser sessions.");
-        if (!root.TryGetProperty("formats", out var formats) || formats.ValueKind != JsonValueKind.Array) throw new IOException("YouTube returned no downloadable formats.");
+        if (root.TryGetProperty("is_live",out var live)&&live.ValueKind==JsonValueKind.True||Text(root, "live_status") is "is_live" or "is_upcoming" or "post_live") throw new IOException(site+" live/upcoming videos are not supported. Choose an available on-demand video.");
+        if (Text(root, "availability") is "private" or "premium_only" or "subscriber_only" or "needs_auth") throw new IOException("This video requires an account or subscription. Syphon does not import video login sessions.");
+        if (!root.TryGetProperty("formats", out var formats) || formats.ValueKind != JsonValueKind.Array) throw new IOException(site+" returned no downloadable formats. Choose an individual video link.");
         var audioFormats = formats.EnumerateArray().Where(f => !(f.TryGetProperty("has_drm", out var drm) && drm.ValueKind == JsonValueKind.True)
             && ValidFormat(Text(f, "format_id")) && Text(f, "vcodec") == "none" && Text(f, "acodec") is not ("" or "none"))
             .OrderByDescending(f => Text(f, "ext") == "m4a").ThenByDescending(f => Size(f) ?? 0).ToArray();
@@ -86,17 +95,23 @@ public static partial class YoutubeTools
             var id = Text(format, "format_id"); if (!ValidFormat(id)) continue;
             var acodec = Text(format, "acodec"); if (acodec.Length > 0 && acodec != "none") audio = true;
             var codec = Text(format, "vcodec"); var height = Number(format, "height");
-            if (codec.Length == 0 || codec == "none" || height <= 0) continue;
+            if (codec.Length == 0 || codec is "none" or "images" || Text(format,"ext") is "mhtml" or "jpg" or "jpeg" or "png" or "webp" || height <= 0) continue;
             long? bitrate = format.TryGetProperty("tbr", out var b) && b.ValueKind == JsonValueKind.Number && b.TryGetDouble(out var rate) && double.IsFinite(rate) && rate is > 0 and < 1000000 ? (long)(rate * 1000) : null;
             var size = Size(format);
             if (acodec is "" or "none") size = size is long videoBytes && audioSize is long audioBytes && videoBytes <= long.MaxValue - audioBytes ? videoBytes + audioBytes : null;
-            choices.Add(new(0, null, Number(format, "width"), height, codec.Length > 40 ? codec[..40] : codec, bitrate, id, QualityHeight(Text(format, "format_note"), height), size));
+            var width=Number(format,"width");var displayHeight=!youtube&&width>0&&width<height?width:height;
+            choices.Add(new(0, null, width, height, codec.Length > 40 ? codec[..40] : codec, bitrate, id, QualityHeight(Text(format, "format_note"), displayHeight), size));
         }
         choices = choices.GroupBy(c => (c.QualityHeight, c.Codec)).Select(g => g.OrderByDescending(c => c.Bitrate).First())
             .OrderByDescending(c => c.QualityHeight).ThenByDescending(c => c.Bitrate).Take(32).ToList();
-        if (choices.Count == 0) throw new IOException("No unprotected YouTube video formats were available.");
+        if(choices.Count==0&&!youtube){
+            var eligible=formats.EnumerateArray().Where(f=>!(f.TryGetProperty("has_drm",out var drm)&&drm.ValueKind==JsonValueKind.True)&&Text(f,"vcodec") is not ("none" or "images")&&Text(f,"ext") is not ("mhtml" or "jpg" or "jpeg" or "png" or "webp")).FirstOrDefault();
+            if(eligible.ValueKind==JsonValueKind.Object)choices.Add(new(0,null,0,0,"unknown",null,ValidFormat(Text(eligible,"format_id"))?Text(eligible,"format_id"):null));
+        }
+        if(choices.Count==0&&formats.EnumerateArray().Any(f=>f.TryGetProperty("has_drm",out var drm)&&drm.ValueKind==JsonValueKind.True))throw new IOException("This video is encrypted or protected and cannot be downloaded.");
+        if (choices.Count == 0) throw new IOException("No unprotected "+(youtube?"YouTube ":"")+"video formats were available.");
         var title = Text(root, "title");
-        return new(choices.ToArray(), audio, duration, "YouTube qualities detected. Choose a quality or convert audio to MP3.", title.Length > 512 ? title[..512] : title);
+        return new(choices.ToArray(), audio, duration, site+" qualities detected. Choose a quality or convert audio to MP3.", title.Length > 512 ? title[..512] : title);
     }
 
     internal static string FormatSelector(string? selected, string output)
@@ -110,19 +125,19 @@ public static partial class YoutubeTools
 
     internal static async Task DownloadAsync(StoredDownload task, Action<long> progress, CancellationToken token, Action<MediaInfo>? inspected = null)
     {
-        var canonical = CanonicalUrl(new(task.Url));
+        var canonical = PageVideoTools.CanonicalUrl(new(task.Url));
         var info = await InspectAsync(canonical, token).ConfigureAwait(false);
         if (task.YoutubeFormat is not null && !info.Qualities.Any(q => q.YoutubeFormat == task.YoutubeFormat))
-            throw new IOException("That YouTube quality is no longer available. Refresh the video menu and choose again.");
+            throw new IOException("That video quality is no longer available. Refresh the video menu and choose again.");
         token.ThrowIfCancellationRequested();
         inspected?.Invoke(info);
         var prefix = task.PartPath + ".yt.";
         Cleanup(task);
         try
         {
-            var args = CommonArguments().Concat(new[] { "--no-overwrites", "--no-continue", "--no-part", "--no-keep-fragments", "--progress", "--newline", "--progress-template", "download:total_size=%(progress.downloaded_bytes)s",
+            var args = ArgumentsFor(canonical).Concat(new[] { "--no-overwrites", "--no-continue", "--no-part", "--no-keep-fragments", "--progress", "--newline", "--progress-template", "download:total_size=%(progress.downloaded_bytes)s",
                 "--ffmpeg-location", Path.GetDirectoryName(MediaTools.FindTool("ffmpeg"))!, "--format", FormatSelector(task.YoutubeFormat, task.MediaFormat!), "--output", OutputTemplate(task),
-                "--match-filters", "live_status!=is_live & live_status!=is_upcoming & live_status!=post_live" }).ToList();
+                "--match-filters", "!is_live & live_status!=?is_live & live_status!=?is_upcoming & live_status!=?post_live" }).ToList();
             if (task.MediaFormat == "mp3") args.AddRange(["--extract-audio", "--audio-format", "mp3", "--audio-quality", "2", "--embed-thumbnail", "--convert-thumbnails", "jpg"]);
             else args.AddRange(["--merge-output-format", "mp4", "--remux-video", "mp4"]);
             args.AddRange(["--", canonical.AbsoluteUri]);
@@ -130,7 +145,7 @@ public static partial class YoutubeTools
             await RunAsync(args, progress, deadline.Token).ConfigureAwait(false);
             token.ThrowIfCancellationRequested();
             var result = prefix + task.MediaFormat;
-            if (!File.Exists(result) || new FileInfo(result).Length == 0) throw new IOException("YouTube processing did not produce the requested output.");
+            if (!File.Exists(result) || new FileInfo(result).Length == 0) throw new IOException("Video processing did not produce the requested output.");
             File.Move(result, task.PartPath, overwrite: false);
         }
         finally { Cleanup(task); }

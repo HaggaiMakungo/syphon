@@ -18,7 +18,8 @@ public partial class SetupWindow : Window
  internal SetupWindow(bool uninstall,SetupMaintenance maintenance) {
   this.maintenance=maintenance;InitializeComponent();this.uninstall=uninstall;
   VersionLabel.Text=(typeof(SetupWindow).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+')[0] ?? "Beta")+" · Windows x64";
-  Width=Math.Min(1060,SystemParameters.WorkArea.Width-32);Height=Math.Min(700,SystemParameters.WorkArea.Height-32);
+  Width=Math.Min(650,SystemParameters.WorkArea.Width-32);
+  MaxHeight=Math.Max(300,SystemParameters.WorkArea.Height-32);SetupBody.MaxHeight=Math.Max(120,Math.Min(560,MaxHeight-140));
   Location.Text=InstallEngine.DefaultRoot;
   FinishNote.Text="Open Syphon to start downloading, or finish setup and launch it later. Your downloads remain in your own folders.";
   if(uninstall){

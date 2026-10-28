@@ -5,6 +5,7 @@
     <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <OutputType>Exe</OutputType>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>..\..\src\Syphon.Desktop\Assets\Brand\syphon_windows.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/Syphon.Desktop/Syphon.Desktop.csproj" />

@@ -11,7 +11,7 @@ public sealed partial class DownloadCoordinator
         var task = Get(id);
         File.Delete(task.PartPath); // Only this task's owned scratch path. Media always restarts before a final digest exists.
         Update(id, t => t with { State = DownloadState.Downloading, Received = 0, Committed = 0, Total = null, EstimatedTotal = null, SizeEstimateSource = null, MediaDurationSeconds = null, Blocks = [],
-            Connections = 0, BytesPerSecond = 0, Message = YoutubeTools.IsYoutubeVideoTarget(new(task.Url))
+            Connections = 0, BytesPerSecond = 0, Message = PageVideoTools.RequiresExtractor(task)
                 ? "Checking the video before downloading…" : "Downloading and processing media…" });
         var progressGate = new object();
         long received = 0, previous = 0, lastChange = Stopwatch.GetTimestamp();
@@ -56,11 +56,11 @@ public sealed partial class DownloadCoordinator
             }
         }
         var reporter = ReportProgress();
-        var estimate = !YoutubeTools.IsYoutubeVideoTarget(new(task.Url)) && (task.VideoStream is not null || task.MediaFormat == "mp3")
+        var estimate = !PageVideoTools.RequiresExtractor(task) && (task.VideoStream is not null || task.MediaFormat == "mp3")
             ? EstimateSelectedMediaAsync(task, reporting.Token) : Task.CompletedTask;
         try
         {
-            if (YoutubeTools.IsYoutubeVideoTarget(new(task.Url)))
+            if (PageVideoTools.RequiresExtractor(task))
                 await YoutubeTools.DownloadAsync(task, Progress, token, info => {
                     ApplyVideoTitle(id, info.Title);
                     SetMediaDuration(id, info.Duration);
@@ -106,7 +106,7 @@ public sealed partial class DownloadCoordinator
         {
             var task = tasks[id];
             // Only replace an automatically generated browser name. Explicit destinations stay authoritative.
-            var placeholder = "youtube-" + YoutubeTools.VideoId(new(task.Url)) + (task.YoutubeFormat is null ? "" : "-" + task.YoutubeFormat) + "." + task.MediaFormat;
+            var placeholder = PageVideoTools.PlaceholderStem(new(task.Url)) + (task.YoutubeFormat is null ? "" : "-" + task.YoutubeFormat) + "." + task.MediaFormat;
             var currentStem = Path.GetFileNameWithoutExtension(task.Filename);
             var placeholderStem = Path.GetFileNameWithoutExtension(placeholder);
             var isPlaceholder = task.Filename == placeholder || currentStem.StartsWith(placeholderStem + " (", StringComparison.Ordinal)

@@ -29,6 +29,7 @@ try
             RedirectStandardInput = true, RedirectStandardOutput = true, RedirectStandardError = true,
             WorkingDirectory = Path.GetDirectoryName(settings.DesktopPath)! };
         foreach (var argument in settings.DesktopArguments ?? []) start.ArgumentList.Add(argument);
+        start.ArgumentList.Add("--background");
         if (settings.DotnetRoot is not null)
         { start.Environment["DOTNET_ROOT"] = settings.DotnetRoot; start.Environment["DOTNET_ROOT_X64"] = settings.DotnetRoot; }
         // The GUI must not inherit Chrome's framed stdin/stdout handles or keep that port open.

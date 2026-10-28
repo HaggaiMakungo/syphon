@@ -6,17 +6,23 @@ import { createRequire } from "node:module";
 const { JSDOM } = createRequire(new URL("../.tools/extension-test/package.json", import.meta.url))("jsdom");
 const code = name => fs.readFile(new URL(`../extensions/syphon/${name}`, import.meta.url), "utf8");
 const tick = (ms = 10) => new Promise(resolve => setTimeout(resolve, ms));
+function playerFixture(window){
+ window.HTMLVideoElement.prototype.getBoundingClientRect=function(){return {width:640,height:360,top:50,bottom:410,left:30,right:670};};
+ window.document.addEventListener('play',e=>{if(Object.getOwnPropertyDescriptor(e.target,'paused')?.configurable!==false)Object.defineProperty(e.target,'paused',{value:false,configurable:true});},true);
+}
+
 
 test("branded trigger remains visible through opening, selecting, closing and reopening", async () => {
   const dom = new JSDOM('<video src="/video.mp4"></video>', { url: 'https://fixture.test/watch', runScripts: 'outside-only' });
   const { window } = dom; let root;
   const attach = window.Element.prototype.attachShadow;
-  window.Element.prototype.attachShadow = function(options) { root = attach.call(this, options); return root; };
+  window.Element.prototype.attachShadow = function(options) { const shadow=attach.call(this,options);if(this.hasAttribute("data-syphon-video-button"))root=shadow;return shadow; };
   window.chrome = { runtime: { getURL: p => 'chrome-extension://fixture/' + p, onMessage: { addListener(){},removeListener(){} }, sendMessage: async () => ({sources:[]}) },
     storage: { local: { get: async () => ({detectVideos:true}) }, onChanged: {addListener(){},removeListener(){}} } };
   window.document.querySelector('video').getBoundingClientRect = () => ({ width:640,height:360,top:50,bottom:410,left:30,right:670 });
   try {
-    window.eval(await code('media-model.js')); window.eval(await code('video-button.js')); await tick();
+    {const send=window.chrome?.runtime?.sendMessage;if(window.chrome)window.chrome.runtime.sendMessage=async m=>m?.type==='syphon-video-claim'?{ok:true}:m?.type==='syphon-video-title'?{}:m?.type==='syphon-player-catalog'?{players:[]}:send(m);}
+    playerFixture(window);window.eval(await code('media-model.js')); window.eval(await code('video-button.js')); await tick();
     const trigger=root.querySelector('.trigger'), mark=trigger.querySelector('img'), panel=root.querySelector('.panel');
     assert.equal(mark.src,'chrome-extension://fixture/brand/icon-64.png');
     for(let i=0;i<2;i++) {
@@ -39,7 +45,7 @@ test("fullscreen hides video overlays immediately and exiting restores only undi
   const dom = new JSDOM('<div id="player"><video src="/first.mp4"></video></div><video src="/second.mp4"></video>', { url: "https://fixture.test/watch", runScripts: "outside-only" });
   const { window } = dom, roots = [];
   const attach = window.Element.prototype.attachShadow;
-  window.Element.prototype.attachShadow = function(options) { const root = attach.call(this, options); roots.push(root); return root; };
+  window.Element.prototype.attachShadow = function(options) { const root = attach.call(this, options); if(this.hasAttribute("data-syphon-video-button"))roots.push(root); return root; };
   window.chrome = { runtime: { onMessage: { addListener() {}, removeListener() {} }, sendMessage: async () => ({ sources: [] }) },
     storage: { local: { get: async () => ({ detectVideos: true }) }, onChanged: { addListener() {}, removeListener() {} } } };
   const videos = [...window.document.querySelectorAll("video")];
@@ -48,7 +54,8 @@ test("fullscreen hides video overlays immediately and exiting restores only undi
   Object.defineProperty(window.document, "fullscreenElement", { get: () => fullscreen });
   const setFullscreen = element => { fullscreen = element; window.document.dispatchEvent(new window.Event("fullscreenchange")); };
   try {
-    window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
+    {const send=window.chrome?.runtime?.sendMessage;if(window.chrome)window.chrome.runtime.sendMessage=async m=>m?.type==="syphon-video-claim"?{ok:true}:m?.type==="syphon-video-title"?{}:m?.type==="syphon-player-catalog"?{players:[]}:send(m);}
+    playerFixture(window);window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
     const hosts = [...window.document.querySelectorAll("[data-syphon-video-button]")];
     assert.equal(hosts.length, 2);
     roots[1].querySelector(".dismiss").click();
@@ -84,7 +91,8 @@ test("players discovered during fullscreen stay hidden until fullscreen ends", a
   let fullscreen = video;
   Object.defineProperty(window.document, "fullscreenElement", { get: () => fullscreen });
   try {
-    window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
+    {const send=window.chrome?.runtime?.sendMessage;if(window.chrome)window.chrome.runtime.sendMessage=async m=>m?.type==="syphon-video-claim"?{ok:true}:m?.type==="syphon-video-title"?{}:m?.type==="syphon-player-catalog"?{players:[]}:send(m);}
+    playerFixture(window);window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
     const host = window.document.querySelector("[data-syphon-video-button]");
     assert.equal(host.hidden, true);
     fullscreen = null; window.document.dispatchEvent(new window.Event("fullscreenchange"));
@@ -97,15 +105,16 @@ test("video button lists actual sources and subtitles, hands off selection and c
   const { window } = dom, roots = [], messages = [], listeners = new Set();
   window.document.title = "A real video title";
   const attach = window.Element.prototype.attachShadow;
-  window.Element.prototype.attachShadow = function(options) { const root = attach.call(this, options); roots.push(root); return root; };
+  window.Element.prototype.attachShadow = function(options) { const root = attach.call(this, options); if(this.hasAttribute("data-syphon-video-button"))roots.push(root); return root; };
   const onMessage = { addListener: f => listeners.add(f), removeListener: f => listeners.delete(f) };
   window.chrome = { runtime: { onMessage, sendMessage: async request => { messages.push(request); return { message: "Added to Syphon" }; } },
     storage: { local: { get: async () => ({ detectVideos: true }) }, onChanged: { addListener() {}, removeListener() {} } } };
   window.document.querySelector("video").getBoundingClientRect = () => ({ width: 640, height: 360, top: 50, bottom: 410, left: 30, right: 670 });
   try {
-    window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
+    {const send=window.chrome?.runtime?.sendMessage;if(window.chrome)window.chrome.runtime.sendMessage=async m=>m?.type==="syphon-video-claim"?{ok:true}:m?.type==="syphon-video-title"?{}:m?.type==="syphon-player-catalog"?{players:[]}:send(m);}
+    playerFixture(window);window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
     assert.equal(window.document.querySelectorAll("[data-syphon-video-button]").length, 1);
-    window.eval(await code("video-button.js")); assert.equal(roots.length, 1);
+    playerFixture(window);window.eval(await code("video-button.js")); assert.equal(roots.length, 1);
     const root = roots[0], trigger = root.querySelector(".trigger");
     const right = window.document.querySelector("[data-syphon-video-button]").style.right;
     assert.equal(right, `${window.innerWidth - 670 + 8}px`);
@@ -137,13 +146,14 @@ test("outside clicks close the menu and dismiss stays hidden until a different v
   const dom = new JSDOM('<video src="/first.mp4"></video><button id="outside">Outside</button>', { url: "https://fixture.test/watch", runScripts: "outside-only" });
   const { window } = dom; let root;
   const attach = window.Element.prototype.attachShadow;
-  window.Element.prototype.attachShadow = function(options) { root = attach.call(this, options); return root; };
+  window.Element.prototype.attachShadow = function(options) { const shadow=attach.call(this,options);if(this.hasAttribute("data-syphon-video-button"))root=shadow;return shadow; };
   window.chrome = { runtime: { onMessage: { addListener() {}, removeListener() {} }, sendMessage: async () => ({ sources: [], media: { qualities: [{ height: 720, codec: "h264" }] } }) },
     storage: { local: { get: async () => ({ detectVideos: true }) }, onChanged: { addListener() {}, removeListener() {} } } };
   const video = window.document.querySelector("video");
   video.getBoundingClientRect = () => ({ width: 640, height: 360, top: 50, bottom: 410, left: 30, right: 670 });
   try {
-    window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
+    {const send=window.chrome?.runtime?.sendMessage;if(window.chrome)window.chrome.runtime.sendMessage=async m=>m?.type==="syphon-video-claim"?{ok:true}:m?.type==="syphon-video-title"?{}:m?.type==="syphon-player-catalog"?{players:[]}:send(m);}
+    playerFixture(window);window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
     const host = window.document.querySelector("[data-syphon-video-button]"), trigger = root.querySelector(".trigger"), panel = root.querySelector(".panel");
     trigger.click(); await tick(); assert.equal(panel.hidden, false);
     root.querySelector('[role="status"]').dispatchEvent(new window.MouseEvent("click", { bubbles: true, composed: true }));
@@ -156,7 +166,7 @@ test("outside clicks close the menu and dismiss stays hidden until a different v
     window.dispatchEvent(new window.Event("resize")); await tick(200); assert.equal(host.hidden, true);
     Object.defineProperty(video, "currentSrc", { get: () => video.src, configurable: true });
     video.dispatchEvent(new window.Event("loadedmetadata")); assert.equal(host.hidden, true);
-    video.src = "/second.mp4"; video.dispatchEvent(new window.Event("loadedmetadata")); assert.equal(host.hidden, false);
+    video.src = "/second.mp4"; video.dispatchEvent(new window.Event("loadedmetadata"));await tick(); assert.equal(host.hidden, false);
     trigger.click(); assert.equal(panel.hidden, false);
     root.dispatchEvent(new window.KeyboardEvent("keydown", { key: "Escape", bubbles: true })); assert.equal(panel.hidden, true);
     root.querySelector(".dismiss").click();
@@ -168,23 +178,24 @@ test("outside clicks close the menu and dismiss stays hidden until a different v
 });
 
 test("playback starts detection without hovering, duplicate players share work and expired results stay visible while refreshing", async () => {
-  const dom = new JSDOM('<video></video><video></video>', { url: "https://www.youtube.com/watch?v=YE7VzlLtp-4", runScripts: "outside-only" });
+  const dom = new JSDOM('<div id="movie_player"><video></video></div><video></video>', { url: "https://www.youtube.com/watch?v=YE7VzlLtp-4", runScripts: "outside-only" });
   const { window } = dom, roots = [], pending = []; let clock = 100000;
   window.Date.now = () => clock;
   const attach = window.Element.prototype.attachShadow;
-  window.Element.prototype.attachShadow = function(options) { const root = attach.call(this, options); roots.push(root); return root; };
+  window.Element.prototype.attachShadow = function(options) { const root = attach.call(this, options); if(this.hasAttribute("data-syphon-video-button"))roots.push(root); return root; };
   window.chrome = { runtime: { onMessage: { addListener() {}, removeListener() {} }, sendMessage: request => {
     if(request.type === "syphon-player-info") return Promise.resolve({}); assert.equal(request.type, "syphon-media-inspect"); return new Promise(resolve => pending.push(resolve));
   } }, storage: { local: { get: async () => ({ detectVideos: true }) }, onChanged: { addListener() {}, removeListener() {} } } };
   try {
-    window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
+    {const send=window.chrome?.runtime?.sendMessage;if(window.chrome)window.chrome.runtime.sendMessage=async m=>m?.type==="syphon-video-claim"?{ok:true}:m?.type==="syphon-video-title"?{}:m?.type==="syphon-player-catalog"?{players:[]}:send(m);}
+    playerFixture(window);window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
     assert.equal(pending.length, 0, "Idle players should not start native work");
     window.document.querySelector("video").dispatchEvent(new window.Event("play")); await tick();
     assert.equal(pending.length, 1); assert.equal(roots[0].querySelector(".panel").hidden, true);
     window.document.querySelectorAll("video")[1].dispatchEvent(new window.Event("playing")); await tick(); assert.equal(pending.length, 1);
-    roots[1].querySelector(".trigger").click(); await tick(); assert.equal(pending.length, 1);
+    assert.equal(window.document.querySelectorAll("[data-syphon-video-button]")[1].hidden,true); await tick(); assert.equal(pending.length, 1);
     pending[0]({ media: { qualities: [{ height: 1080, codec: "h264", estimatedBytes: 125000000 }] } }); await tick();
-    assert.equal(roots[1].querySelectorAll(".option")[1].textContent, "1080p · About 125 MB");
+    assert.equal(roots[0].querySelectorAll(".option")[1].textContent, "1080p · About 125 MB");
     roots[0].querySelector(".trigger").click(); await tick(); assert.equal(pending.length, 1);
     assert.equal(roots[0].querySelectorAll(".option")[1].textContent, "1080p · About 125 MB");
     clock += 60001;
@@ -196,13 +207,13 @@ test("playback starts detection without hovering, duplicate players share work a
   } finally { window.syphonVideoController?.stop(); window.close(); }
 });
 
-test("already playing videos detect late streams automatically and playback listeners clean up", async () => {
+test("unmatched page streams stay separate; declared late sources are inspected and listeners clean up", async () => {
   const dom = new JSDOM('<video src="blob:https://fixture.test/player"></video>', { url: "https://fixture.test/watch", runScripts: "outside-only" });
   const { window } = dom, listeners = new Set(), messages = []; let root, sources = [];
   const video = window.document.querySelector("video");
   Object.defineProperty(video, "paused", { get: () => false });
   const attach = window.Element.prototype.attachShadow;
-  window.Element.prototype.attachShadow = function(options) { root = attach.call(this, options); return root; };
+  window.Element.prototype.attachShadow = function(options) { const shadow=attach.call(this,options);if(this.hasAttribute("data-syphon-video-button"))root=shadow;return shadow; };
   window.chrome = { runtime: { onMessage: { addListener: f => listeners.add(f), removeListener: f => listeners.delete(f) }, sendMessage: async request => {
     messages.push(request);
     if (request.type === "syphon-media-sources") return { sources };
@@ -210,17 +221,19 @@ test("already playing videos detect late streams automatically and playback list
     return { media: { qualities: [{ height: 1080, codec: "h264", estimatedBytes: 40000000 }, { height: 720, codec: "h264", estimatedBytes: 20000000 }] } };
   } }, storage: { local: { get: async () => ({ detectVideos: true }) }, onChanged: { addListener() {}, removeListener() {} } } };
   try {
-    window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
-    assert.equal(messages[0].type, "syphon-media-sources"); assert.equal(root.querySelector(".panel").hidden, true);
+    {const send=window.chrome?.runtime?.sendMessage;if(window.chrome)window.chrome.runtime.sendMessage=async m=>m?.type==="syphon-video-claim"?{ok:true}:m?.type==="syphon-video-title"?{}:m?.type==="syphon-player-catalog"?{players:[]}:send(m);}
+    playerFixture(window);window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
+    assert.equal(messages.filter(m=>m.type==="syphon-media-inspect").length,1);assert.equal(messages.find(m=>m.type==="syphon-media-inspect").url,"https://fixture.test/watch"); assert.equal(root.querySelector(".panel").hidden, true);
     sources = [{ url: "https://cdn.test/master.mpd", manifest: true }];
     for (const listener of listeners) listener({ type: "syphon-media-found" });
-    await tick(200);
-    assert.equal(messages.filter(m => m.type === "syphon-media-inspect").length, 1);
-    assert.match(root.textContent, /1080p · another video on this page · About 40 MB/);
+    await tick(200);assert.equal(messages.filter(m=>m.type==="syphon-media-inspect").length,1);
+    video.src="https://cdn.test/master.mpd";video.dispatchEvent(new window.Event("loadedmetadata"));await tick();video.dispatchEvent(new window.Event("play"));await tick();
+    assert.equal(messages.filter(m => m.type === "syphon-media-inspect").length, 2);
+    assert.match(root.querySelector(".video-example").textContent, /1080p · About 40 MB/);
     assert.equal(root.querySelector(".panel").hidden, true);
     root.querySelector(".trigger").click(); await tick();
     assert.match(root.querySelector(".option").textContent, /About 40 MB/);
-    assert.equal(messages.filter(m => m.type === "syphon-media-inspect").length, 1);
+    assert.equal(messages.filter(m => m.type === "syphon-media-inspect").length, 2);
     root.querySelector(".dismiss").click();
     for (const listener of listeners) listener({ type: "syphon-media-found" });
     await tick(200); assert.equal(root.querySelector(".panel").hidden, true);
@@ -234,13 +247,14 @@ test("playing labeled direct sources estimates sizes before the menu opens", asy
   const dom = new JSDOM('<video><source src="/movie.mp4" label="720p"></video>', { url: "https://fixture.test/watch", runScripts: "outside-only" });
   const { window } = dom, messages = []; let root;
   const attach = window.Element.prototype.attachShadow;
-  window.Element.prototype.attachShadow = function(options) { root = attach.call(this, options); return root; };
+  window.Element.prototype.attachShadow = function(options) { const shadow=attach.call(this,options);if(this.hasAttribute("data-syphon-video-button"))root=shadow;return shadow; };
   window.chrome = { runtime: { onMessage: { addListener() {}, removeListener() {} }, sendMessage: async request => {
     messages.push(request);
     return request.type === "syphon-media-sources" ? { sources: [] } : { media: { qualities: [{ height: 720, codec: "h264", estimatedBytes: 15000000 }] } };
   } }, storage: { local: { get: async () => ({ detectVideos: true }) }, onChanged: { addListener() {}, removeListener() {} } } };
   try {
-    window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
+    {const send=window.chrome?.runtime?.sendMessage;if(window.chrome)window.chrome.runtime.sendMessage=async m=>m?.type==="syphon-video-claim"?{ok:true}:m?.type==="syphon-video-title"?{}:m?.type==="syphon-player-catalog"?{players:[]}:send(m);}
+    playerFixture(window);window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
     const video = window.document.querySelector("video"); video.dispatchEvent(new window.Event("play")); await tick();
     assert.equal(root.querySelector(".option").textContent, "720p · About 15 MB");
     assert.equal(root.querySelector(".panel").hidden, true);
@@ -251,23 +265,24 @@ test("playing labeled direct sources estimates sizes before the menu opens", asy
 });
 
 test("stream inspections run two at a time and render completed sizes without waiting for a slow source", async () => {
-  const dom = new JSDOM('<video src="blob:https://fixture.test/player"></video>', { url: "https://fixture.test/watch", runScripts: "outside-only" });
+  const dom = new JSDOM('<video><source src="https://cdn.test/1.mpd" label="Source 1"><source src="https://cdn.test/2.mpd" label="Source 2"><source src="https://cdn.test/3.mpd" label="Source 3"><source src="https://cdn.test/4.mpd" label="Source 4"></video>', { url: "https://fixture.test/watch", runScripts: "outside-only" });
   const { window } = dom; let root; const pending = [];
   const attach = window.Element.prototype.attachShadow;
-  window.Element.prototype.attachShadow = function(options) { root = attach.call(this, options); return root; };
+  window.Element.prototype.attachShadow = function(options) { const shadow=attach.call(this,options);if(this.hasAttribute("data-syphon-video-button"))root=shadow;return shadow; };
   window.chrome = { runtime: { onMessage: { addListener() {}, removeListener() {} }, sendMessage: async request => {
     if (request.type === "syphon-media-sources") return { sources: [1, 2, 3, 4].map(n => ({ url: `https://cdn.test/${n}.mpd`, manifest: true })) };
     return await new Promise(resolve => pending.push({ url: request.url, resolve }));
   } }, storage: { local: { get: async () => ({ detectVideos: true }) }, onChanged: { addListener() {}, removeListener() {} } } };
   try {
-    window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
+    {const send=window.chrome?.runtime?.sendMessage;if(window.chrome)window.chrome.runtime.sendMessage=async m=>m?.type==="syphon-video-claim"?{ok:true}:m?.type==="syphon-video-title"?{}:m?.type==="syphon-player-catalog"?{players:[]}:send(m);}
+    playerFixture(window);window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
     root.querySelector(".trigger").click(); await tick(); assert.equal(pending.length, 2);
     pending[1].resolve({ media: { qualities: [{ height: 720, codec: "h264", estimatedBytes: 10000000 }] } }); await tick();
-    assert.equal(pending.length, 3); assert.match(root.textContent, /720p · another video on this page · About 10 MB/);
+    assert.equal(pending.length, 3); assert.match(root.querySelector(".video-example").textContent, /720p · About 10 MB/);
     pending[2].resolve({ message: "Unavailable source" }); await tick(); assert.equal(pending.length, 4);
     pending[3].resolve({ media: { qualities: [{ height: 480, codec: "h264" }] } });
     pending[0].resolve({ media: { qualities: [{ height: 1080, codec: "h264" }] } }); await tick();
-    assert.match(root.textContent, /1080p/); assert.match(root.textContent, /Unavailable source/);
+    assert.match(root.querySelector(".video-example").textContent, /1080p/); assert.match(root.querySelector(".video-example").textContent, /Unavailable source/);
   } finally { window.syphonVideoController?.stop(); window.close(); }
 });
 
@@ -276,7 +291,7 @@ test("preferred quality survives reloads, sizes stay readable and unavailable or
   const { window } = dom; let root, accepted = true, unavailable = false;
   const state = { detectVideos: true, preferredVideoQuality: 720 }, requests = [], changes = new Set();
   const attach = window.Element.prototype.attachShadow;
-  window.Element.prototype.attachShadow = function(options) { root = attach.call(this, options); return root; };
+  window.Element.prototype.attachShadow = function(options) { const shadow=attach.call(this,options);if(this.hasAttribute("data-syphon-video-button"))root=shadow;return shadow; };
   window.chrome = { runtime: { onMessage: { addListener() {}, removeListener() {} }, sendMessage: async request => {
     requests.push(request);
     if (request.type === "syphon-media-inspect") return { media: { qualities: [
@@ -287,24 +302,25 @@ test("preferred quality survives reloads, sizes stay readable and unavailable or
   } }, storage: { local: { get: async () => ({ ...state }), set: async values => Object.assign(state, values) },
     onChanged: { addListener: f => changes.add(f), removeListener: f => changes.delete(f) } } };
   try {
-    window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
+    {const send=window.chrome?.runtime?.sendMessage;if(window.chrome)window.chrome.runtime.sendMessage=async m=>m?.type==="syphon-video-claim"?{ok:true}:m?.type==="syphon-video-title"?{}:m?.type==="syphon-player-catalog"?{players:[]}:send(m);}
+    playerFixture(window);window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
     root.querySelector(".trigger").click(); await tick();
     assert.deepEqual([...root.querySelectorAll(".option")].map(b => b.textContent), ["Best available", "1080p · About 125 MB", "720p · Preferred", "Convert audio to MP3"]);
-    assert(root.textContent.includes("720p · Preferred")); assert.equal(root.querySelector('[aria-pressed="true"]'), null);
+    assert(root.querySelector(".video-example").textContent.includes("720p · Preferred")); assert.equal(root.querySelector('[aria-pressed="true"]'), null);
     root.querySelectorAll(".option")[1].click(); root.querySelector(".confirm").click(); await tick(); assert.equal(state.preferredVideoQuality, 1080);
     assert.match(root.querySelector('[aria-pressed="true"]').textContent, /1080p · Preferred/);
     accepted = false; root.querySelectorAll(".option")[2].click(); root.querySelector(".confirm").click(); await tick(); assert.equal(state.preferredVideoQuality, 1080);
     accepted = true; [...root.querySelectorAll(".option")].at(-1).click(); root.querySelector(".confirm").click(); await tick(); assert.equal(state.preferredVideoQuality, 1080);
     window.syphonVideoController.stop(); window.eval(await code("video-button.js")); await tick();
-    root.querySelector(".trigger").click(); await tick(); assert.match(root.textContent,/1080p · Preferred/); assert.equal(root.querySelector('[aria-pressed="true"]'),null);
+    root.querySelector(".trigger").click(); await tick(); assert.match(root.querySelector(".video-example").textContent,/1080p · Preferred/); assert.equal(root.querySelector('[aria-pressed="true"]'),null);
     unavailable = true; window.history.pushState({}, "", "/shorts/BaW_jenozKc");
-    root.querySelector(".trigger").click(); root.querySelector(".trigger").click(); await tick();
-    assert.match(root.textContent, /preferred quality \(1080p\) isn't available/);
+    root.querySelector(".trigger").click();await tick();
+    assert.match(root.querySelector(".video-example").textContent, /preferred quality \(1080p\) isn't available/);
     assert.equal(root.querySelector('[aria-pressed="true"]'), null); assert.equal(state.preferredVideoQuality, 1080);
     assert.equal(requests.filter(r => r.type === "syphon-media-download").length, 3);
     state.preferredVideoQuality = 720;
     for (const changed of changes) changed({ preferredVideoQuality: { newValue: 720 } }, "local");
-    assert(root.textContent.includes("720p · Preferred")); assert.equal(root.querySelector('[aria-pressed="true"]'), null);
+    assert(root.querySelector(".video-example").textContent.includes("720p · Preferred")); assert.equal(root.querySelector('[aria-pressed="true"]'), null);
   } finally { window.syphonVideoController?.stop(); window.close(); }
 });
 
@@ -332,11 +348,11 @@ test("popup requests optional permissions on selection and persists feature swit
   } finally { window.close(); }
 });
 
-test("blob players show inspected hidden qualities and protected players disable extraction", async () => {
-  const dom = new JSDOM('<video src="blob:https://fixture.test/id"></video>', { url: "https://fixture.test/watch", runScripts: "outside-only" });
+test("declared manifest sources show inspected qualities and protected players disable extraction", async () => {
+  const dom = new JSDOM('<video src="https://cdn.test/master.mpd"></video>', { url: "https://fixture.test/watch", runScripts: "outside-only" });
   const { window } = dom; let root, selected;
   const attach = window.Element.prototype.attachShadow;
-  window.Element.prototype.attachShadow = function(options) { root = attach.call(this, options); return root; };
+  window.Element.prototype.attachShadow = function(options) { const shadow=attach.call(this,options);if(this.hasAttribute("data-syphon-video-button"))root=shadow;return shadow; };
   const video = window.document.querySelector("video");
   window.chrome = { runtime: { onMessage: { addListener() {}, removeListener() {} }, sendMessage: async request => {
     if (request.type === "syphon-media-sources") return { sources: [{ url: "https://cdn.test/master.mpd", manifest: true }] };
@@ -344,14 +360,15 @@ test("blob players show inspected hidden qualities and protected players disable
     selected = request; return { message: "Added" };
   } }, storage: { local: { get: async () => ({ detectVideos: true }) }, onChanged: { addListener() {}, removeListener() {} } } };
   try {
-    window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
+    {const send=window.chrome?.runtime?.sendMessage;if(window.chrome)window.chrome.runtime.sendMessage=async m=>m?.type==="syphon-video-claim"?{ok:true}:m?.type==="syphon-video-title"?{}:m?.type==="syphon-player-catalog"?{players:[]}:send(m);}
+    playerFixture(window);window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
     root.querySelector(".trigger").click(); await tick();
     let buttons = [...root.querySelectorAll(".option")];
-    assert.equal(buttons[0].textContent, "1080p · another video on this page"); assert.equal(buttons[1].textContent, "720p · another video on this page");
+    assert.equal(buttons[0].textContent, "1080p"); assert.equal(buttons[1].textContent, "720p");
     buttons[1].click(); root.querySelector(".confirm").click(); await tick(); assert.equal(selected.videoStream, 0); assert.equal(selected.audioStream, 3); assert.equal(selected.format, "mp4");
     Object.defineProperty(video, "mediaKeys", { value: {}, configurable: true }); video.dispatchEvent(new window.Event("loadedmetadata"));
     buttons = [...root.querySelectorAll(".option")]; assert.equal(buttons.every(b => b.disabled), true);
-    assert.match(root.textContent, /Protected video cannot be downloaded/);
+    assert.ok(root.querySelector(".video-example").textContent.includes("Yeah... I can't download this! Must be encrypted."));
   } finally { window.syphonVideoController?.stop(); window.close(); }
 });
 
@@ -359,7 +376,7 @@ test("YouTube button uses page extraction, passes format IDs and follows video n
   const dom = new JSDOM('<video src="blob:https://www.youtube.com/player"></video>', { url: "https://www.youtube.com/watch?v=YE7VzlLtp-4", runScripts: "outside-only" });
   const { window } = dom; let root; const requests = [];
   const attach = window.Element.prototype.attachShadow;
-  window.Element.prototype.attachShadow = function(options) { root = attach.call(this, options); return root; };
+  window.Element.prototype.attachShadow = function(options) { const shadow=attach.call(this,options);if(this.hasAttribute("data-syphon-video-button"))root=shadow;return shadow; };
   window.chrome = { runtime: { onMessage: { addListener() {}, removeListener() {} }, sendMessage: async request => {
     requests.push(request);
     if (request.type === "syphon-media-inspect") return { media: { qualities: [
@@ -371,7 +388,8 @@ test("YouTube button uses page extraction, passes format IDs and follows video n
     return { message: "Added" };
   } }, storage: { local: { get: async () => ({ detectVideos: true }) }, onChanged: { addListener() {}, removeListener() {} } } };
   try {
-    window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
+    {const send=window.chrome?.runtime?.sendMessage;if(window.chrome)window.chrome.runtime.sendMessage=async m=>m?.type==="syphon-video-claim"?{ok:true}:m?.type==="syphon-video-title"?{}:m?.type==="syphon-player-catalog"?{players:[]}:send(m);}
+    playerFixture(window);window.eval(await code("media-model.js")); window.eval(await code("video-button.js")); await tick();
     root.querySelector(".trigger").click(); await tick();
     assert.equal(requests.some(r => r.type === "syphon-media-sources"), false);
     assert.equal(requests[0].url, "https://www.youtube.com/watch?v=YE7VzlLtp-4");
@@ -388,28 +406,50 @@ test("YouTube button uses page extraction, passes format IDs and follows video n
 });
 
 test("browser metadata supplies qualities and captions without native inspection", async()=>{
- const dom=new JSDOM('<video></video>',{url:'https://www.youtube.com/watch?v=YE7VzlLtp-4',runScripts:'outside-only'}),{window}=dom;let root;const requests=[];const attach=window.Element.prototype.attachShadow;window.Element.prototype.attachShadow=function(o){root=attach.call(this,o);return root;};
+ const dom=new JSDOM('<video></video>',{url:'https://www.youtube.com/watch?v=YE7VzlLtp-4',runScripts:'outside-only'}),{window}=dom;let root;const requests=[];const attach=window.Element.prototype.attachShadow;window.Element.prototype.attachShadow=function(o){const shadow=attach.call(this,o);if(this.hasAttribute("data-syphon-video-button"))root=shadow;return shadow;};
  window.chrome={runtime:{onMessage:{addListener(){},removeListener(){}},sendMessage:async r=>{requests.push(r);if(r.type==='syphon-player-info')return {media:{qualities:[{height:720,youtubeFormat:'136',codec:'avc1'}],subtitles:[{url:'https://www.youtube.com/api/timedtext?v=YE7VzlLtp-4',label:'English'}]}};return {status:'accepted',message:'Added'};}},storage:{local:{get:async()=>({detectVideos:true})},onChanged:{addListener(){},removeListener(){}}}};
- try{window.eval(await code('media-model.js'));window.eval(await code('video-button.js'));await tick();window.document.querySelector('video').dispatchEvent(new window.Event('play'));await tick();root.querySelector('.trigger').click();await tick();assert(root.textContent.includes('720p'));assert(root.textContent.includes('English'));assert(!requests.some(r=>r.type==='syphon-media-inspect'));const choice=[...root.querySelectorAll('.option')].find(b=>b.textContent==='720p');choice.click();root.querySelector('.confirm').click();await tick();assert.equal(requests.find(r=>r.type==='syphon-media-download').youtubeFormat,'136');}
+ try{{const send=window.chrome?.runtime?.sendMessage;if(window.chrome)window.chrome.runtime.sendMessage=async m=>m?.type==='syphon-video-claim'?{ok:true}:m?.type==='syphon-video-title'?{}:m?.type==='syphon-player-catalog'?{players:[]}:send(m);}
+    playerFixture(window);window.eval(await code('media-model.js'));window.eval(await code('video-button.js'));await tick();window.document.querySelector('video').dispatchEvent(new window.Event('play'));await tick();root.querySelector('.trigger').click();await tick();assert(root.querySelector(".video-example").textContent.includes('720p'));assert(root.querySelector(".video-example").textContent.includes('English'));assert(!requests.some(r=>r.type==='syphon-media-inspect'));const choice=[...root.querySelectorAll('.option')].find(b=>b.textContent==='720p');choice.click();root.querySelector('.confirm').click();await tick();assert.equal(requests.find(r=>r.type==='syphon-media-download').youtubeFormat,'136');}
  finally{window.syphonVideoController?.stop();window.close();}
 });
 test("automatic quality and MP3 can be queued while native fallback is still pending",async()=>{
- const dom=new JSDOM('<video></video>',{url:'https://www.youtube.com/watch?v=YE7VzlLtp-4',runScripts:'outside-only'}),{window}=dom;let root;const requests=[];const attach=window.Element.prototype.attachShadow;window.Element.prototype.attachShadow=function(o){root=attach.call(this,o);return root;};
+ const dom=new JSDOM('<video></video>',{url:'https://www.youtube.com/watch?v=YE7VzlLtp-4',runScripts:'outside-only'}),{window}=dom;let root;const requests=[];const attach=window.Element.prototype.attachShadow;window.Element.prototype.attachShadow=function(o){const shadow=attach.call(this,o);if(this.hasAttribute("data-syphon-video-button"))root=shadow;return shadow;};
  window.chrome={runtime:{onMessage:{addListener(){},removeListener(){}},sendMessage:async r=>{requests.push(r);if(r.type==='syphon-player-info')return {};if(r.type==='syphon-media-inspect')return new Promise(()=>{});return {status:'accepted',message:'Added'};}},storage:{local:{get:async()=>({detectVideos:true})},onChanged:{addListener(){},removeListener(){}}}};
- try{window.eval(await code('media-model.js'));window.eval(await code('video-button.js'));await tick();root.querySelector('.trigger').click();await tick();root.querySelector('.option').click();root.querySelector('.confirm').click();await tick();assert.equal(requests.find(r=>r.type==='syphon-media-download').youtubeFormat,undefined);[...root.querySelectorAll('.option')].at(-1).click();root.querySelector('.confirm').click();await tick();assert.equal(requests.at(-1).format,'mp3');}
+ try{{const send=window.chrome?.runtime?.sendMessage;if(window.chrome)window.chrome.runtime.sendMessage=async m=>m?.type==='syphon-video-claim'?{ok:true}:m?.type==='syphon-video-title'?{}:m?.type==='syphon-player-catalog'?{players:[]}:send(m);}
+    playerFixture(window);window.eval(await code('media-model.js'));window.eval(await code('video-button.js'));await tick();root.querySelector('.trigger').click();await tick();root.querySelector('.option').click();root.querySelector('.confirm').click();await tick();assert.equal(requests.find(r=>r.type==='syphon-media-download').youtubeFormat,undefined);[...root.querySelectorAll('.option')].at(-1).click();root.querySelector('.confirm').click();await tick();assert.equal(requests.at(-1).format,'mp3');}
  finally{window.syphonVideoController?.stop();window.close();}
 });
 
 test('in-band closed captions are detected without pretending a separate file is available',async()=>{
  const dom=new JSDOM('<video src="/video.mp4"></video>',{url:'https://fixture.test/',runScripts:'outside-only'}),{window}=dom;
- try{const video=window.document.querySelector('video');Object.defineProperty(video,'textTracks',{value:[{kind:'captions',label:'English CC',language:'en',mode:'disabled'}]});window.eval(await code('media-model.js'));const cc=window.SyphonMedia.collect(video).options.find(o=>o.label==='English CC');assert(cc);assert.equal(cc.supported,false);assert.match(cc.note,/Embedded/);assert.equal(video.textTracks[0].mode,'disabled');}
+ try{const video=window.document.querySelector('video');Object.defineProperty(video,'textTracks',{value:[{kind:'captions',label:'English CC',language:'en',mode:'disabled'}]});{const send=window.chrome?.runtime?.sendMessage;if(window.chrome)window.chrome.runtime.sendMessage=async m=>m?.type==='syphon-video-claim'?{ok:true}:m?.type==='syphon-video-title'?{}:m?.type==='syphon-player-catalog'?{players:[]}:send(m);}
+    playerFixture(window);window.eval(await code('media-model.js'));const cc=window.SyphonMedia.collect(video).options.find(o=>o.label==='English CC');assert(cc);assert.equal(cc.supported,false);assert.match(cc.note,/Embedded/);assert.equal(video.textTracks[0].mode,'disabled');}
  finally{window.close();}
 });
 
 test('captions are collapsed by default, preserve expansion while selecting, and reset on reopening',async()=>{
- const dom=new JSDOM('<video><source src="/video.mp4" label="1080p"><track kind="captions" src="/en.vtt" label="English"></video>',{url:'https://fixture.test/watch',runScripts:'outside-only'}),{window}=dom;let root;const attach=window.Element.prototype.attachShadow;window.Element.prototype.attachShadow=function(o){root=attach.call(this,o);return root;};const requests=[];
+ const dom=new JSDOM('<video><source src="/video.mp4" label="1080p"><track kind="captions" src="/en.vtt" label="English"></video>',{url:'https://fixture.test/watch',runScripts:'outside-only'}),{window}=dom;let root;const attach=window.Element.prototype.attachShadow;window.Element.prototype.attachShadow=function(o){const shadow=attach.call(this,o);if(this.hasAttribute("data-syphon-video-button"))root=shadow;return shadow;};const requests=[];
  window.chrome={runtime:{onMessage:{addListener(){},removeListener(){}},sendMessage:async r=>{requests.push(r);return r.type==='syphon-media-download'?{status:'accepted',message:'Added'}:{sources:[]};}},storage:{local:{get:async()=>({detectVideos:true})},onChanged:{addListener(){},removeListener(){}}}};
- try{window.eval(await code('media-model.js'));window.eval(await code('video-button.js'));await tick();root.querySelector('.trigger').click();await tick();let group=root.querySelector('.caption-group');assert.equal(group.open,false);assert.equal(group.querySelectorAll('.option').length,1);assert.equal(root.querySelector('.option').textContent,'1080p');assert(group.compareDocumentPosition([...root.querySelectorAll('.option')].at(-1))&window.Node.DOCUMENT_POSITION_FOLLOWING);
+ try{{const send=window.chrome?.runtime?.sendMessage;if(window.chrome)window.chrome.runtime.sendMessage=async m=>m?.type==='syphon-video-claim'?{ok:true}:m?.type==='syphon-video-title'?{}:m?.type==='syphon-player-catalog'?{players:[]}:send(m);}
+    playerFixture(window);window.eval(await code('media-model.js'));window.eval(await code('video-button.js'));await tick();root.querySelector('.trigger').click();await tick();let group=root.querySelector('.caption-group');assert.equal(group.open,false);assert.equal(group.querySelectorAll('.option').length,1);assert.equal(root.querySelector('.option').textContent,'1080p');assert(group.compareDocumentPosition([...root.querySelectorAll('.option')].at(-1))&window.Node.DOCUMENT_POSITION_FOLLOWING);
  group.querySelector('summary').click();assert.equal(group.open,true);group.querySelector('.option').click();assert.equal(root.querySelector('.caption-group').open,true);root.querySelector('.confirm').click();await tick();assert.equal(requests.find(r=>r.type==='syphon-media-download').url,'https://fixture.test/en.vtt');root.querySelector('.trigger').click();root.querySelector('.trigger').click();await tick();assert.equal(root.querySelector('.caption-group').open,false);
  }finally{window.syphonVideoController?.stop();window.close();}
+});
+
+
+test("encrypted manifest reports the requested message and ordinary network failures do not",async()=>{
+ for(const encrypted of [true,false]){
+  const dom=new JSDOM('<video src="https://cdn.test/master.m3u8"></video>',{url:'https://fixture.test/watch',runScripts:'outside-only'}),{window}=dom;let root;const attach=window.Element.prototype.attachShadow;
+  window.Element.prototype.attachShadow=function(options){const shadow=attach.call(this,options);if(this.hasAttribute("data-syphon-video-button"))root=shadow;return shadow;};let downloads=0;
+  window.chrome={runtime:{onMessage:{addListener(){},removeListener(){}},sendMessage:async request=>{
+   if(request.type==='syphon-media-sources')return{sources:[{url:'https://cdn.test/master.mpd',manifest:true}]};
+   if(request.type==='syphon-media-inspect')return{status:'rejected',message:encrypted?'DRM/protected DASH is not supported. No keys or licenses are extracted.':'HTTP 403: access refused.'};
+   if(request.type==='syphon-media-download')downloads++;return{};
+  }},storage:{local:{get:async()=>({detectVideos:true})},onChanged:{addListener(){},removeListener(){}}}};
+  try{{const send=window.chrome?.runtime?.sendMessage;if(window.chrome)window.chrome.runtime.sendMessage=async m=>m?.type==='syphon-video-claim'?{ok:true}:m?.type==='syphon-video-title'?{}:m?.type==='syphon-player-catalog'?{players:[]}:send(m);}
+    playerFixture(window);window.eval(await code('media-model.js'));window.eval(await code('video-button.js'));await tick();root.querySelector('.trigger').click();await tick(100);
+   assert.equal(root.querySelector(".video-example").textContent.includes("Yeah... I can't download this! Must be encrypted."),encrypted);
+   assert.equal(root.querySelector('.confirm').disabled,true);root.querySelector('.confirm').click();await tick();assert.equal(downloads,0);
+  }finally{window.syphonVideoController?.stop();window.close();}
+ }
 });

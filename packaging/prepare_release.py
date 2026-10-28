@@ -30,7 +30,7 @@ def require_file(path, entry):
         raise ValueError(f'File identity mismatch: {path.name}')
 
 
-def prepare(installer, record_path, extracted, manifest_path, output, release_date, sources=None):
+def prepare(installer, record_path, extracted, manifest_path, output, release_date, sources=None, expected_version=None):
     installer, extracted, output = installer.resolve(), extracted.resolve(), output.resolve()
     if output.exists() or output.is_relative_to(extracted):
         raise ValueError('Use a new output directory outside the extracted payload.')
@@ -42,8 +42,16 @@ def prepare(installer, record_path, extracted, manifest_path, output, release_da
     require_file(extracted / 'build-inputs.json', manifest['Files']['build-inputs.json'])
     build = read_json(extracted / 'build-inputs.json')
     version = build['version']
-    if version != '0.1.0-beta.17' or manifest['Version'] != version:
+    # These templates and archive names are specifically for numbered beta releases.
+    version_pattern = r'\d+\.\d+\.\d+-beta\.(\d+)'
+    version_match = re.fullmatch(version_pattern, version) if isinstance(version, str) else None
+    if not version_match or manifest['Version'] != version:
         raise ValueError('Release versions do not match.')
+    if expected_version is not None and (not isinstance(expected_version, str) or
+            not re.fullmatch(version_pattern, expected_version) or expected_version != version):
+        raise ValueError('Requested release version does not match the verified build.')
+    if record.get('version', version) != version:
+        raise ValueError('Signing receipt version does not match the verified build.')
     if build['sourceDirty'] is not False or build['architecture'] != 'win-x64' or not re.fullmatch(r'[0-9a-f]{40}', build['sourceRevision']):
         raise ValueError('Expected clean Windows x64 build provenance.')
     if installer.name != f'Syphon-Setup-{version}-win-x64.exe':
@@ -62,7 +70,7 @@ def prepare(installer, record_path, extracted, manifest_path, output, release_da
     extension_version = read_json(extension / 'manifest.json')['version']
     if not re.fullmatch(r'\d+(?:\.\d+){1,3}', extension_version):
         raise ValueError('Invalid extension version.')
-    beta = version.rsplit('.', 1)[1]
+    beta = version_match.group(1)
     extension_name = f'Syphon-Extension-{extension_version}-beta{beta}.zip'
     if sources is None:
         sources = [read_json(ROOT / 'packaging' / name) for name in
@@ -96,7 +104,7 @@ def prepare(installer, record_path, extracted, manifest_path, output, release_da
                     'certificateThumbprint': record['certificateThumbprint'], 'timestamped': False},
         'acceptance': {'ownerReportedFunctionalAndInstallerPassOnThisPC': False, 'cleanMachineTested': False},
         'sources': [{key: item[key] for key in ('file', 'bytes', 'sha256')} for item in sources],
-        'pending': ['Owner Beta17 upgrade acceptance', 'Public release authorization',
+        'pending': [f'Owner {version} upgrade acceptance', 'Public release authorization',
                     'Browser store accounts, submission and store-installed acceptance'],
     }
     values = {
@@ -175,6 +183,7 @@ if __name__ == '__main__':
     parser.add_argument('--manifest', type=Path)
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--date')
+    parser.add_argument('--version', help='Expected version; must match the installer and verified build records.')
     parser.add_argument('--verify-only', action='store_true')
     args = parser.parse_args()
     if args.verify_only:
@@ -183,4 +192,4 @@ if __name__ == '__main__':
     else:
         if not all((args.installer, args.receipt, args.extracted, args.manifest, args.date)):
             parser.error('Provide installer, receipt, extracted payload, manifest and date.')
-        print(json.dumps(prepare(args.installer, args.receipt, args.extracted, args.manifest, args.output, args.date), indent=2))
+        print(json.dumps(prepare(args.installer, args.receipt, args.extracted, args.manifest, args.output, args.date, expected_version=args.version), indent=2))

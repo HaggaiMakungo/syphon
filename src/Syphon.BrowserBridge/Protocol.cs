@@ -43,7 +43,7 @@ public static class BrowserProtocol
             throw new InvalidDataException("Unsupported media output or stream selection.");
         if (request.YoutubeFormat is string selected && (request.Action != "download" || request.Format is null || selected.Length is < 1 or > 64 ||
             !char.IsAsciiLetterOrDigit(selected[0]) || selected.Any(c => !char.IsAsciiLetterOrDigit(c) && c is not ('_' or '-' or '.'))))
-            throw new InvalidDataException("Unsupported YouTube format identifier.");
+            throw new InvalidDataException("Unsupported video format identifier.");
         if (request.Action is "download" or "media-inspect" && (request.Url is null || request.Url.Length > 8192 ||
             !Uri.TryCreate(request.Url, UriKind.Absolute, out var uri) || uri.Scheme is not ("http" or "https") || !string.IsNullOrEmpty(uri.UserInfo)))
             throw new InvalidDataException("Syphon this supports HTTP and HTTPS links without embedded credentials.");

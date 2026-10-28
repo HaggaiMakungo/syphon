@@ -33,7 +33,7 @@ internal static class SetupAppLauncher
    if(desktop is null)throw new IOException("Windows Explorer is unavailable.");
    document=((dynamic)desktop).Document;
    shell=((dynamic)document).Application;
-   ((dynamic)shell).ShellExecute(executable,"",directory,"open",1);
+   ((dynamic)shell).ShellExecute(executable,"--open",directory,"open",1);
   }
   catch(Exception ex)
   {

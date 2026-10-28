@@ -1,5 +1,7 @@
+import {openPageLinks} from './page-actions.js';
+import {orbitalIcons} from './orbital-icons.js';
 import { probeDesktop } from './connection.js';
-import { handoff } from "./handoff.js";
+import { handoff, supportedLink } from "./handoff.js";
 import { VIDEO_PERMISSION } from "./detection.js";
 import { SIGNIN_PERMISSION } from "./request-context.js";
 
@@ -16,13 +18,20 @@ document.getElementById("extension-id").textContent = `Extension ID: ${chrome.ru
 const probeButton = document.getElementById('check-connection');
 let last, busy = false;
 
+function renderHandoffIcon(attention,received){
+ const name=attention?'alert-triangle':received?'circle-check':'download',svg=card.querySelector('.handoff-icon svg');
+ const source=new DOMParser().parseFromString(orbitalIcons[name],'image/svg+xml').documentElement;
+ svg.setAttribute('viewBox',source.getAttribute('viewBox'));svg.setAttribute('data-icon-family','phosphor');svg.replaceChildren(...[...source.childNodes].map(n=>document.importNode(n,true)));
+}
+
 async function refresh() {
   ({ lastHandoff: last } = await chrome.storage.local.get("lastHandoff"));
   const outcome = last?.response?.status;
   const attention = ["unavailable", "not_found", "rejected"].includes(outcome);
   const titles = { accepted: "Added to Syphon", ready: "Download status", removed: "Removed from Syphon", cancelled: "Download cancelled", not_found: "Request not found", rejected: "Needs attention", unavailable: "Could not confirm handoff" };
   title.textContent = !last ? "No recent handoff" : titles[outcome] ?? "Download status";
-  const message = last?.response?.message ?? "Your next download will appear here. Connect the desktop app once to get started.";
+  const rawMessage = last?.response?.message ?? "Your next download will appear here. Connect the desktop app once to get started.";
+  const message = /\b(?:encrypted|drm|protected (?:hls|dash|playback|media|video))\b/i.test(rawMessage) ? "Yeah... I can't download this! Must be encrypted." : rawMessage;
   const repeatedTitle = title.textContent + ". ";
   status.textContent = message.startsWith(repeatedTitle) ? message.slice(repeatedTitle.length) : message;
   const context = document.getElementById("handoff-context");
@@ -33,7 +42,7 @@ async function refresh() {
   context.textContent = last ? `${source || "Source unavailable for this older request"} · ${when}` : "";
   context.hidden = !last;
   card.dataset.state = !last ? "empty" : attention ? "attention" : "received";
-  card.querySelector(".handoff-icon path").setAttribute("d", attention ? "M12 8v4M12 16h.01M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0" : last ? "M5 12l4 4L19 6" : "M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2M7 11l5 5 5-5M12 4v12");
+  renderHandoffIcon(attention,!!last);
   // A saved acknowledgment proves a past reply, not that the app is still running.
   const replied = ["accepted", "ready", "removed", "not_found", "rejected", "cancelled"].includes(outcome);
   connection.dataset.state = replied ? "replied" : outcome === "unavailable" ? "unavailable" : "unknown";
@@ -131,3 +140,57 @@ for (const [toggle, key, permission] of [[captureToggle, "captureDownloads", { p
 }
 
 chrome.storage.onChanged?.addListener((changes, area) => { if (area === 'local' && changes.desktopConnection) refresh().catch(() => {}); });
+
+const findMedia = document.getElementById('find-media');
+const mediaStatus = document.getElementById('page-media-status');
+const mediaResults = document.getElementById('page-media-results');
+let findingMedia = false;
+findMedia.addEventListener('click', async () => {
+  if (findingMedia) return;
+  findingMedia = true; findMedia.disabled = true;
+  mediaResults.replaceChildren();
+  mediaStatus.textContent = 'Looking for observed media sources…';
+  try {
+    const { detectVideos } = await chrome.storage.local.get('detectVideos');
+    if (!detectVideos || !await chrome.permissions.contains(VIDEO_PERMISSION)) throw new Error('Enable video detection and its permissions below to find media.');
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    if (!tab || tab.incognito || !Number.isInteger(tab.id)) throw new Error('Media discovery is unavailable on this page or in private browsing.');
+    const expectedPageUrl = tab.url;
+    const reply = await chrome.runtime.sendMessage({ type: 'syphon-page-media-sources', tabId: tab.id, expectedPageUrl });
+    const [currentTab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    const currentSettings = await chrome.storage.local.get('detectVideos');
+    if (currentTab?.id !== tab.id || currentTab.url !== expectedPageUrl || currentTab.incognito || !currentSettings.detectVideos || !await chrome.permissions.contains(VIDEO_PERMISSION)) throw new Error('The page or permissions changed. Find media again.');
+    if (!Array.isArray(reply?.sources)) throw new Error(reply?.message || 'Could not find media on this page.');
+    const seen = new Set();
+    const sources = reply.sources.filter(source => supportedLink(source?.url) && !seen.has(source.url) && seen.add(source.url));
+    mediaStatus.textContent = sources.length ? 'Observed sources; these may not be the complete video. Choose one to review desktop options.' : 'No observed media sources. Play media on this page, then try again.';
+    for (const source of sources) {
+      const row = document.createElement('div'); row.className = 'feature';
+      const label = document.createElement('p'); label.className = 'note';
+      const duration = Number.isFinite(source.duration) && source.duration > 0 ? ` · ${Math.floor(source.duration / 60)}:${String(Math.floor(source.duration % 60)).padStart(2, '0')}` : '';
+      label.textContent = `${typeof source.title === 'string' && source.title.trim() ? source.title : 'Unnamed media'} · ${new URL(source.url).hostname}${duration}`;
+      const address = document.createElement('p'); address.className = 'handoff-context'; address.textContent = source.url;
+      const choose = document.createElement('button'); choose.type = 'button'; choose.textContent = 'Choose source in Syphon';
+      choose.addEventListener('click', async () => {
+        if (choose.disabled) return;
+        choose.disabled = true;
+        try {
+          const result = await chrome.runtime.sendMessage({ type: 'syphon-page-media-download', tabId: tab.id, expectedPageUrl, url: source.url });
+          mediaStatus.textContent = result?.message || 'Could not open source options in Syphon.';
+          await refresh();
+        } catch { mediaStatus.textContent = 'Could not open source options in Syphon. Try again.'; }
+        finally { choose.disabled = false; }
+      });
+      row.append(label, address, choose); mediaResults.append(row);
+    }
+  } catch (error) { mediaStatus.textContent = error.message || 'Could not find media on this page.'; }
+  finally { findingMedia = false; findMedia.disabled = false; }
+});
+
+const pageLinks=document.getElementById('page-links');
+pageLinks.addEventListener('click',async()=>{
+ if(pageLinks.disabled)return;pageLinks.disabled=true;
+ try{const [tab]=await chrome.tabs.query({active:true,currentWindow:true});await openPageLinks(chrome,tab);}
+ catch(error){mediaStatus.textContent=error.message||'Could not read links on this page.';}
+ finally{pageLinks.disabled=false;}
+});

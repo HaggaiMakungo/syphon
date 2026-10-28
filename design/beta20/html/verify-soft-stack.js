@@ -1,0 +1,38 @@
+async(page)=>{
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.setViewportSize({width:1024,height:1050});
+ await page.goto('http://127.0.0.1:8767/?v=18');
+ await page.getByRole('combobox',{name:'Filter transfers',exact:true}).click();
+ await page.screenshot({path:'design/beta20/html/soft-stack-filter-open.png',fullPage:true});
+ const trigger=page.getByRole('combobox',{name:'Filter transfers',exact:true});
+ const list=page.getByRole('listbox',{name:'Filter transfers options'});
+ const bounds=await trigger.boundingBox(),options=await list.boundingBox();
+ if(Math.abs(bounds.y+bounds.height-options.y)>2)throw Error('Filter is detached');
+ await page.keyboard.press('End');await page.keyboard.press('Enter');
+ if(await page.locator('.transfer').count()!==1)throw Error('Keyboard filter failed');
+ await trigger.click();await page.keyboard.press('Home');await page.keyboard.press('Enter');
+ await page.getByRole('combobox',{name:'Speed limit',exact:true}).click();
+ await page.screenshot({path:'design/beta20/html/soft-stack-speed-open.png',fullPage:true});
+ const speedTrigger=await page.getByRole('combobox',{name:'Speed limit',exact:true}).boundingBox();
+ const speedOptions=await page.getByRole('listbox',{name:'Speed limit options'}).boundingBox();
+ if(Math.abs(speedOptions.y+speedOptions.height-speedTrigger.y)>2)throw Error('Speed menu is detached');
+ await page.keyboard.press('Escape');
+ if(await page.locator('.joined-dropdown.open').count())throw Error('Escape did not close dropdown');
+ await page.getByRole('button',{name:'New download',exact:true}).click();
+ await page.screenshot({path:'design/beta20/html/soft-stack-add-open.png',fullPage:true});
+ await page.keyboard.press('Escape');
+ await page.getByRole('group',{name:'blender.msi transfer',exact:true}).focus();await page.keyboard.press('Enter');
+ if(await page.locator('.transfer.selected').getAttribute('data-id')!=='0')throw Error('Keyboard selection');
+ await page.getByRole('button',{name:'Pause blender.msi',exact:true}).click();
+ if(await page.locator('.transfer.selected.paused').count()!==1)throw Error('Paused selection');
+ await page.goto('http://127.0.0.1:8767/?v=18&focus=1');
+ await page.screenshot({path:'design/beta20/html/soft-stack-refined.png',fullPage:true});
+ await page.setViewportSize({width:390,height:844});
+ await page.getByRole('combobox',{name:'Filter transfers',exact:true}).click();
+ await page.screenshot({path:'design/beta20/html/soft-stack-mobile-filter.png',fullPage:true});
+ if(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth))throw Error('Narrow overflow');
+ if(errors.length)throw Error(errors.join('\n'));
+ await page.setViewportSize({width:1024,height:1050});
+ await page.goto('http://127.0.0.1:8767/?v=18&focus=1');
+ return {joinedEdges:true,keyboardFilter:true,escape:true,keyboardSelection:true,pausedGlow:true,narrowOverflow:false,errors};
+}

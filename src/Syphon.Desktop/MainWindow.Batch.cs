@@ -62,7 +62,7 @@ public partial class MainWindow
                 var target = new Uri(row.Url);
                 var accepted = coordinator.AcceptBrowserDownload(row.Id, target, folder,
                     mediaFormat: MediaTools.IsManifestUrl(row.Url) ? "mp4" : null,
-                    filename: YoutubeTools.IsYoutubeVideoTarget(target) ? null : row.Filename,
+                    filename: PageVideoTools.IsKnownVideoPage(target) ? null : row.Filename,
                     startImmediately: immediately, singleConnection: preferences.DefaultSingleConnection, categorize: UsesCategoryFolders(folder));
                 row.Added = true; row.Message = accepted.Duplicate ? "Already in Syphon." : immediately ? "Added to Syphon." : "Added for later. Select Resume to start.";
             } catch (Exception ex) when (ex is ArgumentException or IOException or Syphon.Core.DownloadException) { row.Message = ex.Message; }

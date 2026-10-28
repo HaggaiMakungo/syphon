@@ -14,6 +14,8 @@ if (args.FirstOrDefault() == "--progressive-tests") return await ProgressiveTest
 if (args.FirstOrDefault() == "--verify-tests") return await FileVerificationTests.StandaloneAsync(args.Skip(1).ToArray());
 if (args.FirstOrDefault() == "--speed-tests") return await RateScheduleTests.StandaloneAsync(args.Skip(1).ToArray());
 if (args.FirstOrDefault() == "--media-tests") return await MediaTests.RunAsync(args.Skip(1).ToArray());
+if (args.FirstOrDefault() == "--page-video-live") return await PageVideoTests.LiveAsync(args.Skip(1).ToArray());
+if (args.FirstOrDefault() == "--page-video-tests") return await PageVideoTests.RunAsync();
 if (args.FirstOrDefault() == "--youtube-tests") return await YoutubeTests.RunAsync(args.Skip(1).ToArray());
 if (args.FirstOrDefault() == "--youtube-live") return await YoutubeTests.LiveAsync(args.Skip(1).ToArray());
 if (args.FirstOrDefault() == "--size-tests") return await SizeDiscoveryTests.RunAsync();

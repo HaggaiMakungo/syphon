@@ -29,7 +29,7 @@ internal static class FolderSmokeTests
                     if (owner.Get(id).State != DownloadState.Completed) throw new Exception(owner.Get(id).Message);
                 }
                 var launches = new List<ProcessStartInfo>();
-                window = new MainWindow(Path.Combine(root, "store")) { Left = -10000, Top = -10000, ShowInTaskbar = false };
+                window = new MainWindow(Path.Combine(root, "store"),"Syphon.Folder."+Guid.NewGuid().ToString("N")) { Left = -10000, Top = -10000, ShowInTaskbar = false };
                 typeof(MainWindow).GetProperty("FolderProcessStarter", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!.SetValue(window, (Action<ProcessStartInfo>)launches.Add);
                 window.Show();
                 var ui = window.HtmlSurface!;
@@ -42,44 +42,32 @@ internal static class FolderSmokeTests
                 }
                 await Until("!document.querySelector('#startup-status')&&!!document.querySelector('[aria-label=History]')");
                 await ui.EvaluateAsync("document.querySelector('[aria-label=History]').click()");
-                await Until("!!document.querySelector('.history-row')");
-                await ui.EvaluateAsync("document.querySelector('.history-row').click()");
-                await ui.EvaluateAsync("if(document.querySelector('#history-pane-toggle').getAttribute('aria-expanded')!=='true')document.querySelector('#history-pane-toggle').click()");
-                await Until("!![...document.querySelectorAll('#history-inspector button')].find(b=>b.textContent==='Open folder')");
-                await ui.EvaluateAsync("[...document.querySelectorAll('#history-inspector button')].find(b=>b.textContent==='Open folder').click()");
+                await Until("!!document.querySelector('.history-record')");
                 async Task Launched(int count) {
-                    var deadline = DateTime.UtcNow.AddSeconds(5);
-                    while (launches.Count < count && DateTime.UtcNow < deadline) await Task.Delay(40);
-                    if (launches.Count != count) throw new Exception("Open folder did not reach the shell.");
-                    var launch = launches[^1];
-                    if (launch.FileName != Path.GetDirectoryName(destination) || !launch.UseShellExecute || launch.Verb != "open" || launch.Arguments.Length != 0)
-                        throw new Exception("Open folder must ask the Windows shell to open the containing directory directly.");
+                    var deadline=DateTime.UtcNow.AddSeconds(5);
+                    while(launches.Count<count&&DateTime.UtcNow<deadline)await Task.Delay(40);
+                    if(launches.Count!=count)throw new Exception("Open folder did not reach the shell.");
+                    var launch=launches[^1];
+                    if(File.Exists(destination)) {
+                        if(Path.GetFileName(launch.FileName)!="explorer.exe"||launch.Arguments!="/select,\""+destination+"\""||!launch.UseShellExecute)
+                            throw new Exception("Explorer must select the exact downloaded file.");
+                    } else if(launch.FileName!=Path.GetDirectoryName(destination)||launch.Arguments.Length!=0||!launch.UseShellExecute)
+                        throw new Exception("Missing file must fall back to opening its containing folder.");
                 }
-                await Launched(1);
-                await ui.EvaluateAsync("document.querySelector('.history-actions-toggle').click()");
-                await Until("!!document.querySelector('[data-history-action=folder]')");
-                await ui.EvaluateAsync("document.querySelector('[data-history-action=folder]').click()");
-                await Launched(2);
-                await ui.EvaluateAsync("[...document.querySelectorAll('#history-inspector button')].find(b=>b.textContent==='Verify & troubleshoot').click()");
-                await Until("!!document.querySelector('#history-details [aria-label=\"Open folder\"]')");
-                await ui.EvaluateAsync("document.querySelector('#history-details [aria-label=\"Open folder\"]').click()");
-                await Launched(3);
-                File.Delete(destination);
-                await ui.EvaluateAsync("document.querySelector('#history-details [aria-label=\"Open folder\"]').click()");
-                await Launched(4);
-                typeof(MainWindow).GetProperty("FolderProcessStarter", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!.SetValue(window,
-                    (Action<ProcessStartInfo>)(_ => throw new Win32Exception(5)));
-                await ui.EvaluateAsync("document.querySelector('#history-details [aria-label=\"Open folder\"]').click()");
-                await Until("document.querySelector('.status-toast')?.textContent==='The folder could not be opened.'");
-                typeof(MainWindow).GetProperty("FolderProcessStarter", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!.SetValue(window, (Action<ProcessStartInfo>)launches.Add);
-                await ui.EvaluateAsync("document.querySelector('#history-details [aria-label=\"Open folder\"]').click()");
-                await Launched(5);
-                await Until("!document.querySelector('.status-toast')");
-                Directory.Delete(Path.GetDirectoryName(destination)!);
-                await ui.EvaluateAsync("document.querySelector('#history-details [aria-label=\"Open folder\"]').click()");
-                await Until("document.querySelector('.status-toast')?.textContent==='The download folder is no longer available at its saved location.'");
-                if (launches.Count != 5) throw new Exception("Missing folder was launched.");
-                Console.WriteLine("PASS folder: inspector, row menu and details use exact containing directory; missing file, missing folder, shell failure and successful retry handled.");
+                await ui.EvaluateAsync("document.querySelector('.record-folder').click()");await Launched(1);
+                await ui.EvaluateAsync("document.querySelector('.record-select').click()");
+                await Until("!!document.querySelector('.detail-window')");
+                const string open="[...document.querySelectorAll('.detail-window .dialog-actions button')].find(b=>b.textContent.includes('Open folder')).click()";
+                await ui.EvaluateAsync(open);await Launched(2);
+                File.Delete(destination);await ui.EvaluateAsync(open);await Launched(3);
+                typeof(MainWindow).GetProperty("FolderProcessStarter", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!.SetValue(window,(Action<ProcessStartInfo>)(_=>throw new Win32Exception(5)));
+                await ui.EvaluateAsync(open);await Until("document.body.textContent.includes('The folder could not be opened.')");
+                typeof(MainWindow).GetProperty("FolderProcessStarter", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!.SetValue(window,(Action<ProcessStartInfo>)launches.Add);
+                await ui.EvaluateAsync(open);await Launched(4);
+                Directory.Delete(Path.GetDirectoryName(destination)!);await ui.EvaluateAsync(open);
+                await Until("document.body.textContent.includes('The download folder is no longer available at its saved location.')");
+                if(launches.Count!=4)throw new Exception("Missing folder was launched.");
+                Console.WriteLine("PASS folder selection from history and details, quoted comma/space paths, missing file fallback, missing folder and shell failure.");
                 code = 0;
             } catch (Exception ex) { Console.Error.WriteLine(ex); }
             finally {

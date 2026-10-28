@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([string]$OutputDirectory, [string]$Version='0.1.0-beta.17', [string]$DependencyRoot)
+param([string]$OutputDirectory, [string]$Version='0.1.0-beta.20', [string]$DependencyRoot)
 $ErrorActionPreference='Stop'
 if ($Version -notmatch '^\d+\.\d+\.\d+(-[a-zA-Z0-9.]+)?$') { throw 'Use a valid release version.' }
 $taskRoot=Split-Path -Parent $PSScriptRoot
