@@ -1,0 +1,71 @@
+{
+  "version": "0.1.0-beta.20",
+  "date": "2026-10-28",
+  "architecture": "win-x64",
+  "sourceRevision": "d531dd4ca121dd31b9fedbed16de049334fd47b7",
+  "status": "published",
+  "publiclyPublished": true,
+  "installer": {
+    "file": "Syphon-Setup-0.1.0-beta.20-win-x64.exe",
+    "bytes": 332020008,
+    "sha256": "d4d4ac665fb67dc7a0c47f8272dc66bc7752c097ad17eb5184ec5afdfbbda8c2"
+  },
+  "extension": {
+    "file": "Syphon-Extension-0.8.5-beta20.zip",
+    "version": "0.8.5",
+    "bytes": 205101,
+    "sha256": "a7cbe68d17741f273689d8cffd8a4df7a4576dd4f60c5a2443c1b92997b8e294"
+  },
+  "signing": {
+    "type": "local self-signed Authenticode",
+    "publiclyTrusted": false,
+    "certificateThumbprint": "3B47C910EDA7360A3F486154954A22A7DABBABDE",
+    "timestamped": false
+  },
+  "acceptance": {
+    "ownerReportedFunctionalAndInstallerPassOnThisPC": false,
+    "cleanMachineTested": false
+  },
+  "sources": [
+    {
+      "file": "Syphon-native-source-and-build-materials.zip",
+      "bytes": 554904430,
+      "sha256": "86e3a2e4835c215b8bffe5cf9f291a63b7adb9c9e65b55458e5f6ba84ab77415"
+    },
+    {
+      "file": "Syphon-FFmpeg-9.0.2-clean-source-and-build-materials.zip",
+      "bytes": 329880819,
+      "sha256": "7fd6e215e2374c0089c905f0ff189149fbdda0bcf4fc91ecc60c46178c44fcf4"
+    }
+  ],
+  "pending": [
+    "Owner post-installation and reboot confirmation for final build",
+    "Clean-machine acceptance",
+    "Browser-store distribution"
+  ],
+  "authorization": {
+    "publicReleaseAuthorized": true,
+    "date": "2026-10-28"
+  },
+  "verification": {
+    "engine": {
+      "passed": 145,
+      "total": 145
+    },
+    "browser": {
+      "passed": 109,
+      "total": 109
+    },
+    "packagingSource": {
+      "run": 84,
+      "skipped": 1
+    },
+    "nativeShellSelection": "Windows shell returned success; Explorer test folder appeared",
+    "trayClose": "12 reentrant-close cases passed",
+    "signedPackage": "payload extraction, hashes and tools passed",
+    "mediaToolPolicy": {
+      "passed": 8,
+      "skipped": 3
+    }
+  }
+}

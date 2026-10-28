@@ -1,0 +1,13 @@
+{
+  "version": "0.1.0-beta.20",
+  "architecture": "win-x64",
+  "sourceRevision": "d531dd4ca121dd31b9fedbed16de049334fd47b7",
+  "sourceDirty": false,
+  "dotnetSdk": "10.0.402",
+  "nodeVersion": "v24.21.0",
+  "pythonVersion": "Python 3.11.9",
+  "powerShellVersion": "7.6.5",
+  "zlibVersion": "1.3.1",
+  "frontendLockSha256": "4527ac553e822c7d91c54750f3cfc1947c132be75ca53d2c7a77ac8ab9400293",
+  "dependencyLockSha256": "1b11a089d6936e3d18f29a6def2354b3f3a15bfdeca036621bac27f1525d16ad"
+}

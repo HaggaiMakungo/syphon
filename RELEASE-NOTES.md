@@ -1,70 +1,38 @@
-# Syphon 0.1.0-beta.17 — the window has left, the download has not
+# Syphon 0.1.0-beta.20 — your loading program
 
-Prepared 2026-10-18 · Windows x64 · Public beta prerelease.
+Released 28 October 2026 · Windows x64.
 
-Closing the window now sends Syphon to the system tray by default. Your download keeps going. Previously, closing things was rather too effective at closing things. We have retained the concept of leaving while introducing the possibility of sitting quietly near the clock like a tiny violet pensioner.
+Videos, music, images, software, whole archives. Whatever you need for what comes next.
 
-## New in Beta 17
+## What changed
 
-- **Close to system tray is on by default** for new or missing settings. Existing explicit choices are preserved. Minimize to tray remains optional and off by default. Choose **Exit** from the tray to quit.
-- The downloader build now admits only its pinned private runtime. Unrelated host DLLs no longer get invited along because they happened to be standing near PATH wearing a lanyard.
-- Identified native dependency source/archive/build-recipe gaps are closed. Both source-material archives are available beside the installer. They are optional for running Syphon.
-- Signed-package extraction, payload hashes, bundled tools, tray defaults and live MP4/MP3 checks passed on this PC. **Owner Beta17 upgrade acceptance is pending.** Beta16 was accepted; we have not forged a small congratulatory certificate for its successor.
+- A rebuilt desktop interface, rounded windows, Phosphor icons and the restored smooth Syphon logo.
+- A floating monitor for one download or the whole queue, with expanded and compact views.
+- A quick, repeating fill animation in the taskbar and tray while downloads run, with a completion shimmer.
+- Redesigned New Download, batch, file details, history, speed-limit, confirmation and browser-connection windows.
+- A compact browser companion with page-link selection, media detection, better video titles and outside-click dismissal.
+- Images and Compressed join Videos, Music, Documents, Programs and Misc as default download folders. Custom destinations stay yours.
+- Broader supported video-page extraction, including Facebook page URLs; available formats depend on the source.
+- The app starts in the tray. Opening New Download does not reveal the main window. Open folder selects the downloaded item.
+- Statistics use the space available in a maximized window.
+- Download safety, duplicate handling, completion controls and verified update support from the preceding release are retained.
 
-## Also aboard this particular vehicle
+## Fixes
 
-### The album art has been reunited with the album
+The tray popup could lose focus while already closing and call Close a second time, terminating the app. The close transition is now guarded and covered by a regression test. Open folder now uses the Windows shell selection API for completed files. Window border handling, page alignment, transfer-card overflow and icon animation refreshes were also revised.
 
-YouTube MP3 downloads embed available source artwork or the video thumbnail as JPEG cover art. The image lives inside the MP3, with no separate picture saved beside it. If artwork is unavailable, the audio can still finish.
+## Install and browser setup
 
-This saves your music library from looking like a collection of missing-person notices for rectangles. Previously the singer was a blank square. The drummer was a blank square. The album was a blank square. At that point you have accidentally downloaded a spreadsheet with a bass line.
+Use the Windows x64 installer from this release. It includes the application runtime, FFmpeg, FFprobe, yt-dlp, Node and the unpacked extension. WebView2 is downloaded if absent. Setup preserves downloaded files, history and preferences by default.
 
-### New Download has remembered that you were speaking to it
-
-The New Download window stays on top while open. You can finish choosing the destination without the dialog disappearing behind another window halfway through the conversation.
-
-I have relatives who do this. You ask a straightforward question, they wander into another room, and suddenly you are negotiating a save location through a wall. The dialog now has better manners. We are leaving the relatives for a later release.
-
-### Someone has been left alone with the purple again
-
-Statistics have a clearer hierarchy. The graph has a proper disclosure control and a stronger violet line glow. The floating window shares the main app's surfaces and controls.
-
-There was a point where the graph was simply reporting a transfer rate. It has since discovered stage lighting and begun referring to the Ethernet cable as its booking agent. The numbers still describe the download; the dramatic entrance is a personal choice.
-
-### Misc has accepted the custody arrangement
-
-Default download categories are Videos, Music, Documents, Programs and Misc. Custom destinations are still available. Setup supports upgrade, repair and uninstall, preserving downloaded files and local history by default.
-
-Misc is for everything that refuses a conventional introduction. A ZIP arrives. Nobody recognises the surname. It says it is “with Programs”, but Programs has asked us to stop giving out its address. Into Misc it goes, pending further nonsense.
-
-## Installation
-
-Use `Syphon-Setup-0.1.0-beta.17-win-x64.exe` (332.4 MB). It includes the Windows x64 app/runtime, native browser host, FFmpeg, FFprobe, yt-dlp, Node and the unpacked companion. Those media tools do not need separate installation. Setup can download WebView2 if it is absent; that step requires an internet connection.
-
-The default app location is Program Files\Syphon. Setup shows the selected path, and download storage is separate. For Chrome or Edge, follow BROWSER-SETUP.md or the page's browser section. Loading the unpacked extension is a one-time manual browser step for this beta; store listings are not available yet.
-
-This installer uses a local self-signed certificate without a timestamp. It is not publicly trusted, and Windows publisher/SmartScreen warnings may remain. These instructions do not require importing a certificate or changing Windows trust stores.
-
-## Exact files
-
-Installer SHA-256: `52615b3fe7765e241ad6a7cb6699e431ea8ed2bc3c43ec260747a749b6f2a1c3`.
-
-Extension 0.7.4 ZIP SHA-256: `08bf5fd8c4fb89c186e65fd8b1d14cc0036a6d13b579a3d62c44f652b859a39a`.
-
-App source revision: `d3eb55b930f7465d39a10ba72efbe0a0cfef05a4`. The companion ZIP uses the exact extension files from this installer, retaining its manifest identity.
+For Chrome, Edge or Vivaldi, enable browser integration in setup, open the browser’s extensions page, enable Developer mode and load the included Extensions folder under Program Files\Syphon. Reload an existing extension and refresh open pages after upgrading. Store distribution is not available yet.
 
 ## Checks and limits
 
-Installer extraction, payload hashes and all four bundled-tool executions passed. Folder tests cover the actual desktop/WebView action dispatch with injected shell success/failure results. Artwork tests use the bundled tools with local cover, no-cover and unavailable-cover fixtures. The owner confirmed Beta16 works on this PC; Beta17 upgrade acceptance is pending.
+Engine, browser, packaging, desktop workflow, update and tray-lifecycle tests were run on the development PC. The final installer is checked by extracting its payload, validating hashes and running its bundled media tools. This is not clean-machine or VM certification.
 
-That is not clean-machine or VM certification. Website compatibility varies, DRM bypass is unsupported, and media jobs may restart on Resume. A recorded SHA-256 alone does not establish a file's origin without a trusted reference.
+The installer uses the existing local self-signed certificate without a timestamp. It is not publicly trusted; Windows warnings may remain. No private key or trust-store modification is included.
 
-## Release status
+Source support varies. Private, inaccessible and DRM-protected media may be unavailable; this release does not bypass DRM or record live streams. Media jobs can restart on Resume. Ordinary-file bandwidth caps do not govern media subprocesses.
 
-This is a public GitHub beta prerelease. The download page is hosted on GitHub Pages; browser-store listings are not available yet. Identified native source-material engineering gaps are closed. RELEASE-READINESS.md records the remaining acceptance and publication work. This does not certify legal conclusions or byte-identical rebuilds.
-
-## Optional source downloads
-
-- [Syphon application source](https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-0.1.0-beta.17-source.zip) — 14.6 MB; exact installer build commit `d3eb55b930f7465d39a10ba72efbe0a0cfef05a4`; SHA-256 `deaec5afb76c4053c0ba26fe7cd7bfe74c8f8c1e30d678e1e6b784088988fc3b`.
-- [Native source and build materials](https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-native-source-and-build-materials.zip) — 554.9 MB; SHA-256 `86e3a2e4835c215b8bffe5cf9f291a63b7adb9c9e65b55458e5f6ba84ab77415`.
-- [FFmpeg source and build materials](https://github.com/HaggaiMakungo/syphon/releases/download/v0.1.0-beta.17/Syphon-FFmpeg-9.0.2-clean-source-and-build-materials.zip) — 329.9 MB; SHA-256 `7fd6e215e2374c0089c905f0ff189149fbdda0bcf4fc91ecc60c46178c44fcf4`.
+The release includes SHA-256 checksums, the exact application source revision, and the matching native-runtime and FFmpeg source/build-material archives. Those source archives are optional for running Syphon. Original application code is MIT; bundled components retain their own licences.

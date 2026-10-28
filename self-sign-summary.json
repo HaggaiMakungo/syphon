@@ -1,0 +1,19 @@
+{
+  "installer": "C:\\Users\\GH0STHUNT3R\\Desktop\\Dev\\Syphon\\artifacts\\installer-0.1.0-beta.20-public-signed\\Syphon-Setup-0.1.0-beta.20-win-x64.exe",
+  "bytes": 332020008,
+  "sha256": "d4d4ac665fb67dc7a0c47f8272dc66bc7752c097ad17eb5184ec5afdfbbda8c2",
+  "originalSha256": "988762cf2e597659cbcbbbf8701f33ba497d59730d97b7b6ff7409e803695dce",
+  "signed": true,
+  "signatureType": "self-signed Authenticode",
+  "windowsTrustStatus": "UnknownError",
+  "windowsTrustMessage": "A certificate chain processed, but terminated in a root certificate which is not trusted by the trust provider.",
+  "cryptographicSignatureValid": true,
+  "fileDigestValid": true,
+  "certificateThumbprint": "3B47C910EDA7360A3F486154954A22A7DABBABDE",
+  "certificateSubject": "CN=Syphon Local Development",
+  "certificateExpiresUtc": "2028-10-18T00:00:31.0000000Z",
+  "timestamped": false,
+  "publiclyTrusted": false,
+  "scope": "Outer installer only; embedded files retain their existing signatures",
+  "privateKeyExported": false
+}

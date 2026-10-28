@@ -1,0 +1,1 @@
+Self-signed local installer. Windows publisher trust and SmartScreen warnings may remain. The .cer is public only; the private key remains in the Windows current-user store. No certificate was added to trust stores. No timestamp was requested. Embedded app and uninstaller signatures are unchanged.

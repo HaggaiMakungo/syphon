@@ -1,6 +1,6 @@
 # Connect Syphon to Chrome or Edge
 
-Companion version 0.7.4 · Matches the Beta 17 installer payload.
+Companion version 0.8.5 · Matches the Beta 20 installer payload.
 
 Syphon is installed, but your browser still needs an introduction. This is the one-time folder-loading step that connects the two. After that, the companion's Check connection button can confirm they are talking.
 
@@ -16,9 +16,9 @@ The installer registers the included native host; it cannot silently install or 
 
 ## Separate ZIP, if needed
 
-`Syphon-Extension-0.7.4-beta17.zip` contains the exact extension files from this installer, with manifest.json at the ZIP root. Extract it to a permanent folder before choosing Load unpacked. Keep the extracted directory in place; deleting or moving it can break the loaded extension. Using the installed Extensions folder avoids a second copy to maintain.
+`Syphon-Extension-0.8.5-beta20.zip` contains the exact extension files from this installer, with manifest.json at the ZIP root. Extract it to a permanent folder before choosing Load unpacked. Keep the extracted directory in place; deleting or moving it can break the loaded extension. Using the installed Extensions folder avoids a second copy to maintain.
 
-ZIP SHA-256: `08bf5fd8c4fb89c186e65fd8b1d14cc0036a6d13b579a3d62c44f652b859a39a`.
+ZIP SHA-256: `a7cbe68d17741f273689d8cffd8a4df7a4576dd4f60c5a2443c1b92997b8e294`.
 
 ## Optional features
 
