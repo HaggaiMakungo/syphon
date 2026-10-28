@@ -6,6 +6,7 @@ import json
 import re
 import shutil
 from prepare_release import verify
+from product_page import product_page
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -43,7 +44,7 @@ def render(bundle):
         '<p>Optional source downloads: ' + ' · '.join('<a href="' + base + item['file'] + '">' +
             ('FFmpeg source and build materials' if 'FFmpeg' in item['file'] else 'Native runtime source and build materials') + '</a>'
             for item in metadata['sources']) + '.</p></section></main>')
-    (bundle / 'index.html').write_text(page, encoding='utf-8')
+    (bundle / 'index.html').write_text(product_page(page, metadata['version']), encoding='utf-8')
     script = (bundle / 'release-review.js').read_text(encoding='utf-8')
     script = script[:script.index('const dialog=')]
     (bundle / 'release-review.js').write_text(script, encoding='utf-8')
