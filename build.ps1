@@ -5,6 +5,12 @@ $taskDotnet = Join-Path $taskRoot '.tools\dotnet\dotnet.exe'
 if (-not (Test-Path -LiteralPath $taskDotnet)) {
     $taskDotnet = (Get-Command dotnet -ErrorAction Stop).Source
 }
+# Pipe identity checks compare Windows' real image path. Resolve the optional
+# shared SDK junction before launching desktop/native-host integration checks.
+$taskSdkFolder = Get-Item -LiteralPath (Split-Path -Parent $taskDotnet)
+if ($taskSdkFolder.Attributes -band [IO.FileAttributes]::ReparsePoint) {
+    $taskDotnet = Join-Path ($taskSdkFolder.ResolveLinkTarget($true).FullName) 'dotnet.exe'
+}
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = '1'
 $env:DOTNET_NOLOGO = '1'
 Push-Location $taskRoot
@@ -22,8 +28,18 @@ try {
         if ($LASTEXITCODE -ne 0) { throw 'Engine integration tests failed.' }
         & $taskDotnet tests\Syphon.Engine.Tests\bin\Release\net10.0\Syphon.Engine.Tests.dll --category-tests
         if ($LASTEXITCODE -ne 0) { throw 'Category tests failed.' }
-        & $taskDotnet src\Syphon.Setup\bin\Release\net10.0-windows10.0.19041.0\Syphon.Setup.dll --self-test
+        & $taskDotnet build src\Syphon.Setup\Syphon.Setup.csproj -c Release -p:EnableSetupDiagnostics=true -p:OutputPath=../../artifacts/setup-test-checker/ -p:IntermediateOutputPath=../../artifacts/setup-test-obj/ --nologo
+        if ($LASTEXITCODE -ne 0) { throw 'Setup checker build failed.' }
+        & $taskDotnet artifacts\setup-test-checker\Syphon.Setup.dll --self-test
         if ($LASTEXITCODE -ne 0) { throw 'Setup engine tests failed.' }
+        & $taskDotnet tests\Syphon.Engine.Tests\bin\Release\net10.0\Syphon.Engine.Tests.dll --first-update-engine-tests
+        if ($LASTEXITCODE -ne 0) { throw 'First update engine checks failed.' }
+        foreach ($taskFeature in @('--first-update','--automatic-update','--duplicates','--shared-floating')) {
+            & $taskDotnet tests\Syphon.Desktop.SmokeTests\bin\Release\net10.0-windows\Syphon.Desktop.SmokeTests.dll $taskFeature
+            if ($LASTEXITCODE -ne 0) { throw "Feature check failed: $taskFeature" }
+        }
+        & $taskDotnet artifacts\setup-test-checker\Syphon.Setup.dll --update-self-test artifacts\setup-update-error.txt
+        if ($LASTEXITCODE -ne 0) { throw 'Automatic installer update checks failed.' }
         if ($Media) {
             & $taskDotnet tests\Syphon.Engine.Tests\bin\Release\net10.0\Syphon.Engine.Tests.dll --media-tests artifacts\media-tests.json
             if ($LASTEXITCODE -ne 0) { throw 'Media integration tests failed.' }
@@ -39,7 +55,7 @@ try {
         & $taskDotnet tests\Syphon.Desktop.SmokeTests\bin\Release\net10.0-windows\Syphon.Desktop.SmokeTests.dll --html artifacts\html-release
         if ($LASTEXITCODE -ne 0) { throw 'HTML desktop workflow failed.' }
         $taskNode = (Get-Command node -ErrorAction Stop).Source
-        & $taskNode --test tests\browser-extension.test.mjs tests\browser-features.test.mjs tests\browser-media.test.mjs tests\browser-context.test.mjs tests\browser-connection.test.mjs
+        & $taskNode --test tests\browser-extension.test.mjs tests\browser-features.test.mjs tests\browser-media.test.mjs tests\browser-context.test.mjs tests\browser-connection.test.mjs tests\browser-page-actions.test.mjs
         if ($LASTEXITCODE -ne 0) { throw 'Browser extension tests failed.' }
     }
 } finally { Pop-Location }

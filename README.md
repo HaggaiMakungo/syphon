@@ -16,15 +16,15 @@ It is also very purple. Someone was allowed to discover gradients without a resp
 
 ## Where things stand
 
-**Current public beta: 0.1.0-beta.17 · Windows x64.**
+**Current public beta: 0.1.0-beta.20 · Windows x64.**
 
-**[Download Syphon](https://haggaimakungo.github.io/syphon/)** · [GitHub beta release](https://github.com/HaggaiMakungo/syphon/releases/tag/v0.1.0-beta.17)
+**[Download Syphon](https://haggaimakungo.github.io/syphon/)** · [Beta 20 release](https://github.com/HaggaiMakungo/syphon/releases/tag/v0.1.0-beta.20)
 
-You only need the **332.4 MB installer**. The app runtime and media tools are bundled; source archives are separate, optional downloads. Browser-store listings are not available yet, so Chrome/Edge setup uses the included unpacked extension.
+Beta 20 brings the new desktop and browser companion, floating transfer controls, Images and Compressed folders, and a smooth activity icon that keeps moving while downloads run. The app starts in the tray; New Download can open on its own. This release also fixes a tray-menu close race that could terminate the app when opening it after Windows startup.
 
-Beta17 enables Close to system tray by default, preserves explicit saved preferences, isolates the downloader build from unrelated host DLLs and closes identified native source/archive/build-recipe engineering gaps. Signed-package, media and tray checks passed on this PC. The owner confirmed Beta16 works; Beta17 upgrade acceptance and clean-machine testing remain pending.
+The installer includes the Windows runtime and private media tools. Browser-store listings are not available yet: load the included extension manually in Chrome, Edge or Vivaldi. Setup preserves your downloads, history and preferences.
 
-The installer is locally self-signed, not publicly trusted or timestamped; Windows warnings may remain. The release includes checksums, the exact application source and both dependency source companions. See the [release notes](RELEASE-NOTES.md) and [source closure review](packaging/NATIVE-SOURCE-CLOSURE.md) for evidence and limits.
+The installer is locally self-signed, not publicly trusted or timestamped. Windows warnings may remain. Exact application source and both dependency source companions are provided with the release. Automated tests ran on the development PC; clean-machine certification is not claimed. See [release notes](RELEASE-NOTES.md).
 
 ## What it does
 

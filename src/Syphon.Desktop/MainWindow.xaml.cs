@@ -31,7 +31,7 @@ public partial class MainWindow : Window
     internal Action<ProcessStartInfo> FolderProcessStarter { get; set; } = start => Process.Start(start);
     private string? initializationError;
     private readonly ObservableCollection<DownloadRow> rows = [];
-    public bool IsReady => coordinator is not null && !closing;
+    public bool IsReady => coordinator is not null && !closing && !updateFinalizing;
 
     public MainWindow() : this(null) { }
     public MainWindow(string? dataDirectory, string? bridgePipeName = null, bool htmlUi = true)
@@ -40,6 +40,7 @@ public partial class MainWindow : Window
         activityIcon = new DownloadActivityIcon(this, frame => tray?.UpdateIcon(frame));
         Closed += (_, _) => activityIcon.Dispose();
         useHtml = htmlUi;
+        platformEnabled = dataDirectory is null;
         browserPipeName = bridgePipeName ?? (dataDirectory is null ? BrowserProtocol.PipeName : null);
         browserDownloads = dataDirectory is null ? Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads") : Path.Combine(dataDirectory, "BrowserDownloads");
         TaskList.ItemsSource = rows;
@@ -70,6 +71,8 @@ public partial class MainWindow : Window
                 refresh.Tick += (_, _) => RefreshTasks();
                 refresh.Start();
                 RefreshTasks();
+                InitializePlatform();
+                ResumeAfterUpdate();
                 if (browserPipeName is not null) browserServer = new BrowserPipeServer(browserPipeName, HandleBrowserRequestAsync);
             }
             catch (Exception ex)
@@ -102,9 +105,18 @@ public partial class MainWindow : Window
             try
             {
                 var preferences = DownloadPreferences.Load(preferencesPath);
+                BrowserAcceptance? duplicate = null;
+                if (request.Action == "download" && coordinator.BrowserStatus(request.RequestId) is null) {
+                    var incoming = new Uri(request.Url!);
+                    var format = request.Format ?? (YoutubeTools.IsYoutubeVideoTarget(incoming) ? "mp4" : null);
+                    var filename = DownloadCoordinator.SuggestedBrowserFilename(incoming, format, request.Title);
+                    if (TryExistingDownload(request.Url!, preferences.Folder ?? browserDownloads, filename, true, out var existing, format))
+                        duplicate = coordinator.UseExistingBrowserDownload(request.RequestId, existing!.TaskId, incoming, request.Format, request.VideoStream, request.AudioStream, request.YoutubeFormat, request.QualityHeight);
+                }
                 var accepted = request.Action == "status" ? coordinator.BrowserStatus(request.RequestId)
-                    : coordinator.AcceptBrowserDownload(request.RequestId, new Uri(request.Url!), preferences.Folder ?? browserDownloads, request.Format, request.VideoStream, request.AudioStream, request.YoutubeFormat, request.Title,
-                        singleConnection: preferences.DefaultSingleConnection, context: request.Context, qualityHeight: request.QualityHeight, categorize: true);
+                    : duplicate ?? coordinator.AcceptBrowserDownload(request.RequestId, new Uri(request.Url!), preferences.Folder ?? browserDownloads, request.Format, request.VideoStream, request.AudioStream, request.YoutubeFormat, request.Title,
+                        startImmediately: !HasPendingDuplicateReplacement, singleConnection: preferences.DefaultSingleConnection, context: request.Context, qualityHeight: request.QualityHeight, categorize: true);
+                if (accepted?.Task is { } replacement && HasPendingDuplicateReplacement) RegisterDuplicateReplacement(replacement);
                 if (accepted is null) return new BrowserReply(1, request.RequestId, "not_found", null, "This request is not in Syphon. Retry the same request to add it.");
                 if (accepted.Removed) return new BrowserReply(1, request.RequestId, "removed", accepted.TaskId, "This request was already handled and removed. Choose Syphon this again for a new download.");
                 if (!accepted.Duplicate) RevealDownload(accepted.TaskId);
@@ -112,6 +124,8 @@ public partial class MainWindow : Window
                 return new BrowserReply(1, request.RequestId, "accepted", accepted.TaskId,
                     accepted.Duplicate ? "Already in Syphon. Check the task in the app." : "Added to Syphon. Progress and errors appear in the desktop app.", accepted.Task!.State.ToString());
             }
+            catch (OperationCanceledException) when (!token.IsCancellationRequested)
+            { return new BrowserReply(1, request.RequestId, "cancelled", null, "Download cancelled. No new download was added."); }
             catch (Exception ex) when (ex is ArgumentException or InvalidDataException or DownloadException)
             { return new BrowserReply(1, request.RequestId, "rejected", null, ex.Message); }
             catch (Exception)
@@ -144,7 +158,7 @@ public partial class MainWindow : Window
 
     private void RefreshTasks()
     {
-        if (coordinator is null || closing) return;
+        if (coordinator is null || closing || updateFinalizing) return;
         var tasks = coordinator.GetTasks();
         displayTasks = tasks;
         activityIcon?.Update(tasks);
@@ -167,6 +181,7 @@ public partial class MainWindow : Window
         UpdateFloating(snapshot: tasks);
         UpdateManagerChart(tasks);
         tray?.Refresh();
+        UpdatePlatform(tasks);
         HtmlSurface?.Publish();
     }
 
@@ -252,11 +267,14 @@ public partial class MainWindow : Window
 
     private async void Window_Closing(object? sender, CancelEventArgs e)
     {
+        if (updateFinalizing && !updateExit) { e.Cancel = true; return; }
         if (allowClose) return;
         if (!explicitExit && !closing && tray?.IsRegistered == true && DownloadPreferences.Load(preferencesPath).CloseToTray) { e.Cancel = true; Hide(); return; }
         e.Cancel = true;
         if (closing) return;
         closing = true;
+        CancelIdleAction();
+        if (wakeRequested) { WindowsIntegration.KeepAwake(false); wakeRequested = false; }
         tray?.Dispose(); tray = null;
         htmlVerificationCancellation?.Cancel();
         batchCancellation?.Cancel();
@@ -275,7 +293,7 @@ public partial class MainWindow : Window
             }
             if (batchPreviewWork is not null) { try { await batchPreviewWork; } catch (OperationCanceledException) { } }
             if (browserServer is not null) await browserServer.DisposeAsync();
-            await (await initialization).DisposeAsync();
+            if (!updateExit && coordinator is not null) await coordinator.DisposeAsync();
         }
         catch (Exception ex) { StatusText.Text = $"Some progress could not be saved: {ex.Message}"; }
         allowClose = true;

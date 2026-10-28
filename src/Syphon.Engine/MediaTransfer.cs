@@ -13,6 +13,7 @@ public sealed partial class DownloadCoordinator
         Update(id, t => t with { State = DownloadState.Downloading, Received = 0, Committed = 0, Total = null, EstimatedTotal = null, SizeEstimateSource = null, MediaDurationSeconds = null, Blocks = [],
             Connections = 0, BytesPerSecond = 0, Message = PageVideoTools.RequiresExtractor(task)
                 ? "Checking the video before downloading…" : "Downloading and processing media…" });
+        IReadOnlyDictionary<string, string>? tags = null;
         var progressGate = new object();
         long received = 0, previous = 0, lastChange = Stopwatch.GetTimestamp();
         long processedBytes = 0; double processedSeconds = 0, lastEstimatedSeconds = 0;
@@ -62,6 +63,8 @@ public sealed partial class DownloadCoordinator
         {
             if (PageVideoTools.RequiresExtractor(task))
                 await YoutubeTools.DownloadAsync(task, Progress, token, info => {
+                    tags = info.Tags;
+                    if (options.DiskSpaceProtectionEnabled && info.Qualities.FirstOrDefault(q => q.YoutubeFormat == task.YoutubeFormat)?.EstimatedBytes is long estimateBytes) DownloadSafety.EnsureSpace(task.PartPath, checked(estimateBytes * 3));
                     ApplyVideoTitle(id, info.Title);
                     SetMediaDuration(id, info.Duration);
                     if (task.MediaFormat == "mp4" && task.YoutubeFormat is not null)
@@ -72,7 +75,7 @@ public sealed partial class DownloadCoordinator
             else await MediaTools.ConvertAsync(task, Progress, token,
                 bytes => SetSizeEstimate(id, bytes, "Duration and selected stream bitrates; final container size may differ."),
                 (bytes, seconds) => { lock (progressGate) { if (seconds >= processedSeconds && bytes >= processedBytes) { processedBytes = bytes; processedSeconds = seconds; } } },
-                info => SetMediaDuration(id, info.Duration)).ConfigureAwait(false);
+                info => { tags = info.Tags; SetMediaDuration(id, info.Duration); }).ConfigureAwait(false);
         }
         finally
         {
@@ -82,6 +85,7 @@ public sealed partial class DownloadCoordinator
             Update(id, t => t with { BytesPerSecond = 0 }, persist: false);
         }
         token.ThrowIfCancellationRequested();
+        if (task.MediaFormat == "mp3" && options.MediaMetadataEnabled) await MediaTags.ApplyAsync(task.PartPath, tags, token).ConfigureAwait(false);
         await using var file = new FileStream(task.PartPath, FileMode.Open, FileAccess.ReadWrite, FileShare.None, 1024 * 1024, FileOptions.Asynchronous);
         if (file.Length == 0) throw new IOException("Media processing produced an empty file.");
         // File durability precedes metadata. Final media output uses the same verified publication journal as HTTP tasks.

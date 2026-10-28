@@ -59,7 +59,7 @@ public static partial class YoutubeTools
         string json;
         try
         {
-            var args = ArgumentsFor(canonical).Concat(new[] { "--skip-download", "--print", "%(.{id,title,live_status,is_live,duration,availability,has_drm,formats})j", "--", canonical.AbsoluteUri });
+            var args = ArgumentsFor(canonical).Concat(new[] { "--skip-download", "--print", "%(.{id,title,artist,album,track_number,release_year,live_status,is_live,duration,availability,has_drm,formats})j", "--", canonical.AbsoluteUri });
             json = await RunAsync(args, null, timeout.Token).ConfigureAwait(false);
         }
         catch (OperationCanceledException) when (!token.IsCancellationRequested) { throw new IOException("Video inspection timed out. Try again later or update the video extractor."); }
@@ -111,7 +111,7 @@ public static partial class YoutubeTools
         if(choices.Count==0&&formats.EnumerateArray().Any(f=>f.TryGetProperty("has_drm",out var drm)&&drm.ValueKind==JsonValueKind.True))throw new IOException("This video is encrypted or protected and cannot be downloaded.");
         if (choices.Count == 0) throw new IOException("No unprotected "+(youtube?"YouTube ":"")+"video formats were available.");
         var title = Text(root, "title");
-        return new(choices.ToArray(), audio, duration, site+" qualities detected. Choose a quality or convert audio to MP3.", title.Length > 512 ? title[..512] : title);
+        return new(choices.ToArray(), audio, duration, site+" qualities detected. Choose a quality or convert audio to MP3.", title.Length > 512 ? title[..512] : title, Tags: MediaTags.FromJson(root));
     }
 
     internal static string FormatSelector(string? selected, string output)

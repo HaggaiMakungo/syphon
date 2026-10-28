@@ -83,13 +83,13 @@ test("manifest has bounded explicit capabilities and no interception permissions
 });
 test("service worker hands links and direct media sources to Syphon", async () => {
   let installed, clicked, menu, messageHandler;
-  const requests = [], notifications = [];
+  const requests = [], notifications = [], menus = [];
   const mock = api(async (_, request) => { requests.push(request); return reply(request); });
   globalThis.chrome = { ...mock, permissions: { contains: async () => false, onRemoved: { addListener() {} }, onAdded: { addListener() {} } },
     scripting: { getRegisteredContentScripts: async () => [] }, tabs: { query: async () => [] },
     runtime: { ...mock.runtime, id: "fixture", onMessage: { addListener(f) { messageHandler = f; } }, onInstalled: { addListener: f => { installed = f; } }, onStartup: { addListener() {} } },
     notifications: { create: async value => notifications.push(value) },
-    contextMenus: { removeAll: async () => {}, create: value => { menu = value; }, onClicked: { addListener: f => { clicked = f; } } } };
+    contextMenus: { removeAll: async () => {}, create: value => { menu = value; menus.push(value); }, onClicked: { addListener: f => { clicked = f; } } } };
   try {
   await import("../extensions/syphon/background.js"); await installed();
   assert.equal(menu.title, "Syphon this"); assert.deepEqual(menu.contexts, ["link", "video", "audio"]);
@@ -103,6 +103,13 @@ test("service worker hands links and direct media sources to Syphon", async () =
   assert.equal(requests.length, 3); assert.match(notifications.at(-1).message, /direct HTTP or HTTPS/);
   await clicked({ menuItemId: "other", linkUrl: "https://site/ignored" });
   assert.equal(requests.length, 3);
+  assert.ok(menus.some(m => m.id === "syphon-page-links" && m.title === "Download all links on this page with Syphon"));
+  assert.ok(menus.some(m => m.id === "syphon-audio-only"));
+  await clicked({ menuItemId: "syphon-audio-only", pageUrl: "https://www.youtube.com/watch?v=abcdefghijk" }, { id: 1 });
+  assert.equal(requests.at(-1).format, "mp3"); assert.equal(requests.at(-1).showOptions, true);
+  const count = requests.length;
+  await clicked({ menuItemId: "syphon-audio-only", mediaType: "video", srcUrl: video }, { incognito: true });
+  assert.equal(requests.length, count);
   // Downloads API can become available only after the optional permission is granted.
   let downloadListener;
   chrome.downloads = { onCreated: { removeListener() {}, addListener(f) { downloadListener = f; } } };

@@ -1,69 +1,38 @@
-# Syphon @@VERSION@@ — the window has left, the download has not
+# Syphon @@VERSION@@ — everyone gets their own bloody progress bar
 
-Prepared @@DATE@@ · Windows x64 · Local release preview, not published.
+Prepared @@DATE@@ · Windows x64 · Public beta prerelease.
 
-Closing the window now sends Syphon to the system tray by default. Your download keeps going. Previously, closing things was rather too effective at closing things. We have retained the concept of leaving while introducing the possibility of sitting quietly near the clock like a tiny violet pensioner.
+You start another download. It joins the same floating window, with its own progress, speed and controls. Compact view fits four downloads; expanded view gives each one more detail, and the rest live in a scrollable list. Your files have stopped pooling their percentages like six children handing in one suspiciously damp group assignment. Everyone can now explain where their own megabytes went.
 
-## New in Beta @@BETA@@
+The floating window and download options can resize, and the manager and floating window remember their size and position. We have loosened the furniture bolts. You should be able to arrange a desktop without first obtaining planning permission from a 320-pixel rectangle.
 
-- **Close to system tray is on by default** for new or missing settings. Existing explicit choices are preserved. Minimize to tray remains optional and off by default. Choose **Exit** from the tray to quit.
-- The downloader build now admits only its pinned private runtime. Unrelated host DLLs no longer get invited along because they happened to be standing near PATH wearing a lanyard.
-- Identified native dependency source/archive/build-recipe gaps are closed. Both source-material archives are available beside the installer. They are optional for running Syphon.
-- Signed-package extraction, payload hashes, bundled tools, tray defaults and live MP4/MP3 checks passed on this PC. **Owner Beta17 upgrade acceptance is pending.** Beta16 was accepted; we have not forged a small congratulatory certificate for its successor.
+The new settings, duplicate, completion, update and countdown dialogs now share Syphon's dark surfaces, violet controls, Inter body text and custom window frame. The floating window also uses the existing palette. The application has stopped dressing five new windows as distant relatives who arrived at the wedding through entirely different doors.
 
-## Also aboard this particular vehicle
+## Finished files have somewhere to go
 
-### The album art has been reunited with the album
+The completion dialog offers Open, Open with, Open folder, Copy file path and a drag handle. Drag the actual file into a folder or an accepting app. Windows and the destination decide whether the drop copies, moves or uses the file. The tiny handle has been given a job. Unlike the narrator, it has qualifications.
 
-YouTube MP3 downloads embed available source artwork or the video thumbnail as JPEG cover art. The image lives inside the MP3, with no separate picture saved beside it. If artwork is unavailable, the audio can still finish.
+Duplicate downloads now offer a numbered copy, a fresh replacement, or the existing download. Finished files open their completion dialog; eligible unfinished ones resume. You can remember your choice and reset it in Settings. Replacement finishes and verifies the new file before replacing the original, and keeps the previous bytes as a backup. Nobody is being asked to throw their working parachute away because a second one has appeared in the post.
 
-This saves your music library from looking like a collection of missing-person notices for rectangles. Previously the singer was a blank square. The drummer was a blank square. The album was a blank square. At that point you have accidentally downloaded a spreadsheet with a bass line.
+## Quietly employed
 
-### New Download has remembered that you were speaking to it
+Start with Windows defaults on and automatic startup hides in the tray. Manual launch opens the manager. Completion notifications, optional sleep protection, and optional queue-finished Sleep, Hibernate, Shut down or a configured command live under **Settings → Startup, completion, protection and updates**. Power actions and commands default off; a cancelable countdown appears before execution. New work cancels the countdown, and interrupted work in that queue run prevents the action.
 
-The New Download window stays on top while open. You can finish choosing the destination without the dialog disappearing behind another window halfway through the conversation.
+Update checks use GitHub releases at startup and every twelve hours when enabled. Click **Update now** to fetch the installer in the background, verify its digest and Syphon publisher signature, save progress, install and restart. Windows may ask for administrator approval. Eligible previously active downloads resume after the new version opens, subject to the existing schedule and sign-in requirements. Cancel the download or retry a failed attempt without replacing the current installation. The update has finally agreed to do its own paperwork instead of pointing at a website and wandering off for lunch.
 
-I have relatives who do this. You ask a straightforward question, they wander into another room, and suddenly you are negotiating a save location through a wall. The dialog now has better manners. We are leaving the relatives for a later release.
+Beta17 still needs one manual upgrade to gain this updater. We have not invented a way to post new code backwards through time. The router is already under enough pressure.
 
-### Someone has been left alone with the purple again
+## Under the lid
 
-Statistics have a clearer hierarchy. The graph has a proper disclosure control and a stronger violet line glow. The floating window shares the main app's surfaces and controls.
-
-There was a point where the graph was simply reporting a transfer rate. It has since discovered stage lighting and begun referring to the Ethernet cable as its booking agent. The numbers still describe the download; the dramatic entrance is a personal choice.
-
-### Misc has accepted the custody arrangement
-
-Default download categories are Videos, Music, Documents, Programs and Misc. Custom destinations are still available. Setup supports upgrade, repair and uninstall, preserving downloaded files and local history by default.
-
-Misc is for everything that refuses a conventional introduction. A ZIP arrives. Nobody recognises the surname. It says it is “with Programs”, but Programs has asked us to stop giving out its address. Into Misc it goes, pending further nonsense.
-
-## Installation
-
-Use `@@INSTALLER@@` (@@MB@@ MB). It includes the Windows x64 app/runtime, native browser host, FFmpeg, FFprobe, yt-dlp, Node and the unpacked companion. Those media tools do not need separate installation. Setup can download WebView2 if it is absent; that step requires an internet connection.
-
-The default app location is Program Files\Syphon. Setup shows the selected path, and download storage is separate. For Chrome or Edge, follow BROWSER-SETUP.md or the page's browser section. Loading the unpacked extension is a one-time manual browser step for this beta; store listings are not available yet.
-
-This installer uses a local self-signed certificate without a timestamp. It is not publicly trusted, and Windows publisher/SmartScreen warnings may remain. These instructions do not require importing a certificate or changing Windows trust stores.
-
-## Exact files
-
-Installer SHA-256: `@@SHA256@@`.
-
-Extension @@EXTENSION_VERSION@@ ZIP SHA-256: `@@EXTENSION_SHA256@@`.
-
-App source revision: `@@REVISION@@`. The companion ZIP uses the exact extension files from this installer, retaining its manifest identity.
+- Ordinary-file connections start conservatively and grow while measured throughput improves, up to four. Retry attempts reduce the allocation.
+- Known-size file transfers check destination space, including assembly needs. Saved parts remain available when a transfer cannot finish.
+- Completed files receive Windows internet-origin marking by default, with a setting to disable it. Unsupported marking does not fail a download.
+- MP3 output can embed available title, artist, album, track and year metadata while retaining cover art. Missing metadata still lets audio finish.
+- The browser companion adds audio-only and page-link actions. Page links get a filterable selection screen, then use the existing desktop confirmation flow. Each selected link is confirmed separately; cancellation or an uncertain handoff stops the remaining submissions.
+- Copy or export diagnostics with version, settings, bundled-tool versions and recent errors, redacting private paths and credentials by default.
 
 ## Checks and limits
 
-Installer extraction, payload hashes and all four bundled-tool executions passed. Folder tests cover the actual desktop/WebView action dispatch with injected shell success/failure results. Artwork tests use the bundled tools with local cover, no-cover and unavailable-cover fixtures. The owner confirmed Beta16 works on this PC; Beta17 upgrade acceptance is pending.
+This is a public beta prerelease. Release-build, transfer, browser, duplicate and desktop verification results are recorded in the first-update validation report. Actual sign-in startup, notification delivery under Windows notification settings, external file-drop targets, power transitions and custom commands need owner acceptance. Tests do not shut down your computer or execute a personal command.
 
-That is not clean-machine or VM certification. Website compatibility varies, DRM bypass is unsupported, and media jobs may restart on Resume. A recorded SHA-256 alone does not establish a file's origin without a trusted reference.
-
-## Release status
-
-This package is prepared locally. No public release, hosted download page or extension-store submission has been made. Identified native source-material engineering gaps are closed. RELEASE-READINESS.md records the remaining acceptance and publication work. This does not certify legal conclusions or byte-identical rebuilds.
-
-## Optional dependency source downloads
-
-- [Native source and build materials](@@SOURCE1@@) — @@SOURCE1_MB@@ MB; SHA-256 `@@SOURCE1_SHA256@@`.
-- [FFmpeg source and build materials](@@SOURCE2@@) — @@SOURCE2_MB@@ MB; SHA-256 `@@SOURCE2_SHA256@@`.
+Media jobs still restart processing on Resume, and ordinary-file speed limits do not cover media-tool traffic. The short IDM outage observation did not establish its retry algorithm. No public signing certificate, public release, browser-store submission, Tier 2 or Tier 3 feature is included here.

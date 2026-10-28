@@ -7,6 +7,8 @@ using Syphon.Core;
 using Syphon.Engine;
 using Syphon.TestServer;
 
+if (args.FirstOrDefault() == "--first-update-media-tests") return await FirstUpdateEngineTests.MediaAsync();
+if (args.FirstOrDefault() == "--first-update-engine-tests") return FirstUpdateEngineTests.Run();
 if (args.FirstOrDefault() == "--media-tool-security-tests") return MediaToolSecurityTests.Run(args.Skip(1).ToArray());
 if (args.FirstOrDefault() == "--verify-packaged-media-policy") return MediaToolSecurityTests.VerifyPackagedAssembly(args[1]);
 if (args.FirstOrDefault() == "--category-tests") return await CategoryTests.RunAsync();
@@ -44,6 +46,7 @@ string Destination() => Path.Combine(root, Guid.NewGuid().ToString("N") + ".bin"
 
 async Task Run(string name, Func<Task> action)
 {
+    if (args.Contains("--first-update-adaptive-tests") && !name.StartsWith("Adaptive ranges", StringComparison.Ordinal)) return;
     var clock = Stopwatch.StartNew();
     var before = Directory.GetFileSystemEntries(root).ToHashSet(StringComparer.OrdinalIgnoreCase);
     try

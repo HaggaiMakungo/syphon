@@ -6,6 +6,7 @@
     <OutputType>WinExe</OutputType>
     <UseWPF>true</UseWPF>
     <AssemblyName>Syphon</AssemblyName>
+    <Version>0.1.0-beta.18</Version>
     <ApplicationIcon>Assets\Brand\syphon_windows.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup><ProjectReference Include="../Syphon.Engine/Syphon.Engine.csproj" /></ItemGroup>
@@ -14,4 +15,5 @@
   <ItemGroup><Content Include="ChartAssets\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" /></ItemGroup>
   <ItemGroup><Content Include="DesktopAssets\**\*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" /></ItemGroup>
   <ItemGroup><Resource Include="Assets\Brand\syphon_windows.ico" /><Resource Include="Assets\Brand\syphon_window_icon.png" /><Resource Include="Assets\Brand\syphon_emblem_transparent.png" /><Resource Include="Assets\Brand\orbital-geometry.json" /></ItemGroup>
+  <ItemGroup><Resource Include="Assets\Fonts\*.ttf" /></ItemGroup>
 </Project>

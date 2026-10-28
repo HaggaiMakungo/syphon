@@ -29,7 +29,7 @@ public sealed partial class DownloadOptionsDialog : Window
     {
         Title = "Download options"; Width = 660; SizeToContent = SizeToContent.Height; Topmost = true;
         Icon = (ImageSource)FindResource("SyphonWindowIcon");
-        ResizeMode = ResizeMode.NoResize; WindowStartupLocation = WindowStartupLocation.CenterOwner;
+        ResizeMode = ResizeMode.CanResize; MinWidth = 400; MinHeight = 360; MaxHeight = SystemParameters.WorkArea.Height; WindowStartupLocation = WindowStartupLocation.CenterOwner;
         Background = (Brush)FindResource("Surface"); Foreground = (Brush)FindResource("Text");
         FontFamily = new FontFamily("Segoe UI");
         NameScope.SetNameScope(this, new NameScope());
@@ -70,7 +70,7 @@ public sealed partial class DownloadOptionsDialog : Window
         var download = new Button { Name = "ConfirmDownload", Content = "Download now", IsDefault = true, Margin = new Thickness(8, 0, 0, 0), Background = (Brush)FindResource("Accent"), Foreground = Brushes.White, Style = (Style)FindResource("PrimaryButton") };
         queue.Click += (_, _) => Submit(false); download.Click += (_, _) => Submit(true);
         buttons.Children.Add(cancel); buttons.Children.Add(queue); buttons.Children.Add(download); panel.Children.Add(buttons);
-        Content = panel;
+        Content = new ScrollViewer { Content = panel, VerticalScrollBarVisibility = ScrollBarVisibility.Auto, HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled };
         foreach (var control in new FrameworkElement[] { filename, folder, source, single, remember, error, cancel, queue, download }) RegisterName(control.Name, control);
         AutomationProperties.SetName(filename, "Filename"); AutomationProperties.SetName(folder, "Save to folder");
         Loaded += (_, _) => { if (allowUrlEditing) source.Focus(); else { filename.Focus(); filename.Select(0, Path.GetFileNameWithoutExtension(filename.Text).Length); } };

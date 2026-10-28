@@ -26,6 +26,12 @@ internal static class Program
         if (args.FirstOrDefault() == "--tray-startup") return TrayStartupSmokeTests.Run();
         if (args.FirstOrDefault() == "--tray-close") return TrayCloseRegressionTests.Run();
         if (args.FirstOrDefault() == "--beta20-activity") return Beta20ActivitySmokeTests.Run();
+        if (args.FirstOrDefault() == "--automatic-update") return AutomaticUpdateTests.Run().GetAwaiter().GetResult();
+        if (args.FirstOrDefault() == "--update-signature") return AutomaticUpdateTests.Signature(args[1]);
+        if (args.FirstOrDefault() == "--duplicates") return DuplicateSmokeTests.Run();
+        if (args.FirstOrDefault() == "--first-update") return FirstUpdateTests.Run();
+        if (args.FirstOrDefault() == "--shared-floating") return SharedFloatingSmokeTests.Run();
+        if (args.FirstOrDefault() == "--dialog-visuals") return DialogVisualTests.Run(args.Skip(1).ToArray());
         if (args.FirstOrDefault() == "--tray") return TraySmokeTests.Run();
         if (args.FirstOrDefault() == "--typography") return TypographySmokeTests.Run(args.Skip(1).ToArray());
         if (args.FirstOrDefault() == "--history-audit") {

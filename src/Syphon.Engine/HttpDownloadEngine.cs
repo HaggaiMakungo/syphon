@@ -74,6 +74,7 @@ public sealed class HttpDownloadEngine : IDownloadEngine, IDisposable
             if (response.Content.Headers.ContentEncoding.Any(e => !e.Equals("identity", StringComparison.OrdinalIgnoreCase)))
                 throw new DownloadException(DownloadFailure.UnexpectedResponse, "The server returned an unsupported content encoding.");
             total = response.Content.Headers.ContentLength;
+            if (options.DiskSpaceProtectionEnabled && total is long known) DownloadSafety.EnsureSpace(partPath, known);
 
             string digest;
             await using (var output = new FileStream(partPath, FileMode.CreateNew, FileAccess.Write,
@@ -131,6 +132,7 @@ public sealed class HttpDownloadEngine : IDownloadEngine, IDisposable
             {
                 throw new DownloadException(DownloadFailure.DestinationExists, "A file appeared at the destination. It has been preserved.", ex);
             }
+            if (options.MarkOfTheWebEnabled) DownloadSafety.Mark(destination, request.Url.AbsoluteUri);
             state = DownloadState.Completed;
             Report();
             return new(request.Id, destination, received, digest, clock.Elapsed);

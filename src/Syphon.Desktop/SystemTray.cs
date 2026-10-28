@@ -19,6 +19,15 @@ internal sealed class SystemTray : IDisposable
     private nint activityIcon;
     private bool disposed;
     internal bool IsRegistered { get; private set; }
+    private Action? notificationClick;
+    internal void Notify(string title, string message, Action clicked)
+    {
+        if (!IsRegistered || disposed) return;
+        notificationClick = clicked;
+        var data = Data(); data.Flags = 0x10; data.InfoFlags = 1;
+        data.Title = title[..Math.Min(title.Length, 63)]; data.Info = message[..Math.Min(message.Length, 255)];
+        Shell_NotifyIcon(1, ref data);
+    }
     internal SystemTray(Action<string> command,Func<object> model)
     {
         this.command = command;
@@ -51,6 +60,7 @@ internal sealed class SystemTray : IDisposable
     {
         if ((uint)message==taskbarCreated && !disposed) Add();
         if(message==0x8001) {
+            if ((int)lParam==0x405) { var click = notificationClick; notificationClick = null; click?.Invoke(); }
             if ((int)lParam==0x203) command("open");
             if ((int)lParam==0x205 || (int)lParam==0x7b) {
                 SetForegroundWindow(source.Handle);

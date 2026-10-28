@@ -71,7 +71,7 @@ public sealed partial class DownloadCoordinator : IAsyncDisposable
             long position = 0;
             foreach (var saved in coordinator.store.Load())
             {
-                var task = await RecoverAsync(saved).ConfigureAwait(false);
+                var task = await coordinator.RecoverAsync(saved).ConfigureAwait(false);
                 if (task.QueueOrder <= 0) task = task with { QueueOrder = ++position };
                 position = Math.Max(position, task.QueueOrder);
                 if (task.State is DownloadState.Queued or DownloadState.RetryWaiting)
@@ -347,6 +347,7 @@ public sealed partial class DownloadCoordinator : IAsyncDisposable
             if (File.Exists(task.Destination) || Directory.Exists(task.Destination))
                 throw new IOException("The destination already exists. Choose a different filename.");
             Directory.CreateDirectory(Path.GetDirectoryName(task.PartPath)!);
+            if (options.DiskSpaceProtectionEnabled && task.Sha256 is null && task.Total is long known) DownloadSafety.EnsureSpace(task.PartPath, DownloadSafety.RequiredSpace(known, task.Committed, task.Segments.Length > 0));
             if (task.Sha256 is null)
             {
                 if (task.MediaFormat is not null) await TransferMediaAsync(id, token).ConfigureAwait(false);
@@ -447,6 +448,7 @@ public sealed partial class DownloadCoordinator : IAsyncDisposable
             if (response.StatusCode != HttpStatusCode.OK)
                 throw new IOException($"The server returned HTTP {(int)response.StatusCode}.");
             total = response.Content.Headers.ContentLength;
+            if (options.DiskSpaceProtectionEnabled && total is long knownSize) DownloadSafety.EnsureSpace(task.PartPath, DownloadSafety.RequiredSpace(knownSize, offset, allowSegmentation && !task.SingleConnection && options.MaximumConnectionsPerFile > 1 && knownSize >= options.SegmentationThreshold && etag is not null && response.Headers.AcceptRanges.Contains("bytes")));
             Update(id, t => t with { Total = total, EstimatedTotal = null, SizeEstimateSource = null, ETag = etag, EffectiveUrl = effective });
             if (allowSegmentation && !task.SingleConnection && options.MaximumConnectionsPerFile > 1 && total >= options.SegmentationThreshold &&
                 etag is not null && response.Headers.AcceptRanges.Contains("bytes"))
@@ -556,6 +558,7 @@ public sealed partial class DownloadCoordinator : IAsyncDisposable
         Update(id, t => t with { State = DownloadState.Publishing, PublicationPending = true, Message = "Saving your completed file…" });
         Boundary?.Invoke("BeforeRename", Get(id));
         File.Move(task.PartPath, task.Destination, overwrite: false);
+        if (options.MarkOfTheWebEnabled) DownloadSafety.Mark(task.Destination, task.Url, RequestContext(id)?.Referrer);
         Boundary?.Invoke("AfterRename", Get(id));
         Update(id, t => t with { State = DownloadState.Completed, PublicationPending = false, Received = t.Committed,
             BytesPerSecond = 0, Connections = 0, Diagnostic = null, Message = "Download complete." });
@@ -570,7 +573,7 @@ public sealed partial class DownloadCoordinator : IAsyncDisposable
         return file.Length == length && Convert.ToHexStringLower(await SHA256.HashDataAsync(file).ConfigureAwait(false)) == hash;
     }
 
-    private static async Task<StoredDownload> RecoverAsync(StoredDownload task)
+    private async Task<StoredDownload> RecoverAsync(StoredDownload task)
     {
         if (task.State == DownloadState.Completed)
         {
@@ -582,6 +585,7 @@ public sealed partial class DownloadCoordinator : IAsyncDisposable
             if (task.PublicationPending && task.Sha256 is string digest &&
                 await MatchesAsync(task.Destination, task.Committed, digest).ConfigureAwait(false))
             {
+                if (options.MarkOfTheWebEnabled) DownloadSafety.Mark(task.Destination, task.Url);
                 try { DeleteSegmentFiles(task); } catch (IOException) { } catch (UnauthorizedAccessException) { }
                 return task with { State = DownloadState.Completed, PublicationPending = false, Connections = 0, Received = task.Committed, Message = "Download complete." };
             }

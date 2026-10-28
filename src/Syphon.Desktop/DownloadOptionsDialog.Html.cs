@@ -31,7 +31,7 @@ public sealed partial class DownloadOptionsDialog
     private void InstallHtml(string title, string? quality, long? estimatedBytes, bool editable)
     {
         Width = 2 + 500 * LocalHtmlSurface.InterfaceScale; Height = Math.Min(720, SystemParameters.WorkArea.Height - 60); SizeToContent = SizeToContent.Manual;
-        CustomWindowFrame.Install(this, resizable: false);
+        CustomWindowFrame.Install(this, resizable: true);
         HtmlSurface = new LocalHtmlSurface(this, (FrameworkElement)Content, () => new {
             kind = "dialog", pasteVersion, error = error.Text, folder = htmlFolder, previewUrl, previewDetails,previewFilename,
             form = new { mediaFormat=MediaFormat??"auto",url = source.Text, filename = filename.Text, folder = folder.Text, single = single.IsChecked == true,

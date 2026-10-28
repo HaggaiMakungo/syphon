@@ -18,19 +18,23 @@ internal static class SegmentTests
         Uri Url(string mode = "", long size = Size, string? key = null) => new(server.BaseAddress, $"segments?size={size}&mode={mode}&key={key ?? Guid.NewGuid().ToString("N")}");
         using var observer = new HttpClient();
 
-        await run("Four ranges assemble to exactly the single-connection bytes", async () =>
+        await run("Adaptive ranges assemble to exactly the single-connection bytes", async () =>
         {
             var folder = Folder(); var key = Guid.NewGuid().ToString("N");
             await using var owner = await DownloadCoordinator.OpenAsync(folder, Options);
             var multi = owner.Add(Url(key: key), Path.Combine(folder, "multi.bin"));
             var single = owner.Add(Url(), Path.Combine(folder, "single.bin"), singleConnection: true);
             owner.Resume(multi.Id); owner.Resume(single.Id);
+            await Until(() => owner.Get(multi.Id).Connections > 0);
+            await Task.Delay(100);
+            using (var early = JsonDocument.Parse(await observer.GetStringAsync(new Uri(server.BaseAddress, $"segment-stats/{key}"))))
+                Check(early.RootElement.GetProperty("peak").GetInt32() == 1, "Adaptive download did not start conservatively with one connection.");
             await Task.WhenAll(owner.WaitForIdleAsync(multi.Id), owner.WaitForIdleAsync(single.Id));
             await Verify(owner.Get(multi.Id), Size); await Verify(owner.Get(single.Id), Size);
             Check(owner.Get(multi.Id).Segments.Length == 4 && owner.Get(single.Id).Segments.Length == 0, "Transfer mode was ignored.");
             Check(owner.Get(multi.Id).Sha256 == owner.Get(single.Id).Sha256, "One/four connection bytes differ.");
             using var stats = JsonDocument.Parse(await observer.GetStringAsync(new Uri(server.BaseAddress, $"segment-stats/{key}")));
-            Check(stats.RootElement.GetProperty("requestCount").GetInt32() == 4 && stats.RootElement.GetProperty("peak").GetInt32() >= 2, "Four overlapping connections were not observed.");
+            Check(stats.RootElement.GetProperty("requestCount").GetInt32() == 4 && stats.RootElement.GetProperty("peak").GetInt32() is >= 1 and <= 4, "Range request count or connection cap was incorrect.");
             Check(!Directory.EnumerateFiles(folder, "*.syphon-part*").Any(), "Successful assembly left data parts.");
         });
 

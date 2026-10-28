@@ -30,6 +30,7 @@ public partial class MainWindow
         Width = Math.Min(760, SystemParameters.WorkArea.Width);
         Height = Math.Min(580, SystemParameters.WorkArea.Height);
         CustomWindowFrame.Install(this, resizable: true);
+        WindowGeometryStore.Attach(this, Path.Combine(Path.GetDirectoryName(preferencesPath)!, "main-window.json"));
         HtmlSurface = new LocalHtmlSurface(this, (FrameworkElement)Content, HtmlModel, HtmlAction);
         StateChanged += (_, _) => HtmlSurface?.Publish();
     }
@@ -91,6 +92,10 @@ public partial class MainWindow
             if (action == "navigate") { if(message.TryGetProperty("section",out var setting)&&setting.GetString()=="Network")htmlSettingsSection="Network"; Navigate(message.GetProperty("page").GetString() switch { "history" => "History", "settings" => "Settings", _ => "Downloads" }); HtmlSurface?.Publish(); return; }
             if (!IsReady || coordinator is null) return;
             if(action=="browser-setup"){new BrowserConnectionDialog(this).Show();return;}
+            if (action == "update-settings") {
+                var settings = new UpdateSettingsWindow(preferencesPath, () => { ApplyPreferences(); InitializePlatform(); }, () => _ = CheckUpdatesAsync(true), ExportDiagnostics) { Owner = this };
+                settings.Show(); return;
+            }
             if (action?.StartsWith("batch-", StringComparison.Ordinal) == true) { await HandleBatchAsync(action, message); return; }
             if (action == "new") { UrlBox.Text = message.TryGetProperty("url", out var url) ? url.GetString() ?? "" : ""; NewDownload_Click(this, new()); return; }
             if (action == "quick-download") {
